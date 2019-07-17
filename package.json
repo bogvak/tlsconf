@@ -9,6 +9,7 @@
     "react-panelgroup": "^1.0.7",
     "react-resizable": "^1.7.5",
     "react-scripts": "1.1.4",
+    "react-scroll-horizontal": "^1.6.2",
     "react-split-pane": "^0.1.82",
     "react-tabs": "^2.2.2",
     "react-tabs-navigation": "^0.4.4"
@@ -18,5 +19,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
