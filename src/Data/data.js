@@ -114,8 +114,8 @@ const ModulesContent = {
 	}
 }
 
-const SupportAndCoverFrames = {
+//const SupportAndCoverFrames = {
 
-}
+//}
 
 export {TypeOfModules, ModulesContent}
