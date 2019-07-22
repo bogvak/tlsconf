@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 import './Style/configurator.css';
 //Data
-import {TypeOfModules, ModulesContent} from './Data/data';
+import {TypeOfModules, ModulesContent, ModulesForButtomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
 
 class Configurator extends Component {
@@ -11,6 +11,7 @@ class Configurator extends Component {
     TypeOfModules: TypeOfModules,
     LocalStrings: LocalStrings,
     ModulesContent: ModulesContent,
+    ModulesForButtomMenu: ModulesForButtomMenu,
     Language: 'en',
     platformChoose: {
       id: 0,
@@ -29,6 +30,7 @@ class Configurator extends Component {
         TypeOfModules={this.state.TypeOfModules}
         LocalStrings={this.state.LocalStrings}
         ModulesContent={this.state.ModulesContent}
+        ModulesForButtomMenu={this.state.ModulesForButtomMenu}
         Language={this.state.Language}
         Click={(id, desc) => this.currentSelectHandler(id, desc)}
       />

@@ -44,7 +44,6 @@ class ConfList extends Component {
   render() {
     return (
       <div>
-        Configuration1:
         <ul>
           <li>{this.props.platformChoose.id}: {this.props.platformChoose.desc}</li>
         </ul>

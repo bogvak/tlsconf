@@ -14,7 +14,9 @@ class ConfContainerLeft extends Component {
                     Click={this.props.Click}
                 />
                 <ConfContainerLeftMiddle />
-                <ConfContainerLeftBottom />
+                <ConfContainerLeftBottom 
+                    ModulesForButtomMenu={this.props.ModulesForButtomMenu}
+                />
             </div>
         );
     }
@@ -24,7 +26,7 @@ class ConfContainerLeftTop extends Component {
     render() {
         return(
             <div className="conf-main-left-top">
-                <ModuleList 
+                <ModuleListTop 
                     TypeOfModules={this.props.TypeOfModules}
                     LocalStrings={this.props.LocalStrings}
                     ModulesContent={this.props.ModulesContent}
@@ -36,43 +38,39 @@ class ConfContainerLeftTop extends Component {
     }
 }
 
-class ModuleList extends Component {
+class ModuleListTop extends Component {
 
 	render() {
         return (
             <Tabs>
                 <TabList>
-                    {Object.keys(this.props.TypeOfModules).map((item) => <Tab>{this.props.LocalStrings[this.props.Language][this.props.TypeOfModules[item]['menuname']]}</Tab>)}
+                    {Object.keys(this.props.TypeOfModules).map((item) => <Tab key={item}>{this.props.LocalStrings[this.props.Language][this.props.TypeOfModules[item]['menuname']]}</Tab>)}
                 </TabList>
-                    {Object.keys(this.props.TypeOfModules).map((item) => <TabPanel><ModuleSeriesList Click={(id, desc) => this.props.Click(id, desc)} ModuleSeriesList={this.props.ModulesContent[item]} /></TabPanel>)}
+                    {Object.keys(this.props.TypeOfModules).map((item) => <TabPanel key={item}><ModuleSeriesListTop Click={(id, desc) => this.props.Click(id, desc)} ModuleSeriesListTop={this.props.ModulesContent[item]} /></TabPanel>)}
             </Tabs>
         );
 	}
 }
 
-class ModuleSeriesList extends Component {
+class ModuleSeriesListTop extends Component {
 	
 	render() {
         return (
             <Tabs>
                 <TabList>
-                    {Object.keys(this.props.ModuleSeriesList).map((item) => <Tab>{item}</Tab>)}
+                    {Object.keys(this.props.ModuleSeriesListTop).map((item) => <Tab key={item}>{item}</Tab>)}
                 </TabList>
-                    {Object.keys(this.props.ModuleSeriesList).map((item) => <TabPanel><CurrentSeries Click={(id, desc) => this.props.Click(id, desc)} CurrentSeries={this.props.ModuleSeriesList[item]} /></TabPanel>)}
+                    {Object.keys(this.props.ModuleSeriesListTop).map((item) => <TabPanel key={item}><CurrentSeriesTop Click={(id, desc) => this.props.Click(id, desc)} CurrentSeriesTop={this.props.ModuleSeriesListTop[item]} /></TabPanel>)}
             </Tabs>
         );
 	}
 }
 
-class CurrentSeries extends Component {
+class CurrentSeriesTop extends Component {
     render() {
         return (
-            <div className="container-horizontal-menu">
-                <Tabs>
-                    <TabList className="horizontal-menu">
-                        {Object.keys(this.props.CurrentSeries).map((item) => <Tab onClick={() => this.props.Click(this.props.CurrentSeries[item]["article"], item)} className='card'>{item}</Tab>)}
-                    </TabList>
-                </Tabs>
+            <div className="horizontal-menu-top">
+                {Object.keys(this.props.CurrentSeriesTop).map((item) => <button key={item} onClick={() => this.props.Click(this.props.CurrentSeriesTop[item]["article"], item)} className='card-top'>{item}</button>)}
             </div>
         );
     }
@@ -90,13 +88,41 @@ class ConfContainerLeftMiddle extends Component {
 }
 
 class ConfContainerLeftBottom extends Component {
-  render() {
-    return (
-      <div className="conf-main-left-bottom">
-      &nbsp;
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="conf-main-left-bottom">
+                <ModuleListButtom 
+                    ModulesForButtomMenu={this.props.ModulesForButtomMenu}
+                />    
+            </div>
+        );
+    }
+}
+
+class ModuleListButtom extends Component {
+    render() {
+        return (
+            <Tabs>
+                <TabList>
+                    {Object.keys(this.props.ModulesForButtomMenu).map((item) => <Tab key={item}>{item}</Tab>)}
+                </TabList>
+                    {Object.keys(this.props.ModulesForButtomMenu).map((item) => <TabPanel key={item}><ModuleSeriesListBottom  ModuleSeriesListBottom={this.props.ModulesForButtomMenu[item]} /></TabPanel>)}
+            </Tabs>
+        );    
+    }        
+}
+
+class ModuleSeriesListBottom extends Component {
+    render () {
+        return (
+            <Tabs>
+                <TabList>
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <Tab key={item}>{item}</Tab>)}
+                </TabList>
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <TabPanel key={item} >{this.props.ModuleSeriesListBottom[item]["comment__"]} : {item}</TabPanel>)}
+            </Tabs>
+        );
+    }
 }
 
 export default ConfContainerLeft;

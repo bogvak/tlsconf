@@ -118,4 +118,30 @@ const ModulesContent = {
 
 //}
 
-export {TypeOfModules, ModulesContent}
+const ModulesForButtomMenu = {
+	"Signalslots IPL" : {
+		"Blind-and-Audio" : {
+			"comment__": "There will be some Modules"
+		},
+		"Video-/Audio" : {
+			"comment__": "There will be some Modules"
+		},
+		"Analog-/Digital-/HDMI-/Control": {
+			"comment__": "There will be some Modules"
+		},
+		"Computer" : {
+			"comment__": "There will be some Modules"
+		},
+		"AC outlets" : {
+			"comment__": "There will be some Modules"
+		},
+		"Active Module" : {
+			"comment__": "There will be some Modules"
+		},
+	},
+	"Signalslots WP" : {
+		"comment__": "There will be something"
+	},
+}
+
+export {TypeOfModules, ModulesContent, ModulesForButtomMenu}
