@@ -28,7 +28,7 @@ const ModulesContent = {
 		}
 	},
 	"TABLE" : {
-		"TIM 201" : {
+		"TAM 201" : {
 			"Six signal slots" : {
 				"article" : "8700 4250"
 			},
@@ -38,17 +38,17 @@ const ModulesContent = {
 			"Two power sockets" : {
 				"article" : "8700 4252"
 			},
-			"Three signal slots and ConferenceControl" : {
+			"Three signal slots and Conference-control" : {
 				"article" : "8700 4280"
 			},
-			"One power socket and ConferenceControl" : {
+			"One power socket and Conference-control" : {
 				"article" : "8700 4281"
 			},
-			"Two ConferenceControl" : {
+			"Two Conference-control" : {
 				"article" : "8700 4282"
 			}
 		},
-		"TIM 305" : {
+		"TAM 305" : {
 			"Twelve signal slots" : {
 				"article" : "8700 4260"
 			},
@@ -64,17 +64,17 @@ const ModulesContent = {
 			"Four power sockets" : {
 				"article" : "8700 4264"
 			},
-			"Three signal slots, one power socket and ConferenceControl" : {
+			"Three signal slots, one power socket and Conference-control" : {
 				"article" : "8700 4283"
 			},
-			"One power socket and ConferenceControl double frame" : {
+			"One power socket and Conference-control double frame" : {
 				"article" : "8700 4284"
 			},
-			"Three signal slots and ConferenceControl double frame" : {
+			"Three signal slots and Conference-control double frame" : {
 				"article" : "8700 4285"
 			}
 		},
-		"TIM 401" : {
+		"TAM 401" : {
 			"Fifteen signal slots" : {
 				"article" : "8700 4270"
 			},
@@ -93,13 +93,13 @@ const ModulesContent = {
 			"Five power sockets" : {
 				"article" : "8700 4264"
 			},
-			"Three signal slots, one power socket and ConferenceControl double frame" : {
+			"Three signal slots, one power socket and Conference-control double frame" : {
 				"article" : "8700 4286"
 			},
-			"Six signal slots, one power socket and ConferenceControl" : {
+			"Six signal slots, one power socket and Conference-control" : {
 				"article" : "8700 4287"
 			},
-			"Three signal slots, two power sockets and ConferenceControl" : {
+			"Three signal slots, two power sockets and Conference-control" : {
 				"article" : "8700 4288"
 			}
 		}
@@ -121,22 +121,33 @@ const ModulesContent = {
 const ModulesForButtomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
-			"comment__": "There will be some Modules"
+			"test1" : {
+				"soket-takes" : 1,
+				"img" : null
+			}, 
+			"test2" : {
+				"soket-takes" : 2,
+				"img" : null
+			}, 
+			"test3" : {
+				"soket-takes" : 3,
+				"img" : null
+			}, 
 		},
 		"Video-/Audio" : {
-			"comment__": "There will be some Modules"
+			"comments__": "There will be some Modules"
 		},
 		"Analog-/Digital-/HDMI-/Control": {
-			"comment__": "There will be some Modules"
+			"comments__": "There will be some Modules"
 		},
 		"Computer" : {
-			"comment__": "There will be some Modules"
+			"comments__": "There will be some Modules"
 		},
 		"AC outlets" : {
-			"comment__": "There will be some Modules"
+			"comments__": "There will be some Modules"
 		},
 		"Active Module" : {
-			"comment__": "There will be some Modules"
+			"comments__": "There will be some Modules"
 		},
 	},
 	"Signalslots WP" : {

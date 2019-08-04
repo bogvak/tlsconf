@@ -13,14 +13,19 @@ class Configurator extends Component {
     ModulesContent: ModulesContent,
     ModulesForButtomMenu: ModulesForButtomMenu,
     Language: 'en',
-    platformChoose: {
-      id: 0,
-      desc: 0,
-    }
+    PlatformСhoiceDesc: {
+      line: null,
+      id: null,
+      desc: null,
+      lacation: null,
+      type: null,
+    },
+    QuantityOfConf: 3
   };
 
-  currentSelectHandler = (id, desc) => {
-    this.setState({platformChoose: {id: id, desc: desc}})
+  platformСhoiceDescHandler = (inf) => {
+    if (!inf.type) inf.type="Standart"
+    this.setState({PlatformСhoiceDesc: {line: inf.line, id: inf.id, desc: inf.desc, lacation: inf.lacation, type: inf.type}})
   }
 
   render() {
@@ -32,10 +37,14 @@ class Configurator extends Component {
         ModulesContent={this.state.ModulesContent}
         ModulesForButtomMenu={this.state.ModulesForButtomMenu}
         Language={this.state.Language}
-        Click={(id, desc) => this.currentSelectHandler(id, desc)}
+        QuantityOfConf={this.state.QuantityOfConf}
+        PlatformСhoiceDesc={this.state.PlatformСhoiceDesc}
+        //Handlers
+        PlatformСhoiceDescHandler={this.platformСhoiceDescHandler}
+        PlatformChoiceHandler={this.platformChoiceHandler}
       />
 			<ConfContainerRight
-        platformChoose={this.state.platformChoose}
+        PlatformСhoiceDesc={this.state.PlatformСhoiceDesc}
        />
 		</div>
     );

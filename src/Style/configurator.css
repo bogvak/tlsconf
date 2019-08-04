@@ -156,3 +156,26 @@
     border: none;
     background: none;
 }
+
+/***** LEFT MIDDLE WINDOW *****/
+
+.representation-of-conf {
+    display: flex;
+}
+
+.representation-of-conf-left {
+    background-color: #7cf30c;
+    width: 20%;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.representation-of-conf-right {
+    background-color: aqua;
+    width: 80%;
+    height: auto;
+}
+
+.wrapper {
+    width: 700px;
+}
