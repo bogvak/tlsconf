@@ -207,7 +207,14 @@
 .power-sokets {
     width: 60px;
     height: 60px;
-    border: 2px solid gray;
+    border: 4px solid gray;
+}
+
+.signal-slots {
+    width: 30px;
+    height: 60px;
+    border: 4px solid rgb(92, 54, 97);
+    border-collapse: collapse;
 }
 
 .wrapperMiddle {
