@@ -138,6 +138,33 @@
     background-color: #fff;
 }
 
+.horizontal-menu-buttom {
+    margin: 0;
+    padding: 1px 5px;
+    display: flex;
+    overflow-x: auto;
+    display: flex;
+    max-width: 700px;
+    width: 97%;
+    white-space: pre-wrap;
+}
+
+.card-buttom {
+    padding: 0px 8px;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.card-buttom:focus {
+    background-color: #fff;
+}
+
 /***** CHANGE TABS STYLE *****/
 
 .react-tabs__tab-list {
@@ -173,9 +200,39 @@
 .representation-of-conf-right {
     background-color: aqua;
     width: 80%;
-    height: auto;
+    display: flex;
+    padding: 20px;
 }
 
-.wrapper {
+.power-sokets {
+    width: 60px;
+    height: 60px;
+    border: 2px solid gray;
+}
+
+.wrapperMiddle {
     width: 700px;
+}
+
+.ConfListMiddle {
+    padding: 0;
+    margin: 0;
+}
+
+.addTabs {
+    padding: 0px 8px;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+}
+
+/***** RIGHT BUTTOM *****/
+.ConfList {
+    margin: 0;
+    padding: 5px 10px;
 }

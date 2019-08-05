@@ -17,6 +17,8 @@ class ConfContainerLeft extends Component {
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
                     PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+                    ConfNumberHandler={this.props.ConfNumberHandler}
+                    AddConfHandler={this.props.AddConfHandler}
                 />
                 <ConfContainerLeftBottom 
                     ModulesForButtomMenu={this.props.ModulesForButtomMenu}
@@ -74,7 +76,7 @@ class CurrentSeriesTop extends Component {
     render() {
         return (
             <div className="horizontal-menu-top">
-                {Object.keys(this.props.CurrentSeriesTop).map((item) => <button key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {line: this.props.line ,id: this.props.CurrentSeriesTop[item]["article"], desc: item, lacation: this.props.lacation})} className='card-top'>{item}</button>)}
+                {Object.keys(this.props.CurrentSeriesTop).map((item) => <button key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} className='card-top'>{item}</button>)}
             </div>
         );
     }
@@ -88,6 +90,8 @@ class ConfContainerLeftMiddle extends Component {
                 <ConfListMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
                     PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+                    ConfNumberHandler={this.props.ConfNumberHandler}
+                    AddConfHandler={this.props.AddConfHandler}
                 />
             </div>
         );
@@ -98,11 +102,12 @@ class ConfListMiddle extends Component {
 
     render () {
         return (
-            <Tabs className="wrapper">
-                <TabList>
-                    {[...Array(this.props.QuantityOfConf+1).keys()].slice(1).map((number) => <Tab key={number}>Configuration: {number}</Tab> )}
+            <Tabs className="wrapperMiddle">
+                <TabList className="ConfListMiddle">
+                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => <Tab onClick={this.props.ConfNumberHandler.bind(this, number)} key={number}>Configuration: {number+1}</Tab>)}
+                    <button className="addTabs" onClick={this.props.AddConfHandler.bind(this)}>+</button>
                 </TabList>
-                    {[...Array(this.props.QuantityOfConf+1).keys()].slice(1).map((number) => <TabPanel key={number}><RepresentationOfConf PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} number={number} /></TabPanel> )}
+                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => <TabPanel key={number}><RepresentationOfConf PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} /></TabPanel> )}
             </Tabs>
         );
     }
@@ -113,8 +118,8 @@ class RepresentationOfConf extends Component {
     render () {
         return (
             <div className="representation-of-conf">
-                <RepresentationOfConfLeft PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} number={this.props.number}/>
-                <RepresentationOfConfRight />
+                <RepresentationOfConfLeft PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} />
+                <RepresentationOfConfRight PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} />
             </div>
         );
     }
@@ -140,7 +145,7 @@ class RepresentationOfConfRight extends Component {
     render () {
         return (
             <div className="representation-of-conf-right">
-                window of conf
+                {[...Array(this.props.PlatformСhoiceDesc["power-sokets"]).keys()].map((quantityOfPowerSokets) => <div key={quantityOfPowerSokets} className="power-sokets"></div>)}
             </div>
         );
     }
@@ -187,8 +192,8 @@ class ModuleSeriesListBottom extends Component {
 class CurrentModulesBottom extends Component {
     render () {
         return (
-            <div className="horizontal-menu-top">
-                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button className="card-top">{this.props.CurrentModulesBottom[module]["soket-takes"]}</button>)}
+            <div className="horizontal-menu-buttom">
+                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom">{module}</button>)}
             </div>
         );
     }

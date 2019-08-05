@@ -11,6 +11,7 @@ class ConfContainerRight extends Component {
               <ConfContainerRightTop />
               <ConfContainerRightBottom 
                 PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+                ConfNumber={this.props.ConfNumber}
               />
             </SplitPane>
             </div>
@@ -33,7 +34,8 @@ class ConfContainerRightBottom extends Component {
     return (
       <div className="conf-main-right-bottom">
         <ConfList 
-            PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} 
+            PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+            ConfNumber={this.props.ConfNumber}
         />
       </div>
     );
@@ -43,9 +45,10 @@ class ConfContainerRightBottom extends Component {
 class ConfList extends Component {
   render() {
     return (
-      <div>
+      <div className="ConfList">
+        Configuration: #{this.props.ConfNumber+1}
         <ul>
-          <li>{this.props.PlatformСhoiceDesc.id}: {this.props.PlatformСhoiceDesc.desc}</li>
+          <li>{this.props.PlatformСhoiceDesc.article}: {this.props.PlatformСhoiceDesc.desc}</li>
         </ul>
       </div>
     );
