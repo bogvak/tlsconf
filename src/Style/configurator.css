@@ -192,7 +192,6 @@
 
 .representation-of-conf-left {
     background-color: #7cf30c;
-    width: 20%;
     height: auto;
     word-wrap: break-word;
 }
@@ -205,16 +204,26 @@
 }
 
 .power-sokets {
-    width: 60px;
-    height: 60px;
-    border: 4px solid gray;
+    width: 90px;
+    height: 90px;
+    border: 1px solid gray;
+    border-collapse: collapse;
+    word-wrap: break-word;
 }
 
 .signal-slots {
     width: 30px;
-    height: 60px;
-    border: 4px solid rgb(92, 54, 97);
+    height: 90px;
+    border: 1px solid rgb(92, 54, 97);
     border-collapse: collapse;
+    word-wrap: break-word;
+}
+
+.conference-control {
+    width: 90px;
+    height: 90px;
+    border: 1px solid rgb(252, 44, 241);
+    word-wrap: break-word;
 }
 
 .wrapperMiddle {

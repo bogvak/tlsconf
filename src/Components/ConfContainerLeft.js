@@ -145,8 +145,9 @@ class RepresentationOfConfRight extends Component {
     render () {
         return (
             <div className="representation-of-conf-right">
-                {[...Array(this.props.PlatformСhoiceDesc["power-sokets"]).keys()].map((quantityOfPowerSokets) => <div key={quantityOfPowerSokets} className="power-sokets"></div>)}
-                {[...Array(this.props.PlatformСhoiceDesc["signal-slots"]).keys()].map((quantityOfSignalSlots) => <div key={quantityOfSignalSlots} className="signal-slots"></div>)}
+                {[...Array(this.props.PlatformСhoiceDesc["power-sokets"]).keys()].map((quantityOfPowerSokets) => <div key={quantityOfPowerSokets} className="power-sokets">power-sokets</div>)}
+                {[...Array(this.props.PlatformСhoiceDesc["signal-slots"]).keys()].map((quantityOfSignalSlots) => <div key={quantityOfSignalSlots} className="signal-slots">signal-slots</div>)}
+                {[...Array(this.props.PlatformСhoiceDesc["conference-control"]).keys()].map((quantityOfConferenceControl) => <div key={quantityOfConferenceControl} className="conference-control">conference-control</div>)}
             </div>
         );
     }

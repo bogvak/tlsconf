@@ -21,6 +21,7 @@ class Configurator extends Component {
   };
 
   platformСhoiceDescHandler = (inf) => {
+    if (!inf.type) inf.type="Standart"
     if (!inf["signal-slots"]) inf["signal-slots"]=0;
     if (!inf["power-sokets"]) inf["power-sokets"]=0;
     if (!inf["conference-control"]) inf["conference-control"]=0;
