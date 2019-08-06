@@ -134,10 +134,6 @@
     background-color: transparent;
 }
 
-.card-top:focus {
-    background-color: #fff;
-}
-
 .horizontal-menu-buttom {
     margin: 0;
     padding: 1px 5px;

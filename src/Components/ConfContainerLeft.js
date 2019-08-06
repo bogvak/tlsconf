@@ -11,6 +11,7 @@ class ConfContainerLeft extends Component {
                     LocalStrings={this.props.LocalStrings}
                     ModulesContent={this.props.ModulesContent}
                     Language={this.props.Language}
+                    desc={this.props.Configuration.PlatformСhoiceDesc.desc}
                     //Handlers
                     PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
                 />
@@ -39,6 +40,7 @@ class ConfContainerLeftTop extends Component {
                     LocalStrings={this.props.LocalStrings}
                     ModulesContent={this.props.ModulesContent}
                     Language={this.props.Language}
+                    desc={this.props.desc}
                     //Handlers
                     PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
                 />
@@ -55,7 +57,7 @@ class ModuleListTop extends Component {
                 <TabList>
                     {Object.keys(this.props.TypeOfModules).map((lacation) => <Tab key={lacation}>{this.props.LocalStrings[this.props.Language][this.props.TypeOfModules[lacation]['menuname']]}</Tab>)}
                 </TabList>
-                    {Object.keys(this.props.TypeOfModules).map((lacation) => <TabPanel key={lacation}><ModuleSeriesListTop lacation={lacation} PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}  ModuleSeriesListTop={this.props.ModulesContent[lacation]} /></TabPanel>)}
+                    {Object.keys(this.props.TypeOfModules).map((lacation) => <TabPanel key={lacation}><ModuleSeriesListTop desc={this.props.desc} lacation={lacation} PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}  ModuleSeriesListTop={this.props.ModulesContent[lacation]} /></TabPanel>)}
             </Tabs>
         );
 	}
@@ -68,7 +70,7 @@ class ModuleSeriesListTop extends Component {
                 <TabList>
                     {Object.keys(this.props.ModuleSeriesListTop).map((line) => <Tab key={line}>{line}</Tab>)}
                 </TabList>
-                    {Object.keys(this.props.ModuleSeriesListTop).map((line) => <TabPanel key={line}><CurrentSeriesTop lacation={this.props.lacation} PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler} line={line} CurrentSeriesTop={this.props.ModuleSeriesListTop[line]} /></TabPanel>)}
+                    {Object.keys(this.props.ModuleSeriesListTop).map((line) => <TabPanel key={line}><CurrentSeriesTop lacation={this.props.lacation} desc={this.props.desc} PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler} line={line} CurrentSeriesTop={this.props.ModuleSeriesListTop[line]} /></TabPanel>)}
             </Tabs>
         );
 	}
@@ -78,7 +80,7 @@ class CurrentSeriesTop extends Component {
     render() {
         return (
             <div className="horizontal-menu-top">
-                {Object.keys(this.props.CurrentSeriesTop).map((item) => <button key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} className='card-top'>{item}</button>)}
+                {Object.keys(this.props.CurrentSeriesTop).map((item) => <button style={{"background-color": (item===this.props.desc) ? "#fff" : null}} key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} className='card-top'>{item}</button>)}
             </div>
         );
     }
