@@ -166,18 +166,18 @@ const ModulesForButtomMenu = {
 		"Blind-and-Audio" : {
 			"test1" : {
 				"soket-takes" : 1,
-				"img" : null,
-				"article" : "4232 3211"
+				"img" : require("../ModulesImg/videoTest.png"),
+				"article" : "4232 3211",
 			}, 
 			"test2" : {
 				"soket-takes" : 2,
 				"img" : null,
-				"article" : "4232 3212"
+				"article" : "4232 3212",
 			}, 
 			"test3" : {
 				"soket-takes" : 3,
 				"img" : null,
-				"article" : "4232 3213"
+				"article" : "4232 3213",
 			}, 
 		},
 		"Video-/Audio" : {

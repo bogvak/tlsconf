@@ -34,8 +34,8 @@ class Configurator extends Component {
   }
 
   moduleChoiceHandler = (inf) => {
-    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
-    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot]=inf;
+    const copyOfConf=this.state.Configurations.slice();
+    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot] = inf;
     this.setState({Configurations: copyOfConf})
   }
 
