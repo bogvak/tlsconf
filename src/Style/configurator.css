@@ -192,8 +192,8 @@
 
 .representation-of-conf-left {
     background-color: #7cf30c;
-    height: auto;
     word-wrap: break-word;
+    width: 20%;
 }
 
 .representation-of-conf-right {

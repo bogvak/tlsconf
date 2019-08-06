@@ -18,6 +18,7 @@ class Configurator extends Component {
     QuantityOfConf: 1,
     ConfNumber: 0,
     Configurations: Array(1).fill(empryConf),
+    IndexOfSignalSlots: null,
   };
 
   platformСhoiceDescHandler = (inf) => {
@@ -26,13 +27,16 @@ class Configurator extends Component {
     if (!inf["power-sokets"]) inf["power-sokets"]=0;
     if (!inf["conference-control"]) inf["conference-control"]=0;
     if (!inf["conference-control-double-frame"]) inf["conference-control-double-frame"]=0;
-    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations))
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
+    copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill({slotsTakes:0,article:0,img:0});
     this.setState({Configurations: copyOfConf})
   }
 
   moduleChoiceHandler = (inf) => {
-    this.setState({Module: {slotsTakes: inf.slotsTakes, article: inf.article, img: inf.img}})
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot]=inf;
+    this.setState({Configurations: copyOfConf})
   }
 
   confNumberHandler = (number) => {
@@ -45,6 +49,12 @@ class Configurator extends Component {
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConf});
   }
 
+  currentSlotHandler = (indexOfSelectedSlot) => {
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConf[this.state.ConfNumber].IndexOfSelectedSlot = indexOfSelectedSlot;
+    this.setState({Configurations: copyOfConf});
+  }
+
   render() {
     return (
 		<div className="conf-main">
@@ -55,11 +65,13 @@ class Configurator extends Component {
         ModulesForButtomMenu={this.state.ModulesForButtomMenu}
         Language={this.state.Language}
         QuantityOfConf={this.state.QuantityOfConf}
-        PlatformСhoiceDesc={this.state.Configurations[this.state.ConfNumber].PlatformСhoiceDesc}
+        Configuration={this.state.Configurations[this.state.ConfNumber]}
         //Handlers
         PlatformСhoiceDescHandler={this.platformСhoiceDescHandler}
         ConfNumberHandler={this.confNumberHandler}
         AddConfHandler={this.addConfHandler}
+        CurrentSlotHandler={this.currentSlotHandler}
+        ModuleChoiceHandler={this.moduleChoiceHandler}
       />
 			<ConfContainerRight
         PlatformСhoiceDesc={this.state.Configurations[this.state.ConfNumber].PlatformСhoiceDesc}

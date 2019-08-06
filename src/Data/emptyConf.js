@@ -5,10 +5,11 @@ const emptyConf = {
       "conference-control": 0,
       "conference-control-double-frame": 0,
     },
+    IndexOfSelectedSlot: null,
     Modules: [{
-      slotsTakes: null,
+      slotsTakes: 0,
       article: null,
-      img: null
+      img: 0
     }],
 }
 

@@ -16,12 +16,14 @@ class ConfContainerLeft extends Component {
                 />
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
-                    PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+                    Configuration={this.props.Configuration}
                     ConfNumberHandler={this.props.ConfNumberHandler}
                     AddConfHandler={this.props.AddConfHandler}
+                    CurrentSlotHandler={this.props.CurrentSlotHandler}
                 />
                 <ConfContainerLeftBottom 
                     ModulesForButtomMenu={this.props.ModulesForButtomMenu}
+                    ModuleChoiceHandler={this.props.ModuleChoiceHandler}
                 />
             </div>
         );
@@ -89,9 +91,10 @@ class ConfContainerLeftMiddle extends Component {
             <div className="conf-main-left-middle">
                 <ConfListMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
-                    PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+                    Configuration={this.props.Configuration}
                     ConfNumberHandler={this.props.ConfNumberHandler}
                     AddConfHandler={this.props.AddConfHandler}
+                    CurrentSlotHandler={this.props.CurrentSlotHandler}
                 />
             </div>
         );
@@ -107,7 +110,7 @@ class ConfListMiddle extends Component {
                     {[...Array(this.props.QuantityOfConf).keys()].map((number) => <Tab onClick={this.props.ConfNumberHandler.bind(this, number)} key={number}>Configuration: {number+1}</Tab>)}
                     <button className="addTabs" onClick={this.props.AddConfHandler.bind(this)}>+</button>
                 </TabList>
-                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => <TabPanel key={number}><RepresentationOfConf PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} /></TabPanel> )}
+                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => <TabPanel key={number}><RepresentationOfConf Configuration={this.props.Configuration} CurrentSlotHandler={this.props.CurrentSlotHandler} /></TabPanel> )}
             </Tabs>
         );
     }
@@ -118,8 +121,11 @@ class RepresentationOfConf extends Component {
     render () {
         return (
             <div className="representation-of-conf">
-                <RepresentationOfConfLeft PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} />
-                <RepresentationOfConfRight PlatformСhoiceDesc={this.props.PlatformСhoiceDesc} />
+                <RepresentationOfConfLeft PlatformСhoiceDesc={this.props.Configuration.PlatformСhoiceDesc} />
+                <RepresentationOfConfRight 
+                    Configuration={this.props.Configuration} 
+                    CurrentSlotHandler={this.props.CurrentSlotHandler}
+                />
             </div>
         );
     }
@@ -141,13 +147,18 @@ class RepresentationOfConfLeft extends Component {
 }
 
 class RepresentationOfConfRight extends Component {
-
+    conf = (powerSokets, signalSlots, conferenceControl) => {
+        powerSokets.splice(1, 0, signalSlots, conferenceControl);
+        return (powerSokets);
+    }
     render () {
         return (
             <div className="representation-of-conf-right">
-                {[...Array(this.props.PlatformСhoiceDesc["power-sokets"]).keys()].map((quantityOfPowerSokets) => <div key={quantityOfPowerSokets} className="power-sokets">power-sokets</div>)}
-                {[...Array(this.props.PlatformСhoiceDesc["signal-slots"]).keys()].map((quantityOfSignalSlots) => <div key={quantityOfSignalSlots} className="signal-slots">signal-slots</div>)}
-                {[...Array(this.props.PlatformСhoiceDesc["conference-control"]).keys()].map((quantityOfConferenceControl) => <div key={quantityOfConferenceControl} className="conference-control">conference-control</div>)}
+                {this.conf(
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => <div key={indexOfPowerSokets} className="power-sokets">power-sokets</div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => <div style={{"background-color": (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? "red" : null}} onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)} key={indexOfSignalSlot} className="signal-slots">{this.props.Configuration.Modules[indexOfSignalSlot]["article"] ? this.props.Configuration.Modules[indexOfSignalSlot]["article"] : null}</div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => <div key={indexOfConferenceControl} className="conference-control">conference-control</div>)
+                )}
             </div>
         );
     }
@@ -159,6 +170,7 @@ class ConfContainerLeftBottom extends Component {
             <div className="conf-main-left-bottom">
                 <ModuleListButtom 
                     ModulesForButtomMenu={this.props.ModulesForButtomMenu}
+                    ModuleChoiceHandler={this.props.ModuleChoiceHandler}
                 />    
             </div>
         );
@@ -172,7 +184,7 @@ class ModuleListButtom extends Component {
                 <TabList>
                     {Object.keys(this.props.ModulesForButtomMenu).map((item) => <Tab key={item}>{item}</Tab>)}
                 </TabList>
-                    {Object.keys(this.props.ModulesForButtomMenu).map((item) => <TabPanel key={item}><ModuleSeriesListBottom  ModuleSeriesListBottom={this.props.ModulesForButtomMenu[item]} /></TabPanel>)}
+                    {Object.keys(this.props.ModulesForButtomMenu).map((item) => <TabPanel key={item}><ModuleSeriesListBottom  ModuleSeriesListBottom={this.props.ModulesForButtomMenu[item]} ModuleChoiceHandler={this.props.ModuleChoiceHandler} /></TabPanel>)}
             </Tabs>
         );    
     }        
@@ -185,7 +197,7 @@ class ModuleSeriesListBottom extends Component {
                 <TabList>
                     {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <Tab key={item}>{item}</Tab>)}
                 </TabList>
-                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <TabPanel key={item} ><CurrentModulesBottom CurrentModulesBottom={this.props.ModuleSeriesListBottom[item]} /></TabPanel>)}
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <TabPanel key={item} ><CurrentModulesBottom CurrentModulesBottom={this.props.ModuleSeriesListBottom[item]} ModuleChoiceHandler={this.props.ModuleChoiceHandler} /></TabPanel>)}
             </Tabs>
         );
     }
@@ -195,7 +207,7 @@ class CurrentModulesBottom extends Component {
     render () {
         return (
             <div className="horizontal-menu-buttom">
-                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom">{module}</button>)}
+                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom" onClick={this.props.ModuleChoiceHandler.bind(this, this.props.CurrentModulesBottom[module])}>{module}</button>)}
             </div>
         );
     }
