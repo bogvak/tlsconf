@@ -1,25 +1,23 @@
 {
-  "name": "configurator",
+  "name": "tlc-conf",
   "version": "0.1.0",
   "private": true,
   "homepage" : "http://bogv.online/tls",
   "dependencies": {
-    "re-resizable": "^4.7.1",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-panelgroup": "^1.0.7",
-    "react-resizable": "^1.7.5",
-    "react-scripts": "1.1.4",
-    "react-scroll-horizontal": "^1.6.2",
-    "react-split-pane": "^0.1.82",
-    "react-tabs": "^2.2.2",
-    "react-tabs-navigation": "^0.4.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "react-split-pane": "^0.1.87",
+    "react-tabs": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

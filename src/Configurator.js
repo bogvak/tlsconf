@@ -3,23 +3,57 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 import './Style/configurator.css';
 //Data
-import {TypeOfModules, ModulesContent} from './Data/data';
+import {TypeOfModules, ModulesContent, ModulesForButtomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
+import empryConf from './Data/emptyConf'
 
 class Configurator extends Component {
+  
   state = {
     TypeOfModules: TypeOfModules,
     LocalStrings: LocalStrings,
     ModulesContent: ModulesContent,
+    ModulesForButtomMenu: ModulesForButtomMenu,
     Language: 'en',
-    platformChoose: {
-      id: 0,
-      desc: 0,
-    }
+    QuantityOfConf: 1,
+    ConfNumber: 0,
+    Configurations: Array(1).fill(empryConf),
+    IndexOfSignalSlots: null,
   };
 
-  currentSelectHandler = (id, desc) => {
-    this.setState({platformChoose: {id: id, desc: desc}})
+  platformСhoiceDescHandler = (inf) => {
+    if (!inf.type) inf.type="Standart"
+    if (!inf["signal-slots"]) inf["signal-slots"]=0;
+    if (!inf["power-sokets"]) inf["power-sokets"]=0;
+    if (!inf["conference-control"]) inf["conference-control"]=0;
+    if (!inf["conference-control-double-frame"]) inf["conference-control-double-frame"]=0;
+    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*9
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
+    copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill({slotsTakes:null,article:null,img:null});
+    this.setState({Configurations: copyOfConf})
+  }
+
+  moduleChoiceHandler = (inf) => {
+    const copyOfConf=this.state.Configurations.slice();
+    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot] = inf;
+    this.setState({Configurations: copyOfConf})
+  }
+
+  confNumberHandler = (number) => {
+    this.setState({ConfNumber: number})
+  }
+
+  addConfHandler = () => {
+    const copyOfConf = this.state.Configurations.slice();
+    copyOfConf.push(empryConf);
+    this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConf});
+  }
+
+  currentSlotHandler = (indexOfSelectedSlot) => {
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConf[this.state.ConfNumber].IndexOfSelectedSlot = indexOfSelectedSlot;
+    this.setState({Configurations: copyOfConf});
   }
 
   render() {
@@ -29,11 +63,20 @@ class Configurator extends Component {
         TypeOfModules={this.state.TypeOfModules}
         LocalStrings={this.state.LocalStrings}
         ModulesContent={this.state.ModulesContent}
+        ModulesForButtomMenu={this.state.ModulesForButtomMenu}
         Language={this.state.Language}
-        Click={(id, desc) => this.currentSelectHandler(id, desc)}
+        QuantityOfConf={this.state.QuantityOfConf}
+        Configuration={this.state.Configurations[this.state.ConfNumber]}
+        //Handlers
+        PlatformСhoiceDescHandler={this.platformСhoiceDescHandler}
+        ConfNumberHandler={this.confNumberHandler}
+        AddConfHandler={this.addConfHandler}
+        CurrentSlotHandler={this.currentSlotHandler}
+        ModuleChoiceHandler={this.moduleChoiceHandler}
       />
 			<ConfContainerRight
-        platformChoose={this.state.platformChoose}
+        Configurations={this.state.Configurations}
+        QuantityOfConf={this.state.QuantityOfConf}
        />
 		</div>
     );

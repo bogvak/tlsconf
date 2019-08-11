@@ -1,53 +1,75 @@
 .conf-main {
     width: 1000px;
     height: 700px;
-    background-color: #f2eaea;
     display: flex;
 }
 
 .conf-main-left {
-    width: 70%;
+    width: 69%;
     height: 100%;
-    background-color: #e9e7da;
     float: left;
+    box-sizing: border-box;
 }
 
 .conf-main-left-top {
     height: 30%;
-    background-color: #cda34f;
+    background-color: white;
+    border: 1px solid rgb(19, 132, 207);
+    border-radius: 10px;
+    padding: 10px;
     display: flex;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgb(114, 113, 113), -1px 1px 5px rgb(41, 41, 41), 1px -1px 2px rgb(41, 41, 41), -1px -1px 5px rgb(41, 41, 41);
 }
 
 .conf-main-left-middle {
-    height: 50%;
+    height: 39%;
     display: flex;
+    background-color: white;
+    border: 1px solid rgb(19, 132, 207);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgb(41, 41, 41), -1px 1px 5px rgb(41, 41, 41), 1px -1px 2px rgb(41, 41, 41), -1px -1px 5px rgb(41, 41, 41);
 }
 
 .conf-main-left-bottom {
-    height: 20%;
-    background-color: #636b46;
+    height: 29%;
+    background-color: white;
+    border: 1px solid rgb(19, 132, 207);
+    border-radius: 10px;
+    padding: 10px;
     display: flex;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgb(41, 41, 41), -1px 1px 5px rgb(41, 41, 41), 1px -1px 2px rgb(41, 41, 41), -1px -1px 5px rgb(41, 41, 41);
 }
 
 .conf-main-right {
-    width: 30%;
+    width: 29%;
     height: 100%;
-    background-color: #373f27;
     float: left;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .conf-main-right-top {
     height: 100%;
-    width: 100%;
-    background-color: #ffecd4;
-    display: flex;
+    background-color: white;
+    border: 1px solid rgb(19, 132, 207);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgb(41, 41, 41), -1px 1px 5px rgb(41, 41, 41), 1px -1px 2px rgb(41, 41, 41), -1px -1px 5px rgb(41, 41, 41);
 }
 
 .conf-main-right-bottom {
     height: 100%;
-    width: 100%;
-    background-color: #773b57;
-    display: flex;
+    background-color: white;
+    border: 1px solid rgb(19, 132, 207);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px rgb(41, 41, 41), -1px 1px 5px rgb(41, 41, 41), 1px -1px 2px rgb(41, 41, 41), -1px -1px 5px rgb(41, 41, 41);
 }
 
 
@@ -72,7 +94,6 @@
 
 .Resizer.horizontal {
     height: 11px;
-    margin: -5px 0;
     border-top: 5px solid rgba(255, 255, 255, 0);
     border-bottom: 5px solid rgba(255, 255, 255, 0);
     cursor: row-resize;
@@ -86,7 +107,6 @@
 
 .Resizer.vertical {
     width: 11px;
-    margin: 0 -5px;
     border-left: 5px solid rgba(255, 255, 255, 0);
     border-right: 5px solid rgba(255, 255, 255, 0);
     cursor: col-resize;
@@ -109,31 +129,59 @@
 	position: inherit !important;
 }
 
-.container-horizontal-menu {
-    margin: 0 5px;
-    padding: 0px;
-    max-width: 700px;
-    height: 50px;
-}
+/***** HORIZONTAL SCROLL TO MENU *****/
 
-.horizontal-menu {
-    margin: 0 -10px;
-    padding: 1px 8px;
-    list-style: none;
+.horizontal-menu-top {
+    margin: 0;
+    padding: 1px 5px;
     display: flex;
-    overflow-x: scroll;
-    max-width: 98%;
+    overflow-x: auto;
+    display: flex;
+    max-width: 700px;
+    width: 97%;
+    white-space: pre-wrap;
+    box-sizing: border-box;
 }
 
-.card {
-    padding: 0px;
-    padding-right: 8px;
-    display: block;
+.card-top {
+    padding: 0px 8px;
     color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.horizontal-menu-buttom {
+    margin: 0;
+    padding: 1px 5px;
+    display: flex;
+    overflow-x: auto;
+    display: flex;
+    max-width: 700px;
+    width: 97%;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
+
+.card-buttom {
+    padding: 0px 8px;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    margin-top: 6px;
+}
+
+.card-buttom:focus {
+    background-color: #fff;
 }
 
 /***** CHANGE TABS STYLE *****/
@@ -153,4 +201,72 @@
     margin: 0;
     border: none;
     background: none;
+}
+
+/***** LEFT MIDDLE WINDOW *****/
+
+.representation-of-conf {
+    display: flex;
+}
+
+.representation-of-conf-left {
+    background-color: #7cf30c;
+    word-wrap: break-word;
+    width: 20%;
+}
+
+.representation-of-conf-right {
+    background-color: aqua;
+    width: 80%;
+    display: flex;
+    padding: 20px;
+}
+
+.power-sokets {
+    width: 90px;
+    height: 90px;
+    border: 1px solid gray;
+    border-collapse: collapse;
+    word-wrap: break-word;
+}
+
+.signal-slots {
+    width: 30px;
+    height: 90px;
+    border: 1px solid rgb(92, 54, 97);
+    border-collapse: collapse;
+    word-wrap: break-word;
+}
+
+.conference-control {
+    width: 90px;
+    height: 90px;
+    border: 1px solid rgb(252, 44, 241);
+    word-wrap: break-word;
+}
+
+.wrapperMiddle {
+    width: 700px;
+}
+
+.ConfListMiddle {
+    padding: 0;
+    margin: 0;
+}
+
+.addTabs {
+    padding: 0px 8px;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+}
+
+/***** RIGHT BUTTOM *****/
+.react-tabs__tab--selected {
+    background-color: rgb(0, 102, 255);
 }
