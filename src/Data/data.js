@@ -164,21 +164,24 @@ const ModulesContent = {
 const ModulesForButtomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
-			"test1" : {
+			"video1" : {
 				"soket-takes" : 1,
 				"img" : require("../ModulesImg/videoTest.png"),
 				"article" : "4232 3211",
-			}, 
-			"test2" : {
+				"desc" : "there will be some desc",
+			},
+			"video2" : {
 				"soket-takes" : 2,
-				"img" : null,
+				"img" : require("../ModulesImg/videoS-Test.png"),
 				"article" : "4232 3212",
-			}, 
+				"desc" : "there will be some desc",
+			},
 			"test3" : {
 				"soket-takes" : 3,
-				"img" : null,
+				"img" : require("../ModulesImg/video3-Test.png"),
 				"article" : "4232 3213",
-			}, 
+				"desc" : "there will be some desc",
+			},
 		},
 		"Video-/Audio" : {
 			"comments__": "There will be some Modules"
