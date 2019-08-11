@@ -2,6 +2,7 @@
   "name": "configurator",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://bogv.online/tls",
   "dependencies": {
     "re-resizable": "^4.7.1",
     "react": "^16.4.2",
@@ -23,7 +24,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
       "not op_mini all"
     ],
     "development": [
