@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SplitPane from 'react-split-pane';
-//Dara import
+//Data import
 import LocalStrings from '../Data/strings'
 
 class ConfContainerRight extends Component {
@@ -10,7 +10,8 @@ class ConfContainerRight extends Component {
             <SplitPane split="horizontal" defaultSize="50%">
               <ConfContainerRightTop />
               <ConfContainerRightBottom 
-                platformChoose={this.props.platformChoose}
+                PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+                ConfNumber={this.props.ConfNumber}
               />
             </SplitPane>
             </div>
@@ -21,8 +22,8 @@ class ConfContainerRight extends Component {
 class ConfContainerRightTop extends Component {
   render() {
     return (
-    <div className="conf-main-right-top">
-          <span>{LocalStrings['en'][1]}</span>
+      <div className="conf-main-right-top">
+        <span>{LocalStrings['en'][1]}</span>
       </div>
     );
   }
@@ -33,7 +34,8 @@ class ConfContainerRightBottom extends Component {
     return (
       <div className="conf-main-right-bottom">
         <ConfList 
-          platformChoose={this.props.platformChoose} 
+            PlatformСhoiceDesc={this.props.PlatformСhoiceDesc}
+            ConfNumber={this.props.ConfNumber}
         />
       </div>
     );
@@ -43,10 +45,10 @@ class ConfContainerRightBottom extends Component {
 class ConfList extends Component {
   render() {
     return (
-      <div>
-        Configuration1:
+      <div className="ConfList">
+        Configuration: #{this.props.ConfNumber+1}
         <ul>
-          <li>{this.props.platformChoose.id}: {this.props.platformChoose.desc}</li>
+          <li>{this.props.PlatformСhoiceDesc.article}: {this.props.PlatformСhoiceDesc.desc}</li>
         </ul>
       </div>
     );
