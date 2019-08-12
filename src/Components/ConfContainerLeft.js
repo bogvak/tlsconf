@@ -15,7 +15,6 @@ class ConfContainerLeft extends Component {
                     //Handlers
                     PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
                 />
-                <div style={{height: "1%"}}></div>
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
                     Configuration={this.props.Configuration}
@@ -23,7 +22,6 @@ class ConfContainerLeft extends Component {
                     AddConfHandler={this.props.AddConfHandler}
                     CurrentSlotHandler={this.props.CurrentSlotHandler}
                 />
-                <div style={{height: "1%"}}></div>
                 <ConfContainerLeftBottom 
                     ModulesForButtomMenu={this.props.ModulesForButtomMenu}
                     ModuleChoiceHandler={this.props.ModuleChoiceHandler}
@@ -162,8 +160,8 @@ class RepresentationOfConfRight extends Component {
         return (
             <div className="representation-of-conf-right">
                 {this.conf(
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => <div key={indexOfPowerSokets} className="power-sokets"><img src={require("../ModulesImg/powerSoketImg.png")} width="90" hight="90" alt="power-soket" /></div>),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => <div style={{boxShadow: (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? this.style["selected-signal-slot"] : null}} onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)} key={indexOfSignalSlot} className="signal-slots">{this.props.Configuration.Modules[indexOfSignalSlot]["img"] ? <img src={this.props.Configuration.Modules[indexOfSignalSlot]["img"]} alt="" width="30" hight="90" /> : null}</div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => <div key={indexOfPowerSokets} className="power-sokets"><img src={"/ModulesImg/powerSoketImg.png"} width="90" hight="90" alt="power-soket" /></div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => <div style={{boxShadow: (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? this.style["selected-signal-slot"] : null}} onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)} key={indexOfSignalSlot} className="signal-slots">{this.props.Configuration.Modules[indexOfSignalSlot]["img"] ? <img src={"/ModulesImg/" + this.props.Configuration.Modules[indexOfSignalSlot]["img"]} alt="" width="30" hight="90" /> : null}</div>),
                     [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => <div key={indexOfConferenceControl} className="conference-control">conference-control</div>)
                 )}
             </div>
@@ -214,7 +212,7 @@ class CurrentModulesBottom extends Component {
     render () {
         return (
             <div className="horizontal-menu-buttom">
-                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom" onClick={this.props.ModuleChoiceHandler.bind(this, this.props.CurrentModulesBottom[module])}><img alt="" src={this.props.CurrentModulesBottom[module]["img"]} width="30" height="90" /></button>)}
+                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom" onClick={this.props.ModuleChoiceHandler.bind(this, this.props.CurrentModulesBottom[module])}><img alt="" src={"/ModulesImg/" + this.props.CurrentModulesBottom[module]["img"]} width="30" height="90" /></button>)}
             </div>
         );
     }

@@ -5,7 +5,7 @@
 }
 
 .conf-main-left {
-    width: 69%;
+    width: 70%;
     height: 100%;
     float: left;
     box-sizing: border-box;
@@ -23,7 +23,7 @@
 }
 
 .conf-main-left-middle {
-    height: 39%;
+    height: 40%;
     display: flex;
     background-color: white;
     border: 1px solid rgb(19, 132, 207);
@@ -34,7 +34,7 @@
 }
 
 .conf-main-left-bottom {
-    height: 29%;
+    height: 30%;
     background-color: white;
     border: 1px solid rgb(19, 132, 207);
     border-radius: 10px;
@@ -45,7 +45,7 @@
 }
 
 .conf-main-right {
-    width: 29%;
+    width: 30%;
     height: 100%;
     float: left;
     box-sizing: border-box;
