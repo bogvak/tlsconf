@@ -33,34 +33,40 @@ const ModulesContent = {
 				"article" : "8700 4250",
 				"signal-slots" : 6,
 				"type" : "Special version",
+				"img" : "TAM201-6SS.PNG",
 			},
 			"One power socket and three signal slots" : {
 				"article" : "8700 4251",
 				"power-sokets" : 1,
 				"signal-slots" : 3,
 				"type" : "Standart",
+				"img" : "TAM201-1PS3SS.PNG",
 			},
 			"Two power sockets" : {
 				"article" : "8700 4252",
 				"power-sokets" : 2,
 				"type" : "Special version",
+				"img" : "TAM201-2PS.PNG",
 			},
 			"Three signal slots and Conference-control" : {
 				"article" : "8700 4280",
 				"signal-slots" : 3,
 				"conference-control" : 1,
 				"type" : "Special version",
+				"img" : "TAM201-3SS1CC.PNG",
 			},
 			"One power socket and Conference-control" : {
 				"article" : "8700 4281",
 				"power-sokets" : 1,
 				"conference-control" : 1,
 				"type" : "Special version",
+				"img" : "TAM201-1PS1CC.PNG",
 			},
 			"Two Conference-control" : {
 				"article" : "8700 4282",
 				"conference-control" : 2,
 				"type" : "Special version",
+				"img" : "TAM201-2CC.PNG",
 			}
 		},
 		"TAM 305" : {
@@ -178,23 +184,23 @@ const ModulesContent = {
 const ModulesForButtomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
-			"video1" : {
+			"IPL Slot S-Video+Video solder version" : {
 				"soket-takes" : 1,
-				"img" : "videoTest.png",
-				"article" : "4232 3211",
-				"desc" : "there will be some desc",
+				"img" : "8639248.png",
+				"article" : "863 924",
+				"desc2" : "4pin MiniDIN + 1xRCA, 1 slot width",
 			},
-			"video2" : {
+			"IPL Signal Slot Video solder flute" : {
 				"soket-takes" : 2,
-				"img" : "videoS-Test.png",
+				"img" : "8639294.png",
 				"article" : "4232 3212",
-				"desc" : "there will be some desc",
+				"desc2" : "1xBNC, 1 slot width",
 			},
-			"test3" : {
+			"IPL Signal Slot Video+Aud. sold. version" : {
 				"soket-takes" : 3,
-				"img" : "video3-Test.png",
+				"img" : "8639297.png",
 				"article" : "4232 3213",
-				"desc" : "there will be some desc",
+				"desc2" : "1xBNC + 2xRCA 1 slot width",
 			},
 		},
 		"Video-/Audio" : {

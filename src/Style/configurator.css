@@ -210,39 +210,40 @@
 }
 
 .representation-of-conf-left {
-    background-color: #7cf30c;
     word-wrap: break-word;
     width: 20%;
 }
 
 .representation-of-conf-right {
-    background-color: aqua;
     width: 80%;
     display: flex;
     padding: 20px;
 }
 
 .power-sokets {
-    width: 90px;
-    height: 90px;
     border: 1px solid gray;
     border-collapse: collapse;
     word-wrap: break-word;
+    box-sizing: border-box;
+    padding: 8px;
+    height: 106px;
 }
 
 .signal-slots {
-    width: 30px;
-    height: 90px;
     border: 1px solid rgb(92, 54, 97);
     border-collapse: collapse;
     word-wrap: break-word;
+    box-sizing: border-box;
+    width: 30px;
+    height: 106px;
 }
 
 .conference-control {
-    width: 90px;
-    height: 90px;
     border: 1px solid rgb(252, 44, 241);
     word-wrap: break-word;
+    box-sizing: border-box;
+    height: 106px;
+    width: 106px;
 }
 
 .wrapperMiddle {
