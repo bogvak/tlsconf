@@ -33,40 +33,34 @@ const ModulesContent = {
 				"article" : "8700 4250",
 				"signal-slots" : 6,
 				"type" : "Special version",
-				"img" : "TAM201-6SS.PNG",
 			},
 			"One power socket and three signal slots" : {
 				"article" : "8700 4251",
 				"power-sokets" : 1,
 				"signal-slots" : 3,
 				"type" : "Standart",
-				"img" : "TAM201-1PS3SS.PNG",
 			},
 			"Two power sockets" : {
 				"article" : "8700 4252",
 				"power-sokets" : 2,
 				"type" : "Special version",
-				"img" : "TAM201-2PS.PNG",
 			},
 			"Three signal slots and Conference-control" : {
 				"article" : "8700 4280",
 				"signal-slots" : 3,
 				"conference-control" : 1,
 				"type" : "Special version",
-				"img" : "TAM201-3SS1CC.PNG",
 			},
 			"One power socket and Conference-control" : {
 				"article" : "8700 4281",
 				"power-sokets" : 1,
 				"conference-control" : 1,
 				"type" : "Special version",
-				"img" : "TAM201-1PS1CC.PNG",
 			},
 			"Two Conference-control" : {
 				"article" : "8700 4282",
 				"conference-control" : 2,
 				"type" : "Special version",
-				"img" : "TAM201-2CC.PNG",
 			}
 		},
 		"TAM 305" : {
@@ -144,7 +138,7 @@ const ModulesContent = {
 				"signal-slots" : 3,
 			},
 			"Five power sockets" : {
-				"article" : "8700 4264",
+				"article" : "8700 4275",
 				"power-sokets" : 5,
 			},
 			"Three signal slots, one power socket and Conference-control double frame" : {

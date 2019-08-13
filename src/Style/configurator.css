@@ -225,8 +225,8 @@
     border-collapse: collapse;
     word-wrap: break-word;
     box-sizing: border-box;
-    padding: 8px;
-    height: 106px;
+    padding: 16px;
+    height: 124px;
 }
 
 .signal-slots {
@@ -235,15 +235,25 @@
     word-wrap: break-word;
     box-sizing: border-box;
     width: 30px;
-    height: 106px;
+    height: 124px;
 }
 
 .conference-control {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    padding: 8px;
+    height: 124px;
+    border-radius: 5px;
+}
+
+.conference-control-double-frame {
     border: 1px solid rgb(252, 44, 241);
     word-wrap: break-word;
     box-sizing: border-box;
     height: 106px;
-    width: 106px;
+    width: 212px;
 }
 
 .wrapperMiddle {

@@ -27,7 +27,7 @@ class Configurator extends Component {
     if (!inf["power-sokets"]) inf["power-sokets"]=0;
     if (!inf["conference-control"]) inf["conference-control"]=0;
     if (!inf["conference-control-double-frame"]) inf["conference-control-double-frame"]=0;
-    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*9
+    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6
     const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
     copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill({slotsTakes:null,article:null,img:null});
