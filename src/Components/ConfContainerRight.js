@@ -54,7 +54,7 @@ class ConfList extends Component {
     return (
       <div className="ConfList">
         <div style={{backgroundColor: "white"}}>{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame<br/>{this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}</div>
-        {this.props.Configuration.Modules.map((module, index) => <div key={index} style={{backgroundColor: this.zebraColor(index)}}>{module.article}: {module.desc}</div>)}
+        {this.props.Configuration.Modules.map((module, index) => <div key={index} style={{backgroundColor: this.zebraColor(index)}}>{module.article}: {module.desc1}/{module.desc2}</div>)}
       </div>
     );
   }

@@ -5,7 +5,7 @@
 }
 
 .conf-main-left {
-    width: 69%;
+    width: 70%;
     height: 100%;
     float: left;
     box-sizing: border-box;
@@ -23,7 +23,7 @@
 }
 
 .conf-main-left-middle {
-    height: 39%;
+    height: 40%;
     display: flex;
     background-color: white;
     border: 1px solid rgb(19, 132, 207);
@@ -34,7 +34,7 @@
 }
 
 .conf-main-left-bottom {
-    height: 29%;
+    height: 30%;
     background-color: white;
     border: 1px solid rgb(19, 132, 207);
     border-radius: 10px;
@@ -45,7 +45,7 @@
 }
 
 .conf-main-right {
-    width: 29%;
+    width: 30%;
     height: 100%;
     float: left;
     box-sizing: border-box;
@@ -210,39 +210,40 @@
 }
 
 .representation-of-conf-left {
-    background-color: #7cf30c;
     word-wrap: break-word;
     width: 20%;
 }
 
 .representation-of-conf-right {
-    background-color: aqua;
     width: 80%;
     display: flex;
     padding: 20px;
 }
 
 .power-sokets {
-    width: 90px;
-    height: 90px;
     border: 1px solid gray;
     border-collapse: collapse;
     word-wrap: break-word;
+    box-sizing: border-box;
+    padding: 8px;
+    height: 106px;
 }
 
 .signal-slots {
-    width: 30px;
-    height: 90px;
     border: 1px solid rgb(92, 54, 97);
     border-collapse: collapse;
     word-wrap: break-word;
+    box-sizing: border-box;
+    width: 30px;
+    height: 106px;
 }
 
 .conference-control {
-    width: 90px;
-    height: 90px;
     border: 1px solid rgb(252, 44, 241);
     word-wrap: break-word;
+    box-sizing: border-box;
+    height: 106px;
+    width: 106px;
 }
 
 .wrapperMiddle {
