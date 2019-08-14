@@ -5,7 +5,7 @@ import './Style/configurator.css';
 //Data
 import {TypeOfModules, ModulesContent, ModulesForButtomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
-import empryConf from './Data/emptyConf'
+import emptyConf from './Data/emptyConf'
 
 class Configurator extends Component {
   
@@ -17,7 +17,7 @@ class Configurator extends Component {
     Language: 'en',
     QuantityOfConf: 1,
     ConfNumber: 0,
-    Configurations: Array(1).fill(empryConf),
+    Configurations: Array(1).fill(emptyConf),
     IndexOfSignalSlots: null,
   };
 
@@ -27,7 +27,7 @@ class Configurator extends Component {
     if (!inf["power-sokets"]) inf["power-sokets"]=0;
     if (!inf["conference-control"]) inf["conference-control"]=0;
     if (!inf["conference-control-double-frame"]) inf["conference-control-double-frame"]=0;
-    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*9
+    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6
     const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
     copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill({slotsTakes:null,article:null,img:null});
@@ -46,7 +46,7 @@ class Configurator extends Component {
 
   addConfHandler = () => {
     const copyOfConf = this.state.Configurations.slice();
-    copyOfConf.push(empryConf);
+    copyOfConf.push(emptyConf);
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConf});
   }
 

@@ -80,7 +80,7 @@ class CurrentSeriesTop extends Component {
     render() {
         return (
             <div className="horizontal-menu-top">
-                {Object.keys(this.props.CurrentSeriesTop).map((item) => (this.props.CurrentSeriesTop[item]["img"]) ? <img alt="" src={"/ModulesImg/" + this.props.CurrentSeriesTop[item]["img"]} height="90px" width="auto" style={{padding: "2px", boxSizing: "border-box",border: (item===this.props.desc) ? "1px solid rgb(243, 103, 220)" : null}} key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} /> : <button style={{border: (item===this.props.desc) ? "1px solid rgb(243, 103, 220)" : null}} key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} className='card-top'>{item}</button>)}
+                {Object.keys(this.props.CurrentSeriesTop).map((item) => <img alt="" src={"ModulesImg/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} height="90px" width="auto" style={{padding: "2px", boxSizing: "border-box",border: (item===this.props.desc) ? "1px solid rgb(243, 103, 220)" : null}} key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} />)}
             </div>
         );
     }
@@ -112,7 +112,7 @@ class ConfListMiddle extends Component {
                     {[...Array(this.props.QuantityOfConf).keys()].map((number) => <Tab onClick={this.props.ConfNumberHandler.bind(this, number)} key={number}>Configuration: {number+1}</Tab>)}
                     <button className="addTabs" onClick={this.props.AddConfHandler.bind(this)}>+</button>
                 </TabList>
-                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => <TabPanel key={number}><RepresentationOfConf Configuration={this.props.Configuration} CurrentSlotHandler={this.props.CurrentSlotHandler} /></TabPanel> )}
+                    {(this.props.Configuration.PlatformСhoiceDesc["article"]) ? [...Array(this.props.QuantityOfConf).keys()].map((number) => <TabPanel key={number}><RepresentationOfConf Configuration={this.props.Configuration} CurrentSlotHandler={this.props.CurrentSlotHandler} /></TabPanel> ) : null}
             </Tabs>
         );
     }
@@ -123,7 +123,9 @@ class RepresentationOfConf extends Component {
     render () {
         return (
             <div className="representation-of-conf">
-                <RepresentationOfConfLeft PlatformСhoiceDesc={this.props.Configuration.PlatformСhoiceDesc} />
+                <RepresentationOfConfLeft 
+                    PlatformСhoiceDesc={this.props.Configuration.PlatformСhoiceDesc} 
+                />
                 <RepresentationOfConfRight 
                     Configuration={this.props.Configuration} 
                     CurrentSlotHandler={this.props.CurrentSlotHandler}
@@ -149,20 +151,33 @@ class RepresentationOfConfLeft extends Component {
 }
 
 class RepresentationOfConfRight extends Component {
-    conf = (powerSokets, signalSlots, conferenceControl) => {
-        powerSokets.splice(1, 0, signalSlots, conferenceControl);
+    conf = (powerSokets, signalSlots, conferenceControl, conferenceControlDoubleFrame) => {
+        let pos;
+        (powerSokets.length > 2) ? pos=2 : (conferenceControl.length>0 || conferenceControlDoubleFrame.length>0) ? pos=0 : pos=1;
+        powerSokets.splice(pos, 0, conferenceControlDoubleFrame, conferenceControl, signalSlots);
         return (powerSokets);
     }
     style = {
-        "selected-signal-slot" : "2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red"
+        "selected-signal-slot" : {
+            boxShadow : "2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red"
+        }, 
+        "wrapper-for-signal-slots"  : {
+            display: "flex",
+            padding: "8px",
+            border: "1px solid gray",
+            borderRadius: "5px",
+            height: "124px",
+            boxSizing: "border-box"
+        },
     }
     render () {
         return (
             <div className="representation-of-conf-right">
                 {this.conf(
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => <div key={indexOfPowerSokets} className="power-sokets"><img src={"/ModulesImg/8639204.png"} width="90" hight="90" alt="power-soket" /></div>),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => <div style={{boxShadow: (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? this.style["selected-signal-slot"] : null}} onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)} key={indexOfSignalSlot} className="signal-slots">{this.props.Configuration.Modules[indexOfSignalSlot]["img"] ? <img src={"/ModulesImg/" + this.props.Configuration.Modules[indexOfSignalSlot]["img"]} alt="" width="30" hight="auto" /> : null}</div>),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => <div key={indexOfConferenceControl} className="conference-control">conference-control</div>)
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => <div key={indexOfPowerSokets} className="power-sokets"><img src={"ModulesImg/8639204.png"} width="90" hight="90" alt="power-soket" /></div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => <div style={(indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? this.style["selected-signal-slot"] : null} onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)} key={indexOfSignalSlot} className="signal-slots">{this.props.Configuration.Modules[indexOfSignalSlot]["img"] ? <img src={"ModulesImg/" + this.props.Configuration.Modules[indexOfSignalSlot]["img"]} alt="" width="30" hight="auto" /> : null}</div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => <div key={indexOfConferenceControl} className="conference-control"><img src={"ModulesImg/conference-control.png"} width="106" hight="106" alt="power-soket" /></div>),
+                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).keys()].map((indexOfConferenceControlDoubleFrame) => <div key={indexOfConferenceControlDoubleFrame} className="conference-control-double-frame">conference-control-double-frame</div>),
                 )}
             </div>
         );
@@ -212,7 +227,7 @@ class CurrentModulesBottom extends Component {
     render () {
         return (
             <div className="horizontal-menu-buttom">
-                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom" onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], desc1: module})}><img alt="" src={"/ModulesImg/" + this.props.CurrentModulesBottom[module]["img"]} width="30" height="auto" /></button>)}
+                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom" onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], desc1: module})}><img alt="" src={"ModulesImg/" + this.props.CurrentModulesBottom[module]["img"]} width="30" height="auto" /></button>)}
             </div>
         );
     }
