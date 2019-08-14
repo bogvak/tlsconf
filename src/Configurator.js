@@ -5,7 +5,7 @@ import './Style/configurator.css';
 //Data
 import {TypeOfModules, ModulesContent, ModulesForButtomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
-import empryConf from './Data/emptyConf'
+import emptyConf from './Data/emptyConf'
 
 class Configurator extends Component {
   
@@ -17,7 +17,7 @@ class Configurator extends Component {
     Language: 'en',
     QuantityOfConf: 1,
     ConfNumber: 0,
-    Configurations: Array(1).fill(empryConf),
+    Configurations: Array(1).fill(emptyConf),
     IndexOfSignalSlots: null,
   };
 
@@ -46,7 +46,7 @@ class Configurator extends Component {
 
   addConfHandler = () => {
     const copyOfConf = this.state.Configurations.slice();
-    copyOfConf.push(empryConf);
+    copyOfConf.push(emptyConf);
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConf});
   }
 

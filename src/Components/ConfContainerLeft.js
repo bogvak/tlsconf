@@ -155,8 +155,6 @@ class RepresentationOfConfRight extends Component {
         let pos;
         (powerSokets.length > 2) ? pos=2 : (conferenceControl.length>0 || conferenceControlDoubleFrame.length>0) ? pos=0 : pos=1;
         powerSokets.splice(pos, 0, conferenceControlDoubleFrame, conferenceControl, signalSlots);
-           
-        powerSokets.splice(pos, 0, conferenceControlDoubleFrame, conferenceControl, signalSlots);
         return (powerSokets);
     }
     style = {
