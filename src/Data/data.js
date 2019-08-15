@@ -175,25 +175,25 @@ const ModulesContent = {
 
 //}
 
-const ModulesForButtomMenu = {
+const ModulesForBottomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
 			"IPL Slot S-Video+Video solder version" : {
 				"soket-takes" : 1,
 				"img" : "8639248.png",
-				"article" : "863 924",
+				"article" : "863 9248",
 				"desc2" : "4pin MiniDIN + 1xRCA, 1 slot width",
 			},
 			"IPL Signal Slot Video solder flute" : {
 				"soket-takes" : 2,
 				"img" : "8639294.png",
-				"article" : "4232 3212",
+				"article" : "863 9294",
 				"desc2" : "1xBNC, 1 slot width",
 			},
 			"IPL Signal Slot Video+Aud. sold. version" : {
 				"soket-takes" : 3,
 				"img" : "8639297.png",
-				"article" : "4232 3213",
+				"article" : "863 9297",
 				"desc2" : "1xBNC + 2xRCA 1 slot width",
 			},
 		},
@@ -218,4 +218,4 @@ const ModulesForButtomMenu = {
 	},
 }
 
-export {TypeOfModules, ModulesContent, ModulesForButtomMenu}
+export {TypeOfModules, ModulesContent, ModulesForBottomMenu}

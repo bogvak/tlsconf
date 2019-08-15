@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 import './Style/configurator.css';
 //Data
-import {TypeOfModules, ModulesContent, ModulesForButtomMenu} from './Data/data';
+import {TypeOfModules, ModulesContent, ModulesForBottomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
 
@@ -13,7 +13,7 @@ class Configurator extends Component {
     TypeOfModules: TypeOfModules,
     LocalStrings: LocalStrings,
     ModulesContent: ModulesContent,
-    ModulesForButtomMenu: ModulesForButtomMenu,
+    ModulesForBottomMenu: ModulesForBottomMenu,
     Language: 'en',
     QuantityOfConf: 1,
     ConfNumber: 0,
@@ -63,7 +63,7 @@ class Configurator extends Component {
         TypeOfModules={this.state.TypeOfModules}
         LocalStrings={this.state.LocalStrings}
         ModulesContent={this.state.ModulesContent}
-        ModulesForButtomMenu={this.state.ModulesForButtomMenu}
+        ModulesForBottomMenu={this.state.ModulesForBottomMenu}
         Language={this.state.Language}
         QuantityOfConf={this.state.QuantityOfConf}
         Configuration={this.state.Configurations[this.state.ConfNumber]}
