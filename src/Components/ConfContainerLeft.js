@@ -7,7 +7,7 @@ class ConfContainerLeft extends Component {
         return (
             <div className="conf-main-left">
                 <ConfContainerLeftTop
-                    TypeOfModules={this.props.TypeOfModules}
+                    TypeOfFrame={this.props.TypeOfFrame}
                     LocalStrings={this.props.LocalStrings}
                     ModulesContent={this.props.ModulesContent}
                     Language={this.props.Language}
@@ -36,7 +36,7 @@ class ConfContainerLeftTop extends Component {
         return(
             <div className="conf-main-left-top">
                 <ModuleListTop 
-                    TypeOfModules={this.props.TypeOfModules}
+                    TypeOfFrame={this.props.TypeOfFrame}
                     LocalStrings={this.props.LocalStrings}
                     ModulesContent={this.props.ModulesContent}
                     Language={this.props.Language}
@@ -55,13 +55,13 @@ class ModuleListTop extends Component {
         return (
             <Tabs>
                 <TabList>
-                    {Object.keys(this.props.TypeOfModules).map((lacation) => {
+                    {Object.keys(this.props.TypeOfFrame).map((lacation) => {
                         return<Tab key={lacation}>
-                            {this.props.LocalStrings[this.props.Language][this.props.TypeOfModules[lacation]['menuname']]}
+                            {this.props.LocalStrings[this.props.Language][this.props.TypeOfFrame[lacation]['menuname']]}
                         </Tab>
                     })}
                 </TabList>
-                    {Object.keys(this.props.TypeOfModules).map((lacation) => {
+                    {Object.keys(this.props.TypeOfFrame).map((lacation) => {
                         return (<TabPanel key={lacation}>
                             <ModuleSeriesListTop 
                                 desc={this.props.desc} 
@@ -109,11 +109,11 @@ class CurrentSeriesTop extends Component {
         return (
             <div className="horizontal-menu-top">
                 {Object.keys(this.props.CurrentSeriesTop).map((item) => {
-                    if (this.props.CurrentSeriesTop[item].article) {
+                    if (this.props.CurrentSeriesTop[item].article && this.props.line) {
                         return (<img
                             className="card-img-top"
                             alt="" 
-                            src={"ModulesImg/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
+                            src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
                             height="90px" 
                             width="auto" 
                             style={ 
@@ -140,27 +140,10 @@ class CurrentSeriesTop extends Component {
 
 class ConfContainerLeftMiddle extends Component {
 
-    render() {
-        return (
-            <div className="conf-main-left-middle">
-                <ConfListMiddle 
-                    QuantityOfConf={this.props.QuantityOfConf}
-                    Configuration={this.props.Configuration}
-                    ConfNumberHandler={this.props.ConfNumberHandler}
-                    AddConfHandler={this.props.AddConfHandler}
-                    CurrentSlotHandler={this.props.CurrentSlotHandler}
-                />
-            </div>
-        );
-    }
-}
-
-class ConfListMiddle extends Component {
-
     render () {
         return (
-            <Tabs className="wrapperMiddle">
-                <TabList className="ConfListMiddle">
+            <Tabs className="conf-main-left-middle">
+                <TabList className="conf-list-middle">
                     {[...Array(this.props.QuantityOfConf).keys()].map((number) => {
                         return (<Tab 
                             onClick={this.props.ConfNumberHandler.bind(this, number)} 
@@ -177,11 +160,13 @@ class ConfListMiddle extends Component {
                 </TabList>
                     {(this.props.Configuration.PlatformСhoiceDesc["article"]) ? 
                         [...Array(this.props.QuantityOfConf).keys()].map((number) => {
-                            return(<TabPanel key={number}>
-                                <RepresentationOfConf 
-                                    Configuration={this.props.Configuration} 
-                                    CurrentSlotHandler={this.props.CurrentSlotHandler}
-                                />
+                            return(<TabPanel
+                                selectedClassName="representation-of-conf-box"
+                                key={number}>
+                                    <RepresentationOfConf 
+                                        Configuration={this.props.Configuration} 
+                                        CurrentSlotHandler={this.props.CurrentSlotHandler}
+                                    />
                             </TabPanel>)
                         }
                     ) : null}
@@ -195,10 +180,10 @@ class RepresentationOfConf extends Component {
     render () {
         return (
             <div className="representation-of-conf">
-                <RepresentationOfConfLeft 
+                <ConfDesc
                     PlatformСhoiceDesc={this.props.Configuration.PlatformСhoiceDesc} 
                 />
-                <RepresentationOfConfRight 
+                <ConfLayout
                     Configuration={this.props.Configuration} 
                     CurrentSlotHandler={this.props.CurrentSlotHandler}
                 />
@@ -207,11 +192,11 @@ class RepresentationOfConf extends Component {
     }
 }
 
-class RepresentationOfConfLeft extends Component {
+class ConfDesc extends Component {
 
     render () {
         return (
-            <div className="representation-of-conf-left">
+            <div className="conf-desc">
                 <p>{this.props.PlatformСhoiceDesc.line} - Support frame</p>
                 <ul>
                     <li>{this.props.PlatformСhoiceDesc.desc}</li>
@@ -222,7 +207,7 @@ class RepresentationOfConfLeft extends Component {
     }
 }
 
-class RepresentationOfConfRight extends Component {
+class ConfLayout extends Component {
     conf = (powerSokets, signalSlots, conferenceControl, conferenceControlDoubleFrame) => {
         let pos;
         (powerSokets.length > 2) ? pos=2 : (conferenceControl.length>0 || conferenceControlDoubleFrame.length>0) ? pos=0 : pos=1;
@@ -231,49 +216,54 @@ class RepresentationOfConfRight extends Component {
     }
     render () {
         return (
-            <div className="representation-of-conf-right">
-                {this.conf(
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => {
-                        return (<img
-                            className="power-soket"
-                            key={indexOfPowerSokets}
-                            src={"ModulesImg/8639204.png"} 
-                            alt="power-soket" 
-                        />)
-                    }),
-                    <div 
-                        className="box-for-signal-slots" 
-                        style={this.props.Configuration.PlatformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
-                    >
-                        {[...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => {
-                            return (<img 
-                                    className={
-                                        (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? 
-                                        "selected-signal-slot" : "signal-slot"
-                                    }
-                                    key={indexOfSignalSlot}
-                                    onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)}
-                                    src={this.props.Configuration.Modules[indexOfSignalSlot].article ? "ModulesImg/" + this.props.Configuration.Modules[indexOfSignalSlot].article.replace(/\s/g, "") + ".png" : "ModulesImg/empty-signal-slot.PNG"} 
-                                    alt=""
-                                />)
-                        })}
-                    </div>,
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => {
-                        return (<img
-                            className="conference-control"
-                            key={indexOfConferenceControl}
-                            src={"ModulesImg/conference-control.png"} 
-                            alt="conference-control"
-                        />)
-                    }),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).keys()].map((indexOfConferenceControlDoubleFrame) => {
-                        return (<div 
-                            key={indexOfConferenceControlDoubleFrame} 
-                            className="conference-control-double-frame">
-                            conference-control-double-frame
-                        </div>)
-                    }),
-                )}
+            <div className="conf-layout">
+                <div className="conf-layout-top" />
+                <div className="conf-layout-middle">
+                    {this.conf(
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => {
+                            return (<img
+                                className="power-soket"
+                                key={indexOfPowerSokets}
+                                src={"img/8639204.png"} 
+                                alt="power-soket" 
+                            />)
+                        }),
+                        <div
+                            className="box-for-signal-slots"
+                            key="box-for-signal-slots"
+                            style={this.props.Configuration.PlatformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
+                        >
+                            {[...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => {
+                                return (<img 
+                                        className={
+                                            (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? 
+                                            "selected-signal-slot" : "signal-slot"
+                                        }
+                                        key={indexOfSignalSlot}
+                                        onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)}
+                                        src={this.props.Configuration.Modules[indexOfSignalSlot].article ? this.props.Configuration.Modules[indexOfSignalSlot].img : "img/empty-signal-slot.PNG"} 
+                                        alt=""
+                                    />)
+                            })}
+                        </div>,
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => {
+                            return (<img
+                                className="conference-control"
+                                key={indexOfConferenceControl}
+                                src={"img/conference-control.png"} 
+                                alt="conference-control"
+                            />)
+                        }),
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).keys()].map((indexOfConferenceControlDoubleFrame) => {
+                            return (<div 
+                                key={indexOfConferenceControlDoubleFrame} 
+                                className="conference-control-double-frame">
+                                conference-control-double-frame
+                            </div>)
+                        }),
+                    )}
+                </div>
+                <div className="conf-layout-bottom" />
             </div>
         );
     }
@@ -321,16 +311,17 @@ class ModuleSeriesListBottom extends Component {
         return (
             <Tabs>
                 <TabList>
-                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => {
-                        return (<Tab key={item}>
-                            {item}
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((typeOfModules) => {
+                        return (<Tab key={typeOfModules}>
+                            {typeOfModules}
                         </Tab>)
                     })}
                 </TabList>
-                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => {
-                        return (<TabPanel key={item} >
-                            <CurrentModulesBottom 
-                                CurrentModulesBottom={this.props.ModuleSeriesListBottom[item]} 
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((typeOfModules) => {
+                        return (<TabPanel key={typeOfModules} >
+                            <CurrentModulesBottom
+                                TypeOfModules={typeOfModules.replace(/\//g, "")}
+                                CurrentModulesBottom={this.props.ModuleSeriesListBottom[typeOfModules]} 
                                 ModuleChoiceHandler={this.props.ModuleChoiceHandler} 
                             />
                         </TabPanel>)
@@ -348,8 +339,8 @@ class CurrentModulesBottom extends Component {
                     return (<img 
                             className="card-bottom"
                             key={module}
-                            src={this.props.CurrentModulesBottom[module].article ? "ModulesImg/" + this.props.CurrentModulesBottom[module].article.replace(/\s/g, "") + ".png" : null}
-                            onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], desc1: module})}
+                            src={this.props.CurrentModulesBottom[module].article ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module].article.replace(/\s/g, "") + ".png" : null}
+                            onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc1: module})}
                             alt=""
                     />)
                 })}
