@@ -167,7 +167,16 @@ const ModulesContent = {
 const ModulesForBottomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
-			"comments__": "There will be some Modules"
+			"1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "8639210",
+				"desc2" : "IPL blind slot",	
+			},
+			"2 slot width" : {
+				"soket-takes" : 2,
+				"article" : "8639211",
+				"desc2" : "IPL blind slot",	
+			},
 		},
 		"Video-/Audio" : {
 			"3xRCA, 1 slot width, solder version" : {
