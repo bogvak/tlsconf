@@ -42,6 +42,7 @@ class Configurator extends Component {
   }
 
   addConfHandler = () => {
+    if (this.state.QuantityOfConf >= 5) return;
     const copyOfConf = this.state.Configurations.slice();
     copyOfConf.push(emptyConf);
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConf});
