@@ -1,4 +1,4 @@
-const TypeOfModules = {
+const TypeOfFrame = {
 	"WALL" : {
 		"menuname" : 3
 	},
@@ -32,7 +32,6 @@ const ModulesContent = {
 			"Six signal slots" : {
 				"article" : "8700 4250",
 				"signal-slots" : 6,
-				"type" : "Special version",
 			},
 			"One power socket and three signal slots" : {
 				"article" : "8700 4251",
@@ -43,37 +42,31 @@ const ModulesContent = {
 			"Two power sockets" : {
 				"article" : "8700 4252",
 				"power-sokets" : 2,
-				"type" : "Special version",
 			},
 			"Three signal slots and Conference-control" : {
 				"article" : "8700 4280",
 				"signal-slots" : 3,
 				"conference-control" : 1,
-				"type" : "Special version",
 			},
 			"One power socket and Conference-control" : {
 				"article" : "8700 4281",
 				"power-sokets" : 1,
 				"conference-control" : 1,
-				"type" : "Special version",
 			},
 			"Two Conference-control" : {
 				"article" : "8700 4282",
 				"conference-control" : 2,
-				"type" : "Special version",
 			}
 		},
 		"TAM 305" : {
 			"Twelve signal slots" : {
 				"article" : "8700 4260",
 				"signal-slots" : 12,
-				"type" : "Special version",
 			},
 			"One power socket and nine signal slots" : {
 				"article" : "8700 4261",
 				"power-sokets" : 1,
 				"signal-slots" : 9,
-				"type" : "Special version",
 			},
 			"Two power sockets and six signal slots" : {
 				"article" : "8700 4262",
@@ -85,31 +78,26 @@ const ModulesContent = {
 				"article" : "8700 4263",
 				"power-sokets" : 3,
 				"signal-slots" : 3,
-				"type" : "Special version",
 			},
 			"Four power sockets" : {
 				"article" : "8700 4264",
 				"power-sokets" : 4,
-				"type" : "Special version",
 			},
 			"Three signal slots, one power socket and Conference-control" : {
 				"article" : "8700 4283",
 				"power-sokets" : 1,
 				"signal-slots" : 3,
 				"conference-control" : 1,
-				"type" : "Special version",
 			},
 			"One power socket and Conference-control double frame" : {
 				"article" : "8700 4284",
 				"power-sokets" : 1,
 				"conference-control-double-frame": 1,
-				"type" : "Special version",
 			},
 			"Three signal slots and Conference-control double frame" : {
 				"article" : "8700 4285",
 				"signal-slots" : 3,
 				"conference-control-double-frame": 1,
-				"type" : "Special version",
 			}
 		},
 		"TAM 401" : {
@@ -131,6 +119,7 @@ const ModulesContent = {
 				"article" : "8700 4273",
 				"power-sokets" : 3,
 				"signal-slots" : 6,
+				"type" : "Standart",
 			},
 			"Four power sockets and three signal slots" : {
 				"article" : "8700 4274",
@@ -175,30 +164,71 @@ const ModulesContent = {
 
 //}
 
-const ModulesForButtomMenu = {
+const ModulesForBottomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
-			"IPL Slot S-Video+Video solder version" : {
+			"1 slot width" : {
 				"soket-takes" : 1,
-				"img" : "8639248.png",
-				"article" : "863 924",
-				"desc2" : "4pin MiniDIN + 1xRCA, 1 slot width",
+				"article" : "8639210",
+				"desc2" : "IPL blind slot",	
 			},
-			"IPL Signal Slot Video solder flute" : {
+			"2 slot width" : {
 				"soket-takes" : 2,
-				"img" : "8639294.png",
-				"article" : "4232 3212",
-				"desc2" : "1xBNC, 1 slot width",
-			},
-			"IPL Signal Slot Video+Aud. sold. version" : {
-				"soket-takes" : 3,
-				"img" : "8639297.png",
-				"article" : "4232 3213",
-				"desc2" : "1xBNC + 2xRCA 1 slot width",
+				"article" : "8639211",
+				"desc2" : "IPL blind slot",	
 			},
 		},
 		"Video-/Audio" : {
-			"comments__": "There will be some Modules"
+			"3xRCA, 1 slot width, solder version" : {
+				"soket-takes" : 1,
+				"article" : "863 9233",
+				"desc2" : "IPL Signal Slot Video+Audio",
+			},
+			"1xRCA + 3,5mm jack, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9231",
+				"desc2" : "IPL Signal Slot Video+Aud. solder version",
+			},
+			"4pin MiniDIN, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9238",
+				"desc2" : "IPL Signal Slot S-Video solder version",
+			},
+			"4pin MiniDIN + 1xRCA, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9241",
+				"desc2" : "IPL Slot S-Video+Video solder version",
+			},
+			"4pin MiniDIN+1x3,5mm jack,  1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9246",
+				"desc2" : "IPL Slot S-Video+Audio solder version",
+			},
+			"4pin MiniDIN + 2xRCA R/L, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9248",
+				"desc2" : "IPL Slot S-Video+Audio solder version",
+			},
+			"4pin MiniDIN + 1xBNC, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9252",
+				"desc2" : "IPL Slot S-Video+Audio solder version",
+			},
+			"1xBNC, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9294",
+				"desc2" : "IPL Signal Slot Video solder flute1xBNC, 1 slot width",
+			},
+			"1xBNC + 2xRCA 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9297",
+				"desc2" : "IPL Signal Slot Video+Aud. sold. version",
+			},
+			"1xBNC + 3,5mm jack, 1 slot width" : {
+				"soket-takes" : 1,
+				"article" : "863 9310",
+				"desc2" : "IPL Signal Slot Video+Audio with Cable",
+			},
 		},
 		"Analog-/Digital-/HDMI-/Control": {
 			"comments__": "There will be some Modules"
@@ -218,4 +248,4 @@ const ModulesForButtomMenu = {
 	},
 }
 
-export {TypeOfModules, ModulesContent, ModulesForButtomMenu}
+export {TypeOfFrame, ModulesContent, ModulesForBottomMenu}

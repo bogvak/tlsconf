@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 
 class ConfContainerLeft extends Component {
     render() {
         return (
             <div className="conf-main-left">
-                <ConfContainerLeftTop
-                    TypeOfModules={this.props.TypeOfModules}
-                    LocalStrings={this.props.LocalStrings}
-                    ModulesContent={this.props.ModulesContent}
-                    Language={this.props.Language}
-                    desc={this.props.Configuration.PlatformСhoiceDesc.desc}
-                    //Handlers
-                    PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
-                />
+                <div className="conf-main-left-top">
+                    <ConfContainerLeftTop
+                        TypeOfFrame={this.props.TypeOfFrame}
+                        LocalStrings={this.props.LocalStrings}
+                        ModulesContent={this.props.ModulesContent}
+                        Language={this.props.Language}
+                        desc={this.props.Configuration.PlatformСhoiceDesc.desc}
+                        //Handlers
+                        PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
+                    />
+                    <img className="logo" src={"img/logo.png"} alt="logo" />
+                </div>
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
                     Configuration={this.props.Configuration}
                     ConfNumberHandler={this.props.ConfNumberHandler}
                     AddConfHandler={this.props.AddConfHandler}
                     CurrentSlotHandler={this.props.CurrentSlotHandler}
-                />
+                />    
                 <ConfContainerLeftBottom 
-                    ModulesForButtomMenu={this.props.ModulesForButtomMenu}
+                    ModulesForBottomMenu={this.props.ModulesForBottomMenu}
                     ModuleChoiceHandler={this.props.ModuleChoiceHandler}
                 />
             </div>
@@ -32,32 +34,35 @@ class ConfContainerLeft extends Component {
 }
 
 class ConfContainerLeftTop extends Component {
-    render() {
-        return(
-            <div className="conf-main-left-top">
-                <ModuleListTop 
-                    TypeOfModules={this.props.TypeOfModules}
-                    LocalStrings={this.props.LocalStrings}
-                    ModulesContent={this.props.ModulesContent}
-                    Language={this.props.Language}
-                    desc={this.props.desc}
-                    //Handlers
-                    PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
-                />
-            </div>
-        );
-    }
-}
-
-class ModuleListTop extends Component {
 
 	render() {
         return (
-            <Tabs>
-                <TabList>
-                    {Object.keys(this.props.TypeOfModules).map((lacation) => <Tab key={lacation}>{this.props.LocalStrings[this.props.Language][this.props.TypeOfModules[lacation]['menuname']]}</Tab>)}
+            <Tabs className="conf-main-left-top-container--l0">
+                <TabList className="conf-main-left-top-container--l0-list">
+                    {Object.keys(this.props.TypeOfFrame).map((lacation) => {
+                        return<Tab 
+                            className="conf-main-left-top-container--l0-list-tab" 
+                            selectedClassName="conf-main-left-top-container--l0-list-tab--selected" 
+                            key={lacation}
+                        >
+                            {this.props.LocalStrings[this.props.Language][this.props.TypeOfFrame[lacation]['menuname']]}
+                        </Tab>
+                    })}
                 </TabList>
-                    {Object.keys(this.props.TypeOfModules).map((lacation) => <TabPanel key={lacation}><ModuleSeriesListTop desc={this.props.desc} lacation={lacation} PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}  ModuleSeriesListTop={this.props.ModulesContent[lacation]} /></TabPanel>)}
+                    {Object.keys(this.props.TypeOfFrame).map((lacation) => {
+                        return (<TabPanel 
+                            className="conf-main-left-top-container--l0-panel" 
+                            selectedClassName="conf-main-left-top-container--l0-panel--selected" 
+                            key={lacation}
+                        >
+                            <ModuleSeriesListTop
+                                desc={this.props.desc} 
+                                lacation={lacation} 
+                                PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}  
+                                ModuleSeriesListTop={this.props.ModulesContent[lacation]}
+                            />
+                        </TabPanel>)
+                    })}   
             </Tabs>
         );
 	}
@@ -66,11 +71,32 @@ class ModuleListTop extends Component {
 class ModuleSeriesListTop extends Component {
 	render() {
         return (
-            <Tabs>
-                <TabList>
-                    {Object.keys(this.props.ModuleSeriesListTop).map((line) => <Tab key={line}>{line}</Tab>)}
+            <Tabs className="conf-main-left-top-container--l1">
+                <TabList className="conf-main-left-top-container--l1-list">
+                    {Object.keys(this.props.ModuleSeriesListTop).map((line) => {
+                        return (<Tab
+                            className="conf-main-left-top-container--l1-list-tab" 
+                            selectedClassName="conf-main-left-top-container--l1-list-tab--selected" 
+                            key={line}
+                        >
+                            {line}
+                        </Tab>)
+                    })}
                 </TabList>
-                    {Object.keys(this.props.ModuleSeriesListTop).map((line) => <TabPanel key={line}><CurrentSeriesTop lacation={this.props.lacation} desc={this.props.desc} PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler} line={line} CurrentSeriesTop={this.props.ModuleSeriesListTop[line]} /></TabPanel>)}
+                    {Object.keys(this.props.ModuleSeriesListTop).map((line) => {
+                        return (<TabPanel
+                            className="conf-main-left-top-container--l1-panel" 
+                            selectedClassName="conf-main-left-top-container--l1-panel--selected"
+                            key={line}>
+                            <CurrentSeriesTop 
+                                lacation={this.props.lacation} 
+                                desc={this.props.desc} 
+                                PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler} 
+                                line={line} 
+                                CurrentSeriesTop={this.props.ModuleSeriesListTop[line]}
+                            />
+                        </TabPanel>)
+                    })}
             </Tabs>
         );
 	}
@@ -79,12 +105,28 @@ class ModuleSeriesListTop extends Component {
 class CurrentSeriesTop extends Component {
     render() {
         return (
-            <div className="horizontal-menu-top">
+            <div className="conf-main-left-top-container--l2">
                 {Object.keys(this.props.CurrentSeriesTop).map((item) => {
-                    if (this.props.CurrentSeriesTop[item].article) {
-                        return <img alt="" src={"ModulesImg/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} height="90px" width="auto" style={{padding: "2px", boxSizing: "border-box",border: (item===this.props.desc) ? "1px solid rgb(243, 103, 220)" : null}} key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} />
+                    if (this.props.CurrentSeriesTop[item].article && this.props.line) {
+                        return (<img
+                            className="conf-main-left-top-container--l2-card"
+                            alt="" 
+                            src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
+                            style={ 
+                                (item===this.props.desc) ? {border: "1px solid rgb(243, 103, 220)"} : null
+                            } 
+                            key={item} 
+                            onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} 
+                            />)
                     } else {
-                        return <div className="cardTop" style={{padding: "2px", boxSizing: "border-box",border: (item===this.props.desc) ? "1px solid rgb(243, 103, 220)" : null}} key={item} onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}</div>
+                        return (<div 
+                            className="conf-main-left-top-container--l2-card" 
+                            style={ 
+                                (item===this.props.desc) ? {border: "1px solid rgb(243, 103, 220)"} : null
+                            } 
+                            key={item} 
+                            onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}
+                        </div>)
                     };
                 })}
             </div>
@@ -94,31 +136,39 @@ class CurrentSeriesTop extends Component {
 
 class ConfContainerLeftMiddle extends Component {
 
-    render() {
-        return (
-            <div className="conf-main-left-middle">
-                <ConfListMiddle 
-                    QuantityOfConf={this.props.QuantityOfConf}
-                    Configuration={this.props.Configuration}
-                    ConfNumberHandler={this.props.ConfNumberHandler}
-                    AddConfHandler={this.props.AddConfHandler}
-                    CurrentSlotHandler={this.props.CurrentSlotHandler}
-                />
-            </div>
-        );
-    }
-}
-
-class ConfListMiddle extends Component {
-
     render () {
         return (
-            <Tabs className="wrapperMiddle">
-                <TabList className="ConfListMiddle">
-                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => <Tab onClick={this.props.ConfNumberHandler.bind(this, number)} key={number}>Configuration: {number+1}</Tab>)}
-                    <button className="addTabs" onClick={this.props.AddConfHandler.bind(this)}>+</button>
+            <Tabs className="conf-main-left-middle-container--l0">
+                <TabList className="conf-main-left-middle-container--l0-list">
+                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => {
+                        return (<Tab
+                            className="conf-main-left-middle-container--l0-list-tab"
+                            selectedClassName="conf-main-left-middle-container--l0-list-tab--selected"
+                            onClick={this.props.ConfNumberHandler.bind(this, number)} 
+                            key={number}>
+                                Configuration: {number+1}
+                        </Tab>)
+                    })}
+                    <button
+                        style={{display: (this.props.QuantityOfConf < 5) ? "inline-block" : "none"}}
+                        className="addTabs" 
+                        onClick={this.props.AddConfHandler.bind(this)}
+                    >
+                        +
+                    </button>
                 </TabList>
-                    {(this.props.Configuration.PlatformСhoiceDesc["article"]) ? [...Array(this.props.QuantityOfConf).keys()].map((number) => <TabPanel key={number}><RepresentationOfConf Configuration={this.props.Configuration} CurrentSlotHandler={this.props.CurrentSlotHandler} /></TabPanel> ) : null}
+                    {[...Array(this.props.QuantityOfConf).keys()].map((number) => {
+                        return(<TabPanel
+                            className="conf-main-left-middle-container--l0-panel"
+                            selectedClassName="conf-main-left-middle-container--l0-panel--selected"
+                            key={number}>
+                                {(this.props.Configuration.PlatformСhoiceDesc["article"]) ?
+                                    <RepresentationOfConf 
+                                        Configuration={this.props.Configuration} 
+                                        CurrentSlotHandler={this.props.CurrentSlotHandler}
+                                    /> : null}
+                        </TabPanel>)
+                    })}
             </Tabs>
         );
     }
@@ -128,11 +178,11 @@ class RepresentationOfConf extends Component {
 
     render () {
         return (
-            <div className="representation-of-conf">
-                <RepresentationOfConfLeft 
+            <div className="conf-main-left-middle-container--l1">
+                <ConfDesc
                     PlatformСhoiceDesc={this.props.Configuration.PlatformСhoiceDesc} 
                 />
-                <RepresentationOfConfRight 
+                <ConfLayout
                     Configuration={this.props.Configuration} 
                     CurrentSlotHandler={this.props.CurrentSlotHandler}
                 />
@@ -141,11 +191,11 @@ class RepresentationOfConf extends Component {
     }
 }
 
-class RepresentationOfConfLeft extends Component {
+class ConfDesc extends Component {
 
     render () {
         return (
-            <div className="representation-of-conf-left">
+            <div className="conf-main-left-middle-container--l1-desc">
                 <p>{this.props.PlatformСhoiceDesc.line} - Support frame</p>
                 <ul>
                     <li>{this.props.PlatformСhoiceDesc.desc}</li>
@@ -156,35 +206,63 @@ class RepresentationOfConfLeft extends Component {
     }
 }
 
-class RepresentationOfConfRight extends Component {
+class ConfLayout extends Component {
     conf = (powerSokets, signalSlots, conferenceControl, conferenceControlDoubleFrame) => {
         let pos;
         (powerSokets.length > 2) ? pos=2 : (conferenceControl.length>0 || conferenceControlDoubleFrame.length>0) ? pos=0 : pos=1;
         powerSokets.splice(pos, 0, conferenceControlDoubleFrame, conferenceControl, signalSlots);
         return (powerSokets);
     }
-    style = {
-        "selected-signal-slot" : {
-            boxShadow : "2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red"
-        }, 
-        "wrapper-for-signal-slots"  : {
-            display: "flex",
-            padding: "8px",
-            border: "1px solid gray",
-            borderRadius: "5px",
-            height: "124px",
-            boxSizing: "border-box"
-        },
-    }
     render () {
         return (
-            <div className="representation-of-conf-right">
-                {this.conf(
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => <div key={indexOfPowerSokets} className="power-sokets"><img src={"ModulesImg/8639204.png"} width="90" hight="90" alt="power-soket" /></div>),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => <div style={(indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? this.style["selected-signal-slot"] : null} onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)} key={indexOfSignalSlot} className="signal-slots">{this.props.Configuration.Modules[indexOfSignalSlot]["img"] ? <img src={"ModulesImg/" + this.props.Configuration.Modules[indexOfSignalSlot]["img"]} alt="" width="30" hight="auto" /> : null}</div>),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => <div key={indexOfConferenceControl} className="conference-control"><img src={"ModulesImg/conference-control.png"} width="106" hight="106" alt="power-soket" /></div>),
-                    [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).keys()].map((indexOfConferenceControlDoubleFrame) => <div key={indexOfConferenceControlDoubleFrame} className="conference-control-double-frame">conference-control-double-frame</div>),
-                )}
+            <div className="conf-main-left-middle-container--l1-layout">
+                <div className="conf-main-left-middle-container--l1-layout-top" />
+                <div className="conf-main-left-middle-container--l1-layout-middle">
+                    {this.conf(
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => {
+                            return (<img
+                                className="power-soket"
+                                key={indexOfPowerSokets}
+                                src={"img/8639204.png"} 
+                                alt="power-soket" 
+                            />)
+                        }),
+                        <div
+                            className="box-for-signal-slots"
+                            key="box-for-signal-slots"
+                            style={this.props.Configuration.PlatformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
+                        >
+                            {[...Array(this.props.Configuration.PlatformСhoiceDesc["signal-slots"]).keys()].map((indexOfSignalSlot) => {
+                                return (<img 
+                                        className={
+                                            (indexOfSignalSlot===this.props.Configuration.IndexOfSelectedSlot) ? 
+                                            "selected-signal-slot" : "signal-slot"
+                                        }
+                                        key={indexOfSignalSlot}
+                                        onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)}
+                                        src={this.props.Configuration.Modules[indexOfSignalSlot].article ? this.props.Configuration.Modules[indexOfSignalSlot].img : "img/empty-signal-slot.PNG"} 
+                                        alt=""
+                                    />)
+                            })}
+                        </div>,
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control"]).keys()].map((indexOfConferenceControl) => {
+                            return (<img
+                                className="conference-control"
+                                key={indexOfConferenceControl}
+                                src={"img/conference-control.png"} 
+                                alt="conference-control"
+                            />)
+                        }),
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).keys()].map((indexOfConferenceControlDoubleFrame) => {
+                            return (<div 
+                                key={indexOfConferenceControlDoubleFrame} 
+                                className="conference-control-double-frame">
+                                conference-control-double-frame
+                            </div>)
+                        }),
+                    )}
+                </div>
+                <div className="conf-main-left-middle-container--l1-layout-bottom" />
             </div>
         );
     }
@@ -193,24 +271,30 @@ class RepresentationOfConfRight extends Component {
 class ConfContainerLeftBottom extends Component {
     render() {
         return (
-            <div className="conf-main-left-bottom">
-                <ModuleListButtom 
-                    ModulesForButtomMenu={this.props.ModulesForButtomMenu}
-                    ModuleChoiceHandler={this.props.ModuleChoiceHandler}
-                />    
-            </div>
-        );
-    }
-}
-
-class ModuleListButtom extends Component {
-    render() {
-        return (
-            <Tabs>
-                <TabList>
-                    {Object.keys(this.props.ModulesForButtomMenu).map((item) => <Tab key={item}>{item}</Tab>)}
+            <Tabs className="conf-main-left-bottom-container--l0">
+                <TabList className="conf-main-left-bottom-container--l0-list">
+                    {Object.keys(this.props.ModulesForBottomMenu).map((item) => {
+                        return(<Tab 
+                            className="conf-main-left-bottom-container--l0-list-tab" 
+                            selectedClassName="conf-main-left-bottom-container--l0-list-tab--selected" 
+                            key={item}
+                        >
+                            {item}
+                        </Tab>)
+                    })}
                 </TabList>
-                    {Object.keys(this.props.ModulesForButtomMenu).map((item) => <TabPanel key={item}><ModuleSeriesListBottom  ModuleSeriesListBottom={this.props.ModulesForButtomMenu[item]} ModuleChoiceHandler={this.props.ModuleChoiceHandler} /></TabPanel>)}
+                    {Object.keys(this.props.ModulesForBottomMenu).map((item) => {
+                        return(<TabPanel
+                            className="conf-main-left-bottom-container--l0-panel"
+                            selectedClassName="conf-main-left-bottom-container--l0-panel--selected" 
+                            key={item}
+                        >
+                            <ModuleSeriesListBottom  
+                                ModuleSeriesListBottom={this.props.ModulesForBottomMenu[item]} 
+                                ModuleChoiceHandler={this.props.ModuleChoiceHandler} 
+                            />
+                        </TabPanel>)
+                    })}
             </Tabs>
         );    
     }        
@@ -219,11 +303,31 @@ class ModuleListButtom extends Component {
 class ModuleSeriesListBottom extends Component {
     render () {
         return (
-            <Tabs>
-                <TabList>
-                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <Tab key={item}>{item}</Tab>)}
+            <Tabs className="conf-main-left-bottom-container--l1">
+                <TabList className="conf-main-left-bottom-container--l1-list">
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((typeOfModules) => {
+                        return (<Tab
+                            className="conf-main-left-bottom-container--l1-list-tab"
+                            selectedClassName="conf-main-left-bottom-container--l1-list-tab--selected"
+                            key={typeOfModules}
+                        >
+                            {typeOfModules}
+                        </Tab>)
+                    })}
                 </TabList>
-                    {Object.keys(this.props.ModuleSeriesListBottom).map((item) => <TabPanel key={item} ><CurrentModulesBottom CurrentModulesBottom={this.props.ModuleSeriesListBottom[item]} ModuleChoiceHandler={this.props.ModuleChoiceHandler} /></TabPanel>)}
+                    {Object.keys(this.props.ModuleSeriesListBottom).map((typeOfModules) => {
+                        return (<TabPanel
+                            className="conf-main-left-bottom-container--l1-panel"
+                            selectedClassName="conf-main-left-bottom-container--l1-panel--selected" 
+                            key={typeOfModules} 
+                        >
+                            <CurrentModulesBottom
+                                TypeOfModules={typeOfModules.replace(/\//g, "")}
+                                CurrentModulesBottom={this.props.ModuleSeriesListBottom[typeOfModules]} 
+                                ModuleChoiceHandler={this.props.ModuleChoiceHandler} 
+                            />
+                        </TabPanel>)
+                    })}
             </Tabs>
         );
     }
@@ -232,8 +336,16 @@ class ModuleSeriesListBottom extends Component {
 class CurrentModulesBottom extends Component {
     render () {
         return (
-            <div className="horizontal-menu-buttom">
-                {Object.keys(this.props.CurrentModulesBottom).map((module) => <button key={module} className="card-buttom" onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], desc1: module})}><img alt="" src={"ModulesImg/" + this.props.CurrentModulesBottom[module]["img"]} width="30" height="auto" /></button>)}
+            <div className="conf-main-left-bottom-container--l2">
+                {Object.keys(this.props.CurrentModulesBottom).map((module) => {
+                    return (<img 
+                            className="conf-main-left-bottom-container--l2-card"
+                            key={module}
+                            src={this.props.CurrentModulesBottom[module].article ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module].article.replace(/\s/g, "") + ".png" : null}
+                            onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc1: module})}
+                            alt=""
+                    />)
+                })}
             </div>
         );
     }
