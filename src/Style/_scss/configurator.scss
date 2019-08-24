@@ -1,19 +1,58 @@
 /***COLORS***/
 $main-color-strong: rgb(0, 102, 255);
-$main-color-light: rgb(172, 206, 255);
-$background-and-separator-color: rgb(223, 223, 223);
-
+$main-color-lite: rgb(172, 206, 255);
+$alternative-color-strong: rgb(182, 182, 182);
+$alternative-color-lite: rgb(156, 156, 156);
+$main-background-color: rgb(223, 223, 223);
+$window-background-color: white;
+/***conf-main***/
+$main-width: 1000px;
+$main-height: 700px;
+$main-padding: 10px;
+$main-font-size: 14px;
+/***conf-main-left***/
+$main-left-width: 70%;
+$main-right-width: 100%-$main-left-width;
 /***BORDERS***/
 $border: 1px solid;
-$main-windows-borders: $border $main-color-strong;
+$main-window-border: $border $main-color-strong;
+$main-window-border-radius: 10px;
+/***tab-background***/
+$tab--selected-gradient: linear-gradient($main-color-lite, $main-color-strong);
+$tab--disabled-gradient: linear-gradient($alternative-color-lite, $alternative-color-strong);
+/***tab-l0***/
+$tab-l0-border-radius: 15px 3px 0 0;
+$tab-l0-padding: 1px 6px;
+/***tab-l0-tilt***/
+$tab-l0-tilt-width: 10px;
+$tab-l0-tilt-radius: 5px 0 0 0;
+$tab-l0-tilt-skew: skew(-30deg, 0);
+/***tab-l1***/
+$tab-l1-padding: 3px 6px;
+/***horizontal-menu***/
+$horizontal-menu-padding: 13px 0;
+/***horizontal-menu-card***/
+$card-height: 120px;
+$card-padding: 2px 2px;
+$card-margin-top-menu: 0 2px;
+$card-margin-bottom-menu: 0 10px;
+$list-l0-tab-margin-left: 20px;
 
 /***BACKGROUND***/
-$tabs-gradient: linear-gradient($main-color-light, $main-color-strong);
-$main-windows-background-color: white;
+
+@mixin full-w-and-h {
+    width: 100%;
+    height: 100%;
+}
 
 @mixin zero-m-and-p {
     margin: 0;
     padding: 0;
+}
+
+@mixin zero-pos {
+    left: 0;
+    top: 0;
 }
 
 /***MAIN BOXES***/
@@ -24,88 +63,86 @@ $main-windows-background-color: white;
     box-sizing: border-box;
 }
 
-@mixin main-windows {
+@mixin main-window {
     box-sizing: border-box;
-    background-color: $main-windows-background-color;
-    border: $main-windows-borders;
-    border-radius: 10px;
+    background-color: $window-background-color;
+    border: $main-window-border;
+    border-radius: $main-window-border-radius;
     overflow: hidden;
 }
 
 @mixin main-left-windows {
-    @include main-windows;
+    @include main-window;
     width: 100%;
     display: flex;
     flex: 1;
 }
 
 @mixin main-right-windows {
-    @include main-windows;
-    height: 100%;
-    padding: 10px;
+    @include main-window;
+    @include full-w-and-h;
 }
 
-@mixin horizontal-menu($is-top: false) {
-    padding: 13px;
+@mixin horizontal-menu($card-margin: 0) {
+    @include full-w-and-h;
+    padding: $horizontal-menu-padding;
     display: flex;
-    height: 100%;
-    width: 100%;
     overflow-x: scroll;
     box-sizing: border-box;
     flex: 1;
     &-card {
-        @if $is-top {
-            padding: 2px 2px;
-        } @else {
-            padding: 2px 20px;
-        }
+        padding: $card-padding;
+        margin: $card-margin;
+        height: $card-height;
         box-sizing: border-box;
-        height: 120px;
-        width: auto;
     }
 }
 
-@mixin tab-l0 {
-    display: inline-block;
-    margin-left: 20px;
-    border-radius: 15px 3px 0 0;
-    background: linear-gradient(rgb(182, 182, 182), rgb(156, 156, 156));
-    padding: 1px 6px 1px 6px;
-    list-style: none;
-    cursor: pointer;
-    position: relative;
-    &::before {
-        position: absolute;
-        box-sizing: border-box;
-        left: 0;
-        top: 0;
-        width: 10px;
-        height: 100%;
-        content: "";
-        transform: skewX(-30deg);
-        border-top-left-radius: 5px;
-        background: inherit;
-        z-index: -1;
-    }
-    &--selected {
-        background: $tabs-gradient;
-    }
-    &::focus {
-        outline: none;
+@mixin list-l0 {
+    @include zero-m-and-p;
+    z-index: 0;
+    overflow: hidden;
+    &-tab{
+        display: inline-block;
+        margin-left: $list-l0-tab-margin-left;
+        border-radius: $tab-l0-border-radius;
+        background: $tab--disabled-gradient;
+        padding: $tab-l0-padding;
+        list-style: none;
+        cursor: pointer;
+        position: relative;
+        &::before {
+            @include zero-pos;
+            position: absolute;
+            box-sizing: border-box;
+            background: inherit;
+            width: $tab-l0-tilt-width;
+            border-radius: $tab-l0-tilt-radius;
+            transform: $tab-l0-tilt-skew;
+            height: 100%;
+            content: "";
+            z-index: -1;
+        }
+        &--selected {
+            background: $tab--selected-gradient;
+        }
+        &::focus {
+            outline: none;
+        }
     }
 }
 
 @mixin tab-l1 {
     display: inline-block;
     border-bottom: none;
-    border-right: $border $background-and-separator-color;
+    border-right: $border $main-background-color;
     position: relative;
     list-style: none;
-    padding: 3px 6px;
+    padding: $tab-l1-padding;
     cursor: pointer;
     position: static;
     &--selected {
-        background: $tabs-gradient;
+        background: $tab--selected-gradient;
     }
     &:focus {
         outline: none;
@@ -115,15 +152,15 @@ $main-windows-background-color: white;
 
 .conf-main {
     display: flex;
-    width: 1000px;
-    height: 700px;
-    padding: 10px;
-    background-color: $background-and-separator-color;
-    font-size: 14px;
+    width: $main-width;
+    height: $main-height;
+    padding: $main-padding;
+    background-color: $main-background-color;
+    font-size: $main-font-size;
 }
 
 .conf-main-left {
-    width: 70%;
+    width: $main-left-width;
 }
 
 .conf-main-left-top {
@@ -132,12 +169,7 @@ $main-windows-background-color: white;
         @include main-boxes(80%, 100%);
         flex-direction: column;
         &-list {
-            @include zero-m-and-p;
-            z-index: 0;
-            overflow: hidden;
-            &-tab {
-                @include tab-l0;
-            }
+            @include list-l0;
         }
         &-panel {
             flex: 1;
@@ -152,15 +184,14 @@ $main-windows-background-color: white;
     &-container--l1 {
         @include main-boxes(100%, 100%);
         flex-direction: column;
-        background-color: $main-windows-background-color;
+        background-color: $window-background-color;
         border: 1px solid $main-color-strong;
         border-radius: 10px;
         overflow: hidden;
         &-list {
             @include zero-m-and-p;
-            border-bottom: $main-windows-borders;
+            border-bottom: $main-window-border;
             background: linear-gradient(#666699, #6699cc);
-            padding-inline-start: 0px;
             &-tab {
                 @include tab-l1;
             }
@@ -176,7 +207,7 @@ $main-windows-background-color: white;
     
     }
     &-container--l2 {
-       @include horizontal-menu(true);
+       @include horizontal-menu($card-margin-top-menu);
     }
     .logo {
         height: 30%;
@@ -190,12 +221,7 @@ $main-windows-background-color: white;
         padding: 10px 0;
         flex-direction: column;
         &-list {
-            @include zero-m-and-p;
-            z-index: 0;
-            overflow: hidden;
-            &-tab {
-                @include tab-l0;
-            }
+            @include list-l0;
         }
         &-panel {
             @include main-left-windows;
@@ -225,7 +251,7 @@ $main-windows-background-color: white;
             &-top {
                 height: 20%;
                 margin: 0 20px;
-                background-color: $background-and-separator-color;
+                background-color: $main-background-color;
                 border-radius: 3px 3px 0 0;
                 box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray;
                 z-index: 1;
@@ -235,7 +261,7 @@ $main-windows-background-color: white;
                 display: flex;
                 height: 75%;
                 box-sizing: border-box;
-                background-color: $background-and-separator-color;
+                background-color: $main-background-color;
                 box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray, 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
                 border-radius: 3px;
                 z-index: 0;
@@ -243,7 +269,7 @@ $main-windows-background-color: white;
             &-bottom {
                 height: 5%;
                 margin: 0 10px;
-                background-color: $background-and-separator-color;
+                background-color: $main-background-color;
                 border-radius: 0 0 3px 3px;
                 box-shadow: 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
                 z-index: 1;
@@ -257,12 +283,7 @@ $main-windows-background-color: white;
         @include main-boxes(100%, 30%);
         flex-direction: column;
         &-list {
-            @include zero-m-and-p;
-            z-index: 0;
-            overflow: hidden;
-            &-tab {
-                @include tab-l0;
-            }
+            @include list-l0;
         }
         &-panel {
             @include main-left-windows;
@@ -277,9 +298,8 @@ $main-windows-background-color: white;
         flex-direction: column;
         &-list {
             @include zero-m-and-p;
-            border-bottom: $main-windows-borders;
+            border-bottom: $main-window-border;
             background: linear-gradient(#666699, #6699cc);
-            padding-inline-start: 0px;
             &-tab {
                 @include tab-l1;
             }
@@ -296,12 +316,12 @@ $main-windows-background-color: white;
     
     }
     &-container--l2 {
-       @include horizontal-menu;
+       @include horizontal-menu($card-margin-bottom-menu);
     }
 }
 
 .conf-main-right {
-    @include main-boxes(30%, 100%);
+    @include main-boxes($main-right-width, 100%);
     flex-direction: column;    
     padding-left: 5px; 
 }
@@ -378,7 +398,7 @@ $main-windows-background-color: white;
 .module-series-list-tabs {
     padding: 0;
     margin: 0;
-    border-bottom: $main-windows-borders;
+    border-bottom: $main-window-border;
     background: linear-gradient(#666699, #6699cc);
 }
 
@@ -402,7 +422,7 @@ $main-windows-background-color: white;
     padding: 9px;
     height: 100px;
     width: 100px;
-    background-color: $main-windows-background-color;
+    background-color: $window-background-color;
     
 }
 
@@ -413,7 +433,7 @@ $main-windows-background-color: white;
     border-radius: 5px;
     height: 108px;
     box-sizing: border-box;
-    background-color: $main-windows-background-color;
+    background-color: $window-background-color;
 }
 
 .signal-slot {
