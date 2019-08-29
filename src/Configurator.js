@@ -32,8 +32,14 @@ class Configurator extends Component {
 
   moduleChoiceHandler = (inf) => {
     inf.img="img/" + inf.TypeOfModules + "/" + inf.article.replace(/\s/g, "") + ".png";
-    const copyOfConf=this.state.Configurations.slice();
-    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot] = inf;
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));;
+    if (inf["slots-takes"] === 2) {
+      if (!copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot+1]) return;
+      copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot+1] = {...emptyConf.Modules[0], display: false}      
+    } else if (inf["slots-takes"] === 1 && copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot+1]) {
+      copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot+1].display = true;
+    }
+    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot] = {...copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfSelectedSlot], ...inf};
     this.setState({Configurations: copyOfConf})
   }
 

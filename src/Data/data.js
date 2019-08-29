@@ -168,64 +168,64 @@ const ModulesForBottomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
 			"1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "8639210",
 				"desc2" : "IPL blind slot",	
 			},
 			"2 slot width" : {
-				"soket-takes" : 2,
+				"slots-takes" : 2,
 				"article" : "8639211",
 				"desc2" : "IPL blind slot",	
 			},
 		},
 		"Video-/Audio" : {
 			"3xRCA, 1 slot width, solder version" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9233",
 				"desc2" : "IPL Signal Slot Video+Audio",
 			},
 			"1xRCA + 3,5mm jack, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9231",
 				"desc2" : "IPL Signal Slot Video+Aud. solder version",
 			},
 			"4pin MiniDIN, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9238",
 				"desc2" : "IPL Signal Slot S-Video solder version",
 			},
 			"4pin MiniDIN + 1xRCA, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9241",
 				"desc2" : "IPL Slot S-Video+Video solder version",
 			},
 			"4pin MiniDIN+1x3,5mm jack,  1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9246",
 				"desc2" : "IPL Slot S-Video+Audio solder version",
 			},
 			"4pin MiniDIN + 2xRCA R/L, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9248",
 				"desc2" : "IPL Slot S-Video+Audio solder version",
 			},
 			"4pin MiniDIN + 1xBNC, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9252",
 				"desc2" : "IPL Slot S-Video+Audio solder version",
 			},
 			"1xBNC, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9294",
 				"desc2" : "IPL Signal Slot Video solder flute1xBNC, 1 slot width",
 			},
 			"1xBNC + 2xRCA 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9297",
 				"desc2" : "IPL Signal Slot Video+Aud. sold. version",
 			},
 			"1xBNC + 3,5mm jack, 1 slot width" : {
-				"soket-takes" : 1,
+				"slots-takes" : 1,
 				"article" : "863 9310",
 				"desc2" : "IPL Signal Slot Video+Audio with Cable",
 			},

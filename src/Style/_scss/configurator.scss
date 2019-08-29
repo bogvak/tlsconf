@@ -1,10 +1,42 @@
 /***COLORS***/
 $main-color-strong: rgb(0, 102, 255);
 $main-color-lite: rgb(172, 206, 255);
-$alternative-color-strong: rgb(182, 182, 182);
-$alternative-color-lite: rgb(156, 156, 156);
 $main-background-color: rgb(223, 223, 223);
 $window-background-color: white;
+$main-shadow-color: gray;
+/***MENU***/
+$menu-height: 30%;
+$middle-height: 100% - $menu-height*2;
+/***BORDERS***/
+$border: 1px solid;
+$main-window-border: $border $main-color-strong;
+$main-window-border-radius: 10px;
+/***tab-background***/
+$tab--selected-gradient: linear-gradient($main-color-lite, $main-color-strong);
+$tab_l0--disabled-gradient: linear-gradient(rgb(156, 156, 156), rgb(182, 182, 182));
+$tab_l1--disabled-gradient: linear-gradient(#669, #69c);
+/***tab_l0***/
+$tab_l0-margin-left: 20px;
+$tab_l0-border-radius: 15px 3px 0 0;
+$tab_l0-padding: 1px 6px;
+/***tab_l0-tilt***/
+$tab_l0-tilt-width: 10px;
+$tab_l0-tilt-radius: 5px 0 0 0;
+$tab_l0-tilt-skew: skew(-30deg, 0);
+/***container_l1***/
+$container_l1-border-radius: 10px;
+/***tab_l1***/
+$tab_l1-padding: 3px 6px;
+/***horizontal-menu***/
+/***horizontal-menu-card***/
+$card-height: 129px;
+$card-padding: 2px;
+$card-margin-top-menu: 10px 2px;
+$card-margin-bottom-menu: 0 10px;
+/***logo***/
+$logo-height: 30%;
+$logo-padding: 23px 0 0 30px;
+
 /***conf-main***/
 $main-width: 1000px;
 $main-height: 700px;
@@ -12,33 +44,12 @@ $main-padding: 10px;
 $main-font-size: 14px;
 /***conf-main-left***/
 $main-left-width: 70%;
+/***conf-main-left-top***/
+/***conf-main-left-middle***/
+$main-left-middle-padding: 10px 0;
+/***conf-main-left-bottom***/
+/***conf-main-right***/
 $main-right-width: 100%-$main-left-width;
-/***BORDERS***/
-$border: 1px solid;
-$main-window-border: $border $main-color-strong;
-$main-window-border-radius: 10px;
-/***tab-background***/
-$tab--selected-gradient: linear-gradient($main-color-lite, $main-color-strong);
-$tab--disabled-gradient: linear-gradient($alternative-color-lite, $alternative-color-strong);
-/***tab-l0***/
-$tab-l0-border-radius: 15px 3px 0 0;
-$tab-l0-padding: 1px 6px;
-/***tab-l0-tilt***/
-$tab-l0-tilt-width: 10px;
-$tab-l0-tilt-radius: 5px 0 0 0;
-$tab-l0-tilt-skew: skew(-30deg, 0);
-/***tab-l1***/
-$tab-l1-padding: 3px 6px;
-/***horizontal-menu***/
-$horizontal-menu-padding: 13px 0;
-/***horizontal-menu-card***/
-$card-height: 120px;
-$card-padding: 2px 2px;
-$card-margin-top-menu: 0 2px;
-$card-margin-bottom-menu: 0 10px;
-$list-l0-tab-margin-left: 20px;
-
-/***BACKGROUND***/
 
 @mixin full-w-and-h {
     width: 100%;
@@ -84,8 +95,6 @@ $list-l0-tab-margin-left: 20px;
 }
 
 @mixin horizontal-menu($card-margin: 0) {
-    @include full-w-and-h;
-    padding: $horizontal-menu-padding;
     display: flex;
     overflow-x: scroll;
     box-sizing: border-box;
@@ -95,19 +104,20 @@ $list-l0-tab-margin-left: 20px;
         margin: $card-margin;
         height: $card-height;
         box-sizing: border-box;
+        border: $border transparent;
     }
 }
 
-@mixin list-l0 {
+@mixin list_l0 {
     @include zero-m-and-p;
     z-index: 0;
     overflow: hidden;
     &-tab{
         display: inline-block;
-        margin-left: $list-l0-tab-margin-left;
-        border-radius: $tab-l0-border-radius;
-        background: $tab--disabled-gradient;
-        padding: $tab-l0-padding;
+        margin-left: $tab_l0-margin-left;
+        border-radius: $tab_l0-border-radius;
+        background: $tab_l0--disabled-gradient;
+        padding: $tab_l0-padding;
         list-style: none;
         cursor: pointer;
         position: relative;
@@ -116,9 +126,9 @@ $list-l0-tab-margin-left: 20px;
             position: absolute;
             box-sizing: border-box;
             background: inherit;
-            width: $tab-l0-tilt-width;
-            border-radius: $tab-l0-tilt-radius;
-            transform: $tab-l0-tilt-skew;
+            width: $tab_l0-tilt-width;
+            border-radius: $tab_l0-tilt-radius;
+            transform: $tab_l0-tilt-skew;
             height: 100%;
             content: "";
             z-index: -1;
@@ -132,13 +142,13 @@ $list-l0-tab-margin-left: 20px;
     }
 }
 
-@mixin tab-l1 {
+@mixin tab_l1 {
     display: inline-block;
     border-bottom: none;
     border-right: $border $main-background-color;
     position: relative;
     list-style: none;
-    padding: $tab-l1-padding;
+    padding: $tab_l1-padding;
     cursor: pointer;
     position: static;
     &--selected {
@@ -164,12 +174,12 @@ $list-l0-tab-margin-left: 20px;
 }
 
 .conf-main-left-top {
-    @include main-boxes(100%, 30%);
-    &-container--l0 {
+    @include main-boxes(100%, $menu-height);
+    &-container_l0 {
         @include main-boxes(80%, 100%);
         flex-direction: column;
         &-list {
-            @include list-l0;
+            @include list_l0;
         }
         &-panel {
             flex: 1;
@@ -181,19 +191,19 @@ $list-l0-tab-margin-left: 20px;
             }
         }
     }
-    &-container--l1 {
+    &-container_l1 {
         @include main-boxes(100%, 100%);
         flex-direction: column;
         background-color: $window-background-color;
-        border: 1px solid $main-color-strong;
-        border-radius: 10px;
+        border: $main-window-border;
+        border-radius: $container_l1-border-radius;
         overflow: hidden;
         &-list {
             @include zero-m-and-p;
             border-bottom: $main-window-border;
-            background: linear-gradient(#666699, #6699cc);
+            background: $tab_l1--disabled-gradient;
             &-tab {
-                @include tab-l1;
+                @include tab_l1;
             }
         }
         &-panel {
@@ -206,22 +216,22 @@ $list-l0-tab-margin-left: 20px;
         }
     
     }
-    &-container--l2 {
+    &-container_l2 {
        @include horizontal-menu($card-margin-top-menu);
     }
     .logo {
-        height: 30%;
-        padding: 23px 0 0 30px;
+        height: $logo-height;
+        padding: $logo-padding;
     }
 }
 
 .conf-main-left-middle {
-    &-container--l0 {
-        @include main-boxes(100%, 40%);
-        padding: 10px 0;
+    &-container_l0 {
+        @include main-boxes(100%, $middle-height);
+        padding: $main-left-middle-padding;
         flex-direction: column;
         &-list {
-            @include list-l0;
+            @include list_l0;
         }
         &-panel {
             @include main-left-windows;
@@ -231,12 +241,9 @@ $list-l0-tab-margin-left: 20px;
             }
         }
     }
-    &-container--l1 {
+    &-container_l1 {
+        @include main-boxes(100%, 100%);
         padding: 10px;
-        display: flex;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
         &-desc {
             width: 20%;
             box-sizing: border-box;
@@ -279,11 +286,11 @@ $list-l0-tab-margin-left: 20px;
 }
 
 .conf-main-left-bottom {
-    &-container--l0 {
+    &-container_l0 {
         @include main-boxes(100%, 30%);
         flex-direction: column;
         &-list {
-            @include list-l0;
+            @include list_l0;
         }
         &-panel {
             @include main-left-windows;
@@ -293,7 +300,7 @@ $list-l0-tab-margin-left: 20px;
             }
         }
     }
-    &-container--l1 {
+    &-container_l1 {
         @include main-left-windows;
         flex-direction: column;
         &-list {
@@ -301,7 +308,7 @@ $list-l0-tab-margin-left: 20px;
             border-bottom: $main-window-border;
             background: linear-gradient(#666699, #6699cc);
             &-tab {
-                @include tab-l1;
+                @include tab_l1;
             }
         }
         &-panel {
@@ -315,7 +322,7 @@ $list-l0-tab-margin-left: 20px;
         }
     
     }
-    &-container--l2 {
+    &-container_l2 {
        @include horizontal-menu($card-margin-bottom-menu);
     }
 }
@@ -326,8 +333,35 @@ $list-l0-tab-margin-left: 20px;
     padding-left: 5px; 
 }
 
-.conf-main-right-top, .conf-main-right-bottom {
-    @include main-right-windows
+.conf-main-right-top {
+    @include main-right-windows;
+    padding: 5px;
+}
+
+.conf-main-right-bottom {
+    &-l0 {
+        @include main-boxes(100%, 100%);
+        flex-direction: column;
+        &-list {
+            @include list_l0;
+        }
+        &-panel {
+            flex: 1;
+            display: none;
+            @include main-right-windows;
+            &--selected {
+                display: block;
+            }
+        }
+    }
+    &-l1 {
+        &-platform-desc {
+            padding: 5px;
+        }
+        &-module {
+            padding: 0 5px;
+        }
+    }
 }
 
 /***** RESIZER FOR SPLIT PANE *****/
@@ -388,18 +422,15 @@ $list-l0-tab-margin-left: 20px;
 
 /***** CHANGE TABS STYLE *****/
 
-.module-series-list {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.module-series-list-tabs {
+.react-tabs__tab-list {
     padding: 0;
     margin: 0;
-    border-bottom: $main-window-border;
-    background: linear-gradient(#666699, #6699cc);
+    list-style-type: none;
+}
+
+.react-tabs__tab {
+    display: inline;
+    
 }
 
 /***** LEFT TOP WINDOW *****/
@@ -418,7 +449,7 @@ $list-l0-tab-margin-left: 20px;
     border: $border gray;
     border-collapse: collapse;
     box-sizing: border-box;
-    margin: 12px 4px;
+    margin: auto 4px;
     padding: 9px;
     height: 100px;
     width: 100px;
@@ -428,7 +459,7 @@ $list-l0-tab-margin-left: 20px;
 
 .box-for-signal-slots {
     padding: 0 8px;
-    margin: 8px 4px;
+    margin: auto 4px;
     border: $border gray;
     border-radius: 5px;
     height: 108px;
@@ -438,15 +469,12 @@ $list-l0-tab-margin-left: 20px;
 
 .signal-slot {
     box-sizing: border-box;
-    width: 30px;
     height: 106px;
 }
 
 .selected-signal-slot {
-    box-sizing: border-box;
-    z-index: 1;
-    width: 30px;
     height: 106px;
+    z-index: 1;
     box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
 }
 

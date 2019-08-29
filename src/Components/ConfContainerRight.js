@@ -33,11 +33,11 @@ class ConfContainerRightTop extends Component {
 class ConfContainerRightBottom extends Component {
   render() {
     return (
-      <Tabs className="conf-main-right-bottom">
-        <TabList>
-          {this.props.Configurations.map((conf, confNumber) => <Tab key={confNumber}>Configuration #{confNumber+1}</Tab>)}
+      <Tabs className="conf-main-right-bottom-l0">
+        <TabList className="conf-main-right-bottom-l0-list">
+          {this.props.Configurations.map((conf, confNumber) => <Tab className="conf-main-right-bottom-l0-list-tab" selectedClassName="conf-main-right-bottom-l0-list-tab--selected" key={confNumber}>Configuration #{confNumber+1}</Tab>)}
         </TabList>
-          {this.props.Configurations.map((conf, confNumber) => <TabPanel key={confNumber}><ConfList key={confNumber} Configuration={conf} /></TabPanel>)}
+          {this.props.Configurations.map((conf, confNumber) => <TabPanel className="conf-main-right-bottom-l0-panel" selectedClassName="conf-main-right-bottom-l0-panel--selected" key={confNumber}><ConfList key={confNumber} Configuration={conf} /></TabPanel>)}
       </Tabs>
     );
   }
@@ -52,9 +52,13 @@ class ConfList extends Component {
   }
   render() {
     return (
-      <div className="ConfList">
-        <div style={{backgroundColor: "white"}}>{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame<br/>{this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}</div>
-        {this.props.Configuration.Modules.map((module, index) => <div key={index} style={{backgroundColor: this.zebraColor(index)}}>{module.article}: {module.desc1}/{module.desc2}</div>)}
+      <div className="conf-main-right-bottom-l1">
+        <div className="conf-main-right-bottom-l1-platform-desc">{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame<br/>{this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}</div>
+        {this.props.Configuration.Modules.map((module, index) => {
+          return (
+            <div className="conf-main-right-bottom-l1-module" key={index} style={{backgroundColor: this.zebraColor(index)}}>{module.article}: {module.desc1}/{module.desc2}</div>
+          )
+        })}
       </div>
     );
   }
