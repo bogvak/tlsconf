@@ -53,11 +53,18 @@ class ConfList extends Component {
   render() {
     return (
       <div className="conf-main-right-bottom-l1">
-        <div className="conf-main-right-bottom-l1-platform-desc">{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame<br/>{this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}</div>
+        <h3 className="conf-main-right-bottom-l1-platform">{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:</h3>
+        <p className="conf-main-right-bottom-l1-platform-desc">
+          {this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}
+        </p>
         {this.props.Configuration.Modules.map((module, index) => {
-          return (
-            <div className="conf-main-right-bottom-l1-module" key={index} style={{backgroundColor: this.zebraColor(index)}}>{module.article}: {module.desc1}/{module.desc2}</div>
-          )
+          return (<li 
+            className="conf-main-right-bottom-l1-module" 
+            key={index} 
+            style={{backgroundColor: this.zebraColor(index)}}
+          >
+            {(module.article && module.desc) ? (module.article + "-" + module.desc) : (null)}
+          </li>)
         })}
       </div>
     );
@@ -65,4 +72,3 @@ class ConfList extends Component {
 }
 
 export default ConfContainerRight;
-  
