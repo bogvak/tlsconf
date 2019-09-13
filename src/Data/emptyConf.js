@@ -11,6 +11,7 @@ const emptyConf = {
       slotsTakes: null,
       article: null,
       img: null,
+      display: true,
     }],
 }
 
