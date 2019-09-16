@@ -258,11 +258,105 @@ const ModulesForBottomMenu = {
 				"article" : "863 9252",
 			},
 		},
-		"Analog-/Digital-/HDMI-/Control": {
-			"comments__": "There will be some Modules"
+		"Analogue-/Digital-/HDMI-/Control signal slots": {
+			"YUV slot female (isolated) 3 x RCA" : {
+				"slots-takes" : 1,
+				"article" : "863 9313",
+			},
+			"VGA slot female 15 pin HD" : {
+				"slots-takes" : 1,
+				"article" : "863 9256",
+			},
+			"VGA slot male 15 pin HD" : {
+				"slots-takes" : 1,
+				"article" : "863 9285",
+			},
+			"VGA + Audio slot female 15 pin HD/3,5 mm jack" : {
+				"slots-takes" : 1,
+				"article" : "863 9265",
+			},
+			"VGA + Audio slot male 15 pin HD/3,5 mm jack " : {
+				"slots-takes" : 1,
+				"article" : "863 9301",
+			},
+			"DVI-A slot female" : {
+				"slots-takes" : 1,
+				"article" : "863 9267",
+			},
+			"DVI-D slot female" : {
+				"slots-takes" : 1,
+				"article" : "863 9269",
+			},
+			"RGBHV slot female 5 x BNC (isolated)" : {
+				"slots-takes" : 2,
+				"article" : "863 9279",
+			},
+			"HDMI slot female" : {
+				"slots-takes" : 1,
+				"article" : "863 9336",
+			},
+			"Control slot female 9 pin D-Sub" : {
+				"slots-takes" : 1,
+				"article" : "863 9353",
+			},
 		},
-		"Computer" : {
-			"comments__": "There will be some Modules"
+		"Computer signal slots" : {
+			"Serial slot male 9 pin D-Sub" : {
+				"slots-takes" : 1,
+				"article" : "863 9262",
+			},
+			"Serial slot female 9 pin D-Sub" : {
+				"slots-takes" : 1,
+				"article" : "863 9288",
+			},
+			"PS/2 slot female 6 pin MIni DIN" : {
+				"slots-takes" : 1,
+				"article" : "863 9291",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
+			"" : {
+				"slots-takes" : 1,
+				"article" : "",
+			},
 		},
 		"AC outlets" : {
 			"comments__": "There will be some Modules"

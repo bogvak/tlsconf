@@ -346,7 +346,7 @@ class CurrentModulesBottom extends Component {
                             key={module}
                             src={this.props.CurrentModulesBottom[module].article ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module].article.replace(/\s/g, "") + ".png" : null}
                             onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc: module})}
-                            alt=""
+                            alt={this.props.CurrentModulesBottom[module].article}
                     />)
                 })}
             </div>

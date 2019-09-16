@@ -8,7 +8,7 @@ const emptyConf = {
     },
     IndexOfSelectedSlot: null,
     Modules: [{
-      slotsTakes: null,
+      "slots-takes": null,
       article: null,
       img: null,
       display: true,
