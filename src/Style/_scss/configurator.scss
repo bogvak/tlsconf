@@ -1,376 +1,73 @@
-/***COLORS***/
+/*** COLORS ***/
+$main-color: #0180BE;
+$main-color-dark1: #166C96;
+$main-color-dark2: #275972;
+$main-color-dark3: #324953;
+$main-color-dark4: #393939;
+$main-color-light1: #48A0B9;
+$main-color-light2: #86B7BD;
+$main-color-light3: #BACBCC;
+$main-color-light4: #E4E4E4;
 $main-color-strong: rgb(0, 102, 255);
-$main-color-lite: rgb(172, 206, 255);
-$main-background-color: rgb(223, 223, 223);
-$window-background-color: white;
-$main-shadow-color: gray;
+$main-color-light: rgb(172, 206, 255);
+$darkgrey: #333;
+$background-and-separator-color:  $main-color-light4;
+
 /***MENU***/
 $menu-height: 30%;
 $middle-height: 100% - $menu-height*2;
 /***BORDERS***/
 $border: 1px solid;
-$main-window-border: $border $main-color-strong;
-$main-window-border-radius: 10px;
+$border-panel: 1px solid $main-color-light2;
+$main-windows-borders: $border $main-color-strong;
+$border-radius-value: 3px;
 /***tab-background***/
-$tab--selected-gradient: linear-gradient($main-color-lite, $main-color-strong);
-$tab_l0--disabled-gradient: linear-gradient(rgb(156, 156, 156), rgb(182, 182, 182));
-$tab_l1--disabled-gradient: linear-gradient(#669, #69c);
-/***tab_l0***/
-$tab_l0-margin-left: 20px;
-$tab_l0-border-radius: 15px 3px 0 0;
-$tab_l0-padding: 1px 6px;
+$tabs-gradient: linear-gradient($main-color-light4, $main-color-light3);
+$tabs-panel-gradient: linear-gradient($main-color-light2, $main-color-light3);
+$main-windows-background-color: white;
 /***tab_l0-tilt***/
 $tab_l0-tilt-width: 10px;
 $tab_l0-tilt-radius: 5px 0 0 0;
 $tab_l0-tilt-skew: skew(-30deg, 0);
-/***container_l1***/
-$container_l1-border-radius: 10px;
 /***tab_l1***/
-$tab_l1-padding: 3px 6px;
-/***horizontal-menu***/
+$main-padding: 5px;
+$menu-paddings: 3px 5px 3px 5px;
+$panels-padding: 5px;
 /***horizontal-menu-card***/
 $card-height: 129px;
 $card-padding: 2px;
 $card-margin-top-menu: 10px 2px;
 $card-margin-bottom-menu: 0 10px;
-/***logo***/
-$logo-height: 30%;
-$logo-padding: 23px 0 0 30px;
-
-/***conf-main***/
-$main-width: 1000px;
-$main-height: 700px;
-$main-padding: 10px;
-$main-font-size: 14px;
 /***conf-main-left***/
 $main-left-width: 70%;
-/***conf-main-left-top***/
-/***conf-main-left-middle***/
-$main-left-middle-padding: 10px 0;
-/***conf-main-left-bottom***/
 /***conf-main-right***/
 $main-right-width: 100%-$main-left-width;
 
-@mixin full-w-and-h {
-    width: 100%;
-    height: 100%;
+@import 'mixins';
+
+/* FONT INTER */
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif;}
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
 }
 
-@mixin zero-m-and-p {
-    margin: 0;
-    padding: 0;
+body {
+    font-family: 'Inter';
+    font-weight: 500;
 }
-
-@mixin zero-pos {
-    left: 0;
-    top: 0;
-}
-
-/***MAIN BOXES***/
-@mixin main-boxes($width, $height) {
-    height: $height;
-    width: $width;
-    display: flex;
-    box-sizing: border-box;
-}
-
-@mixin main-window {
-    box-sizing: border-box;
-    background-color: $window-background-color;
-    border: $main-window-border;
-    border-radius: $main-window-border-radius;
-    overflow: hidden;
-}
-
-@mixin main-left-windows {
-    @include main-window;
-    width: 100%;
-    display: flex;
-    flex: 1;
-}
-
-@mixin main-right-windows {
-    @include main-window;
-    @include full-w-and-h;
-}
-
-@mixin horizontal-menu($card-margin: 0) {
-    display: flex;
-    overflow-x: scroll;
-    box-sizing: border-box;
-    flex: 1;
-    &-card {
-        padding: $card-padding;
-        margin: $card-margin;
-        height: $card-height;
-        box-sizing: border-box;
-        border: $border transparent;
-    }
-}
-
-@mixin list_l0 {
-    @include zero-m-and-p;
-    z-index: 0;
-    overflow: hidden;
-    &-tab{
-        display: inline-block;
-        margin-left: $tab_l0-margin-left;
-        border-radius: $tab_l0-border-radius;
-        background: $tab_l0--disabled-gradient;
-        padding: $tab_l0-padding;
-        list-style: none;
-        cursor: pointer;
-        position: relative;
-        &::before {
-            @include zero-pos;
-            position: absolute;
-            box-sizing: border-box;
-            background: inherit;
-            width: $tab_l0-tilt-width;
-            border-radius: $tab_l0-tilt-radius;
-            transform: $tab_l0-tilt-skew;
-            height: 100%;
-            content: "";
-            z-index: -1;
-        }
-        &--selected {
-            background: $tab--selected-gradient;
-        }
-        &::focus {
-            outline: none;
-        }
-    }
-}
-
-@mixin tab_l1 {
-    display: inline-block;
-    border-bottom: none;
-    border-right: $border $main-background-color;
-    position: relative;
-    list-style: none;
-    padding: $tab_l1-padding;
-    cursor: pointer;
-    position: static;
-    &--selected {
-        background: $tab--selected-gradient;
-    }
-    &:focus {
-        outline: none;
-    }
-}
-
 
 .conf-main {
     display: flex;
-    width: $main-width;
-    height: $main-height;
+    width: 1000px;
+    height: 700px;
     padding: $main-padding;
-    background-color: $main-background-color;
-    font-size: $main-font-size;
+    background-color: $background-and-separator-color;
+    font-size: 12px;
 }
 
-.conf-main-left {
-    width: $main-left-width;
-}
-
-.conf-main-left-top {
-    @include main-boxes(100%, $menu-height);
-    &-container_l0 {
-        @include main-boxes(80%, 100%);
-        flex-direction: column;
-        &-list {
-            @include list_l0;
-        }
-        &-panel {
-            flex: 1;
-            display: none;
-            box-sizing: border-box;
-            overflow: hidden;
-            &--selected {
-                display: flex;
-            }
-        }
-    }
-    &-container_l1 {
-        @include main-boxes(100%, 100%);
-        flex-direction: column;
-        background-color: $window-background-color;
-        border: $main-window-border;
-        border-radius: $container_l1-border-radius;
-        overflow: hidden;
-        &-list {
-            @include zero-m-and-p;
-            border-bottom: $main-window-border;
-            background: $tab_l1--disabled-gradient;
-            &-tab {
-                @include tab_l1;
-            }
-        }
-        &-panel {
-            display: none;
-            box-sizing: border-box;
-            &--selected {
-                flex: 1;
-                display: block;
-            }
-        }
-    
-    }
-    &-container_l2 {
-       @include horizontal-menu($card-margin-top-menu);
-    }
-    .logo {
-        height: $logo-height;
-        padding: $logo-padding;
-    }
-}
-
-.conf-main-left-middle {
-    &-container_l0 {
-        @include main-boxes(100%, $middle-height);
-        padding: $main-left-middle-padding;
-        flex-direction: column;
-        &-list {
-            @include list_l0;
-        }
-        &-panel {
-            @include main-left-windows;
-            display: none;
-            &--selected {
-                display: flex;
-            }
-        }
-    }
-    &-container_l1 {
-        @include main-boxes(100%, 100%);
-        padding: 10px;
-        &-desc {
-            width: 20%;
-            box-sizing: border-box;
-            height: 100%;
-        }
-        &-layout {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            padding: 0 5px;
-            &-top {
-                height: 20%;
-                margin: 0 20px;
-                background-color: $main-background-color;
-                border-radius: 3px 3px 0 0;
-                box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray;
-                z-index: 1;
-            }
-            &-middle {
-                padding: 20px 0;
-                display: flex;
-                height: 75%;
-                box-sizing: border-box;
-                background-color: $main-background-color;
-                box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray, 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
-                border-radius: 3px;
-                z-index: 0;
-            }
-            &-bottom {
-                height: 5%;
-                margin: 0 10px;
-                background-color: $main-background-color;
-                border-radius: 0 0 3px 3px;
-                box-shadow: 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
-                z-index: 1;
-            }
-        }
-    }
-}
-
-.conf-main-left-bottom {
-    &-container_l0 {
-        @include main-boxes(100%, 30%);
-        flex-direction: column;
-        &-list {
-            @include list_l0;
-        }
-        &-panel {
-            @include main-left-windows;
-            display: none;
-            &--selected {
-                display: flex;
-            }
-        }
-    }
-    &-container_l1 {
-        @include main-left-windows;
-        flex-direction: column;
-        &-list {
-            @include zero-m-and-p;
-            border-bottom: $main-window-border;
-            background: linear-gradient(#666699, #6699cc);
-            &-tab {
-                @include tab_l1;
-            }
-        }
-        &-panel {
-            flex: 1;
-            width: 100%;
-            display: none;
-            box-sizing: border-box;
-            &--selected {
-                display: block;
-            }
-        }
-    
-    }
-    &-container_l2 {
-       @include horizontal-menu($card-margin-bottom-menu);
-    }
-}
-
-.conf-main-right {
-    @include main-boxes($main-right-width, 100%);
-    flex-direction: column;    
-    padding-left: 5px; 
-}
-
-.conf-main-right-top {
-    @include main-right-windows;
-    padding: 5px;
-}
-
-.conf-main-right-bottom {
-    &-l0 {
-        @include main-boxes(100%, 100%);
-        flex-direction: column;
-        &-list {
-            @include list_l0;
-        }
-        &-panel {
-            flex: 1;
-            display: none;
-            @include main-right-windows;
-            &--selected {
-                display: block;
-            }
-        }
-    }
-    &-l1 {
-        @include zero-m-and-p;
-
-        &-platform {
-            padding: 5px;
-            margin: 0;
-            &-desc {
-                margin: 0;
-                padding: 5px;
-            }
-        }
-        &-module {
-            padding: 0 5px;
-            list-style-type: decimal;
-        }
-    }
-}
+@import 'conf-main-left';
+@import 'conf-main-right';
 
 /***** RESIZER FOR SPLIT PANE *****/
 
@@ -430,15 +127,18 @@ $main-right-width: 100%-$main-left-width;
 
 /***** CHANGE TABS STYLE *****/
 
-.react-tabs__tab-list {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
+.module-series-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.react-tabs__tab {
-    display: inline;
-    
+.module-series-list-tabs {
+    padding: 0;
+    margin: 0;
+    border-bottom: $main-windows-borders;
+    background: linear-gradient(#666699, #6699cc);
 }
 
 /***** LEFT TOP WINDOW *****/
@@ -457,22 +157,22 @@ $main-right-width: 100%-$main-left-width;
     border: $border gray;
     border-collapse: collapse;
     box-sizing: border-box;
-    margin: auto 4px;
+    margin: 12px 4px;
     padding: 9px;
     height: 100px;
     width: 100px;
-    background-color: $window-background-color;
+    background-color: $main-windows-background-color;
     
 }
 
 .box-for-signal-slots {
     padding: 0 8px;
-    margin: auto 4px;
+    margin: 8px 4px;
     border: $border gray;
     border-radius: 5px;
     height: 108px;
     box-sizing: border-box;
-    background-color: $window-background-color;
+    background-color: $main-windows-background-color;
 }
 
 .signal-slot {
@@ -481,8 +181,8 @@ $main-right-width: 100%-$main-left-width;
 }
 
 .selected-signal-slot {
-    height: 106px;
     z-index: 1;
+    height: 106px;
     box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
 }
 
@@ -531,4 +231,13 @@ $main-right-width: 100%-$main-left-width;
     margin: 0;
     padding: 0;
     z-index: 0;
+}
+
+.horizontal-scrolling__wrapper{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.simplebar-scrollbar:before {
+  background: $main-color;
 }

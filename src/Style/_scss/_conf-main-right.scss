@@ -1,0 +1,44 @@
+.conf-main-right {
+    @include main-boxes($main-right-width, 100%);
+    flex-direction: column;    
+    padding-left: 5px; 
+}
+
+.conf-main-right-top {
+    @include main-right-windows;
+    padding: 5px;
+}
+
+.conf-main-right-bottom {
+    &_l0 {
+        @include main-boxes(100%, 100%);
+        flex-direction: column;
+        &-list {
+            @include list_l0;
+        }
+        &-panel {
+            flex: 1;
+            @include main-right-windows;
+            display: none;
+            &--selected {
+                display: block;
+            }
+        }
+    }
+    &_l1 {
+        @include zero-m-and-p;
+
+        &-platform {
+            padding: 5px;
+            margin: 0;
+            &-desc {
+                margin: 0;
+                padding: 5px;
+            }
+        }
+        &-module {
+            padding: 0 5px;
+            list-style-type: decimal;
+        }
+    }
+}

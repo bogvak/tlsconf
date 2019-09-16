@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
-import './Style/configurator.css';
+
 //Data
 import {TypeOfFrame, ModulesContent, ModulesForBottomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
+
+//SimpleBar
+import SimpleBar from 'simplebar-react';
+
+//CSS
+import 'simplebar/dist/simplebar.min.css';
+import './Style/configurator.css';
 
 class Configurator extends Component {
   

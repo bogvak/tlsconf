@@ -5,18 +5,15 @@ class ConfContainerLeft extends Component {
     render() {
         return (
             <div className="conf-main-left">
-                <div className="conf-main-left-top">
-                    <ConfContainerLeftTop
-                        TypeOfFrame={this.props.TypeOfFrame}
-                        LocalStrings={this.props.LocalStrings}
-                        ModulesContent={this.props.ModulesContent}
-                        Language={this.props.Language}
-                        desc={this.props.Configuration.PlatformСhoiceDesc.desc}
-                        //Handlers
-                        PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
-                    />
-                    <img className="logo" src={"img/logo.png"} alt="logo" />
-                </div>
+                <ConfContainerLeftTop
+                    TypeOfFrame={this.props.TypeOfFrame}
+                    LocalStrings={this.props.LocalStrings}
+                    ModulesContent={this.props.ModulesContent}
+                    Language={this.props.Language}
+                    desc={this.props.Configuration.PlatformСhoiceDesc.desc}
+                    //Handlers
+                    PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
+                />
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
                     Configuration={this.props.Configuration}
