@@ -1,0 +1,113 @@
+@mixin zero-m-and-p {
+    margin: 0;
+    padding: 0;
+}
+
+/***MAIN BOXES***/
+@mixin main-boxes($width, $height) {
+    height: $height;
+    width: $width;
+    display: flex;
+    box-sizing: border-box;
+}
+
+@mixin main-windows-no-borders {
+    box-sizing: border-box;
+    background-color: $main-windows-background-color;
+    border-radius: $border-radius-value;
+    overflow: hidden;
+}
+
+@mixin main-windows {
+    @include main-windows-no-borders;
+    border: $border-panel;
+}
+
+@mixin main-left-windows-source {
+    width: 100%;
+    display: flex;
+    flex: 1;
+}
+
+@mixin main-left-windows-no-borders {
+    @include main-windows-no-borders;
+    @include main-left-windows-source;
+}
+
+@mixin main-left-windows {
+    @include main-windows;
+    @include main-left-windows-source;
+}
+
+@mixin main-right-windows {
+    @include main-windows;
+    height: 100%;
+    padding: 10px;
+}
+
+@mixin horizontal-menu($is-top: false) {
+    // padding: 13px;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    // overflow-x: scroll;
+    box-sizing: border-box;
+    flex: 1;
+    &-card {
+        @if $is-top {
+            padding: 2px 2px;
+        } @else {
+            padding: 2px 20px;
+        }
+        box-sizing: border-box;
+        height: 120px;
+        width: auto;
+    }
+}
+
+@mixin tab-l0 {
+    display: inline-block;
+    margin-left: 10px;
+    border-radius: 15px 3px 0 0;
+    background: $tabs-panel-gradient;
+    padding: $menu-paddings;
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    &::before {
+        position: absolute;
+        box-sizing: border-box;
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 100%;
+        content: "";
+        transform: skewX(-30deg);
+        border-top-left-radius: 5px;
+        background: inherit;
+        z-index: -1;
+    }
+    &--selected {
+        background: $tabs-gradient;
+    }
+    &::focus {
+        outline: none;
+    }
+}
+
+@mixin tab-l1 {
+    display: inline-block;
+    border-bottom: none;
+    border-right: $border $background-and-separator-color;
+    position: relative;
+    list-style: none;
+    padding: $menu-paddings;
+    cursor: pointer;
+    position: static;
+    &--selected {
+        background: $tabs-gradient;
+    }
+    &:focus {
+        outline: none;
+    }
+}

@@ -1,0 +1,9 @@
+.conf-main-right {
+    @include main-boxes(30%, 100%);
+    flex-direction: column;    
+    padding-left: $main-padding; 
+}
+
+.conf-main-right-top, .conf-main-right-bottom {
+    @include main-right-windows
+}

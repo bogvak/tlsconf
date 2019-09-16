@@ -15,7 +15,6 @@ class ConfContainerLeft extends Component {
                         //Handlers
                         PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
                     />
-                    <img className="logo" src={"img/logo.png"} alt="logo" />
                 </div>
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
@@ -105,30 +104,32 @@ class ModuleSeriesListTop extends Component {
 class CurrentSeriesTop extends Component {
     render() {
         return (
-            <div className="conf-main-left-top-container--l2">
-                {Object.keys(this.props.CurrentSeriesTop).map((item) => {
-                    if (this.props.CurrentSeriesTop[item].article && this.props.line) {
-                        return (<img
-                            className="conf-main-left-top-container--l2-card"
-                            alt="" 
-                            src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
-                            style={ 
-                                (item===this.props.desc) ? {border: "1px solid rgb(243, 103, 220)"} : null
-                            } 
-                            key={item} 
-                            onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} 
-                            />)
-                    } else {
-                        return (<div 
-                            className="conf-main-left-top-container--l2-card" 
-                            style={ 
-                                (item===this.props.desc) ? {border: "1px solid rgb(243, 103, 220)"} : null
-                            } 
-                            key={item} 
-                            onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}
-                        </div>)
-                    };
-                })}
+            <div data-simplebar className="conf-main-left-top-container--l2">
+                <div class='horizontal-scrolling__wrapper'>
+                    {Object.keys(this.props.CurrentSeriesTop).map((item) => {
+                        if (this.props.CurrentSeriesTop[item].article && this.props.line) {
+                            return (<img
+                                className="conf-main-left-top-container--l2-card"
+                                alt="" 
+                                src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
+                                style={ 
+                                    (item===this.props.desc) ? {border: "1px solid rgb(243, 103, 220)"} : null
+                                } 
+                                key={item} 
+                                onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} 
+                                />)
+                        } else {
+                            return (<div 
+                                className="conf-main-left-top-container--l2-card" 
+                                style={ 
+                                    (item===this.props.desc) ? {border: "1px solid rgb(243, 103, 220)"} : null
+                                } 
+                                key={item} 
+                                onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}
+                            </div>)
+                        };
+                    })}
+                </div>
             </div>
         );
     }

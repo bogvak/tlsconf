@@ -1,0 +1,181 @@
+.conf-main-left {
+    width: 70%;
+
+    &-top {
+        @include main-boxes(100%, 30%);
+        &-container--l0 {
+            @include main-boxes(100%, 100%);
+            flex-direction: column;
+            &-list {
+                @include zero-m-and-p;
+                z-index: 0;
+                overflow: hidden;
+                &-tab {
+                    @include tab-l0;
+                }
+            }
+            &-panel {
+                flex: 1;
+                display: none;
+                box-sizing: border-box;
+                overflow: hidden;
+                &--selected {
+                    display: flex;
+                }
+            }
+        }
+        &-container--l1 {
+            @include main-boxes(100%, 100%);
+            flex-direction: column;
+            background-color: $main-windows-background-color;
+            border: $border-panel;
+            border-radius: $border-radius-value;
+            overflow: hidden;
+            &-list {
+                @include zero-m-and-p;
+                border-bottom: $border-panel;
+                background: $tabs-panel-gradient;
+                padding-inline-start: 0px;
+                &-tab {
+                    @include tab-l1;
+                }
+            }
+            &-panel {
+                display: none;
+                box-sizing: border-box;
+                padding: $panels-padding;
+                &--selected {
+                    flex: 1;
+                    display: block;
+                }
+            }
+        
+        }
+        &-container--l2 {
+           @include horizontal-menu(true);
+        }
+        .logo {
+            height: 30%;
+            padding: 23px 0 0 30px;
+        }
+    }
+
+    &-middle {
+        &-container--l0 {
+            @include main-boxes(100%, 40%);
+            padding: $main-padding 0;
+            flex-direction: column;
+            &-list {
+                @include zero-m-and-p;
+                z-index: 0;
+                overflow: hidden;
+                &-tab {
+                    @include tab-l0;
+                }
+            }
+            &-panel {
+                @include main-left-windows;
+                padding: $panels-padding;
+                display: none;
+                &--selected {
+                    display: flex;
+                }
+            }
+        }
+        &-container--l1 {
+            padding: 10px;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            &-desc {
+                width: 20%;
+                box-sizing: border-box;
+                height: 100%;
+            }
+            &-layout {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 0 5px;
+                &-top {
+                    height: 20%;
+                    margin: 0 20px;
+                    background-color: $background-and-separator-color;
+                    border-radius: 3px 3px 0 0;
+                    box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray;
+                    z-index: 1;
+                }
+                &-middle {
+                    padding: 20px 0;
+                    display: flex;
+                    height: 75%;
+                    box-sizing: border-box;
+                    background-color: $background-and-separator-color;
+                    box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray, 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
+                    border-radius: 3px;
+                    z-index: 0;
+                }
+                &-bottom {
+                    height: 5%;
+                    margin: 0 10px;
+                    background-color: $background-and-separator-color;
+                    border-radius: 0 0 3px 3px;
+                    box-shadow: 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+
+    &-bottom {
+        &-container--l0 {
+            @include main-boxes(100%, 30%);
+            flex-direction: column;
+            &-list {
+                @include zero-m-and-p;
+                z-index: 0;
+                overflow: hidden;
+                &-tab {
+                    @include tab-l0;
+                }
+            }
+            &-panel {
+                @include main-left-windows-no-borders;
+                display: none;
+                &--selected {
+                    display: flex;
+                }
+            }
+        }
+        &-container--l1 {
+            @include main-left-windows;
+            flex-direction: column;
+            &-list {
+                @include zero-m-and-p;
+                border-bottom: $border-panel;
+                background: $tabs-panel-gradient;
+                padding-inline-start: 0px;
+                &-tab {
+                    @include tab-l1;
+                }
+            }
+            &-panel {
+                flex: 1;
+                width: 100%;
+                padding: $panels-padding;
+                display: none;
+                box-sizing: border-box;
+                &--selected {
+                    display: block;
+                }
+            }
+        
+        }
+        &-container--l2 {
+           @include horizontal-menu;
+        }
+    }
+
+}
