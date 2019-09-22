@@ -102,30 +102,32 @@ class ModuleSeriesListTop extends Component {
 class CurrentSeriesTop extends Component {
     render() {
         return (
-            <div className="conf-main-left-top-container_l2">
-                {Object.keys(this.props.CurrentSeriesTop).map((item) => {
-                    if (this.props.CurrentSeriesTop[item].article && this.props.line) {
-                        return (<img
-                            className="conf-main-left-top-container_l2-card"
-                            alt="" 
-                            src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
-                            style={{
-                                borderColor: (item===this.props.desc) ?  "rgb(243, 103, 220)" : null
-                            }}
-                            key={item} 
-                            onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} 
-                            />)
-                    } else {
-                        return (<div 
-                            className="conf-main-left-top-container_l2-card" 
-                            style={{
-                                borderColor: (item===this.props.desc) ?  "rgb(243, 103, 220)" : null
-                            }}
-                            key={item} 
-                            onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}
-                        </div>)
-                    };
-                })}
+            <div data-simplebar className="conf-main-left-top-container_l2">
+                <div class='horizontal-scrolling__wrapper'>
+                    {Object.keys(this.props.CurrentSeriesTop).map((item) => {
+                        if (this.props.CurrentSeriesTop[item].article && this.props.line) {
+                            return (<img
+                                className="conf-main-left-top-container_l2-card"
+                                alt="" 
+                                src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
+                                style={{
+                                    borderColor: (item===this.props.desc) ?  "rgb(243, 103, 220)" : null
+                                }}
+                                key={item} 
+                                onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} 
+                                />)
+                        } else {
+                            return (<div 
+                                className="conf-main-left-top-container_l2-card" 
+                                style={{
+                                    borderColor: (item===this.props.desc) ?  "rgb(243, 103, 220)" : null
+                                }}
+                                key={item} 
+                                onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}
+                            </div>)
+                        };
+                    })}
+                </div>
             </div>
         );
     }
@@ -336,16 +338,18 @@ class ModuleSeriesListBottom extends Component {
 class CurrentModulesBottom extends Component {
     render () {
         return (
-            <div className="conf-main-left-bottom-container_l2">
-                {Object.keys(this.props.CurrentModulesBottom).map((module) => {
-                    return (<img 
-                            className="conf-main-left-bottom-container_l2-card"
-                            key={module}
-                            src={this.props.CurrentModulesBottom[module].article ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module].article.replace(/\s/g, "") + ".png" : null}
-                            onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc: module})}
-                            alt={this.props.CurrentModulesBottom[module].article}
-                    />)
-                })}
+            <div data-simplebar className="conf-main-left-bottom-container_l2">
+                <div class='horizontal-scrolling__wrapper'>
+                    {Object.keys(this.props.CurrentModulesBottom).map((module) => {
+                        return (<img 
+                                className="conf-main-left-bottom-container_l2-card"
+                                key={module}
+                                src={this.props.CurrentModulesBottom[module].article ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module].article.replace(/\s/g, "") + ".png" : null}
+                                onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc: module})}
+                                alt={this.props.CurrentModulesBottom[module].article}
+                        />)
+                    })}
+                </div>
             </div>
         );
     }
