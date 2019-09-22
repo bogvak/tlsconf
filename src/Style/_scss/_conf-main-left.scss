@@ -6,6 +6,7 @@
             flex-direction: column;
             &-list {
                 @include list_l0;
+
             }
             &-panel {
                 flex: 1;
@@ -18,6 +19,7 @@
             }
         }
         &-container_l1 {
+
             @include main-boxes(100%, 100%);
             flex-direction: column;
             background-color: $main-windows-background-color;
@@ -45,6 +47,7 @@
         
         }
         &-container_l2 {
+        
            @include horizontal-menu(true);
         }
         .logo {
@@ -55,6 +58,7 @@
 
     &-middle {
         &-container_l0 {
+
             @include main-boxes(100%, 40%);
             padding: $main-padding 0;
             flex-direction: column;
@@ -71,6 +75,7 @@
             }
         }
         &-container_l1 {
+
             padding: 10px;
             display: flex;
             width: 100%;
@@ -123,6 +128,7 @@
             flex-direction: column;
             &-list {
                 @include list_l0;
+
             }
             &-panel {
                 @include main-left-windows-no-borders;
@@ -133,6 +139,7 @@
             }
         }
         &-container_l1 {
+
             @include main-left-windows;
             flex-direction: column;
             &-list {
@@ -142,6 +149,7 @@
                 padding-inline-start: 0px;
                 &-tab {
                     @include tab_l1;
+
                 }
             }
             &-panel {

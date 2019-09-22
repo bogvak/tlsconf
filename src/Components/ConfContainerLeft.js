@@ -354,5 +354,4 @@ class CurrentModulesBottom extends Component {
         );
     }
 }
-
 export default ConfContainerLeft;

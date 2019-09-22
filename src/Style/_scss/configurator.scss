@@ -56,7 +56,6 @@ body {
     font-family: 'Inter';
     font-weight: 500;
 }
-
 .conf-main {
     display: flex;
     width: 1000px;
@@ -177,6 +176,7 @@ body {
 
 .signal-slot {
     box-sizing: border-box;
+    width: 30px;
     height: 106px;
 }
 
