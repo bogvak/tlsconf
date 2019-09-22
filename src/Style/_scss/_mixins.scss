@@ -7,7 +7,6 @@
     left: 0;
     top: 0;
 }
-
 /***MAIN BOXES***/
 @mixin main-boxes($width, $height) {
     height: $height;
@@ -113,8 +112,8 @@
         }
     }
 }
-
 @mixin tab_l1 {
+
     display: inline-block;
     border-bottom: none;
     border-right: $border $background-and-separator-color;
