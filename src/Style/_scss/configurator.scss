@@ -13,27 +13,41 @@ $main-color-light: rgb(172, 206, 255);
 $darkgrey: #333;
 $background-and-separator-color:  $main-color-light4;
 
-/*** BORDERS ***/
+/***MENU***/
+$menu-height: 30%;
+$middle-height: 100% - $menu-height*2;
+/***BORDERS***/
 $border: 1px solid;
 $border-panel: 1px solid $main-color-light2;
 $main-windows-borders: $border $main-color-strong;
 $border-radius-value: 3px;
-
-/*** BACKGROUND ***/
+/***tab-background***/
 $tabs-gradient: linear-gradient($main-color-light4, $main-color-light3);
 $tabs-panel-gradient: linear-gradient($main-color-light2, $main-color-light3);
 $main-windows-background-color: white;
-
-/*** PADDINGS ***/
-$main-padding: 15px;
-$menu-paddings: 5px 10px 5px 10px;
+/***tab_l0-tilt***/
+$tab_l0-tilt-width: 10px;
+$tab_l0-tilt-radius: 5px 0 0 0;
+$tab_l0-tilt-skew: skew(-30deg, 0);
+/***tab_l1***/
+$main-padding: 5px;
+$menu-paddings: 3px 5px 3px 5px;
 $panels-padding: 5px;
+/***horizontal-menu-card***/
+$card-height: 129px;
+$card-padding: 2px;
+$card-margin-top-menu: 10px 2px;
+$card-margin-bottom-menu: 0 10px;
+/***conf-main-left***/
+$main-left-width: 70%;
+/***conf-main-right***/
+$main-right-width: 100%-$main-left-width;
 
 @import 'mixins';
 
 /* FONT INTER */
 @import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
+html { font-family: 'Inter', sans-serif;}
 @supports (font-variation-settings: normal) {
   html { font-family: 'Inter var', sans-serif; }
 }
@@ -42,7 +56,6 @@ body {
     font-family: 'Inter';
     font-weight: 500;
 }
-
 .conf-main {
     display: flex;
     width: 1000px;
@@ -168,9 +181,7 @@ body {
 }
 
 .selected-signal-slot {
-    box-sizing: border-box;
     z-index: 1;
-    width: 30px;
     height: 106px;
     box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
 }

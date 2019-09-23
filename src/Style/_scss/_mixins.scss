@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+@mixin zero-pos {
+    left: 0;
+    top: 0;
+}
 /***MAIN BOXES***/
 @mixin main-boxes($width, $height) {
     height: $height;
@@ -39,10 +43,18 @@
     @include main-left-windows-source;
 }
 
+@mixin main-right-windows-source {
+    width: 100%;
+}
+
+@mixin main-right-windows-no-borders {
+    @include main-right-windows-no-borders;
+    @include main-right-windows-source;
+}
+
 @mixin main-right-windows {
     @include main-windows;
-    height: 100%;
-    padding: 10px;
+    @include main-right-windows-source;
 }
 
 @mixin horizontal-menu($is-top: false) {
@@ -56,46 +68,53 @@
     &-card {
         @if $is-top {
             padding: 2px 2px;
+            height: 140px;
         } @else {
-            padding: 2px 20px;
+            padding: 2px 10px;
+            height: 120px;
         }
         box-sizing: border-box;
-        height: 120px;
         width: auto;
+        border: 1px solid transparent;
     }
 }
 
-@mixin tab-l0 {
-    display: inline-block;
-    margin-left: 10px;
-    border-radius: 15px 3px 0 0;
-    background: $tabs-panel-gradient;
-    padding: $menu-paddings;
-    list-style: none;
-    cursor: pointer;
-    position: relative;
-    &::before {
-        position: absolute;
-        box-sizing: border-box;
-        left: 0;
-        top: 0;
-        width: 10px;
-        height: 100%;
-        content: "";
-        transform: skewX(-30deg);
-        border-top-left-radius: 5px;
-        background: inherit;
-        z-index: -1;
-    }
-    &--selected {
-        background: $tabs-gradient;
-    }
-    &::focus {
+@mixin list_l0 {
+    @include zero-m-and-p;
+    z-index: 0;
+    overflow: hidden;
+    &-tab{
+        display: inline-block;
+        margin-left: 10px;
+        border-radius: 15px 3px 0 0;
+        background: $tabs-panel-gradient;
+        padding: $menu-paddings;
+        list-style: none;
+        cursor: pointer;
+        position: relative;
         outline: none;
+        &::before {
+            @include zero-pos;
+            position: absolute;
+            box-sizing: border-box;
+            background: inherit;
+            width: $tab_l0-tilt-width;
+            border-radius: $tab_l0-tilt-radius;
+            transform: $tab_l0-tilt-skew;
+            height: 100%;
+            content: "";
+            z-index: -1;
+        }
+        &--selected {
+            background: $tabs-gradient;
+        }
+        &::focus {
+            outline: none;
+        }
     }
 }
+@mixin tab_l1 {
 
-@mixin tab-l1 {
     display: inline-block;
     border-bottom: none;
     border-right: $border $background-and-separator-color;

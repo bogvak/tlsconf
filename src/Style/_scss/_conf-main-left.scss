@@ -1,18 +1,12 @@
 .conf-main-left {
-    width: 70%;
-
+    width: $main-left-width;
     &-top {
-        @include main-boxes(100%, 30%);
-        &-container--l0 {
-            @include main-boxes(100%, 100%);
+        &-container_l0 {
+            @include main-boxes(100%, 30%);
             flex-direction: column;
             &-list {
-                @include zero-m-and-p;
-                z-index: 0;
-                overflow: hidden;
-                &-tab {
-                    @include tab-l0;
-                }
+                @include list_l0;
+
             }
             &-panel {
                 flex: 1;
@@ -24,7 +18,8 @@
                 }
             }
         }
-        &-container--l1 {
+        &-container_l1 {
+
             @include main-boxes(100%, 100%);
             flex-direction: column;
             background-color: $main-windows-background-color;
@@ -37,7 +32,7 @@
                 background: $tabs-panel-gradient;
                 padding-inline-start: 0px;
                 &-tab {
-                    @include tab-l1;
+                    @include tab_l1;
                 }
             }
             &-panel {
@@ -51,7 +46,8 @@
             }
         
         }
-        &-container--l2 {
+        &-container_l2 {
+        
            @include horizontal-menu(true);
         }
         .logo {
@@ -61,17 +57,13 @@
     }
 
     &-middle {
-        &-container--l0 {
+        &-container_l0 {
+
             @include main-boxes(100%, 40%);
             padding: $main-padding 0;
             flex-direction: column;
             &-list {
-                @include zero-m-and-p;
-                z-index: 0;
-                overflow: hidden;
-                &-tab {
-                    @include tab-l0;
-                }
+                @include list_l0;
             }
             &-panel {
                 @include main-left-windows;
@@ -82,7 +74,8 @@
                 }
             }
         }
-        &-container--l1 {
+        &-container_l1 {
+
             padding: 10px;
             display: flex;
             width: 100%;
@@ -130,16 +123,12 @@
     }
 
     &-bottom {
-        &-container--l0 {
+        &-container_l0 {
             @include main-boxes(100%, 30%);
             flex-direction: column;
             &-list {
-                @include zero-m-and-p;
-                z-index: 0;
-                overflow: hidden;
-                &-tab {
-                    @include tab-l0;
-                }
+                @include list_l0;
+
             }
             &-panel {
                 @include main-left-windows-no-borders;
@@ -149,7 +138,8 @@
                 }
             }
         }
-        &-container--l1 {
+        &-container_l1 {
+
             @include main-left-windows;
             flex-direction: column;
             &-list {
@@ -158,7 +148,8 @@
                 background: $tabs-panel-gradient;
                 padding-inline-start: 0px;
                 &-tab {
-                    @include tab-l1;
+                    @include tab_l1;
+
                 }
             }
             &-panel {
@@ -173,7 +164,7 @@
             }
         
         }
-        &-container--l2 {
+        &-container_l2 {
            @include horizontal-menu;
         }
     }
