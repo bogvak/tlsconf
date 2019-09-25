@@ -108,23 +108,14 @@ class CurrentSeriesTop extends Component {
                         if (this.props.CurrentSeriesTop[item].article && this.props.line) {
                             return (<img
                                 className="conf-main-left-top-container_l2-card"
-                                alt="" 
-                                src={"img/" + this.props.line + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
+                                alt={item} 
+                                src={"img/" + this.props.line.replace(/\s/g, "").toLowerCase() + "/" + this.props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
                                 style={{
                                     borderColor: (item===this.props.desc) ?  "rgb(243, 103, 220)" : null
                                 }}
                                 key={item} 
                                 onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})} 
                                 />)
-                        } else {
-                            return (<div 
-                                className="conf-main-left-top-container_l2-card" 
-                                style={{
-                                    borderColor: (item===this.props.desc) ?  "rgb(243, 103, 220)" : null
-                                }}
-                                key={item} 
-                                onClick={this.props.PlatformСhoiceDescHandler.bind(this, {...this.props.CurrentSeriesTop[item], location: this.props.lacation, line: this.props.line, desc: item})}>{item}
-                            </div>)
                         };
                     })}
                 </div>
