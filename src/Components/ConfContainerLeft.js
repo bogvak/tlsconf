@@ -141,8 +141,8 @@ class ConfContainerLeftInstructionTop extends Component {
         return (
             <div className="conf-main-left-top-instruction">
                 <div className="conf-main-left-top-instruction-container">
-                    <p className="conf-main-left-top-instruction-container-p">3. {this.props.LocalStrings[this.props.Language][1]}</p>
-                    <p className="conf-main-left-top-instruction-container-p">4. {this.props.LocalStrings[this.props.Language][2]}</p>
+                    <p className="conf-main-left-top-instruction-container-p">1. {this.props.LocalStrings[this.props.Language][1]}</p>
+                    <p className="conf-main-left-top-instruction-container-p">2. {this.props.LocalStrings[this.props.Language][2]}</p>
                 </div>
             </div>
         )
