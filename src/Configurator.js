@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 
 //Data
-import {TypeOfFrame, ModulesContent, ModulesForBottomMenu} from './Data/data';
+import {TypeOfFrame, TypeOfModule, ModulesContent, ModulesForBottomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
 
@@ -18,6 +18,7 @@ class Configurator extends Component {
   
   state = {
     TypeOfFrame: TypeOfFrame,
+    TypeOfModule: TypeOfModule,
     LocalStrings: LocalStrings,
     ModulesContent: ModulesContent,
     ModulesForBottomMenu: ModulesForBottomMenu,
@@ -80,6 +81,7 @@ class Configurator extends Component {
 		<div className="conf-main">
 			<ConfContainerLeft 
         TypeOfFrame={this.state.TypeOfFrame}
+        TypeOfModule={this.state.TypeOfModule}
         LocalStrings={this.state.LocalStrings}
         ModulesContent={this.state.ModulesContent}
         ModulesForBottomMenu={this.state.ModulesForBottomMenu}

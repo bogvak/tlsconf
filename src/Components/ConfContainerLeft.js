@@ -14,6 +14,10 @@ class ConfContainerLeft extends Component {
                     //Handlers
                     PlatformСhoiceDescHandler={this.props.PlatformСhoiceDescHandler}
                 />
+                <ConfContainerLeftInstructionTop 
+                    Language={this.props.Language}
+                    LocalStrings={this.props.LocalStrings}
+                />
                 <ConfContainerLeftMiddle 
                     QuantityOfConf={this.props.QuantityOfConf}
                     Configuration={this.props.Configuration}
@@ -21,9 +25,16 @@ class ConfContainerLeft extends Component {
                     AddConfHandler={this.props.AddConfHandler}
                     CurrentSlotHandler={this.props.CurrentSlotHandler}
                 />    
-                <ConfContainerLeftBottom 
+                <ConfContainerLeftBottom
+                    TypeOfModule={this.props.TypeOfModule}
+                    LocalStrings={this.props.LocalStrings}
+                    Language={this.props.Language}
                     ModulesForBottomMenu={this.props.ModulesForBottomMenu}
                     ModuleChoiceHandler={this.props.ModuleChoiceHandler}
+                />
+                <ConfContainerLeftInstructionBottom
+                    Language={this.props.Language}
+                    LocalStrings={this.props.LocalStrings}
                 />
             </div>
         );
@@ -121,6 +132,20 @@ class CurrentSeriesTop extends Component {
                 </div>
             </div>
         );
+    }
+}
+
+class ConfContainerLeftInstructionTop extends Component {
+
+    render () {
+        return (
+            <div className="conf-main-left-top-instruction">
+                <div className="conf-main-left-top-instruction-container">
+                    <p className="conf-main-left-top-instruction-container-p">3. {this.props.LocalStrings[this.props.Language][1]}</p>
+                    <p className="conf-main-left-top-instruction-container-p">4. {this.props.LocalStrings[this.props.Language][2]}</p>
+                </div>
+            </div>
+        )
     }
 }
 
@@ -250,7 +275,6 @@ class ConfLayout extends Component {
                             return (<div 
                                 key={indexOfConferenceControlDoubleFrame} 
                                 className="conference-control-double-frame">
-                                conference-control-double-frame
                             </div>)
                         }),
                     )}
@@ -283,6 +307,9 @@ class ConfContainerLeftBottom extends Component {
                             key={item}
                         >
                             <ModuleSeriesListBottom  
+                                TypeOfModule={this.props.TypeOfModule}
+                                LocalStrings={this.props.LocalStrings}
+                                Language={this.props.Language}
                                 ModuleSeriesListBottom={this.props.ModulesForBottomMenu[item]} 
                                 ModuleChoiceHandler={this.props.ModuleChoiceHandler} 
                             />
@@ -304,7 +331,7 @@ class ModuleSeriesListBottom extends Component {
                             selectedClassName="conf-main-left-bottom-container_l1-list-tab--selected"
                             key={typeOfModules}
                         >
-                            {typeOfModules}
+                            {this.props.LocalStrings[this.props.Language][this.props.TypeOfModule[typeOfModules]['menuname']]}
                         </Tab>)
                     })}
                 </TabList>
@@ -345,4 +372,19 @@ class CurrentModulesBottom extends Component {
         );
     }
 }
+
+class ConfContainerLeftInstructionBottom extends Component {
+
+    render () {
+        return (
+            <div className="conf-main-left-bottom-instruction">
+                <div className="conf-main-left-bottom-instruction-container">
+                    <p className="conf-main-left-bottom-instruction-container-p">3. {this.props.LocalStrings[this.props.Language][12]}</p>
+                    <p className="conf-main-left-bottom-instruction-container-p">4. {this.props.LocalStrings[this.props.Language][13]}</p>
+                </div>
+            </div>
+        )
+    }
+}
+
 export default ConfContainerLeft;
