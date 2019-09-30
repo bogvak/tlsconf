@@ -10,6 +10,27 @@ const TypeOfFrame = {
 	},
 }
 
+const TypeOfModule = {
+	"Blind-and-Audio" : {
+		"menuname" : 6
+	},
+	"Video-/Audio" : {
+		"menuname" : 7
+	},
+	"Analogue-/Digital-/Control signal slots" : {
+		"menuname" : 8
+	},
+	"Computer signal slots" : {
+		"menuname" : 9
+	},
+	"AC outlets" : {
+		"menuname" : 10
+	},
+	"Active Module" : {
+		"menuname" : 11
+	},
+}
+
 const ModulesContent = {
 	"WALL" : {
 		"Premium Line" : {
@@ -258,7 +279,7 @@ const ModulesForBottomMenu = {
 				"article" : "863 9252",
 			},
 		},
-		"Analogue-/Digital-/HDMI-/Control signal slots": {
+		"Analogue-/Digital-/Control signal slots": {
 			"YUV slot female (isolated) 3 x RCA" : {
 				"slots-takes" : 1,
 				"article" : "863 9313",
@@ -370,4 +391,4 @@ const ModulesForBottomMenu = {
 	},
 }
 
-export {TypeOfFrame, ModulesContent, ModulesForBottomMenu}
+export {TypeOfFrame, TypeOfModule, ModulesContent, ModulesForBottomMenu}

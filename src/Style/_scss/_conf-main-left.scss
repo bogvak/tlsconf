@@ -2,7 +2,7 @@
     width: $main-left-width;
     &-top {
         &-container_l0 {
-            @include main-boxes(100%, 30%);
+            @include main-boxes(100%, 25%);
             flex-direction: column;
             &-list {
                 @include list_l0;
@@ -50,9 +50,8 @@
         
            @include horizontal-menu(true);
         }
-        .logo {
-            height: 30%;
-            padding: 23px 0 0 30px;
+        &-instruction {
+            @include instruction(5%);
         }
     }
 
@@ -124,7 +123,7 @@
 
     &-bottom {
         &-container_l0 {
-            @include main-boxes(100%, 30%);
+            @include main-boxes(100%, 25%);
             flex-direction: column;
             &-list {
                 @include list_l0;
@@ -167,6 +166,8 @@
         &-container_l2 {
            @include horizontal-menu;
         }
+        &-instruction {
+            @include instruction(5%);
+        }
     }
-
 }

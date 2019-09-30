@@ -68,10 +68,10 @@
     &-card {
         @if $is-top {
             padding: 2px 2px;
-            height: 140px;
+            height: 110px;
         } @else {
             padding: 2px 10px;
-            height: 120px;
+            height: 110px;
         }
         box-sizing: border-box;
         width: auto;
@@ -130,3 +130,18 @@
         outline: none;
     }
 }
+
+@mixin instruction($height) {
+    padding: 2px 0;
+    width: 100%;
+    height: $height;
+    box-sizing: border-box;
+    &-container {
+        border: $border-panel;
+        border-radius: $border-radius-value;
+        background-color: $main-windows-background-color;
+        &-p {
+            margin: 0;
+        }
+    }
+}            
