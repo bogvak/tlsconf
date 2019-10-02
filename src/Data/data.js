@@ -190,193 +190,193 @@ const ModulesForBottomMenu = {
 		"Blind-and-Audio" : {
 			"Blind slot simple" : {
 				"slots-takes" : 1,
-				"article" : "863 9210",	
+				"article" : ["863 9210"],	
 			},
 			"Blind slot double" : {
 				"slots-takes" : 2,
-				"article" : "863 9211",	
+				"article" : ["863 9211"],	
 			},
 			"Blind slot triple" : {
 				"slots-takes" : 3,
-				"article" : "863 9212",
+				"article" : ["863 9212"],
 			},
 			"Audio slot female 1 x 3,5 mm jack" : {
 				"slots-takes" : 1,
-				"article" : "863 9220",
+				"article" : ["863 9220"],
 			},
 			"Audio 1/2 slot female 2 x 3,5 mm jack" : {
 				"slots-takes" : 1,
-				"article" : "863 9229",
+				"article" : ["863 9229"],
 			},
 			"Audio IN/OUT/Mic slot female 3 x 3,5 mm jack " : {
 				"slots-takes" : 1,
-				"article" : "863 9236",
+				"article" : ["863 9236"],
 			},
 			"Audio L/R slot female 2 x Cinch (isolated)" : {
 				"slots-takes" : 1,
-				"article" : "863 9226",
+				"article" : ["863 9226"],
 			},
 			"Audio XLR slot female 3 pin" : {
 				"slots-takes" : 2,
-				"article" : "863 9277",
+				"article" : ["863 9277"],
 			},
 			"Audio XLR slot male 3 pin" : {
 				"slots-takes" : 2,
-				"article" : "863 9283",
+				"article" : ["863 9283"],
 			},
 			"Audio XLR slot female 4 pin" : {
 				"slots-takes" : 2,
-				"article" : "863 9348",
+				"article" : ["863 9348"],
 			},
 			"Audio Speakon slot female " : {
 				"slots-takes" : 1,
-				"article" : "863 9334",
+				"article" : ["863 9334"],
 			},
 		},
 		"Video-/Audio" : {
 			"Video slot female Cinch (isolated)" : {
 				"slots-takes" : 1,
-				"article" : "863 9223",
+				"article" : ["863 9223"],
 			},
 			"Video slot female BNC (isolated) " : {
 				"slots-takes" : 1,
-				"article" : "863 9294",
+				"article" : ["863 9294"],
 			},
 			"Video + Audio slot female Cinch/3,5 mm jack" : {
 				"slots-takes" : 1,
-				"article" : "863 9231",
+				"article" : ["863 9231"],
 			},
 			"Video + Audio slot female BNC/3,5 mm jack" : {
 				"slots-takes" : 1,
-				"article" : "863 9309",
+				"article" : ["863 9309"],
 			},
 			"Video + Audio L/R slot female 3 x Cinch (isolated)" : {
 				"slots-takes" : 1,
-				"article" : "863 9233",
+				"article" : ["863 9233"],
 			},
 			"Video + Audio L/R slot female BNC/2 x Cinch (isolated) " : {
 				"slots-takes" : 1,
-				"article" : "863 9297",
+				"article" : ["863 9297"],
 			},
 			"S-Video slot female 4 pin Mini DIN" : {
 				"slots-takes" : 1,
-				"article" : "863 9238",
+				"article" : ["863 9238"],
 			},
 			"S-Video + Audio slot female 4 pin Mini DIN/3,5 x mm jack " : {
 				"slots-takes" : 1,
-				"article" : "863 9246",
+				"article" : ["863 9246"],
 			},
 			"S-Video + Audio L/R slot female 4 pin Mini DIN/2 x Cinch" : {
 				"slots-takes" : 1,
-				"article" : "863 9248",
+				"article" : ["863 9248"],
 			},
 			"S-Video + Video slot female 4 pin Mini DIN/Cinch" : {
 				"slots-takes" : 1,
-				"article" : "863 9241",
+				"article" : ["863 9241"],
 			},
 			"S-Video + Video slot female 4 pin Mini DIN/BNC" : {
 				"slots-takes" : 1,
-				"article" : "863 9252",
+				"article" : ["863 9252"],
 			},
 		},
 		"Analogue-/Digital-/Control signal slots": {
 			"YUV slot female (isolated) 3 x RCA" : {
 				"slots-takes" : 1,
-				"article" : "863 9313",
+				"article" : ["863 9313"],
 			},
 			"VGA slot female 15 pin HD" : {
 				"slots-takes" : 1,
-				"article" : "863 9256",
+				"article" : ["863 9256"],
 			},
 			"VGA slot male 15 pin HD" : {
 				"slots-takes" : 1,
-				"article" : "863 9285",
+				"article" : ["863 9285"],
 			},
 			"VGA + Audio slot female 15 pin HD/3,5 mm jack" : {
 				"slots-takes" : 1,
-				"article" : "863 9265",
+				"article" : ["863 9265"],
 			},
 			"VGA + Audio slot male 15 pin HD/3,5 mm jack " : {
 				"slots-takes" : 1,
-				"article" : "863 9301",
+				"article" : ["863 9301"],
 			},
 			"DVI-A slot female" : {
 				"slots-takes" : 1,
-				"article" : "863 9267",
+				"article" : ["863 9267"],
 			},
 			"DVI-D slot female" : {
 				"slots-takes" : 1,
-				"article" : "863 9269",
+				"article" : ["863 9269"],
 			},
 			"RGBHV slot female 5 x BNC (isolated)" : {
 				"slots-takes" : 2,
-				"article" : "863 9279",
+				"article" : ["863 9279"],
 			},
 			"HDMI slot female" : {
 				"slots-takes" : 1,
-				"article" : "863 9336",
+				"article" : ["863 9336"],
 			},
 			"Control slot female 9 pin D-Sub" : {
 				"slots-takes" : 1,
-				"article" : "863 9353",
+				"article" : ["863 9353"],
 			},
 		},
 		"Computer signal slots" : {
 			"Serial slot male 9 pin D-Sub" : {
 				"slots-takes" : 1,
-				"article" : "863 9262",
+				"article" : ["863 9262"],
 			},
 			"Serial slot female 9 pin D-Sub" : {
 				"slots-takes" : 1,
-				"article" : "863 9288",
+				"article" : ["863 9288"],
 			},
 			"PS/2 slot female 6 pin MIni DIN" : {
 				"slots-takes" : 1,
-				"article" : "863 9291",
+				"article" : ["863 9291"],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 			"" : {
 				"slots-takes" : 1,
-				"article" : "",
+				"article" : [""],
 			},
 		},
 		"AC outlets" : {

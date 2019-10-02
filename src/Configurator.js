@@ -42,6 +42,8 @@ class Configurator extends Component {
     const copyOfConf=this.state.Configurations.slice();
     const ConfNumber=this.state.ConfNumber;
     const IndexOfSelectedSlot = this.state.Configurations[ConfNumber].IndexOfSelectedSlot;
+    const articleList = inf.article.slice();
+    inf.article = inf.article[0];
     if (!copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot+(inf["slots-takes"]-1)] || IndexOfSelectedSlot===null) return;
     inf.img="img/" + inf.TypeOfModules + "/" + inf.article.replace(/\s/g, "") + ".png"; 
     for (let i = 1; i<copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot]["slots-takes"]; i++) {
@@ -55,7 +57,7 @@ class Configurator extends Component {
       console.log(test)
       copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot+i] = {...emptyConf.Modules[0], display: false};
     }
-    copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot] = {...copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot], ...inf};
+    copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot] = {...copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot], ...inf, articleList};
     this.setState({Configurations: copyOfConf})
   }
 

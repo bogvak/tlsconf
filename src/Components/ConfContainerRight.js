@@ -37,34 +37,74 @@ class ConfContainerRightBottom extends Component {
         <TabList className="conf-main-right-bottom_l0-list">
           {this.props.Configurations.map((conf, confNumber) => <Tab className="conf-main-right-bottom_l0-list-tab" selectedClassName="conf-main-right-bottom_l0-list-tab--selected" key={confNumber}>Configuration #{confNumber+1}</Tab>)}
         </TabList>
-          {this.props.Configurations.map((conf, confNumber) => <TabPanel className="conf-main-right-bottom_l0-panel" selectedClassName="conf-main-right-bottom_l0-panel--selected" key={confNumber}><ConfList key={confNumber} Configuration={conf} /></TabPanel>)}
+          {this.props.Configurations.map((conf, confNumber) => {
+            return (<TabPanel 
+              className="conf-main-right-bottom_l0-panel" 
+              selectedClassName="conf-main-right-bottom_l0-panel--selected" 
+              key={confNumber}
+            >
+              {(conf.PlatformСhoiceDesc.line) ?
+                <ConfList 
+                key={confNumber} 
+                Configuration={conf}
+              />
+              : null}
+            </TabPanel>)
+          })}
       </Tabs>
     );
   }
 }
 
 class ConfList extends Component {
+  state ={
+    awokenTab: null
+  }
   zebraColor = (index) => {
     if (index % 2 === 0) 
-      {return "Gray"} 
+      {return "dark"} 
     else 
-      {return "White"}
+      {return "light"}
   }
   render() {
     return (
       <div className="conf-main-right-bottom_l1">
-        <h3 className="conf-main-right-bottom_l1-platform">{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:</h3>
+        <h3 className="conf-main-right-bottom_l1-platform">
+          {this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:
+        </h3>
         <p className="conf-main-right-bottom_l1-platform-desc">
           {this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}
         </p>
         {this.props.Configuration.Modules.map((module, index) => {
-          return (<li 
-            className="conf-main-right-bottom_l1-module" 
-            key={index} 
-            style={{backgroundColor: (index % 2 === 0) ? "#86B7BD" : null}}
-          >
-            {(module.article && module.desc) ? (module.article + "-" + module.desc) : (null)}
-          </li>)
+          return (
+            <div 
+              className={["conf-main-right-bottom_l2-module", "conf-main-right-bottom_l2-module-" + this.zebraColor(index)].join(' ')}
+              onClick={
+                () => (this.state.awokenTab === index) ? this.setState({awokenTab: null}) : this.setState({awokenTab: index})
+              }
+            >
+              <div className="conf-main-right-bottom_l2-module-article">
+                {module.article}
+              </div>
+              {(module.article) ? 
+                <div className="conf-main-right-bottom_l2-module-specs-menu">
+                  <ul
+                    className="conf-main-right-bottom_l2-module-specs-menu-list"
+                    style={{display:
+                      (this.state.awokenTab===index) ? "inline" : "none"
+                    }}
+                  >
+                    <li>type 1</li>
+                    <li>type 2</li>
+                    <li>type 3</li>
+                  </ul> 
+                </div> 
+              : null}
+              <div className="conf-main-right-bottom_l2-module-desc">
+                  {module.desc}
+              </div>
+            </div>
+          )
         })}
       </div>
     );
