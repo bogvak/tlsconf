@@ -114,7 +114,7 @@ class CurrentSeriesTop extends Component {
     render() {
         return (
             <div data-simplebar className="conf-main-left-top-container_l2">
-                <div class='horizontal-scrolling__wrapper'>
+                <div className='horizontal-scrolling__wrapper'>
                     {Object.keys(this.props.CurrentSeriesTop).map((item) => {
                         if (this.props.CurrentSeriesTop[item].article && this.props.line) {
                             return (<img
@@ -260,7 +260,7 @@ class ConfLayout extends Component {
                                         }}
                                         key={indexOfSignalSlot}
                                         onClick={this.props.CurrentSlotHandler.bind(this, indexOfSignalSlot)}
-                                        src={this.props.Configuration.Modules[indexOfSignalSlot].article ? this.props.Configuration.Modules[indexOfSignalSlot].img : "img/empty-signal-slot.PNG"} 
+                                        src={this.props.Configuration.Modules[indexOfSignalSlot]["article-list"]["solder-terminal"] ? this.props.Configuration.Modules[indexOfSignalSlot].img : "img/empty-signal-slot.PNG"} 
                                         alt=""
                                     />)
                             })}
@@ -359,14 +359,14 @@ class CurrentModulesBottom extends Component {
     render () {
         return (
             <div data-simplebar className="conf-main-left-bottom-container_l2">
-                <div class='horizontal-scrolling__wrapper'>
+                <div className='horizontal-scrolling__wrapper'>
                     {Object.keys(this.props.CurrentModulesBottom).map((module) => {
                         return (<img 
-                                className="conf-main-left-bottom-container_l2-card"
-                                key={module}
-                                src={this.props.CurrentModulesBottom[module].article[0] ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module].article[0].replace(/\s/g, "") + ".png" : null}
-                                onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc: module})}
-                                alt={this.props.CurrentModulesBottom[module].article[0]}
+                            className="conf-main-left-bottom-container_l2-card"
+                            key={module}
+                            src={this.props.CurrentModulesBottom[module]["article-list"]["solder-terminal"] ? "img/" + this.props.TypeOfModules + "/" + this.props.CurrentModulesBottom[module]["article-list"]["solder-terminal"].replace(/\s/g, "") + ".png" : null}
+                            onClick={this.props.ModuleChoiceHandler.bind(this, {...this.props.CurrentModulesBottom[module], TypeOfModules: this.props.TypeOfModules, desc: module})}
+                            alt={this.props.CurrentModulesBottom[module]["article-list"]["solder-terminal"]}
                         />)
                     })}
                 </div>

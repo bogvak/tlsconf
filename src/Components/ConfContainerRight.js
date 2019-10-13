@@ -13,6 +13,8 @@ class ConfContainerRight extends Component {
               <ConfContainerRightBottom 
                 Configurations={this.props.Configurations}
                 QuantityOfConf={this.props.QuantityOfConf}
+                SubMenuHandler={this.props.SubMenuHandler}
+                AwokenTabHandler={this.props.AwokenTabHandler}
               />
             </SplitPane>
             </div>
@@ -45,9 +47,11 @@ class ConfContainerRightBottom extends Component {
             >
               {(conf.PlatformСhoiceDesc.line) ?
                 <ConfList 
-                key={confNumber} 
-                Configuration={conf}
-              />
+                  key={confNumber} 
+                  Configuration={conf}
+                  SubMenuHandler={this.props.SubMenuHandler}
+                  AwokenTabHandler={this.props.AwokenTabHandler}
+                />
               : null}
             </TabPanel>)
           })}
@@ -57,9 +61,6 @@ class ConfContainerRightBottom extends Component {
 }
 
 class ConfList extends Component {
-  state ={
-    awokenTab: null
-  }
   zebraColor = (index) => {
     if (index % 2 === 0) 
       {return "dark"} 
@@ -80,34 +81,57 @@ class ConfList extends Component {
             <div 
               className={["conf-main-right-bottom_l2-module", "conf-main-right-bottom_l2-module-" + this.zebraColor(index)].join(' ')}
               onClick={
-                () => (this.state.awokenTab === index) ? this.setState({awokenTab: null}) : this.setState({awokenTab: index})
+                this.props.AwokenTabHandler.bind(this, index)
               }
+              key={index}
             >
-              <div className="conf-main-right-bottom_l2-module-article">
-                {module.article}
-              </div>
-              {(module.article) ? 
-                <div className="conf-main-right-bottom_l2-module-specs-menu">
-                  <ul
-                    className="conf-main-right-bottom_l2-module-specs-menu-list"
-                    style={{display:
-                      (this.state.awokenTab===index) ? "inline" : "none"
-                    }}
-                  >
-                    <li>type 1</li>
-                    <li>type 2</li>
-                    <li>type 3</li>
-                  </ul> 
-                </div> 
-              : null}
-              <div className="conf-main-right-bottom_l2-module-desc">
-                  {module.desc}
-              </div>
+              {(module.SubArticle) ? <div 
+                onClick={this.props.AwokenTabHandler.bind(this, (index===this.props.Configuration.IndexOfAwokenTab) ? null : index)}
+                className="conf-main-right-bottom_l2-module-article"
+              >
+                {module.SubArticle}
+              </div> : null} 
+              {(module["article-list"]) ? <div className="conf-main-right-bottom_l2-module-specs-menu">
+                <SubMenu 
+                  ArticleList={module["article-list"]} Display={(this.props.Configuration.IndexOfAwokenTab === index) ? "inline" : "none"} 
+                  SubMenuHandler={this.props.SubMenuHandler}
+                />
+              </div>: null}
+              {(module.desc && module.SubDesc) ? <div 
+                className="conf-main-right-bottom_l2-module-desc"
+                onClick={this.props.AwokenTabHandler.bind(this, (index===this.props.Configuration.IndexOfAwokenTab) ? null : index)}
+              >
+                {module.desc}({module.SubDesc})
+              </div>: null}
             </div>
           )
         })}
       </div>
     );
+  }
+}
+
+class SubMenu extends Component {
+  render () {
+    if (this.props.ArticleList) {
+      return (
+        <ul
+          className="conf-main-right-bottom_l2-module-specs-menu-list"
+          style={{display: this.props.Display}}
+        >
+          {Object.keys(this.props.ArticleList).map((article, index)=>{
+            return (
+              <li 
+                onClick={this.props.SubMenuHandler.bind(this, {SubDesc: article, SubArticle: this.props.ArticleList[article]})}
+                key={article}
+              >
+               {article}
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
   }
 }
 

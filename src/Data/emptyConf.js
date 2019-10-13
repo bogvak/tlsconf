@@ -7,9 +7,12 @@ const emptyConf = {
       "type" : "Special version",
     },
     IndexOfSelectedSlot: null,
+    IndexOfAwokenTab: null,
     Modules: [{
       "slots-takes": null,
-      article: null,
+      "article-list": {
+        "solder-terminal" : null,
+      },
       img: null,
       display: true,
     }],
