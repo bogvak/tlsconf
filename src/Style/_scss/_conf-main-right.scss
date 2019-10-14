@@ -7,6 +7,8 @@
 .conf-main-right-top {
     @include main-right-windows;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .conf-main-right-bottom {
@@ -68,7 +70,7 @@
                 margin: auto 0;
                 &-list {
                     @include zero-m-and-p;
-                    display: none;
+                    padding: 0 4px;
                     list-style: none;
                     position: absolute;
                     right: 0;
@@ -77,9 +79,11 @@
                     border-radius: $border-radius-value;
                     transform: translate(100%);
                     background-color: $main-windows-background-color;
-                    padding: 5px;
                     white-space: nowrap;
                     overflow: hidden;
+                    &-li--bordered  {
+                        border-bottom: $border-panel;
+                    }
                 }
             }
         }
