@@ -13,6 +13,7 @@ import SimpleBar from 'simplebar-react';
 //CSS
 import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
+import { throwStatement } from '@babel/types';
 
 class Configurator extends Component {
   
@@ -30,20 +31,22 @@ class Configurator extends Component {
   };
 
   platformСhoiceDescHandler = (inf) => {
-    inf = {...emptyConf.PlatformСhoiceDesc,...inf}
-    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6
+    inf = {...emptyConf.PlatformСhoiceDesc,...inf};
+    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
     copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(emptyConf.Modules[0]);
-    this.setState({Configurations: copyOfConf})
+    this.setState({Configurations: copyOfConf});
   }
 
   moduleChoiceHandler = (inf) => {
     const copyOfConf=this.state.Configurations.slice();
     const ConfNumber=this.state.ConfNumber;
     const IndexOfSelectedSlot = this.state.Configurations[ConfNumber].IndexOfSelectedSlot;
+    inf.SubDesc = Object.keys(inf["article-list"])[0];
+    inf.SubArticle = inf["article-list"][inf.SubDesc];
     if (!copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot+(inf["slots-takes"]-1)] || IndexOfSelectedSlot===null) return;
-    inf.img="img/" + inf.TypeOfModules + "/" + inf.article.replace(/\s/g, "") + ".png"; 
+    inf.img="img/" + inf.TypeOfModules + "/" + inf["article-list"]["solder-terminal"].replace(/\s/g, "") + ".png"; 
     for (let i = 1; i<copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot]["slots-takes"]; i++) {
       copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot+i].display = true;
     }
@@ -76,6 +79,23 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConf});
   }
 
+  awokenTabHandler = (index) => {
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    if (this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab===index) return
+    copyOfConf[this.state.ConfNumber].IndexOfAwokenTab = index;
+    this.setState({Configurations: copyOfConf})
+  }
+
+  subMenuHandler = (newSubInf) => {
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    if (!copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab]) return;
+    copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab] = {
+      ...copyOfConf[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab],
+      ...newSubInf
+    }
+    this.setState({Configurations: copyOfConf})
+  }
+
   render() {
     return (
 		<div className="conf-main">
@@ -98,6 +118,8 @@ class Configurator extends Component {
 			<ConfContainerRight
         Configurations={this.state.Configurations}
         QuantityOfConf={this.state.QuantityOfConf}
+        SubMenuHandler={this.subMenuHandler}
+        AwokenTabHandler={this.awokenTabHandler}
        />
 		</div>
     );

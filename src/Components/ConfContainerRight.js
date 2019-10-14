@@ -13,6 +13,8 @@ class ConfContainerRight extends Component {
               <ConfContainerRightBottom 
                 Configurations={this.props.Configurations}
                 QuantityOfConf={this.props.QuantityOfConf}
+                SubMenuHandler={this.props.SubMenuHandler}
+                AwokenTabHandler={this.props.AwokenTabHandler}
               />
             </SplitPane>
             </div>
@@ -37,7 +39,22 @@ class ConfContainerRightBottom extends Component {
         <TabList className="conf-main-right-bottom_l0-list">
           {this.props.Configurations.map((conf, confNumber) => <Tab className="conf-main-right-bottom_l0-list-tab" selectedClassName="conf-main-right-bottom_l0-list-tab--selected" key={confNumber}>Configuration #{confNumber+1}</Tab>)}
         </TabList>
-          {this.props.Configurations.map((conf, confNumber) => <TabPanel className="conf-main-right-bottom_l0-panel" selectedClassName="conf-main-right-bottom_l0-panel--selected" key={confNumber}><ConfList key={confNumber} Configuration={conf} /></TabPanel>)}
+          {this.props.Configurations.map((conf, confNumber) => {
+            return (<TabPanel 
+              className="conf-main-right-bottom_l0-panel" 
+              selectedClassName="conf-main-right-bottom_l0-panel--selected" 
+              key={confNumber}
+            >
+              {(conf.PlatformСhoiceDesc.line) ?
+                <ConfList 
+                  key={confNumber} 
+                  Configuration={conf}
+                  SubMenuHandler={this.props.SubMenuHandler}
+                  AwokenTabHandler={this.props.AwokenTabHandler}
+                />
+              : null}
+            </TabPanel>)
+          })}
       </Tabs>
     );
   }
@@ -46,28 +63,75 @@ class ConfContainerRightBottom extends Component {
 class ConfList extends Component {
   zebraColor = (index) => {
     if (index % 2 === 0) 
-      {return "Gray"} 
+      {return "dark"} 
     else 
-      {return "White"}
+      {return "light"}
   }
   render() {
     return (
       <div className="conf-main-right-bottom_l1">
-        <h3 className="conf-main-right-bottom_l1-platform">{this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:</h3>
+        <h3 className="conf-main-right-bottom_l1-platform">
+          {this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:
+        </h3>
         <p className="conf-main-right-bottom_l1-platform-desc">
           {this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}
         </p>
         {this.props.Configuration.Modules.map((module, index) => {
-          return (<li 
-            className="conf-main-right-bottom_l1-module" 
-            key={index} 
-            style={{backgroundColor: (index % 2 === 0) ? "#86B7BD" : null}}
-          >
-            {(module.article && module.desc) ? (module.article + "-" + module.desc) : (null)}
-          </li>)
+          return (
+            <div 
+              className={["conf-main-right-bottom_l2-module", "conf-main-right-bottom_l2-module-" + this.zebraColor(index)].join(' ')}
+              onClick={
+                this.props.AwokenTabHandler.bind(this, index)
+              }
+              key={index}
+            >
+              {(module.SubArticle) ? <div 
+                onClick={this.props.AwokenTabHandler.bind(this, (index===this.props.Configuration.IndexOfAwokenTab) ? null : index)}
+                className="conf-main-right-bottom_l2-module-article"
+              >
+                {module.SubArticle}
+              </div> : null} 
+              {(module["article-list"]) ? <div className="conf-main-right-bottom_l2-module-specs-menu">
+                <SubMenu 
+                  ArticleList={module["article-list"]} Display={(this.props.Configuration.IndexOfAwokenTab === index) ? "inline" : "none"} 
+                  SubMenuHandler={this.props.SubMenuHandler}
+                />
+              </div>: null}
+              {(module.desc && module.SubDesc) ? <div 
+                className="conf-main-right-bottom_l2-module-desc"
+                onClick={this.props.AwokenTabHandler.bind(this, (index===this.props.Configuration.IndexOfAwokenTab) ? null : index)}
+              >
+                {module.desc}({module.SubDesc})
+              </div>: null}
+            </div>
+          )
         })}
       </div>
     );
+  }
+}
+
+class SubMenu extends Component {
+  render () {
+    if (this.props.ArticleList) {
+      return (
+        <ul
+          className="conf-main-right-bottom_l2-module-specs-menu-list"
+          style={{display: this.props.Display}}
+        >
+          {Object.keys(this.props.ArticleList).map((article, index)=>{
+            return (
+              <li 
+                onClick={this.props.SubMenuHandler.bind(this, {SubDesc: article, SubArticle: this.props.ArticleList[article]})}
+                key={article}
+              >
+               {article}
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
   }
 }
 
