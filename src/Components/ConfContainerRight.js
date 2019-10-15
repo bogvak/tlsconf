@@ -9,7 +9,9 @@ class ConfContainerRight extends Component {
       return (
             <div className="conf-main-right">
             <SplitPane split="horizontal" defaultSize="50%">
-              <ConfContainerRightTop />
+              <ConfContainerRightTop 
+                Configurations={this.props.Configurations}
+              />
               <ConfContainerRightBottom 
                 Configurations={this.props.Configurations}
                 QuantityOfConf={this.props.QuantityOfConf}
@@ -26,7 +28,13 @@ class ConfContainerRightTop extends Component {
   render() {
     return (
       <div className="conf-main-right-top">
-        <span>{LocalStrings['en'][1]}</span>
+        <div className="conf-main-right-top-img-wrapper">
+          <img
+            className="conf-main-right-top-img"
+            src={"s"}
+            alt=""
+          />
+        </div>
       </div>
     );
   }
@@ -80,26 +88,33 @@ class ConfList extends Component {
           return (
             <div 
               className={["conf-main-right-bottom_l2-module", "conf-main-right-bottom_l2-module-" + this.zebraColor(index)].join(' ')}
-              onClick={
-                this.props.AwokenTabHandler.bind(this, index)
-              }
               key={index}
             >
-              {(module.SubArticle) ? <div 
-                onClick={this.props.AwokenTabHandler.bind(this, (index===this.props.Configuration.IndexOfAwokenTab) ? null : index)}
+              {(module.SubArticle) ? <div
                 className="conf-main-right-bottom_l2-module-article"
               >
                 {module.SubArticle}
               </div> : null} 
-              {(module["article-list"]) ? <div className="conf-main-right-bottom_l2-module-specs-menu">
-                <SubMenu 
-                  ArticleList={module["article-list"]} Display={(this.props.Configuration.IndexOfAwokenTab === index) ? "inline" : "none"} 
-                  SubMenuHandler={this.props.SubMenuHandler}
-                />
-              </div>: null}
+              {(module["article-list"]) ? 
+                <div 
+                  className="conf-main-right-bottom_l2-module-specs-menu"
+                  onMouseEnter={
+                    this.props.AwokenTabHandler.bind(this, index)
+                  }
+                  onMouseLeave={
+                    this.props.AwokenTabHandler.bind(this, null)
+                  }
+                >
+                  <SubMenu 
+                    ArticleList={module["article-list"]} 
+                    Display={(this.props.Configuration.IndexOfAwokenTab === index) ? "inline" : "none"}
+                    AwokenTabIndex={index}
+                    SubMenuHandler={this.props.SubMenuHandler}
+                  />
+                </div>
+              : null}
               {(module.desc && module.SubDesc) ? <div 
                 className="conf-main-right-bottom_l2-module-desc"
-                onClick={this.props.AwokenTabHandler.bind(this, (index===this.props.Configuration.IndexOfAwokenTab) ? null : index)}
               >
                 {module.desc}({module.SubDesc})
               </div>: null}
@@ -112,6 +127,11 @@ class ConfList extends Component {
 }
 
 class SubMenu extends Component {
+  isBordered = (index) =>{
+    if (index+1 < Object.keys(this.props.ArticleList).length) {
+      return "conf-main-right-bottom_l2-module-specs-menu-list-li--bordered";
+    }
+  }
   render () {
     if (this.props.ArticleList) {
       return (
@@ -121,8 +141,9 @@ class SubMenu extends Component {
         >
           {Object.keys(this.props.ArticleList).map((article, index)=>{
             return (
-              <li 
-                onClick={this.props.SubMenuHandler.bind(this, {SubDesc: article, SubArticle: this.props.ArticleList[article]})}
+              <li
+                className={["conf-main-right-bottom_l2-module-specs-menu-list-li", this.isBordered(index)].join(" ")}
+                onClick={this.props.SubMenuHandler.bind(this, {AwokenTabIndex: this.AwokenTabIndex ,SubDesc: article, SubArticle: this.props.ArticleList[article]})}
                 key={article}
               >
                {article}

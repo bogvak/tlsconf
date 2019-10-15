@@ -33,6 +33,7 @@ class Configurator extends Component {
   platformСhoiceDescHandler = (inf) => {
     inf = {...emptyConf.PlatformСhoiceDesc,...inf};
     inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
+    inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
     const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
     copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(emptyConf.Modules[0]);
@@ -43,10 +44,11 @@ class Configurator extends Component {
     const copyOfConf=this.state.Configurations.slice();
     const ConfNumber=this.state.ConfNumber;
     const IndexOfSelectedSlot = this.state.Configurations[ConfNumber].IndexOfSelectedSlot;
-    inf.SubDesc = Object.keys(inf["article-list"])[0];
-    inf.SubArticle = inf["article-list"][inf.SubDesc];
+    inf.FirstArticle = inf["article-list"][Object.keys(inf["article-list"])[0]];
+    inf.SubArticle = inf.FirstArticle;
+    inf.SubDesc = Object.keys(inf["article-list"])[0]
     if (!copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot+(inf["slots-takes"]-1)] || IndexOfSelectedSlot===null) return;
-    inf.img="img/" + inf.TypeOfModules + "/" + inf["article-list"]["solder-terminal"].replace(/\s/g, "") + ".png"; 
+    inf.img="img/" + inf.TypeOfModules + "/" + inf.FirstArticle.replace(/\s/g, "") + ".png"; 
     for (let i = 1; i<copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot]["slots-takes"]; i++) {
       copyOfConf[ConfNumber].Modules[IndexOfSelectedSlot+i].display = true;
     }
@@ -81,8 +83,11 @@ class Configurator extends Component {
 
   awokenTabHandler = (index) => {
     const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
-    if (this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab===index) return
-    copyOfConf[this.state.ConfNumber].IndexOfAwokenTab = index;
+    if (this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab===index) {
+      copyOfConf[this.state.ConfNumber].IndexOfAwokenTab = null;
+    } else {
+      copyOfConf[this.state.ConfNumber].IndexOfAwokenTab = index;
+    }
     this.setState({Configurations: copyOfConf})
   }
 
