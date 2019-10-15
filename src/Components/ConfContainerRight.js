@@ -10,7 +10,7 @@ class ConfContainerRight extends Component {
             <div className="conf-main-right">
             <SplitPane split="horizontal" defaultSize="50%">
               <ConfContainerRightTop 
-                Configurations={this.props.Configurations}
+                Configuration={this.props.Configurations[this.props.ConfNumber]}
               />
               <ConfContainerRightBottom 
                 Configurations={this.props.Configurations}
@@ -31,7 +31,7 @@ class ConfContainerRightTop extends Component {
         <div className="conf-main-right-top-img-wrapper">
           <img
             className="conf-main-right-top-img"
-            src={"s"}
+            src={this.props.Configuration.PlatformСhoiceDesc.img}
             alt=""
           />
         </div>

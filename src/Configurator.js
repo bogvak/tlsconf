@@ -121,6 +121,7 @@ class Configurator extends Component {
         ModuleChoiceHandler={this.moduleChoiceHandler}
       />
 			<ConfContainerRight
+        ConfNumber={this.state.ConfNumber}
         Configurations={this.state.Configurations}
         QuantityOfConf={this.state.QuantityOfConf}
         SubMenuHandler={this.subMenuHandler}
