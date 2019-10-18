@@ -4,7 +4,7 @@ const emptyConf = {
       "signal-slots": 0,
       "conference-control": 0,
       "conference-control-double-frame": 0,
-      "type" : "Special version",
+      "type" : "Special",
     },
     IndexOfSelectedSlot: null,
     IndexOfAwokenTab: null,

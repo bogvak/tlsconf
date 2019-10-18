@@ -328,13 +328,15 @@ class ModuleSeriesListBottom extends Component {
             <Tabs className="conf-main-left-bottom-container_l1">
                 <TabList className="conf-main-left-bottom-container_l1-list">
                     {Object.keys(this.props.ModuleSeriesListBottom).map((typeOfModules) => {
-                        return (<Tab
-                            className="conf-main-left-bottom-container_l1-list-tab"
-                            selectedClassName="conf-main-left-bottom-container_l1-list-tab--selected"
-                            key={typeOfModules}
-                        >
-                            {this.props.LocalStrings[this.props.Language][this.props.TypeOfModule[typeOfModules]['menuname']]}
-                        </Tab>)
+                        if (this.props.TypeOfModule[typeOfModules]) {
+                            return (<Tab
+                                className="conf-main-left-bottom-container_l1-list-tab"
+                                selectedClassName="conf-main-left-bottom-container_l1-list-tab--selected"
+                                key={typeOfModules}
+                            >
+                                {this.props.LocalStrings[this.props.Language][this.props.TypeOfModule[typeOfModules]['menuname']]}
+                            </Tab>)
+                        }
                     })}
                 </TabList>
                     {Object.keys(this.props.ModuleSeriesListBottom).map((typeOfModules) => {

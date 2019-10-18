@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 
 //Data
-import {TypeOfFrame, TypeOfModule, ModulesContent, ModulesForBottomMenu} from './Data/data';
+import {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu} from './Data/data';
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
 
@@ -13,16 +13,10 @@ import SimpleBar from 'simplebar-react';
 //CSS
 import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
-import { throwStatement } from '@babel/types';
 
 class Configurator extends Component {
   
   state = {
-    TypeOfFrame: TypeOfFrame,
-    TypeOfModule: TypeOfModule,
-    LocalStrings: LocalStrings,
-    ModulesContent: ModulesContent,
-    ModulesForBottomMenu: ModulesForBottomMenu,
     Language: 'en',
     QuantityOfConf: 1,
     ConfNumber: 0,
@@ -34,6 +28,12 @@ class Configurator extends Component {
     inf = {...emptyConf.PlatformСhoiceDesc,...inf};
     inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
+    inf.subFrameType = SubModulesType[inf.location][inf.line];
+    inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
+    inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
+    if (inf.line.match(/[A-Z]/g).join('')==="TAM") {
+      inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
+    }
     const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
     copyOfConf[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(emptyConf.Modules[0]);
@@ -101,15 +101,38 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConf})
   }
 
+  subFrameTypeHandler = (newSubInf) => {
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConf[this.state.ConfNumber].PlatformСhoiceDesc = {...this.state.Configurations[this.state.ConfNumber].PlatformСhoiceDesc, ...newSubInf};
+    this.setState({Configurations: copyOfConf});
+  }
+
+  moduleResetHandler = (indexOfSlot) => {
+    const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+    for (let i = 1; i<copyOfConf[this.state.ConfNumber].Modules[indexOfSlot]["slots-takes"]; i++) {
+      copyOfConf[this.state.ConfNumber].Modules[indexOfSlot+i].display = true;
+    };
+    copyOfConf[this.state.ConfNumber].Modules[indexOfSlot] = emptyConf.Modules[0];
+    this.setState({Configurations: copyOfConf})
+  }
+
+  frameReseteHandler = (indexOfConf) => {
+    if (window.confirm("This will erase the whole Configuration, are you sure?") === true) {
+      const copyOfConf=JSON.parse(JSON.stringify(this.state.Configurations));
+      copyOfConf[indexOfConf] = emptyConf;
+      this.setState({Configurations: copyOfConf});
+    }
+  }
+
   render() {
     return (
 		<div className="conf-main">
 			<ConfContainerLeft 
-        TypeOfFrame={this.state.TypeOfFrame}
-        TypeOfModule={this.state.TypeOfModule}
-        LocalStrings={this.state.LocalStrings}
-        ModulesContent={this.state.ModulesContent}
-        ModulesForBottomMenu={this.state.ModulesForBottomMenu}
+        TypeOfFrame={TypeOfFrame}
+        TypeOfModule={TypeOfModule}
+        LocalStrings={LocalStrings}
+        ModulesContent={ModulesContent}
+        ModulesForBottomMenu={ModulesForBottomMenu}
         Language={this.state.Language}
         QuantityOfConf={this.state.QuantityOfConf}
         Configuration={this.state.Configurations[this.state.ConfNumber]}
@@ -124,8 +147,12 @@ class Configurator extends Component {
         ConfNumber={this.state.ConfNumber}
         Configurations={this.state.Configurations}
         QuantityOfConf={this.state.QuantityOfConf}
+        //Handlers
         SubMenuHandler={this.subMenuHandler}
         AwokenTabHandler={this.awokenTabHandler}
+        SubFrameTypeHandler={this.subFrameTypeHandler}
+        ModuleResetHandler={this.moduleResetHandler}
+        FrameReseteHandler={this.frameReseteHandler}
        />
 		</div>
     );

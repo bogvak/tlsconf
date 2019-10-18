@@ -11,12 +11,15 @@ class ConfContainerRight extends Component {
             <SplitPane split="horizontal" defaultSize="50%">
               <ConfContainerRightTop 
                 Configuration={this.props.Configurations[this.props.ConfNumber]}
+                SubFrameTypeHandler={this.props.SubFrameTypeHandler}
               />
               <ConfContainerRightBottom 
                 Configurations={this.props.Configurations}
                 QuantityOfConf={this.props.QuantityOfConf}
                 SubMenuHandler={this.props.SubMenuHandler}
                 AwokenTabHandler={this.props.AwokenTabHandler}
+                ModuleResetHandler={this.props.ModuleResetHandler}
+                FrameReseteHandler={this.props.FrameReseteHandler}
               />
             </SplitPane>
             </div>
@@ -35,8 +38,49 @@ class ConfContainerRightTop extends Component {
             alt=""
           />
         </div>
+        <div className="conf-main-right-top-frameName">
+          {this.props.Configuration.PlatformСhoiceDesc.fullLine}
+        </div>
+        <div className="conf-main-right-top-subFrameMenu">
+          {(this.props.Configuration.PlatformСhoiceDesc.subFrameType) ?  
+            <FrameSubMenu 
+              SubFrameType={this.props.Configuration.PlatformСhoiceDesc.subFrameType}
+              SubFrameArticle={this.props.Configuration.PlatformСhoiceDesc.subFrameArticle}
+              SubFrameTypeHandler={this.props.SubFrameTypeHandler}
+            />
+          : null}
+        </div>
       </div>
     );
+  }
+}
+
+class FrameSubMenu extends Component {
+  backgroundColor = (index) => {
+    if (index % 2 === 0) {
+      return "conf-main-right-top-subFrameMenu-list-line-light"
+    } else {
+      return "conf-main-right-top-subFrameMenu-list-line-dark"
+    }
+  }
+  render() {
+    return (
+      <div className="conf-main-right-top-subFrameMenu-list">
+        {Object.keys(this.props.SubFrameType).map((inf, index) => {
+          return(
+            <div key={inf} className={["conf-main-right-top-subFrameMenu-list-line", this.backgroundColor(index)].join(" ")}>
+              <p style={{"fontWeight": (this.props.SubFrameType[inf] === this.props.SubFrameArticle) ? "bold" : null}} className="conf-main-right-top-subFrameMenu-list-line-text">{this.props.SubFrameType[inf]} : {inf}</p>
+              <button
+                onClick={this.props.SubFrameTypeHandler.bind(this, {subFrameDesc: inf, subFrameArticle: this.props.SubFrameType[inf]})}
+                className="conf-main-right-top-subFrameMenu-list-line-button"
+              >
+                {(this.props.SubFrameType[inf] === this.props.SubFrameArticle) ? "✓" : null}
+              </button>
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 }
 
@@ -55,10 +99,13 @@ class ConfContainerRightBottom extends Component {
             >
               {(conf.PlatformСhoiceDesc.line) ?
                 <ConfList 
-                  key={confNumber} 
+                  key={confNumber}
+                  ConfNumber={confNumber}
                   Configuration={conf}
                   SubMenuHandler={this.props.SubMenuHandler}
                   AwokenTabHandler={this.props.AwokenTabHandler}
+                  ModuleResetHandler={this.props.ModuleResetHandler}
+                  FrameReseteHandler={this.props.FrameReseteHandler}
                 />
               : null}
             </TabPanel>)
@@ -71,19 +118,39 @@ class ConfContainerRightBottom extends Component {
 class ConfList extends Component {
   zebraColor = (index) => {
     if (index % 2 === 0) 
-      {return "dark"} 
+      {return "light"} 
     else 
-      {return "light"}
+      {return "dark"}
   }
   render() {
     return (
       <div className="conf-main-right-bottom_l1">
-        <h3 className="conf-main-right-bottom_l1-platform">
-          {this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:
-        </h3>
-        <p className="conf-main-right-bottom_l1-platform-desc">
-          {this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots, Type: {this.props.Configuration.PlatformСhoiceDesc.type}
-        </p>
+        <div className="conf-main-right-bottom_l2-subFrameType">
+            <div className="conf-main-right-bottom_l2-subFrameType-article">
+              {this.props.Configuration.PlatformСhoiceDesc.subFrameArticle}
+            </div>
+            <div className="conf-main-right-bottom_l2-subFrameType-space" />
+            <div className="conf-main-right-bottom_l2-subFrameType-desc">
+              {this.props.Configuration.PlatformСhoiceDesc.line} ({this.props.Configuration.PlatformСhoiceDesc.subFrameDesc})
+            </div>
+        </div>
+        <div className="conf-main-right-bottom_l2-frameType">
+            <div className="conf-main-right-bottom_l2-frameType-article">
+              {this.props.Configuration.PlatformСhoiceDesc.article}
+            </div>
+            <div className="conf-main-right-bottom_l2-frameType-space" />
+            <div className="conf-main-right-bottom_l2-frameType-desc">
+              {this.props.Configuration.PlatformСhoiceDesc.line} - Support frame:
+              <br/>
+              {this.props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots; Type: {this.props.Configuration.PlatformСhoiceDesc["type"]}
+            </div>
+            <div 
+              className="conf-main-right-bottom_l2-frameType-remove-button"
+              onClick={this.props.FrameReseteHandler.bind(this, this.props.ConfNumber)}
+            >
+              x
+            </div>
+        </div>
         {this.props.Configuration.Modules.map((module, index) => {
           return (
             <div 
@@ -95,7 +162,7 @@ class ConfList extends Component {
               >
                 {module.SubArticle}
               </div> : null} 
-              {(module["article-list"]) ? 
+              {(module.desc || module.SubDesc) ? 
                 <div 
                   className="conf-main-right-bottom_l2-module-specs-menu"
                   onMouseEnter={
@@ -117,6 +184,12 @@ class ConfList extends Component {
                 className="conf-main-right-bottom_l2-module-desc"
               >
                 {module.desc}({module.SubDesc})
+              </div>: null}
+              {(module.desc && module.SubDesc) ? <div
+                onClick={this.props.ModuleResetHandler.bind(this, index)}
+                className="conf-main-right-bottom_l2-module-remove-button"
+              >
+                x
               </div>: null}
             </div>
           )

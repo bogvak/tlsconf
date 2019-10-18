@@ -31,6 +31,45 @@ const TypeOfModule = {
 	},
 }
 
+const SubModulesType = {
+	"WALL" : {
+		"Premium Line" : {
+
+		},
+		"Universal Line" : {
+
+		}
+	},
+	"TABLE" : {
+		"TAM 201" : {
+			"4mm" : "865 9511",
+			"4mm + button" : "865 9512",
+			"2.5mm" : "865 9513",
+			"2.5mm + button" : "865 9514",
+		},
+		"TAM 305" : {
+			"4mm" : "865 9501",
+			"4mm + button" : "865 9502",
+			"2.5mm" : "865 9503",
+			"2.5mm + button" : "865 9504",
+		},
+		"TAM 401" : {
+			"4mm" : "865 9561",
+			"4mm + button" : "865 9565",
+			"2.5mm" : "865 9563",
+			"2.5mm + button" : "865 9564",
+		},
+	},
+	"FLOOR" : {
+		"Worldplate Floorbox GB2" : {
+
+		},
+		"Worldplate Floorbox GB3" : {
+
+		}
+	}
+}
+
 const ModulesContent = {
 	"WALL" : {
 		"Premium Line" : {
@@ -509,4 +548,4 @@ const ModulesForBottomMenu = {
 	},
 }
 
-export {TypeOfFrame, TypeOfModule, ModulesContent, ModulesForBottomMenu}
+export {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu}

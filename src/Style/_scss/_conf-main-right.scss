@@ -16,9 +16,51 @@
         transform: translateX(-50%);
         &-wrapper {
             width: 100%;
-            height: 65%;
+            height: 68%;
             box-sizing: border-box;
             padding: 5px;
+        }
+    }
+    &-frameName {
+        background-color: $main-color-light5;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 3px;
+        border-bottom: $border-panel;
+        border-top: $border-panel;
+        box-sizing: border-box;
+    }
+    &-subFrameMenu {
+        &-list {
+            display: flex;
+            flex-direction: column;
+            &-line{
+                padding: 3px;
+                box-sizing: border-box;
+                display: flex;
+                position: relative;
+                &-text {
+                    @include zero-m-and-p;
+                }
+                &-button {
+                    @include zero-m-and-p;
+                    position: absolute;
+                    right: 1px;
+                    top: 1px;
+                    border: $border-panel;
+                    border-radius: $border-radius-value;
+                    width: 20px;
+                    height: 20px;
+                    background-color: $main-windows-background-color;
+
+                }
+                &-dark {
+                    background-color: $main-color-light5;
+                }
+                &-light {
+                    background-color: transparent;
+                }
+            }
         }
     }
 }
@@ -55,23 +97,26 @@
             list-style-type: decimal;
         }
     }
-    &_l2-module {
-        min-height: 1.1em; 
-        display: flex;
-        margin: 0;
-        cursor: pointer;
-        &-light {
-            background-color: inherit;
+    &_l2 {
+        &-subFrameType {
+            @include right-bottom-list_l2;
+            background-color: transparent;
         }
-        &-dark {
-            background-color: $main-color-light2
+        &-frameType {
+            @include right-bottom-list_l2;
+            background-color: $main-color-light2;
         }
-        &-article {
-            white-space: nowrap;
-            padding: 0 5px;
-        }
-        &-specs {
-            &-menu {
+        &-module {
+            @include right-bottom-list_l2;
+            min-height: 1.1em;
+            &-light {
+                background-color: transparent;
+            }
+            &-dark {
+                background-color: $main-color-light2
+            }
+            &-specs-menu {
+                cursor: pointer;
                 position: relative;
                 width: 0;
                 height: 0;
@@ -98,9 +143,6 @@
                     }
                 }
             }
-        }
-        &-desc {
-            padding: 0 2px;  
         }
     }
 }

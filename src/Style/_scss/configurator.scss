@@ -8,6 +8,7 @@ $main-color-light1: #48A0B9;
 $main-color-light2: #86B7BD;
 $main-color-light3: #BACBCC;
 $main-color-light4: #E4E4E4;
+$main-color-light5: #F1EEEE;
 $main-color-strong: rgb(0, 102, 255);
 $main-color-light: rgb(172, 206, 255);
 $darkgrey: #333;
@@ -42,6 +43,9 @@ $card-margin-bottom-menu: 0 10px;
 $main-left-width: 70%;
 /***conf-main-right***/
 $main-right-width: 100%-$main-left-width;
+
+$article-width: 23%;
+$desc-width: 75%;
 
 @import 'mixins';
 
