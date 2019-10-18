@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import SplitPane from 'react-split-pane';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-//Data import
-import LocalStrings from '../Data/strings'
 
 class ConfContainerRight extends Component {
     render() {
       return (
             <div className="conf-main-right">
-            <SplitPane split="horizontal" defaultSize="50%">
+            <SplitPane split="horizontal" defaultSize="41%">
               <ConfContainerRightTop 
                 Configuration={this.props.Configurations[this.props.ConfNumber]}
                 SubFrameTypeHandler={this.props.SubFrameTypeHandler}
