@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 //PRINT
 import ReactToPrint from 'react-to-print';
+import NewWindow from 'react-new-window'
 
 class ConfContainerRight extends Component {
     render() {
@@ -230,59 +231,34 @@ class ConfList extends Component {
   }
 }
 
-class ConfToPrint extends Component {
-  Configuration = this.props.Configurations[this.props.ConfNumber]
+class PrinfConfWindow extends Component {
   render () {
     return (
-      <table className="conf-table">
-        <caption style={{textAlign: "center"}}>Conf list Beta</caption>
-        <thead>
-          <th>Pos.</th>
-          <th>Article/Desc</th>
-          <th>Menge</th>
-          <th>Rbt.% </th>
-          <th>E-Preis</th>
-          <th>Gesamt</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>0</td>
-            <td>{this.Configuration.PlatformСhoiceDesc.article}: {this.Configuration.PlatformСhoiceDesc.desc}({this.Configuration.PlatformСhoiceDesc.subFrameDesc})</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        {
-          this.Configuration.Modules.map((module, index) => {
-            return(
-              <tr>
-                <td>{index+1}</td>
-                <td>{module.SubArticle + ": " + module.SubDesc}</td>
-                <td>1</td>
-                <td>??</td>
-                <td>EUR</td>
-                <td>40</td>
-              </tr>
-            )
-          })
-        }
-        </tbody>
-      </table>
+      <NewWindow>
+        <div>
+          hi!
+        </div>
+      </NewWindow>
     )
   }
 }
  
 class PrintConfButton extends Component {
+  state = {
+    isClick: false
+  }
+
   render () {
     return (
       <div className="conf-main-right-bottom_l1-print-conf-list">
-        <ReactToPrint
-          trigger={() => <button className="conf-main-right-bottom_l1-print-conf-list-button" href="#">Print Configuration List</button>}
-          content={() => this.componentRef}
-        />
-        <div style={{display: "none"}}><ConfToPrint ConfNumber={this.props.ConfNumber} Configurations={this.props.Configurations} ref={el => (this.componentRef = el)} /></div>
-      </div>
+        <button 
+          className="conf-main-right-bottom_l1-print-conf-list-button"
+          onClick={() => this.setState({isClick: !this.state.isClick})}
+        >
+          Print Configuration List
+        </button>
+        {(this.state.isClick) ? <PrinfConfWindow/> : null}
+      </div>  
     )
   }
 }
