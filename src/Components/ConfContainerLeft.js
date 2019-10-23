@@ -236,12 +236,12 @@ class ConfLayout extends Component {
                 <div className="conf-main-left-middle-container_l1-layout-top" />
                 <div className="conf-main-left-middle-container_l1-layout-middle">
                     {this.conf(
-                        [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sokets"]).keys()].map((indexOfPowerSokets) => {
+                        [...Array(this.props.Configuration.PlatformСhoiceDesc["power-sockets"]).keys()].map((indexOfPowerSokets) => {
                             return (<img
-                                className="power-soket"
+                                className="power-socket"
                                 key={indexOfPowerSokets}
                                 src={"img/8639204.png"} 
-                                alt="power-soket" 
+                                alt="power-socket" 
                             />)
                         }),
                         <div

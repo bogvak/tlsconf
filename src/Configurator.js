@@ -14,6 +14,7 @@ import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
 
+
 class Configurator extends Component {
   
   state = {
@@ -26,11 +27,15 @@ class Configurator extends Component {
 
   platformСhoiceDescHandler = (inf) => {
     inf = {...emptyConf.PlatformСhoiceDesc,...inf};
-    inf["all-slots"] = inf["signal-slots"]+inf["power-sokets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
+    inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
     inf.subFrameType = SubModulesType[inf.location][inf.line];
     inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
     inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
+    if (inf["power-sockets"] > 0) {
+      inf["power-sockets-desc"] = "Power sockets DE White"
+      inf["power-sockets-article"] = "863 9204"
+    }
     if (inf.line.match(/[A-Z]/g).join('')==="TAM") {
       inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
     }
@@ -69,7 +74,7 @@ class Configurator extends Component {
   }
 
   addConfHandler = () => {
-    if (this.state.QuantityOfConf >= 5) return;
+    if (this.state.QuantityOfConf >= 2) return;
     const copyOfConf = this.state.Configurations.slice();
     copyOfConf.push(emptyConf);
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConf});

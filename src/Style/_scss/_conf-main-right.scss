@@ -6,6 +6,7 @@
 
 .conf-main-right-top {
     @include main-right-windows;
+    height: 41%;
     display: flex;
     flex-direction: column;
     &-img {
@@ -72,80 +73,96 @@
 .conf-main-right-bottom {
     &_l0 {
         @include main-boxes(100%, 100%);
+        flex: 1;
         flex-direction: column;
+        padding-top: 3px;
         &-list {
             @include list_l0;
         }
         &-panel {
-            flex: 1;
             @include main-right-windows;
+            flex: 1;
             display: none;
             &--selected {
-                display: block;
+                display: flex;
+                flex-direction: column;
             }
         }
     }
     &_l1 {
-        @include zero-m-and-p;
-
-        &-platform {
-            padding: 5px;
-            margin: 0;
-            &-desc {
-                margin: 0;
-                padding: 5px;
-            }
-        }
-        &-module {
-            padding: 0 5px;
-            list-style-type: decimal;
-        }
-    }
-    &_l2 {
-        &-subFrameType {
-            @include right-bottom-list_l2;
-            background-color: transparent;
-        }
-        &-frameType {
-            @include right-bottom-list_l2;
-            background-color: $main-color-light2;
-        }
-        &-module {
-            @include right-bottom-list_l2;
-            min-height: 1.1em;
-            &-light {
+        &-conf-list {
+            @include zero-m-and-p;
+            max-height: 90%;
+            height: 90%;
+            position: relative;
+            padding-bottom: 2rem;
+            &-subFrameType {
+                @include right-bottom-list_l2;
                 background-color: transparent;
             }
-            &-dark {
-                background-color: $main-color-light2
+            &-frameType {
+                @include right-bottom-list_l2;
+                background-color: $main-color-light2;
             }
-            &-specs-menu {
-                cursor: pointer;
-                position: relative;
-                width: 0;
-                height: 0;
-                box-sizing: border-box;
-                border-top: 0.35em solid transparent;
-                border-bottom: 0.35em solid transparent;
-                border-left: 0.7em solid red;
-                margin: auto 0;
-                &-list {
-                    @include zero-m-and-p;
-                    padding: 0 4px;
-                    list-style: none;
-                    position: absolute;
-                    right: 0;
-                    top: -0.6em;
-                    border: $border-panel;
-                    border-radius: $border-radius-value;
-                    transform: translate(100%);
-                    background-color: $main-windows-background-color;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    &-li--bordered  {
-                        border-bottom: $border-panel;
+            &-powerSocket {
+                @include right-bottom-list_l2;
+                background-color: transparent;
+            }
+            &-module {
+                @include right-bottom-list_l2;
+                min-height: 1.1em;
+                &-light {
+                    background-color: transparent;
+                }
+                &-dark {
+                    background-color: $main-color-light2
+                }
+                &-specs-menu {
+                    cursor: pointer;
+                    position: relative;
+                    width: 0;
+                    height: 0;
+                    box-sizing: border-box;
+                    border-top: 0.35em solid transparent;
+                    border-bottom: 0.35em solid transparent;
+                    border-left: 0.7em solid red;
+                    margin: auto 0;
+                    &-list {
+                        @include zero-m-and-p;
+                        padding: 0 4px;
+                        list-style: none;
+                        position: absolute;
+                        right: 0;
+                        top: -0.6em;
+                        border: $border-panel;
+                        border-radius: $border-radius-value;
+                        transform: translate(100%);
+                        background-color: $main-windows-background-color;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        &-li--bordered  {
+                            border-bottom: $border-panel;
+                        }
                     }
                 }
+            }
+        }
+        &-print-conf-list {
+            height: 10%;
+            background-color: $main-color-light5;
+            &-button {
+                position: relative;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #00ff32a1;
+                border-radius: $border-radius-value;
+                border: $border-panel;
+                outline: none;
+                padding: 3px 12px;
+                &:hover {
+                    background-color: #00ff33;
+                } 
             }
         }
     }
