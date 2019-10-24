@@ -20,6 +20,7 @@ class ConfContainerRight extends Component {
                 AwokenTabHandler={this.props.AwokenTabHandler}
                 ModuleResetHandler={this.props.ModuleResetHandler}
                 FrameReseteHandler={this.props.FrameReseteHandler}
+                BuildArticlesArray={this.props.BuildArticlesArray}
               />
           </div>
       );
@@ -106,7 +107,7 @@ class ConfContainerRightBottom extends Component {
                   ModuleResetHandler={this.props.ModuleResetHandler}
                   FrameReseteHandler={this.props.FrameReseteHandler}
                 /> , 
-                <PrintConfButton ConfNumber={confNumber} Configurations={this.props.Configurations} key={conf} />
+                <PrintConfButton BuildArticlesArray={this.props.BuildArticlesArray} ConfNumber={confNumber} key={conf} />
               ] : null}
             </TabPanel>)
           })}
@@ -165,11 +166,11 @@ class ConfList extends Component {
           </div>
           {(this.props.Configuration.PlatformСhoiceDesc["power-sockets"]) ? <div className="conf-main-right-bottom_l1-conf-list-powerSocket">
               <div className="conf-main-right-bottom_l1-conf-list-powerSocket-article">
-                {this.props.Configuration.PlatformСhoiceDesc["power-sockets-article"]}
+                {this.props.Configuration.PlatformСhoiceDesc.powerSocketArticle}
               </div>
               <div className="conf-main-right-bottom_l1-conf-list-powerSocket-space"/>
               <div className="conf-main-right-bottom_l1-conf-list-powerSocket-desc">
-                {this.props.Configuration.PlatformСhoiceDesc["power-sockets-desc"]} (x{this.props.Configuration.PlatformСhoiceDesc["power-sockets"]})
+                {this.props.Configuration.PlatformСhoiceDesc.powerSocketDesc} (x{this.props.Configuration.PlatformСhoiceDesc["power-sockets"]})
               </div>
           </div> : null}
           {this.props.Configuration.Modules.map((module, index) => {
@@ -231,12 +232,51 @@ class ConfList extends Component {
   }
 }
 
+class ComponentToPrint extends Component {
+  style = {
+    border: "1px solid black",
+    borderCollapse: "collapse"
+  }
+  render () {
+    return (
+      <div>
+        <table style={this.style} className="print-conf-table">
+          <thead>
+            <tr>
+              <th style={this.style}>Pos.</th>
+              <th style={this.style}>Article.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.ArticleList.map((article, index) => {
+              return (
+                <tr key={index}>
+                  <td style={this.style}>{index}</td>
+                  <td style={this.style}>{article}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+}
+
 class PrinfConfWindow extends Component {
+  style = {
+    border: "1px solid black",
+    borderCollapse: "collapse"
+  }
   render () {
     return (
       <NewWindow>
         <div>
-          hi!
+          <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
+          <ReactToPrint
+            trigger={() => <button>Print</button>}
+            content={() => this.componentRef}
+          />
         </div>
       </NewWindow>
     )
@@ -245,7 +285,8 @@ class PrinfConfWindow extends Component {
  
 class PrintConfButton extends Component {
   state = {
-    isClick: false
+    isClick: false,
+    articleList: null
   }
 
   render () {
@@ -253,11 +294,14 @@ class PrintConfButton extends Component {
       <div className="conf-main-right-bottom_l1-print-conf-list">
         <button 
           className="conf-main-right-bottom_l1-print-conf-list-button"
-          onClick={() => this.setState({isClick: !this.state.isClick})}
+          onClick={() => this.setState({
+            isClick: !this.state.isClick, 
+            articleList: this.props.BuildArticlesArray(this.props.ConfNumber)
+          })}
         >
           Print Configuration List
         </button>
-        {(this.state.isClick) ? <PrinfConfWindow/> : null}
+        {(this.state.isClick && this.state.articleList) ? <PrinfConfWindow ArticleList={this.state.articleList} /> : null}
       </div>  
     )
   }
