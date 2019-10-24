@@ -138,6 +138,7 @@ class Configurator extends Component {
     }
     for (let i = 0; i < this.state.Configurations[confNumber].Modules.length; i++) {
       if (!this.state.Configurations[confNumber].Modules[i].SubArticle && this.state.Configurations[confNumber].Modules[i].display) {
+        alert("Fill all empty slots!");
         return;
       } else if (this.state.Configurations[confNumber].Modules[i].SubArticle) {
         articlesArray.push(this.state.Configurations[confNumber].Modules[i].SubArticle)
