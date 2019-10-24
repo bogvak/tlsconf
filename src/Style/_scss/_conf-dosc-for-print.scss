@@ -1,3 +1,4 @@
-.print-conf-table th td {
-    background-color: blue;
+.print-conf-table, th, td {
+    border: 1px solid green;
+    border-collapse: collapse;
 }

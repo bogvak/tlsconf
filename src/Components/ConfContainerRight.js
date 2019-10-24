@@ -233,10 +233,6 @@ class ConfList extends Component {
 }
 
 class ComponentToPrint extends Component {
-  style = {
-    border: "1px solid black",
-    borderCollapse: "collapse"
-  }
   render () {
     return (
       <div>
