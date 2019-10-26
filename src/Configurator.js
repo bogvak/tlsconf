@@ -131,21 +131,33 @@ class Configurator extends Component {
 
   buildArticlesArray = (confNumber) => {
     const articlesArray = [];
-    articlesArray.push(this.state.Configurations[confNumber].PlatformСhoiceDesc.article);
-    articlesArray.push(this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle);
-    for (let i=0; i < this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]; i++) {
-      articlesArray.push(this.state.Configurations[confNumber].PlatformСhoiceDesc.powerSocketArticle);
-    }
-    for (let i = 0; i < this.state.Configurations[confNumber].Modules.length; i++) {
-      if (!this.state.Configurations[confNumber].Modules[i].SubArticle && this.state.Configurations[confNumber].Modules[i].display) {
-        alert("Fill all empty slots!");
-        return;
-      } else if (this.state.Configurations[confNumber].Modules[i].SubArticle) {
-        articlesArray.push(this.state.Configurations[confNumber].Modules[i].SubArticle)
+    let isCompleted = true;
+    articlesArray.push({article: this.state.Configurations[confNumber].PlatformСhoiceDesc.article, quantity: 1});
+    articlesArray.push({article: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle, quantity: 1});
+    articlesArray.push({article: this.state.Configurations[confNumber].PlatformСhoiceDesc.powerSocketArticle, quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]});
+    const modules = JSON.parse(JSON.stringify( this.state.Configurations[confNumber].Modules));
+    modules.map((module, index) => {
+      if (!module.SubArticle && module.display) {
+        isCompleted = false;
+      } else if (module.SubArticle) {
+        let quantity = 1;
+        for (let j = index+1; j<modules.length; j++) {
+          if (modules[j].SubArticle === module.SubArticle) {
+            modules[j].SubArticle = "duplicate";
+            quantity++;
+          }
+        }
+        if (!(module.SubArticle==="duplicate")) {
+          articlesArray.push({article: module.SubArticle, quantity: quantity})
+        }
       }
+    })
+    if (isCompleted) {
+      console.log(articlesArray);
+      return articlesArray;
+    } else {
+      alert("Fill all empty slots!");
     }
-    console.log(articlesArray);
-    return articlesArray;
   }
 
   render() {

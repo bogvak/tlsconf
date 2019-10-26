@@ -236,19 +236,21 @@ class ComponentToPrint extends Component {
   render () {
     return (
       <div>
-        <table style={this.style} className="print-conf-table">
+        <table className="print-conf-table">
           <thead>
             <tr>
-              <th style={this.style}>Pos.</th>
-              <th style={this.style}>Article.</th>
+              <th>Pos.</th>
+              <th>Article.</th>
+              <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.ArticleList.map((article, index) => {
+            {this.props.ArticleList.map((inf, index) => {
               return (
                 <tr key={index}>
-                  <td style={this.style}>{index}</td>
-                  <td style={this.style}>{article}</td>
+                  <td>{index}</td>
+                  <td>{inf.article}</td>
+                  <td>{inf.quantity}</td>
                 </tr>
               )
             })}
