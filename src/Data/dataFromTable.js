@@ -1,4 +1,4 @@
-const test = {
+const dataList = {
     8367712 : {
       "Description1" : "CAT. 6A Universal plug RJ45",
       "Type" : "",
@@ -4720,7 +4720,7 @@ const test = {
     8659564 : {
       "Description1" : "Table installation module 401(2,5mm) for",
       "Type" : "Installation Module",
-      "Description2" : "3xpower socket 230V+6 slots, prep.Button",
+      "Description2" : "3x power socket 230V+6 slots, prep.Button",
       "AGR" : "2",
       "EVP" : "786",
       "maleOrFemaleST" : "",
@@ -4734,7 +4734,7 @@ const test = {
     8659565 : {
       "Description1" : "Table installation module 401 (4mm) for",
       "Type" : "Installation Module",
-      "Description2" : "3xpower socket 230V+6 slots, prep.Button",
+      "Description2" : "3x power socket 230V+6 slots, prep.Button",
       "AGR" : "2",
       "EVP" : "786",
       "maleOrFemaleST" : "",
@@ -9058,3 +9058,4 @@ const test = {
       "Number_Of_Slots" : ""
     }
   };
+export default dataList; 

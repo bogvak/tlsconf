@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
-//PRINT
-import ReactToPrint from 'react-to-print';
-import NewWindow from 'react-new-window'
+import PrinfConfWindow from './ConfWindowForPrint';
 
 class ConfContainerRight extends Component {
     render() {
@@ -229,55 +226,6 @@ class ConfList extends Component {
         </div>  
       </div>
     );
-  }
-}
-
-class ComponentToPrint extends Component {
-  render () {
-    return (
-      <div>
-        <table className="print-conf-table">
-          <thead>
-            <tr>
-              <th>Pos.</th>
-              <th>Article.</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.ArticleList.map((inf, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index}</td>
-                  <td>{inf.article}</td>
-                  <td>{inf.quantity}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-    )
-  }
-}
-
-class PrinfConfWindow extends Component {
-  style = {
-    border: "1px solid black",
-    borderCollapse: "collapse"
-  }
-  render () {
-    return (
-      <NewWindow>
-        <div>
-          <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
-          <ReactToPrint
-            trigger={() => <button>Print</button>}
-            content={() => this.componentRef}
-          />
-        </div>
-      </NewWindow>
-    )
   }
 }
  
