@@ -6,89 +6,164 @@
 
 .conf-main-right-top {
     @include main-right-windows;
-    padding: 5px;
+    height: 41%;
     display: flex;
     flex-direction: column;
+    &-img {
+        height: 100%;
+        box-sizing: border-box;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        &-wrapper {
+            min-width: 295px;
+            min-height: 169px;
+            max-width: 295px;
+            max-height: 169px;
+            width: 295px;
+            height: 169px;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+    }
+    &-frameName {
+        background-color: $main-color-light5;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 3px;
+        border-bottom: $border-panel;
+        border-top: $border-panel;
+        box-sizing: border-box;
+    }
+    &-subFrameMenu {
+        &-list {
+            display: flex;
+            flex-direction: column;
+            &-line{
+                padding: 3px;
+                box-sizing: border-box;
+                display: flex;
+                position: relative;
+                &-text {
+                    @include zero-m-and-p;
+                }
+                &-button {
+                    @include zero-m-and-p;
+                    position: absolute;
+                    right: 1px;
+                    top: 1px;
+                    border: $border-panel;
+                    border-radius: $border-radius-value;
+                    width: 20px;
+                    height: 20px;
+                    background-color: $main-windows-background-color;
+
+                }
+                &-dark {
+                    background-color: $main-color-light5;
+                }
+                &-light {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
 }
 
 .conf-main-right-bottom {
     &_l0 {
         @include main-boxes(100%, 100%);
+        flex: 1;
         flex-direction: column;
+        padding-top: 3px;
         &-list {
             @include list_l0;
         }
         &-panel {
-            flex: 1;
             @include main-right-windows;
+            flex: 1;
             display: none;
             &--selected {
-                display: block;
+                display: flex;
+                flex-direction: column;
             }
         }
     }
     &_l1 {
-        @include zero-m-and-p;
-
-        &-platform {
-            padding: 5px;
-            margin: 0;
-            &-desc {
-                margin: 0;
-                padding: 5px;
+        &-conf-list {
+            @include zero-m-and-p;
+            max-height: 90%;
+            height: 90%;
+            position: relative;
+            padding-bottom: 2rem;
+            &-subFrameType {
+                @include right-bottom-list_l2;
+                background-color: transparent;
             }
-        }
-        &-module {
-            padding: 0 5px;
-            list-style-type: decimal;
-        }
-    }
-    &_l2-module {
-        min-height: 1.1em; 
-        display: flex;
-        margin: 0;
-        cursor: pointer;
-        &-light {
-            background-color: inherit;
-        }
-        &-dark {
-            background-color: $main-color-light2
-        }
-        &-article {
-            white-space: nowrap;
-            padding: 0 5px;
-        }
-        &-specs {
-            &-menu {
-                position: relative;
-                width: 0;
-                height: 0;
-                box-sizing: border-box;
-                border-top: 0.35em solid transparent;
-                border-bottom: 0.35em solid transparent;
-                border-left: 0.7em solid red;
-                margin: auto 0;
-                &-list {
-                    @include zero-m-and-p;
-                    padding: 0 4px;
-                    list-style: none;
-                    position: absolute;
-                    right: 0;
-                    top: -0.6em;
-                    border: $border-panel;
-                    border-radius: $border-radius-value;
-                    transform: translate(100%);
-                    background-color: $main-windows-background-color;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    &-li--bordered  {
-                        border-bottom: $border-panel;
+            &-frameType {
+                @include right-bottom-list_l2;
+                background-color: $main-color-light2;
+            }
+            &-powerSocket {
+                @include right-bottom-list_l2;
+                background-color: transparent;
+            }
+            &-module {
+                @include right-bottom-list_l2;
+                min-height: 1.1em;
+                &-light {
+                    background-color: transparent;
+                }
+                &-dark {
+                    background-color: $main-color-light2
+                }
+                &-specs-menu {
+                    cursor: pointer;
+                    position: relative;
+                    width: 0;
+                    height: 0;
+                    box-sizing: border-box;
+                    border-top: 0.35em solid transparent;
+                    border-bottom: 0.35em solid transparent;
+                    border-left: 0.7em solid red;
+                    margin: auto 0;
+                    &-list {
+                        @include zero-m-and-p;
+                        padding: 0 4px;
+                        list-style: none;
+                        position: absolute;
+                        right: 0;
+                        top: -0.6em;
+                        border: $border-panel;
+                        border-radius: $border-radius-value;
+                        transform: translate(100%);
+                        background-color: $main-windows-background-color;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        &-li--bordered  {
+                            border-bottom: $border-panel;
+                        }
                     }
                 }
             }
         }
-        &-desc {
-            padding: 0 2px;  
+        &-print-conf-list {
+            height: 10%;
+            background-color: $main-color-light5;
+            &-button {
+                position: relative;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #00ff32a1;
+                border-radius: $border-radius-value;
+                border: $border-panel;
+                outline: none;
+                padding: 3px 12px;
+                &:hover {
+                    background-color: #00ff33;
+                } 
+            }
         }
     }
 }

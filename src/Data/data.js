@@ -31,6 +31,45 @@ const TypeOfModule = {
 	},
 }
 
+const SubModulesType = {
+	"WALL" : {
+		"Premium Line" : {
+
+		},
+		"Universal Line" : {
+
+		}
+	},
+	"TABLE" : {
+		"TAM 201" : {
+			"4mm" : "865 9511",
+			"4mm + button" : "865 9512",
+			"2.5mm" : "865 9513",
+			"2.5mm + button" : "865 9514",
+		},
+		"TAM 305" : {
+			"4mm" : "865 9501",
+			"4mm + button" : "865 9502",
+			"2.5mm" : "865 9503",
+			"2.5mm + button" : "865 9504",
+		},
+		"TAM 401" : {
+			"4mm" : "865 9561",
+			"4mm + button" : "865 9565",
+			"2.5mm" : "865 9563",
+			"2.5mm + button" : "865 9564",
+		},
+	},
+	"FLOOR" : {
+		"Worldplate Floorbox GB2" : {
+
+		},
+		"Worldplate Floorbox GB3" : {
+
+		}
+	}
+}
+
 const ModulesContent = {
 	"WALL" : {
 		"Premium Line" : {
@@ -56,13 +95,13 @@ const ModulesContent = {
 			},
 			"One power socket and three signal slots" : {
 				"article" : "8700 4251",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"signal-slots" : 3,
 				"type" : "Standart",
 			},
 			"Two power sockets" : {
 				"article" : "8700 4252",
-				"power-sokets" : 2,
+				"power-sockets" : 2,
 			},
 			"Three signal slots and Conference-control" : {
 				"article" : "8700 4280",
@@ -71,7 +110,7 @@ const ModulesContent = {
 			},
 			"One power socket and Conference-control" : {
 				"article" : "8700 4281",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"conference-control" : 1,
 			},
 			"Two Conference-control" : {
@@ -86,33 +125,33 @@ const ModulesContent = {
 			},
 			"One power socket and nine signal slots" : {
 				"article" : "8700 4261",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"signal-slots" : 9,
 			},
 			"Two power sockets and six signal slots" : {
 				"article" : "8700 4262",
-				"power-sokets" : 2,
+				"power-sockets" : 2,
 				"signal-slots" : 6,
 				"type" : "Standart",
 			},
 			"Three power sockets and three signal slots" : {
 				"article" : "8700 4263",
-				"power-sokets" : 3,
+				"power-sockets" : 3,
 				"signal-slots" : 3,
 			},
 			"Four power sockets" : {
 				"article" : "8700 4264",
-				"power-sokets" : 4,
+				"power-sockets" : 4,
 			},
 			"Three signal slots, one power socket and Conference-control" : {
 				"article" : "8700 4283",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"signal-slots" : 3,
 				"conference-control" : 1,
 			},
 			"One power socket and Conference-control double frame" : {
 				"article" : "8700 4284",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"conference-control-double-frame": 1,
 			},
 			"Three signal slots and Conference-control double frame" : {
@@ -128,44 +167,44 @@ const ModulesContent = {
 			},
 			"One power socket and twelve signal slots" : {
 				"article" : "8700 4271",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"signal-slots" : 12,
 			},
 			"Two power sockets and nine signal slots" : {
 				"article" : "8700 4272",
-				"power-sokets" : 2,
+				"power-sockets" : 2,
 				"signal-slots" : 9,
 			},
 			"Three power sockets and six signal slots" : {
 				"article" : "8700 4273",
-				"power-sokets" : 3,
+				"power-sockets" : 3,
 				"signal-slots" : 6,
 				"type" : "Standart",
 			},
 			"Four power sockets and three signal slots" : {
 				"article" : "8700 4274",
-				"power-sokets" : 4,
+				"power-sockets" : 4,
 				"signal-slots" : 3,
 			},
 			"Five power sockets" : {
 				"article" : "8700 4275",
-				"power-sokets" : 5,
+				"power-sockets" : 5,
 			},
 			"Three signal slots, one power socket and Conference-control double frame" : {
 				"article" : "8700 4286",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"signal-slots" : 3,
 				"conference-control-double-frame": 1,
 			},
 			"Six signal slots, one power socket and Conference-control" : {
 				"article" : "8700 4287",
-				"power-sokets" : 1,
+				"power-sockets" : 1,
 				"signal-slots" : 6,
 				"conference-control" : 1,
 			},
 			"Three signal slots, two power sockets and Conference-control" : {
 				"article" : "8700 4288",
-				"power-sokets" : 2,
+				"power-sockets" : 2,
 				"signal-slots" : 3,
 				"conference-control" : 1,
 			}
@@ -509,4 +548,4 @@ const ModulesForBottomMenu = {
 	},
 }
 
-export {TypeOfFrame, TypeOfModule, ModulesContent, ModulesForBottomMenu}
+export {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu}
