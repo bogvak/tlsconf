@@ -8,6 +8,7 @@ $main-color-light1: #48A0B9;
 $main-color-light2: #86B7BD;
 $main-color-light3: #BACBCC;
 $main-color-light4: #E4E4E4;
+$main-color-light5: #F1EEEE;
 $main-color-strong: rgb(0, 102, 255);
 $main-color-light: rgb(172, 206, 255);
 $darkgrey: #333;
@@ -43,6 +44,9 @@ $main-left-width: 70%;
 /***conf-main-right***/
 $main-right-width: 100%-$main-left-width;
 
+$article-width: 23%;
+$desc-width: 75%;
+
 @import 'mixins';
 
 /* FONT INTER */
@@ -67,64 +71,7 @@ body {
 
 @import 'conf-main-left';
 @import 'conf-main-right';
-
-/***** RESIZER FOR SPLIT PANE *****/
-
-.Resizer {
-    background: #000;
-    opacity: .2;
-    z-index: 1;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding;
-    background-clip: padding-box;
-}
-
-.Resizer:hover {
-    -webkit-transition: all 2s ease;
-    transition: all 2s ease;
-}
-
-.Resizer.horizontal {
-    height: 11px;
-    border-top: 5px solid rgba(255, 255, 255, 0);
-    border-bottom: 5px solid rgba(255, 255, 255, 0);
-    cursor: row-resize;
-    width: 100%;
-}
-
-.Resizer.horizontal:hover {
-    border-top: 5px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 5px solid rgba(0, 0, 0, 0.5);
-}
-
-.Resizer.vertical {
-    width: 11px;
-    border-left: 5px solid rgba(255, 255, 255, 0);
-    border-right: 5px solid rgba(255, 255, 255, 0);
-    cursor: col-resize;
-}
-
-.Resizer.vertical:hover {
-    border-left: 5px solid rgba(0, 0, 0, 0.5);
-    border-right: 5px solid rgba(0, 0, 0, 0.5);
-}
-
-.Resizer.disabled {
-    cursor: not-allowed;
-}
-
-.Resizer.disabled:hover {
-    border-color: transparent;
-}
-
-.SplitPane {
-	position: inherit !important;
-}
-
-/***** CHANGE TABS STYLE *****/
+@import 'conf-dosc-for-print';
 
 .module-series-list {
     width: 100%;
@@ -152,7 +99,7 @@ body {
 
 /***** LEFT MIDDLE WINDOW *****/
 
-.power-soket {
+.power-socket {
     border: $border gray;
     border-collapse: collapse;
     box-sizing: border-box;
