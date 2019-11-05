@@ -1,8 +1,43 @@
-.print-conf-table, th, td {
-    border: 1px solid green;
+.component-to-print-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.print-conf-table {
+    margin: 5px 15px;
+    border: 1px solid $main-color-light3;
     border-collapse: collapse;
+    &-head {
+        &-th {
+            border: 1px solid $main-color-light3;
+        }
+    }
+    &-body {
+        &_l0-td {
+           text-align: center;
+           border: 1px solid $main-color-light5;
+           border-collapse: collapse;
+        }
+        &_l1-td {
+            
+         }
+    }
 }
 
 .sub-table {
     border: none;
+}
+
+.top-left-logo-container {
+    position: relative;
+    height: 100px;
+    padding: 5px;
+    border-bottom: 2px solid $main-color-light5;
+}
+
+.top-left-logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
 }
