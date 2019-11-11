@@ -187,3 +187,12 @@ body {
 .simplebar-scrollbar:before {
   background: $main-color;
 }
+
+.test-button {
+    position: absolute;
+    opacity: 25%;
+    background-color: $main-color-dark3;
+    border-radius: 5px;
+    border: 1px solid $main-color-dark4;
+    right: 0; 
+}

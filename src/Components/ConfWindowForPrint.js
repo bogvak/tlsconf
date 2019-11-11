@@ -16,7 +16,25 @@ class ComponentToPrint extends Component {
           }
           return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
         }
-      }
+    }
+    fullPriceCalc = (inf, isRound) => {
+        const article = inf.article.replace(/\s/g, "");
+        let price = (parseInt(dataList[article].EVP)*inf.quantity)*(parseInt(this.defaultTax)/100+1);
+        if (isRound) {
+            return this.roundNumber(price, 2);
+        } else {
+            return price
+        }
+    }
+
+    totalPriceCalc = () => {
+        let totalPrice = 0;
+        this.props.ArticleList.map((inf) => totalPrice+=this.fullPriceCalc(inf));
+        totalPrice = this.roundNumber(totalPrice, 2)
+        return totalPrice;
+    }
+
+    tableHeader = ["Pos.", "Desc.", "Quantity", "Tax %", "Price", "Total"]
     render () {
     return (
         <div className="component-to-print-wrapper">
@@ -26,12 +44,7 @@ class ComponentToPrint extends Component {
             <table className="print-conf-table">
                 <thead>
                     <tr className="print-conf-table-head">
-                        <th className="print-conf-table-head-th">Pos.</th>
-                        <th className="print-conf-table-head-th">Desc.</th>
-                        <th className="print-conf-table-head-th">Quantity</th>
-                        <th className="print-conf-table-head-th">Tax%</th>
-                        <th className="print-conf-table-head-th">Price</th>
-                        <th className="print-conf-table-head-th">Total</th>
+                        {this.tableHeader.map((title) => <th key={title} className="print-conf-table-head-th">{title}</th>)}
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +68,7 @@ class ComponentToPrint extends Component {
                                     {dataList[article].EVP+"€"}
                                 </td>
                                 <td className="print-conf-table-body_l0-td">
-                                    {this.roundNumber((parseInt(dataList[article].EVP)*inf.quantity)*(parseInt(this.defaultTax)/100+1), 2)+"€"}
+                                    {this.fullPriceCalc(inf, true)}€
                                 </td>
                             </tr>,
                             <tr className="print-conf-table-body_l1">
@@ -89,13 +102,10 @@ class ComponentToPrint extends Component {
                     })}
                 </tbody>
                 <thead>
-                    <tr className="print-conf-table-head">
-                        <th className="print-conf-table-head-th">Pos.</th>
-                        <th className="print-conf-table-head-th">Desc.</th>
-                        <th className="print-conf-table-head-th">Price</th>
-                        <th className="print-conf-table-head-th">Quantity</th>
-                        <th className="print-conf-table-head-th">Tax</th>
-                        <th className="print-conf-table-head-th">Total</th>
+                    <tr className="total-price">
+                        <th className="total-price">Total: </th>
+                        {Array(this.tableHeader.length-2).fill("empty").map(() => <th className="total-price" />)}
+                        <th className="total-price">{this.totalPriceCalc()}€</th>
                     </tr>
                 </thead>
             </table>

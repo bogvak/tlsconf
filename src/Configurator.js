@@ -191,6 +191,7 @@ class Configurator extends Component {
         FrameReseteHandler={this.frameReseteHandler}
         BuildArticlesArray={this.buildArticlesArray}
        />
+       <button className="test-button">Test conf.</button>
 		</div>
     );
   }
