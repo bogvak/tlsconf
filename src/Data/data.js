@@ -74,13 +74,16 @@ const ModulesContent = {
 	"WALL" : {
 		"Premium Line" : {
 			"Cover frame simple" : {
-				"article" : "865 9200"
+				"article" : "865 9200",
+				"signal-slots": 3,
 			},
 			"Cover frame double" : {
-				"article" : "865 9201"
+				"article" : "865 9201",
+				"signal-slots": 6,
 			},
 			"Cover frame triple" : {
-				"article" : "865 9202"
+				"article" : "865 9202",
+				"signal-slots": 9,
 			}
 		},
 		"Universal Line" : {
