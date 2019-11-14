@@ -119,9 +119,25 @@ class PrinfConfWindow extends Component {
         border: "1px solid black",
         borderCollapse: "collapse"
     }
+
+    test = () => {
+        alert("hi")
+    }
+
+    beforeUnloadListner = () => {
+        window.addEventListener("beforeunload", (ev) => {
+            ev.preventDefault();
+            return this.test();
+        });
+    };
+
+    componentDidMount() {
+        // Activate the event listener
+        this.beforeUnloadListner();
+    }
     render () {
         return (
-        <NewWindow>
+        <NewWindow onUnload={this.beforeUnloadListner()}>
             <div>
             <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
             <ReactToPrint

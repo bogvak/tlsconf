@@ -85,7 +85,7 @@
                 box-sizing: border-box;
                 height: 100%;
             }
-            &-layout {
+            &-layout-table {
                 height: 100%;
                 display: flex;
                 flex-direction: column;
@@ -96,7 +96,7 @@
                     margin: 0 20px;
                     background-color: $background-and-separator-color;
                     border-radius: 3px 3px 0 0;
-                    box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray;
+                    box-shadow: $shadow-top-left, $shadow-top-right;
                     z-index: 1;
                 }
                 &-middle {
@@ -105,17 +105,148 @@
                     height: 75%;
                     box-sizing: border-box;
                     background-color: $background-and-separator-color;
-                    box-shadow: 1px -1px gray, 2px -2px gray, -1px -1px gray, -2px -2px gray, 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
+                    box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
                     border-radius: 3px;
                     z-index: 0;
+                    &-container {
+                        padding: 0 8px;
+                        margin: 8px 4px;
+                        border: $border gray;
+                        border-radius: 5px;
+                        height: 108px;
+                        box-sizing: border-box;
+                        background-color: $main-windows-background-color;
+                    }
+                    &-power-sockets {
+                        border: $border gray;
+                        border-collapse: collapse;
+                        box-sizing: border-box;
+                        margin: 12px 4px;
+                        padding: 9px;
+                        height: 100px;
+                        width: 100px;
+                        background-color: $main-windows-background-color;
+                    }
+                    &-signal-slots {
+                        box-sizing: border-box;
+                        height: 106px;
+                        &--selected {
+                            z-index: 1;
+                            box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
+                        }
+                        &--displayed {
+                            display: inline-block;
+                        }
+                        &--hiden {
+                            display: none;
+                        }
+                    }
+                    &-conference-control {
+                        border: $border gray;
+                        border-collapse: collapse;
+                        box-sizing: border-box;
+                        margin: 0 4px;
+                        padding: 8px;
+                        height: 124px;
+                        width: 124px;
+                        border-radius: 5px;
+                    }
+                    &-conference-control-double-frame {
+                        border: $border rgb(252, 44, 241);
+                        word-wrap: break-word;
+                        box-sizing: border-box;
+                        height: 106px;
+                        width: 212px;
+                    }
                 }
                 &-bottom {
                     height: 5%;
                     margin: 0 10px;
                     background-color: $background-and-separator-color;
                     border-radius: 0 0 3px 3px;
-                    box-shadow: 1px 1px gray, 2px 2px gray, -1px 1px gray, -2px 2px gray;
-                    z-index: 1;
+                    box-shadow: $shadow-bottom-left, $shadow-bottom-right;
+                }
+            }
+            &-layout-wall {
+                height: 160px;
+                display: flex;
+                box-sizing: border-box;
+                padding: 0 25px;
+                box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
+                background-color: $background-and-separator-color;
+                border-radius: $border-radius-value;
+                &-support-frame {
+                    display: flex;
+                    flex-direction: column;
+                    z-index: 0;
+                    &-top {
+                        height: 25px;
+                        background-color: $background-and-separator-color;
+                        box-sizing: border-box;
+                        position: relative;
+                        .dot {
+                            &_l0 {
+                                @include dot;
+                                height: 13px;
+                                width: 13px;
+                            }
+                            &_l1 {
+                                @include dot;
+                                height: 8px;
+                                width: 8px;
+                            }
+                        }
+                    }
+                    &-middle {
+                        flex: 1;
+                        box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
+                        border-radius: $border-radius-value;
+                        box-sizing: border-box;
+                        background-color: $main-windows-background-color;
+                        display: flex;
+                        position: relative;
+                        overflow-y: hidden;
+                        z-index: 1;
+                        &-signal-slots {
+                            box-sizing: border-box;
+                            height: 133px;
+                            position: relative;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            &--selected {
+                                box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
+                                z-index: 2;
+                            }
+                            &--displayed {
+                                display: inline-block;
+                            }
+                            &--hiden {
+                                display: none;
+                            }
+                        }
+                    }
+                    &-bottom {
+                        height: 25px;
+                        background-color: $background-and-separator-color;
+                        position: relative;
+                        .dot {
+                            &_l0 {
+                                @include dot;
+                                height: 13px;
+                                width: 13px;
+                            }
+                            &_l1 {
+                                @include dot;
+                                height: 8px;
+                                width: 8px;
+                            }
+                        }
+                    }
+                }
+                &-separator {
+                    height: 100%;
+                    width: 25px;
+                    background-color: $background-and-separator-color;
                 }
             }
         }

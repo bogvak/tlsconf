@@ -73,15 +73,15 @@ const SubModulesType = {
 const ModulesContent = {
 	"WALL" : {
 		"Premium Line" : {
-			"Cover frame simple" : {
+			"Cover frame for three slots" : {
 				"article" : "865 9200",
 				"signal-slots": 3,
 			},
-			"Cover frame double" : {
+			"Cover frame for six slots" : {
 				"article" : "865 9201",
 				"signal-slots": 6,
 			},
-			"Cover frame triple" : {
+			"Cover frame for nine slots" : {
 				"article" : "865 9202",
 				"signal-slots": 9,
 			}

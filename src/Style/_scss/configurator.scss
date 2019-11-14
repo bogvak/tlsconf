@@ -12,7 +12,7 @@ $main-color-light5: #F1EEEE;
 $main-color-strong: rgb(0, 102, 255);
 $main-color-light: rgb(172, 206, 255);
 $darkgrey: #333;
-$background-and-separator-color:  $main-color-light4;
+$background-and-separator-color:  $main-color-light5;
 
 /***MENU***/
 $menu-height: 30%;
@@ -46,6 +46,11 @@ $main-right-width: 100%-$main-left-width;
 
 $article-width: 23%;
 $desc-width: 75%;
+$shadow-color: black;
+$shadow-top-left: -1px -1px $shadow-color;
+$shadow-bottom-left: -1px 1px $shadow-color;
+$shadow-bottom-right: 1px 1px $shadow-color;
+$shadow-top-right: 1px -1px $shadow-color;
 
 @import 'mixins';
 
@@ -73,90 +78,7 @@ body {
 @import 'conf-main-right';
 @import 'conf-dosc-for-print';
 
-.module-series-list {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.module-series-list-tabs {
-    padding: 0;
-    margin: 0;
-    border-bottom: $main-windows-borders;
-    background: linear-gradient(#666699, #6699cc);
-}
-
-/***** LEFT TOP WINDOW *****/
-
-.conf-container-left-top {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 80%;
-    box-sizing: border-box;
-}
-
 /***** LEFT MIDDLE WINDOW *****/
-
-.power-socket {
-    border: $border gray;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    margin: 12px 4px;
-    padding: 9px;
-    height: 100px;
-    width: 100px;
-    background-color: $main-windows-background-color;
-    
-}
-
-.box-for-signal-slots {
-    padding: 0 8px;
-    margin: 8px 4px;
-    border: $border gray;
-    border-radius: 5px;
-    height: 108px;
-    box-sizing: border-box;
-    background-color: $main-windows-background-color;
-}
-
-.signal-slot {
-    box-sizing: border-box;
-    height: 106px;
-}
-
-.selected-signal-slot {
-    z-index: 1;
-    height: 106px;
-    box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
-}
-
-.conference-control {
-    border: $border gray;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    margin: 0 4px;
-    padding: 8px;
-    height: 124px;
-    width: 124px;
-    border-radius: 5px;
-}
-
-.conference-control-double-frame {
-    border: $border rgb(252, 44, 241);
-    word-wrap: break-word;
-    box-sizing: border-box;
-    height: 106px;
-    width: 212px;
-}
-
-.conf-list-middle {
-    padding: 0;
-    margin: 0;
-    z-index: 0;
-    overflow: hidden;
-}
 
 .addTabs {
     padding: 0px 8px;

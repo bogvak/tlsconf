@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PrinfConfWindow from './ConfWindowForPrint';
 
@@ -219,28 +219,24 @@ const ConfList = (props) => {
   );
 }
 
-class PrintConfButton extends Component {
-  state = {
-    isClick: false,
-    articleList: null
-  }
+const PrintConfButton = (props) => {
+  const [IsClick, flipIsClick] = useState(false);
+  const [ArticleList, setArticleList] = useState(null);
 
-  render () {
-    return (
-      <div className="conf-main-right-bottom_l1-print-conf-list">
-        <button 
-          className="conf-main-right-bottom_l1-print-conf-list-button"
-          onClick={() => this.setState({
-            isClick: !this.state.isClick, 
-            articleList: this.props.BuildArticlesArray(this.props.ConfNumber)
-          })}
-        >
-          Print Configuration List
-        </button>
-        {(this.state.isClick && this.state.articleList) ? <PrinfConfWindow ArticleList={this.state.articleList} /> : null}
-      </div>  
-    )
-  }
+  return (
+    <div className="conf-main-right-bottom_l1-print-conf-list">
+      <button 
+        className="conf-main-right-bottom_l1-print-conf-list-button"
+        onClick={() => {
+          flipIsClick(!IsClick)
+          setArticleList(props.BuildArticlesArray(props.ConfNumber))
+        }}
+      >
+        Print Configuration List
+      </button>
+      {(IsClick && ArticleList) ? <PrinfConfWindow ResetIsClick={() => flipIsClick(false)} ArticleList={ArticleList} /> : null}
+    </div>  
+  )
 }
 
 export default ConfContainerRight;

@@ -28,16 +28,19 @@ class Configurator extends Component {
   platformСhoiceDescHandler = (inf) => {
     inf = {...emptyConf.PlatformСhoiceDesc,...inf};
     inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
-    inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
+    if (inf.location==="TABLE") {
+      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
+      inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
+    } else if (inf.location==="WALL") {
+      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.article.replace(/\s/g, "") + ".png";
+      inf.fullLine = inf.desc;
+    }
     inf.subFrameType = SubModulesType[inf.location][inf.line];
     inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
     inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
     if (inf["power-sockets"] > 0) {
       inf.powerSocketDesc = "Power sockets DE White"
       inf.powerSocketArticle = "863 9204"
-    }
-    if (inf.line.match(/[A-Z]/g).join('')==="TAM") {
-      inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
     }
     const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
@@ -48,24 +51,31 @@ class Configurator extends Component {
   moduleChoiceHandler = (inf) => {
     const copyOfConfs=this.state.Configurations.slice();
     const ConfNumber=this.state.ConfNumber;
+    const modulesList = copyOfConfs[ConfNumber].Modules
     const IndexOfSelectedSlot = this.state.Configurations[ConfNumber].IndexOfSelectedSlot;
     inf.FirstArticle = inf["article-list"][Object.keys(inf["article-list"])[0]];
     inf.SubArticle = inf.FirstArticle;
-    inf.SubDesc = Object.keys(inf["article-list"])[0]
-    if (!copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot+(inf["slots-takes"]-1)] || IndexOfSelectedSlot===null) return;
+    inf.SubDesc = Object.keys(inf["article-list"])[0];
+    if (!modulesList[IndexOfSelectedSlot+(inf["slots-takes"]-1)] || IndexOfSelectedSlot===null) return;
+    if (copyOfConfs[ConfNumber].PlatformСhoiceDesc.location==="WALL") {
+      let indexInChunk = IndexOfSelectedSlot;
+      while (indexInChunk < 0 || indexInChunk > 2) {
+        indexInChunk -= 3;
+      }
+      if (indexInChunk+inf["slots-takes"]-1>2) return;  
+    }
     inf.img="img/" + inf.TypeOfModules + "/" + inf.FirstArticle.replace(/\s/g, "") + ".png"; 
-    for (let i = 1; i<copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot]["slots-takes"]; i++) {
-      copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot+i].display = true;
+    for (let i = 1; i<modulesList[IndexOfSelectedSlot]["slots-takes"]; i++) {
+      modulesList[IndexOfSelectedSlot+i].display = true;
     }
     for (let i = 1; i<inf["slots-takes"]; i++) {
-      const test = copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot+i]["slots-takes"];
+      const test = modulesList[IndexOfSelectedSlot+i]["slots-takes"];
       for (let j = 1;j<test; j++) {
-        copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot+i+j].display=true;
+        modulesList[IndexOfSelectedSlot+i+j].display=true;
       }
-      console.log(test)
-      copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot+i] = {...emptyConf.Modules[0], display: false};
+      modulesList[IndexOfSelectedSlot+i] = {...emptyConf.Modules[0], display: false};
     }
-    copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot] = {...copyOfConfs[ConfNumber].Modules[IndexOfSelectedSlot], ...inf};
+    modulesList[IndexOfSelectedSlot] = {...modulesList[IndexOfSelectedSlot], ...inf};
     this.setState({Configurations: copyOfConfs})
   }
 
@@ -153,7 +163,6 @@ class Configurator extends Component {
       }
     })
     if (isCompleted) {
-      console.log(articlesArray);
       return articlesArray;
     } else {
       alert("Fill all empty slots!");

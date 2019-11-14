@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import ConfLayOut from './ConfLayOut'
+import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWall} from './ConfLayOut'
 
 const ConfContainerLeft = (props) => {
     return (
@@ -184,10 +184,22 @@ const RepresentationOfConf = (props) => {
             <ConfDesc
                 PlatformСhoiceDesc={props.Configuration.PlatformСhoiceDesc} 
             />
-            <ConfLayOut
-                Configuration={props.Configuration} 
-                CurrentSlotHandler={props.CurrentSlotHandler}
-            />
+            {(props.Configuration.PlatformСhoiceDesc.location === "TABLE") ? 
+                <ConfLayOutTable
+                    Configuration={props.Configuration} 
+                    CurrentSlotHandler={props.CurrentSlotHandler}
+                /> 
+            : (props.Configuration.PlatformСhoiceDesc.location === "WALL") ? 
+                <ConfLayOutWall
+                    Configuration={props.Configuration} 
+                    CurrentSlotHandler={props.CurrentSlotHandler}
+                />
+            : 
+                <ConfLayOutFloor
+                    Configuration={props.Configuration} 
+                    CurrentSlotHandler={props.CurrentSlotHandler}
+                /> 
+            }
         </div>
     );
 }
