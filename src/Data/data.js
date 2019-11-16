@@ -566,7 +566,7 @@ const ModulesForBottomMenu = {
 				}
 			},
 			"Button slot LED blue 2 x 18 mm/2,5mm jack" : {
-				"slots-takes" : 1,
+				"slots-takes" : 2,
 				"article-list" : {
 					"40 cm cable" : "863 9386",
 				}

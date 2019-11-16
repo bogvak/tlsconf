@@ -289,13 +289,15 @@ const CurrentModulesBottom = (props) => {
         <div data-simplebar className="conf-main-left-bottom-container_l2">
             <div className='horizontal-scrolling__wrapper'>
                 {Object.keys(props.CurrentModulesBottom).map((module) => {
-                    return (<img 
-                        className="conf-main-left-bottom-container_l2-card"
-                        key={module}
-                        src={props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]] ? "img/" + props.TypeOfModules + "/" + props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]].replace(/\s/g, "") + ".png" : null}
-                        onClick={props.ModuleChoiceHandler.bind(this, {...props.CurrentModulesBottom[module], TypeOfModules: props.TypeOfModules, desc: module})}
-                        alt={props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]]}
-                    />)
+                    if (props.CurrentModulesBottom[module]["article-list"] && Object.keys(props.CurrentModulesBottom[module]["article-list"])) {
+                        return (<img 
+                            className="conf-main-left-bottom-container_l2-card"
+                            key={module}
+                            src={"img/" + props.TypeOfModules + "/" + props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]].replace(/\s/g, "") + ".png"}
+                            onClick={props.ModuleChoiceHandler.bind(this, {...props.CurrentModulesBottom[module], TypeOfModules: props.TypeOfModules, desc: module})}
+                            alt={props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]]}
+                        />)
+                    }
                 })}
             </div>
         </div>
