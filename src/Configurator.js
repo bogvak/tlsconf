@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 
 //Data
-import {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu} from './Data/data';
+import {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket} from './Data/data';
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
 
@@ -27,20 +27,23 @@ class Configurator extends Component {
 
   platformСhoiceDescHandler = (inf) => {
     inf = {...emptyConf.PlatformСhoiceDesc,...inf};
-    inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     if (inf.location==="TABLE") {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
       inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
     } else if (inf.location==="WALL") {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.article.replace(/\s/g, "") + ".png";
       inf.fullLine = inf.desc;
+      inf["signal-slots"] = inf["support-frame"]*3;
     }
+    inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     inf.subFrameType = SubModulesType[inf.location][inf.line];
     inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
     inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
+    inf.subFrameQuantity = (inf.location==="WALL") ? inf["support-frame"] : 1;
     if (inf["power-sockets"] > 0) {
-      inf.powerSocketDesc = "Power sockets DE White"
-      inf.powerSocketArticle = "863 9204"
+      inf.powerSocketList = PowerSocket;
+      inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
+      inf.powerSocketArticle = inf.powerSocketList[inf.powerSocketDesc];
     }
     const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
     copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
@@ -142,9 +145,18 @@ class Configurator extends Component {
   buildArticlesArray = (confNumber) => {
     const articlesArray = [];
     let isCompleted = true;
-    articlesArray.push({article: this.state.Configurations[confNumber].PlatformСhoiceDesc.article, quantity: 1});
-    articlesArray.push({article: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle, quantity: 1});
-    articlesArray.push({article: this.state.Configurations[confNumber].PlatformСhoiceDesc.powerSocketArticle, quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]});
+    articlesArray.push({
+      article: this.state.Configurations[confNumber].PlatformСhoiceDesc.article, 
+      quantity: 1});
+    articlesArray.push({
+      article: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle, 
+      quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameQuantity});
+    if (this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]) {
+      articlesArray.push({
+        article: this.state.Configurations[confNumber].PlatformСhoiceDesc.powerSocketArticle, 
+        quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]
+      });
+    }
     const modules = JSON.parse(JSON.stringify( this.state.Configurations[confNumber].Modules));
     modules.map((module, index) => {
       if (!module.SubArticle && module.display) {
@@ -162,11 +174,27 @@ class Configurator extends Component {
         }
       }
     })
+    console.log(articlesArray)
     if (isCompleted) {
       return articlesArray;
     } else {
       alert("Fill all empty slots!");
     }
+  }
+
+  isPSmenuAwokenHandler = (isAwoken) => {
+    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConfs[this.state.ConfNumber].IsPSmenuAwoken = isAwoken;
+    this.setState({Configurations: copyOfConfs})
+  }
+
+  powerSocketMenuHandler = (newInf) => {
+    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {
+      ...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc,
+      ...newInf,
+    }
+    this.setState({Configurations: copyOfConfs})
   }
 
   render() {
@@ -199,6 +227,8 @@ class Configurator extends Component {
         ModuleResetHandler={this.moduleResetHandler}
         FrameReseteHandler={this.frameReseteHandler}
         BuildArticlesArray={this.buildArticlesArray}
+        IsPSmenuAwokenHandler={this.isPSmenuAwokenHandler}
+        PowerSocketMenuHandler={this.powerSocketMenuHandler}
        />
        <button className="test-button">Test conf.</button>
 		</div>

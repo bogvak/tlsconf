@@ -211,6 +211,7 @@ const ConfDesc = (props) => {
             <p>{props.PlatformСhoiceDesc.line} - Support frame</p>
             <ul>
                 <li>{props.PlatformСhoiceDesc.desc}</li>
+                {(props.PlatformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.PlatformСhoiceDesc["signal-slots"]/3})</li>: null}
                 <li>{props.PlatformСhoiceDesc.type}</li>
             </ul>
         </div>

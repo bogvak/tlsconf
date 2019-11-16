@@ -5,7 +5,7 @@ const moduleListAssembler = (props, type, rootClassName, isClickable) => {
     const platformDesc = {...props.Configuration.PlatformСhoiceDesc};
     const modulesCN = rootClassName+"-"+type;
     let modules = props.Configuration.Modules.slice();
-    let quantity = platformDesc[type];
+    let quantity = platformDesc[type]
     const className = (index) => {
         if (type === "signal-slots") {
             if (index===props.Configuration.IndexOfSelectedSlot && modules[index].display===(undefined || true)) {
@@ -23,7 +23,7 @@ const moduleListAssembler = (props, type, rootClassName, isClickable) => {
     if (isClickable) eventOnClick=props.CurrentSlotHandler;
     const img = (index) => {
         if (type==="power-sockets" && quantity) {
-            return "img/" + platformDesc.powerSocketArticle.replace(/\s/g, "") + ".png";
+            return "img/" + type + "/" + platformDesc.powerSocketArticle.replace(/\s/g, "") + ".png";
         } else if (type==="conference-control" || type==="conference-control-double-frame") {
             return "img/" + type + ".png";
         } else if (type==="signal-slots" && modules[index].img) {

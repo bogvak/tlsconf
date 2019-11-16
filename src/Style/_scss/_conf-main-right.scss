@@ -107,6 +107,34 @@
             &-powerSocket {
                 @include right-bottom-list_l2;
                 background-color: transparent;
+                &-specs-menu {
+                    cursor: pointer;
+                    position: relative;
+                    width: 0;
+                    height: 0;
+                    box-sizing: border-box;
+                    border-top: 0.35em solid transparent;
+                    border-bottom: 0.35em solid transparent;
+                    border-left: 0.7em solid red;
+                    margin: auto 0;
+                    &-list {
+                        @include zero-m-and-p;
+                        padding: 0 4px;
+                        list-style: none;
+                        position: absolute;
+                        right: 0;
+                        top: -0.6em;
+                        border: $border-panel;
+                        border-radius: $border-radius-value;
+                        transform: translate(100%);
+                        background-color: $main-windows-background-color;
+                        overflow: hidden;
+                        width: 200px;
+                        &-li--bordered  {
+                            border-bottom: $border-panel;
+                        }
+                    }
+                }
             }
             &-module {
                 @include right-bottom-list_l2;
