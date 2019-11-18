@@ -34,6 +34,27 @@ class ComponentToPrint extends Component {
         return totalPrice;
     }
 
+    firstRowCI = [
+        "Marie-Curie-Str. 20 • D - 40721 Hilden",
+        "Telefon: +49(0)211/522875-0",
+        "Telefax: +49(0)211/522875-10",
+        "E-Mail: office@ecco-online.eu",
+        "Internet: www.ecco-online.eu",
+    ]
+
+    secondRowCI = {
+        "DE Steuer-Nr.:": "103/5724/2402",
+        "DE USt-ID;": "DE 281834860",
+        "HRG 67133": "Düsseldorf",
+        "Geschäftsführer": "Thomas Rüttgers Horst Kleinpeter",
+    }
+    
+    thirdRowCI = {
+        "Sparkasse Düsseldorf": ["SWIFT/BIC: DUSSDEDDXXX", "IBAN: DE87 3005 01101007 3139 66"],
+        "Kreissparkasse Düsseldorf": ["SWIFT/BIC: WELADED1KSD", "IBAN: DE55 3015 0200 00021361 41"],
+        "Deutsche Ban": ["SWIFT/BIC: DEUTDEDBDUE", "IBAN: DE17 3007 0024 0533 6565 00"],
+    }
+
     tableHeader = ["Pos.", "Desc.", "Quantity", "Tax %", "Price", "Total"]
     render () {
     return (
@@ -109,35 +130,42 @@ class ComponentToPrint extends Component {
                     </tr>
                 </thead>
             </table>
+            <div className="contact-info">
+                <table className="contact-info-table1">
+                    <tr className="contact-info-table1-ECCO">
+                        <td>ECCO<span className="contact-info-table1-ECCO-text">CINE UPPLY AND SERVICE GMBH</span></td>
+                    </tr>
+                    {this.firstRowCI.map((line) => <tr>
+                        <td>{line}</td>
+                    </tr>)}
+                </table>
+                <table className="contact-info-table2">
+                    {Object.keys(this.secondRowCI).map((line) => <tr>
+                        <td>{line}</td>
+                        <td>{this.secondRowCI[line]}</td>
+                    </tr>)}
+                </table>
+                <table className="contact-info-table3">
+                    {Object.keys(this.thirdRowCI).map((line) => <tr>
+                        <td>{line}</td>
+                        <td>{this.thirdRowCI[line].map((bankInfo) => [bankInfo, <br />])}</td>
+                    </tr>)}
+                </table>
+            </div>
         </div>
-      )
+        )
     }
-  }
+}
   
 class PrinfConfWindow extends Component {
     style = {
         border: "1px solid black",
         borderCollapse: "collapse"
     }
-
-    test = () => {
-        alert("hi")
-    }
-
-    beforeUnloadListner = () => {
-        window.addEventListener("beforeunload", (ev) => {
-            ev.preventDefault();
-            return this.test();
-        });
-    };
-
-    componentDidMount() {
-        // Activate the event listener
-        this.beforeUnloadListner();
-    }
+    
     render () {
         return (
-        <NewWindow onUnload={this.beforeUnloadListner()}>
+        <NewWindow>
             <div>
             <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
             <ReactToPrint

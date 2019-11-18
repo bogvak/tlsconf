@@ -46,3 +46,45 @@
     border-top: 1px solid $main-color-light3;
     border-bottom: 1px solid $main-color-light3;
 }
+
+.contact-info {
+    display: flex;
+    font-size: 0.5rem;
+    padding: 5px 20px;
+    &-table1 {
+        padding: 3px;
+        border-right: 2px dotted black;
+        border-left: 2px dotted black;
+        font-size: inherit;
+        font-size: 0.7rem;
+        flex: 1;
+        height: 100%;
+        &-ECCO {
+            color: #006699;
+            font-weight: bold;
+            &-text {
+                font-size: 0.4rem;
+            }
+        }
+    }
+    &-table2 {
+        padding: 3px;
+        font-size: inherit;
+        flex: 1;
+        height: 100%;
+        td {
+            vertical-align: top;
+        }
+    }
+    &-table3 {
+        padding: 3px;
+        border-left: 2px dotted black;
+        border-right: 2px dotted black;
+        font-size: inherit;
+        flex: 1;
+        height: 100%;
+        td {
+            vertical-align: top;
+        }
+    }
+}   
