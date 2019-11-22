@@ -174,7 +174,6 @@ class Configurator extends Component {
         }
       }
     })
-    console.log(articlesArray)
     if (isCompleted) {
       return articlesArray;
     } else {

@@ -19,7 +19,7 @@ class ComponentToPrint extends Component {
     }
     fullPriceCalc = (inf, isRound) => {
         const article = inf.article.replace(/\s/g, "");
-        let price = (parseInt(dataList[article].EVP)*inf.quantity)*(parseInt(this.defaultTax)/100+1);
+        let price = (parseInt(this.isDefiend(`[article].EVP`, [article]))*inf.quantity)*(parseInt(this.defaultTax)/100+1);
         if (isRound) {
             return this.roundNumber(price, 2);
         } else {
@@ -32,6 +32,13 @@ class ComponentToPrint extends Component {
         this.props.ArticleList.map((inf) => totalPrice+=this.fullPriceCalc(inf));
         totalPrice = this.roundNumber(totalPrice, 2)
         return totalPrice;
+    }
+
+    isDefiend = (path, varArr, obj) => {
+        let i = 0;
+        if(!obj) obj = dataList;
+        const errM = "Module wasn`t found!"
+        return path.split(/]|\./).filter(Boolean).map((t)=>(t.match(/\[/))?varArr[i++]:t).reduce((o,p)=>(o)?o[p]:errM,obj)
     }
 
     firstRowCI = [
@@ -86,7 +93,7 @@ class ComponentToPrint extends Component {
                                     {this.defaultTax}
                                 </td>
                                 <td className="print-conf-table-body_l0-td">
-                                    {dataList[article].EVP+"€"}
+                                    {this.isDefiend(`[article].EVP`, [article])+"€"}
                                 </td>
                                 <td className="print-conf-table-body_l0-td">
                                     {this.fullPriceCalc(inf, true)}€
@@ -95,10 +102,10 @@ class ComponentToPrint extends Component {
                             <tr className="print-conf-table-body_l1">
                                 <td />
                                 <td className="print-conf-table-body_l1-td">
-                                    {dataList[article].Type}:
+                                    {this.isDefiend(`[article].Type`, [article])}:
                                 </td>
                                 <td className="print-conf-table-body_l1-td">
-                                    {dataList[article].Description2}
+                                    {this.isDefiend(`[article].Description2`, [article])}
                                 </td>
                             </tr>,
                             <tr className="print-conf-table-body_l2">
@@ -116,7 +123,7 @@ class ComponentToPrint extends Component {
                                     Other:  
                                 </td>
                                 <td className="print-conf-table-body_l3-td">
-                                    {dataList[article].Description1}
+                                    {this.isDefiend(`[article].Description1`, [article])}
                                 </td>
                             </tr>
                         ])
