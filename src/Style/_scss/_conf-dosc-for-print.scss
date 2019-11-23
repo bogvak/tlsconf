@@ -87,4 +87,16 @@
             vertical-align: top;
         }
     }
-}   
+}
+
+.print-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 5px 15px;
+    padding: 0 10px;
+    font-weight: bold;
+    font-family: "Courier New";
+    font-size: 1.5em;
+    border-radius: $border-radius-value;
+}

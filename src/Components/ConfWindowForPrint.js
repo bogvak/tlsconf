@@ -176,7 +176,7 @@ class PrinfConfWindow extends Component {
             <div>
             <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
             <ReactToPrint
-                trigger={() => <button>Print</button>}
+                trigger={() => <button className="print-button">Print <i className="fa fa-print"></i></button>}
                 content={() => this.componentRef}
             />
             </div>
