@@ -52,6 +52,9 @@ $shadow-bottom-left: -1px 1px $shadow-color;
 $shadow-bottom-right: 1px 1px $shadow-color;
 $shadow-top-right: 1px -1px $shadow-color;
 
+/***print pdf setting***/
+$print-conf-font-size: 0.87rem;
+
 @import 'mixins';
 
 /* FONT INTER */

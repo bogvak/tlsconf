@@ -186,3 +186,11 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+@mixin contact-info-table {
+    padding: 3px;
+    font-size: inherit;
+    td {
+        vertical-align: top;
+    }
+}
