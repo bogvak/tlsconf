@@ -34,7 +34,7 @@ const TypeOfModule = {
 const SubModulesType = {
 	"WALL" : {
 		"Premium Line" : {
-
+			"support frame": "865 9213",
 		},
 		"Universal Line" : {
 
@@ -75,15 +75,15 @@ const ModulesContent = {
 		"Premium Line" : {
 			"Cover frame for three slots" : {
 				"article" : "865 9200",
-				"signal-slots": 3,
+				"support-frame": 1,
 			},
 			"Cover frame for six slots" : {
 				"article" : "865 9201",
-				"signal-slots": 6,
+				"support-frame": 2,
 			},
 			"Cover frame for nine slots" : {
 				"article" : "865 9202",
-				"signal-slots": 9,
+				"support-frame": 3,
 			}
 		},
 		"Universal Line" : {
@@ -359,7 +359,7 @@ const ModulesForBottomMenu = {
 				"article-list" : {
 					"solder-terminal" : "863 9238",
 					"40 cm cable" : "863 9239",
-					"?" : "863 9333",
+					"gender changer" : "863 9333",
 				},
 			},
 			"S-Video + Audio slot female 4 pin Mini DIN/3,5 x mm jack " : {
@@ -396,60 +396,75 @@ const ModulesForBottomMenu = {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9313",
+					"40 cm cable": "863 9314",
 				},
 			},
 			"VGA slot female 15 pin HD" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9256",
+					"40 cm cable": "863 9260",
+					"gender changer" : "863 9260",
 				},
 			},
 			"VGA slot male 15 pin HD" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9285",
+					"40 cm cable": "863 9307",
+					"gender changer": "863 9287"
 				},
 			},
 			"VGA + Audio slot female 15 pin HD/3,5 mm jack" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9265",
+					"40 cm cable": "863 9266",
+					"gender changer": "863 9303",
 				},
 			},
 			"VGA + Audio slot male 15 pin HD/3,5 mm jack " : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9301",
+					"40 cm cable" : "863 9302",
+					"gender changer" : "863 9304",
 				},
 			},
 			"DVI-A slot female" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9267",
+					"40 cm cable": "863 9268",
 				},
 			},
 			"DVI-D slot female" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9269",
+					"40 cm cable" : "863 9270",
 				},
 			},
 			"RGBHV slot female 5 x BNC" : {
 				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9279",
+					"40 cm cable" : "863 9280",
+					"gender changer" : "863 9300",
 				},
 			},
 			"HDMI slot female" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9336",
+					"40 cm cable" : "863 9338",
 				},
 			},
 			"Control slot female 9 pin D-Sub" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9353",
+					"40 cm cable" : "863 9354",
 				},
 			},
 		},
@@ -458,84 +473,102 @@ const ModulesForBottomMenu = {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9262",
+					"40 cm cable" : "863 9263",
+					"gender changer" : "863 9264",
 				},
 			},
 			"Serial slot female 9 pin D-Sub" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9288",
+					"40 cm cable" : "863 9308",
+					"gender changer" : "863 9290",
 				},
 			},
 			"PS/2 slot female 6 pin MIni DIN" : {
 				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9291",
+					"40 cm cable" : "863 9292",
 				},
 			},
-			"" : {
+			"USB slot female Type A" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "863 9271",
+					"40 cm cable" : "863 9272",
 				}
 			},
-			"" : {
+			"USB slot female Type B" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "863 9273",
+					"40 cm cable" : "863 9274",
 				}
 			},
-			"" : {
+			"ISDN slot female RJ45" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "863 9305",
+					"40 cm cable" : "863 9306",
 				}
 			},
-			"" : {
+			"D-Sub slot female 25 pin" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "863 9282",
+					"40 cm cable" : "863 9281",
 				}
 			},
-			"" : {
+			//??what??
+			"LAN slot female 1 x CAT5" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"40 cm cable" : "863 9324",
+					"gender changer": "863 9325",
 				}
 			},
-			"" : {
+			"LAN slot female 2 x CAT6" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "",
+					"40 cm cable" : "863 9327",
+					"gender changer": "863 9328",
 				}
 			},
-			"" : {
+			"Wieland slot female" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "863 9321",
+					"40 cm cable" : "863 9356",
 				}
 			},
-			"" : {
+			"Wieland slot male" : {
 				"slots-takes" : 1,
 				"article-list" : {
-
+					"solder-terminl" : "863 9322",
+					"40 cm cable" : "863 9357",
 				}
 			},
-			"" : {
-				"slots-takes" : 1,
+			"Key switch slot" : {
+				"slots-takes" : 2,
 				"article-list" : {
-
+					"solder-terminl" : "863 9358",
+					"40 cm cable" : "863 9368",
 				}
 			},
-			"" : {
-				"slots-takes" : 1,
+			"Button slot 2 x 18 mm" : {
+				"slots-takes" : 2,
 				"article-list" : {
-
+					"solder-terminl" : "863 9359",
+					"40 cm cable" : "863 9369",
+					"gender changer": "",
 				}
 			},
-			"" : {
-				"slots-takes" : 1,
+			"Button slot LED blue 2 x 18 mm/2,5mm jack" : {
+				"slots-takes" : 2,
 				"article-list" : {
-
+					"40 cm cable" : "863 9386",
 				}
 			},
 		},
@@ -551,4 +584,15 @@ const ModulesForBottomMenu = {
 	},
 }
 
-export {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu}
+const PowerSocket = {
+	"Power socket DE" : "863 9214",
+	"Power socket CH" : "863 9215",
+	"Power socket GB" : "863 9216",
+	"Power socket IT" : "863 9217",
+	"Power socket US/CA" : "863 9218",
+	"Power socket BE/FR/CZ/PL" : "863 9219",
+	"Rocker switch with LED" : "863 9340",
+	"Rocker switch for shutters with arrows" : "863 9347"
+}
+
+export {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket}
