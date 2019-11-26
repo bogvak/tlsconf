@@ -25,11 +25,11 @@ const moduleListAssembler = (props, type, rootClassName, isClickable) => {
         if (type==="power-sockets" && quantity) {
             return "img/" + type + "/" + platformDesc.powerSocketArticle.replace(/\s/g, "") + ".png";
         } else if (type==="conference-control" || type==="conference-control-double-frame") {
-            return "img/" + type + ".png";
+            return "img/layout-parts/" + type + ".png";
         } else if (type==="signal-slots" && modules[index].img) {
             return modules[index].img;
         } else {
-            return "img/empty-signal-slot.png"
+            return "img/layout-parts/empty-signal-slot.png"
         }
     }
     for (let index = 0; index<quantity; index++) {

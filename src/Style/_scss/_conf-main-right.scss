@@ -98,9 +98,13 @@
             padding-bottom: 2rem;
             &-subFrameType {
                 @include right-bottom-list_l2;
-                background-color: transparent;
+                background-color: $main-color-light2;
             }
             &-frameType {
+                @include right-bottom-list_l2;
+                background-color: transparent;
+            }
+            &-support-frame {
                 @include right-bottom-list_l2;
                 background-color: $main-color-light2;
             }

@@ -34,6 +34,8 @@ class Configurator extends Component {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.article.replace(/\s/g, "") + ".png";
       inf.fullLine = inf.desc;
       inf["signal-slots"] = inf["support-frame"]*3;
+      inf["support-frame-article"] = "865 9213";
+      inf["support-frame-desc"] = "Support frame for 3 signals slot"
     }
     inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     inf.subFrameType = SubModulesType[inf.location][inf.line];
@@ -151,6 +153,12 @@ class Configurator extends Component {
     articlesArray.push({
       article: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle, 
       quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameQuantity});
+    if (this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame"]) {
+      articlesArray.push({
+        article: this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame-article"],
+        quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame"],
+      });
+    }
     if (this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]) {
       articlesArray.push({
         article: this.state.Configurations[confNumber].PlatformСhoiceDesc.powerSocketArticle, 

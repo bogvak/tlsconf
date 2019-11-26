@@ -160,6 +160,15 @@ const ConfList = (props) => {
               x
             </div>
         </div>
+        {(props.Configuration.PlatformСhoiceDesc["support-frame"]) ? <div className={rootClassName + "-support-frame"}>
+            <div className={rootClassName + "-support-frame-article"}>
+              {props.Configuration.PlatformСhoiceDesc["support-frame-article"]}
+            </div>
+            <div className={rootClassName + "-support-frame-space"} />
+            <div className={rootClassName + "-support-frame-desc"}>
+              {props.Configuration.PlatformСhoiceDesc["support-frame-desc"]} (x{props.Configuration.PlatformСhoiceDesc["support-frame"]})
+            </div>
+        </div> : null}
         {(props.Configuration.PlatformСhoiceDesc["power-sockets"]) ? <div className={rootClassName + "-powerSocket"}>
             <div className={rootClassName + "-powerSocket-article"}>
               {props.Configuration.PlatformСhoiceDesc.powerSocketArticle}

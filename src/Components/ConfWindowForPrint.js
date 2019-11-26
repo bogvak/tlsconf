@@ -104,13 +104,6 @@ class ComponentToPrint extends Component {
                             </tr>,
                             <tr className="print-conf-table-body_l2">
                                 <td />
-                                <td>Dimensions:</td>
-                                <td>
-                                    (W*H*D) No info in table.
-                                </td>
-                            </tr>,
-                            <tr className="print-conf-table-body_l3">
-                                <td />
                                 <td>Other:  </td>
                                 <td>{this.isDefiend(article+'.Description1')}</td>
                             </tr>
