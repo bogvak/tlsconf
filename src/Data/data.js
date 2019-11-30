@@ -30,11 +30,22 @@ const TypeOfModule = {
 		"menuname" : 11
 	},
 }
+const SupportFrames = {
+	"865 9213": "Support frame for 3 signals slot",
+}
 
 const SubModulesType = {
 	"WALL" : {
 		"Premium Line" : {
-			"support frame": "865 9213",
+			"Cover frame for three slots": {
+				"Cover frame for three slots": "865 9200",
+			},
+			"Cover frame for six slots": {
+				"Cover frame for six slots":  "865 9201",
+			},
+			"Cover frame for nine slots": {
+				"Cover frame for nine slots": "865 9202",
+			},
 		},
 		"Universal Line" : {
 
@@ -595,4 +606,4 @@ const PowerSocket = {
 	"Rocker switch for shutters with arrows" : "863 9347"
 }
 
-export {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket}
+export {TypeOfFrame, TypeOfModule, SupportFrames, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket}

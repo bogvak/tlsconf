@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 
 //Data
-import {TypeOfFrame, TypeOfModule, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket} from './Data/data';
+import {TypeOfFrame, TypeOfModule, SupportFrames, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket} from './Data/data';
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
 
@@ -30,18 +30,21 @@ class Configurator extends Component {
     if (inf.location==="TABLE") {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
       inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
+      inf.subFrameType = SubModulesType[inf.location][inf.line];
+      inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
+      inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
     } else if (inf.location==="WALL") {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.article.replace(/\s/g, "") + ".png";
       inf.fullLine = inf.desc;
+      inf.subFrameType = SubModulesType[inf.location][inf.line][inf.desc];
+      inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
+      inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
       inf["signal-slots"] = inf["support-frame"]*3;
-      inf["support-frame-article"] = "865 9213";
-      inf["support-frame-desc"] = "Support frame for 3 signals slot"
+      inf["support-frame-article"] = Object.keys(SupportFrames)[0];
+      inf["support-frame-desc"] = SupportFrames[inf["support-frame-article"]]
     }
     inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
-    inf.subFrameType = SubModulesType[inf.location][inf.line];
-    inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
-    inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
-    inf.subFrameQuantity = (inf.location==="WALL") ? inf["support-frame"] : 1;
+    
     if (inf["power-sockets"] > 0) {
       inf.powerSocketList = PowerSocket;
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
@@ -152,7 +155,7 @@ class Configurator extends Component {
       quantity: 1});
     articlesArray.push({
       article: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle, 
-      quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameQuantity});
+      quantity: 1});
     if (this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame"]) {
       articlesArray.push({
         article: this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame-article"],

@@ -19,7 +19,7 @@ class ComponentToPrint extends Component {
     }
     fullPriceCalc = (inf, isRound) => {
         const article = inf.article.replace(/\s/g, "");
-        let price = (parseInt(this.isDefiend(article+'.EVP'))*inf.quantity)*(parseInt(this.defaultTax)/100+1);
+        let price = (parseInt(this.isDefiend(`${article}.EVP`))*inf.quantity)*(parseInt(this.defaultTax)/100+1);
         if (isRound) {
             return this.roundNumber(price, 2);
         } else {
@@ -91,7 +91,7 @@ class ComponentToPrint extends Component {
                                     {this.defaultTax}
                                 </td>
                                 <td>
-                                    {this.isDefiend(article+'.EVP')+"€"}
+                                    {this.isDefiend(`${article}.EVP`)+"€"}
                                 </td>
                                 <td>
                                     {this.fullPriceCalc(inf, true)}€
@@ -99,13 +99,13 @@ class ComponentToPrint extends Component {
                             </tr>,
                             <tr className="print-conf-table-body_l1">
                                 <td />
-                                <td>{this.isDefiend(article+'.Type')}:</td>
-                                <td>{this.isDefiend(article+'.Description2')}</td>
+                                <td>{this.isDefiend(`${article}.Type`)}:</td>
+                                <td>{this.isDefiend(`${article}.Description2`)}</td>
                             </tr>,
                             <tr className="print-conf-table-body_l2">
                                 <td />
                                 <td>Other:  </td>
-                                <td>{this.isDefiend(article+'.Description1')}</td>
+                                <td>{this.isDefiend(`${article}.Description1`)}</td>
                             </tr>
                         ])
                     })}
