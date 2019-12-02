@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWall} from './ConfLayOut'
+import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWall} from './ConfLayOut';
 
 const ConfContainerLeft = (props) => {
     return (
@@ -105,26 +105,25 @@ const ModuleSeriesListTop = (props) => {
 }
 
 const CurrentSeriesTop = (props) => {
+    const rootClassName = "conf-main-left-top-container_l2"
     return (
-        <div data-simplebar className="conf-main-left-top-container_l2">
-            <div className='horizontal-scrolling__wrapper'>
-                {Object.keys(props.CurrentSeriesTop).map((item) => {
-                    if (props.CurrentSeriesTop[item].article && props.line) {
-                        return (<img
-                            className="conf-main-left-top-container_l2-card"
-                            alt={item} 
-                            src={"img/" + props.line.replace(/\s/g, "").toLowerCase() + "/" + props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
-                            style={{
-                                borderColor: (item===props.desc) ?  "rgb(243, 103, 220)" : null
-                            }}
-                            key={item} 
-                            onClick={props.PlatformСhoiceDescHandler.bind(this, {...props.CurrentSeriesTop[item], location: props.lacation, line: props.line, desc: item})} 
-                            />)
-                    } else {
-                        return null
-                    }
-                })}
-            </div>
+        <div className={rootClassName}>
+            {Object.keys(props.CurrentSeriesTop).map((item) => {
+                if (props.CurrentSeriesTop[item].article && props.line) {
+                    return (<img
+                        className={rootClassName+"-card"}
+                        alt={item} 
+                        src={"img/" + props.line.replace(/\s/g, "").toLowerCase() + "/" + props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"} 
+                        style={{
+                            borderColor: (item===props.desc) ?  "rgb(243, 103, 220)" : null
+                        }}
+                        key={item} 
+                        onClick={props.PlatformСhoiceDescHandler.bind(this, {...props.CurrentSeriesTop[item], location: props.lacation, line: props.line, desc: item})} 
+                        />)
+                } else {
+                    return null
+                }
+            })}
         </div>
     );
 }
@@ -285,22 +284,23 @@ const ModuleSeriesListBottom = (props) => {
 }
 
 const CurrentModulesBottom = (props) => {
+    const rootClassName = "conf-main-left-bottom-container_l2"
     return (
-        <div data-simplebar className="conf-main-left-bottom-container_l2">
-            <div className='horizontal-scrolling__wrapper'>
+            <div className={rootClassName}>
                 {Object.keys(props.CurrentModulesBottom).map((module) => {
                     if (props.CurrentModulesBottom[module]["article-list"] && Object.keys(props.CurrentModulesBottom[module]["article-list"])) {
                         return (<img 
-                            className="conf-main-left-bottom-container_l2-card"
+                            className={rootClassName+"-card"}
                             key={module}
                             src={"img/" + props.TypeOfModules + "/" + props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]].replace(/\s/g, "") + ".png"}
                             onClick={props.ModuleChoiceHandler.bind(this, {...props.CurrentModulesBottom[module], TypeOfModules: props.TypeOfModules, desc: module})}
                             alt={props.CurrentModulesBottom[module]["article-list"][Object.keys(props.CurrentModulesBottom[module]["article-list"])[0]]}
                         />)
+                    } else {
+                        return null
                     }
                 })}
             </div>
-        </div>
     );
 }
 

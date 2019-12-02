@@ -7,13 +7,9 @@ import {TypeOfFrame, TypeOfModule, SupportFrames, SubModulesType, ModulesContent
 import LocalStrings from './Data/strings';
 import emptyConf from './Data/emptyConf'
 
-//SimpleBar
-import SimpleBar from 'simplebar-react';
-
 //CSS
 import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
-
 
 class Configurator extends Component {
   
@@ -31,20 +27,17 @@ class Configurator extends Component {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
       inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
       inf.subFrameType = SubModulesType[inf.location][inf.line];
-      inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
-      inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
     } else if (inf.location==="WALL") {
       inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.article.replace(/\s/g, "") + ".png";
       inf.fullLine = inf.desc;
       inf.subFrameType = SubModulesType[inf.location][inf.line][inf.desc];
-      inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
-      inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
       inf["signal-slots"] = inf["support-frame"]*3;
       inf["support-frame-article"] = Object.keys(SupportFrames)[0];
-      inf["support-frame-desc"] = SupportFrames[inf["support-frame-article"]]
+      inf["support-frame-desc"] = SupportFrames[inf["support-frame-article"]];
     }
     inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
-    
+    inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
+    inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
     if (inf["power-sockets"] > 0) {
       inf.powerSocketList = PowerSocket;
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]

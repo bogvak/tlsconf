@@ -72,8 +72,8 @@
 
 .conf-main-right-bottom {
     &_l0 {
-        @include main-boxes(100%, 100%);
-        flex: 1;
+        @include main-boxes(100%, 59%);
+        height: 59%;
         flex-direction: column;
         padding-top: 3px;
         &-list {
@@ -83,6 +83,7 @@
             @include main-right-windows;
             flex: 1;
             display: none;
+            position: relative;
             &--selected {
                 display: flex;
                 flex-direction: column;
@@ -180,7 +181,12 @@
             }
         }
         &-print-conf-list {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             height: 10%;
+            width: 100%;
             background-color: $main-color-light5;
             &-button {
                 position: relative;
