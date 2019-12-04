@@ -57,26 +57,22 @@
     @include main-right-windows-source;
 }
 
-@mixin horizontal-menu($is-top: false) {
-    // padding: 13px;
+@mixin horizontal-menu {
     display: flex;
-    height: 100%;
-    width: 100%;
-    // overflow-x: scroll;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
     box-sizing: border-box;
-    flex: 1;
     &-card {
-        @if $is-top {
-            padding: 2px 2px;
-            height: 110px;
-        } @else {
-            padding: 2px 10px;
-            height: 110px;
-        }
-        box-sizing: border-box;
-        width: auto;
+        height: 97px;
         border: 1px solid transparent;
     }
+}
+
+@mixin panel {
+    flex: 1;
+    display: none;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 @mixin list_l0 {
@@ -164,7 +160,7 @@
         box-sizing: border-box;
     }
     &-remove-button {
-        margin: auto 4px;
+        margin: auto 11px;
         background-color: $main-color-light3;
         border: 1px dashed $main-windows-background-color;
         border-radius: 100px;
@@ -185,4 +181,12 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+@mixin contact-info-table {
+    padding: 3px;
+    font-size: inherit;
+    td {
+        vertical-align: top;
+    }
 }

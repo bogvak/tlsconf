@@ -6,55 +6,46 @@
             flex-direction: column;
             &-list {
                 @include list_l0;
-
             }
             &-panel {
-                flex: 1;
-                display: none;
-                box-sizing: border-box;
-                overflow: hidden;
+                @include panel;
                 &--selected {
                     display: flex;
                 }
             }
         }
         &-container_l1 {
-
-            @include main-boxes(100%, 100%);
+            @include main-left-windows;
             flex-direction: column;
-            background-color: $main-windows-background-color;
-            border: $border-panel;
-            border-radius: $border-radius-value;
-            overflow: hidden;
             &-list {
                 @include zero-m-and-p;
                 border-bottom: $border-panel;
                 background: $tabs-panel-gradient;
-                padding-inline-start: 0px;
                 &-tab {
                     @include tab_l1;
+    
                 }
             }
             &-panel {
-                display: none;
-                box-sizing: border-box;
+                @include panel;
+                width: 100%;
                 padding: $panels-padding;
                 &--selected {
                     flex: 1;
                     display: block;
                 }
             }
-        
         }
         &-container_l2 {
-        
-           @include horizontal-menu(true);
+           @include horizontal-menu;
+            &-card {
+                padding: 2px 2px;
+            }
         }
         &-instruction {
             @include instruction(5%);
         }
     }
-
     &-middle {
         &-container_l0 {
 
@@ -65,21 +56,17 @@
                 @include list_l0;
             }
             &-panel {
+                @include panel;
                 @include main-left-windows;
                 padding: $panels-padding;
-                display: none;
                 &--selected {
                     display: flex;
                 }
             }
         }
         &-container_l1 {
-
+            @include main-left-windows-no-borders;
             padding: 10px;
-            display: flex;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
             &-desc {
                 width: 20%;
                 box-sizing: border-box;
@@ -199,6 +186,7 @@
                         }
                     }
                     &-middle {
+                        padding: 0 2px;
                         flex: 1;
                         box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
                         border-radius: $border-radius-value;
@@ -252,51 +240,45 @@
             }
         }
     }
-
     &-bottom {
         &-container_l0 {
             @include main-boxes(100%, 25%);
             flex-direction: column;
             &-list {
                 @include list_l0;
-
             }
             &-panel {
-                @include main-left-windows-no-borders;
-                display: none;
+                @include panel;
                 &--selected {
                     display: flex;
                 }
             }
         }
         &-container_l1 {
-
             @include main-left-windows;
             flex-direction: column;
             &-list {
                 @include zero-m-and-p;
                 border-bottom: $border-panel;
                 background: $tabs-panel-gradient;
-                padding-inline-start: 0px;
                 &-tab {
                     @include tab_l1;
-
                 }
             }
             &-panel {
-                flex: 1;
-                width: 100%;
+                @include panel;
                 padding: $panels-padding;
-                display: none;
-                box-sizing: border-box;
                 &--selected {
+                    flex: 1;
                     display: block;
                 }
             }
-        
         }
         &-container_l2 {
-           @include horizontal-menu;
+            @include horizontal-menu;
+            &-card {
+                padding: 2px 10px;
+            }
         }
         &-instruction {
             @include instruction(5%);

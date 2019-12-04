@@ -15,7 +15,7 @@ const emptyConf = {
       "article-list": {
         "solder-terminal" : null,
       },
-      img: null,
+      img: "img/layout-parts/empty-signal-slot.png",
       display: true,
     }],
 }

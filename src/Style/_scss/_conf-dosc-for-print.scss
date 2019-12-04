@@ -8,24 +8,21 @@
     border: 1px solid $main-color-light3;
     border-collapse: collapse;
     &-head {
-        &-th {
+        th {
             border: 1px solid $main-color-light3;
         }
     }
     &-body {
-        &_l0-td {
-           text-align: center;
-           border: 1px solid $main-color-light5;
-           border-collapse: collapse;
+        &_l0 > td {
+            text-align: center;
+            border: 1px solid $main-color-light5;
+            border-collapse: collapse;
         }
-        &_l1-td {
-            
-         }
     }
-}
-
-.sub-table {
-    border: none;
+    &-total-price {
+        border-top: 1px solid $main-color-light3;
+        border-bottom: 1px solid $main-color-light3;
+    }
 }
 
 .top-left-logo-container {
@@ -42,50 +39,29 @@
     height: 100%;
 }
 
-.total-price {
-    border-top: 1px solid $main-color-light3;
-    border-bottom: 1px solid $main-color-light3;
-}
-
 .contact-info {
     display: flex;
-    font-size: 0.5rem;
-    padding: 5px 20px;
+    font-size: $print-conf-font-size;
+    margin: 5px auto;
     &-table1 {
-        padding: 3px;
+        @include contact-info-table;
         border-right: 2px dotted black;
         border-left: 2px dotted black;
-        font-size: inherit;
-        font-size: 0.7rem;
-        height: 104px;
-        box-sizing: border-box;
         &-ECCO {
             color: #006699;
             font-weight: bold;
             &-text {
-                font-size: 0.4rem;
+                font-size: 0.5em;
             }
         }
     }
     &-table2 {
-        padding: 3px;
-        font-size: inherit;
-        height: 104px;
-        box-sizing: border-box;
-        td {
-            vertical-align: top;
-        }
+        @include contact-info-table;
     }
     &-table3 {
-        padding: 3px;
+        @include contact-info-table;
         border-left: 2px dotted black;
         border-right: 2px dotted black;
-        font-size: inherit;
-        height: 104px;
-        box-sizing: border-box;
-        td {
-            vertical-align: top;
-        }
     }
 }
 

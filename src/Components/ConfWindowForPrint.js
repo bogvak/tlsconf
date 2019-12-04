@@ -19,7 +19,7 @@ class ComponentToPrint extends Component {
     }
     fullPriceCalc = (inf, isRound) => {
         const article = inf.article.replace(/\s/g, "");
-        let price = (parseInt(this.isDefiend(`[article].EVP`, [article]))*inf.quantity)*(parseInt(this.defaultTax)/100+1);
+        let price = (parseInt(this.isDefiend(`${article}.EVP`))*inf.quantity)*(parseInt(this.defaultTax)/100+1);
         if (isRound) {
             return this.roundNumber(price, 2);
         } else {
@@ -32,13 +32,11 @@ class ComponentToPrint extends Component {
         this.props.ArticleList.map((inf) => totalPrice+=this.fullPriceCalc(inf));
         totalPrice = this.roundNumber(totalPrice, 2)
         return totalPrice;
-    }
-
-    isDefiend = (path, varArr, obj) => {
-        let i = 0;
+    } 
+    isDefiend = (path, obj) => {
         if(!obj) obj = dataList;
-        const errM = "Module wasn`t found!"
-        return path.split(/]|\./).filter(Boolean).map((t)=>(t.match(/\[/))?varArr[i++]:t).reduce((o,p)=>(o)?o[p]:errM,obj)
+        const errM = "Module wasn't found!"
+        return path.split(/\./).reduce((o,i)=>(o)?o[i]:errM, obj)
     }
 
     firstRowCI = [
@@ -72,7 +70,7 @@ class ComponentToPrint extends Component {
             <table className="print-conf-table">
                 <thead>
                     <tr className="print-conf-table-head">
-                        {this.tableHeader.map((title) => <th key={title} className="print-conf-table-head-th">{title}</th>)}
+                        {this.tableHeader.map((title) => <th key={title}>{title}</th>)}
                     </tr>
                 </thead>
                 <tbody>
@@ -80,57 +78,40 @@ class ComponentToPrint extends Component {
                         const article = inf.article.replace(/\s/g, "");
                         return ([
                             <tr className="print-conf-table-body_l0" key={index}>
-                                <td className="print-conf-table-body_l0-td">
+                                <td>
                                     {index}
                                 </td>
-                                <td className="print-conf-table-body_l0-td">
+                                <td>
                                     {inf.article}
                                 </td>
-                                <td className="print-conf-table-body_l0-td">
+                                <td>
                                     {inf.quantity}
                                 </td>
-                                <td className="print-conf-table-body_l0-td">
+                                <td>
                                     {this.defaultTax}
                                 </td>
-                                <td className="print-conf-table-body_l0-td">
-                                    {this.isDefiend(`[article].EVP`, [article])+"€"}
+                                <td>
+                                    {this.isDefiend(`${article}.EVP`)+"€"}
                                 </td>
-                                <td className="print-conf-table-body_l0-td">
+                                <td>
                                     {this.fullPriceCalc(inf, true)}€
                                 </td>
                             </tr>,
                             <tr className="print-conf-table-body_l1">
                                 <td />
-                                <td className="print-conf-table-body_l1-td">
-                                    {this.isDefiend(`[article].Type`, [article])}:
-                                </td>
-                                <td className="print-conf-table-body_l1-td">
-                                    {this.isDefiend(`[article].Description2`, [article])}
-                                </td>
+                                <td>{this.isDefiend(`${article}.Type`)}:</td>
+                                <td>{this.isDefiend(`${article}.Description2`)}</td>
                             </tr>,
                             <tr className="print-conf-table-body_l2">
                                 <td />
-                                <td className="print-conf-table-body_l2-td">
-                                    Dimensions:
-                                </td>
-                                <td className="print-conf-table-body_l2-td">
-                                    (W*H*D) .comment'coming soon'
-                                </td>
-                            </tr>,
-                            <tr className="print-conf-table-body_l3">
-                                <td />
-                                <td className="print-conf-table-body_l3-td">
-                                    Other:  
-                                </td>
-                                <td className="print-conf-table-body_l3-td">
-                                    {this.isDefiend(`[article].Description1`, [article])}
-                                </td>
+                                <td>Other:  </td>
+                                <td>{this.isDefiend(`${article}.Description1`)}</td>
                             </tr>
                         ])
                     })}
                 </tbody>
                 <thead>
-                    <tr className="total-price">
+                    <tr className="print-conf-table-total-price">
                         <th className="total-price">Total: </th>
                         {Array(this.tableHeader.length-2).fill("empty").map(() => <th className="total-price" />)}
                         <th className="total-price">{this.totalPriceCalc()}€</th>
@@ -172,7 +153,7 @@ class PrinfConfWindow extends Component {
     
     render () {
         return (
-        <NewWindow>
+        <NewWindow features={{width: "auto"}}>
             <div>
             <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
             <ReactToPrint

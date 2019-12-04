@@ -25,11 +25,11 @@ const moduleListAssembler = (props, type, rootClassName, isClickable) => {
         if (type==="power-sockets" && quantity) {
             return "img/" + type + "/" + platformDesc.powerSocketArticle.replace(/\s/g, "") + ".png";
         } else if (type==="conference-control" || type==="conference-control-double-frame") {
-            return "img/" + type + ".png";
+            return "img/layout-parts/" + type + ".png";
         } else if (type==="signal-slots" && modules[index].img) {
             return modules[index].img;
         } else {
-            return "img/empty-signal-slot.png"
+            return "img/layout-parts/empty-signal-slot.png"
         }
     }
     for (let index = 0; index<quantity; index++) {
@@ -43,17 +43,68 @@ const moduleListAssembler = (props, type, rootClassName, isClickable) => {
     return list;
 }
 
+const SignalSlots = (props) => {
+    const className = props.rootClassName+"-signal-slots";
+    const classNameList = [
+        className,
+        (props.index===props.Configuration.IndexOfSelectedSlot) ? `${className}--selected` : null,
+        (props.Configuration.Modules[props.index].display) ? `${className}--displayed` : `${className}--hiden`,
+    ].filter(Boolean).join(" ");
+    return <img
+        className={classNameList}
+        src={props.Configuration.Modules[props.index].img}
+        alt="signal-slot"
+        onClick={() => props.CurrentSlotHandler(props.index)}
+    />
+}
+
+const PowerSocket = (props) => {
+    return <img
+        className={props.rootClassName+"-power-sockets"}
+        src={"img/power-sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + ".png"}
+        alt="power-sockets"
+    />
+}
+
+const ConferenceControl = (props) => {
+    return <img
+        className={props.rootClassName+"-conference-control"}
+        src={"img/layout-parts/conference-control.png"}
+        alt="conference-control"
+    />
+}
+
+const ConferenceControlDoubleFrame = (props) => {
+    return <img
+        className={props.rootClassName+"-conference-control-double-frame"}
+        src={"img/layout-parts/conference-control-double-frame.png"}
+        alt="conference-control-double-frame"
+    />
+}
+
 const ConfLayOutTable = (props) => {
     const conf = () => {
-        const powerSokets = moduleListAssembler(props ,"power-sockets", rootClassName+"-middle");
+        const powerSokets = Array(props.Configuration.PlatformСhoiceDesc["power-sockets"]).fill(<PowerSocket 
+            Configuration={props.Configuration} 
+            rootClassName={rootClassName+"-middle"} 
+        />)
+        const conferenceControl = Array(props.Configuration.PlatformСhoiceDesc["conference-control"]).fill(<ConferenceControl 
+            Configuration={props.Configuration} 
+            rootClassName={rootClassName+"-middle"} 
+        />)
+        const conferenceControlDoubleFrame = Array(props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).fill(<ConferenceControlDoubleFrame
+            Configuration={props.Configuration} 
+            rootClassName={rootClassName+"-middle"} 
+        />)
         const signalSlots = (<div
             style={props.Configuration.PlatformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
             className={rootClassName+"-middle-container"}
-        >
-            {moduleListAssembler(props ,"signal-slots", rootClassName+"-middle", true)}
-        </div>);
-        const conferenceControl = moduleListAssembler(props ,"conference-control", rootClassName+"-middle");
-        const conferenceControlDoubleFrame = moduleListAssembler(props ,"conference-control-double-frame", rootClassName+"-middle");
+        >{Array(props.Configuration.PlatformСhoiceDesc["signal-slots"]).fill(1).map((_, index) => <SignalSlots
+            Configuration={props.Configuration}
+            rootClassName={rootClassName+"-middle"}
+            CurrentSlotHandler={props.CurrentSlotHandler}
+            index={index}
+        />)}</div>);
         let pos;
         if (powerSokets.length > 2) {
             pos = 2;
@@ -90,7 +141,12 @@ const renderSupportFrames = (props) => {
                     <span className="dot_l0"><span className="dot_l1" /></span>
                 </div>
                 <div className={rootClassName+"-support-frame-middle"}>
-                    {moduleListAssembler(props, "signal-slots", rootClassName+"-support-frame-middle", true).slice(end-3, end)}
+                    {Array(props.Configuration.PlatformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots 
+                        Configuration={props.Configuration}
+                        rootClassName={rootClassName+"-support-frame-middle"}
+                        CurrentSlotHandler={props.CurrentSlotHandler}
+                        index={index}
+                    />).slice(end-3, end)}
                 </div>
                 <div className={rootClassName+"-support-frame-bottom"}>
                     <span className="dot_l0"><span className="dot_l1" /></span>
@@ -104,9 +160,25 @@ const renderSupportFrames = (props) => {
 }
 
 const ConfLayOutWall = (props) => {
+    const rootClassName = "conf-main-left-middle-container_l1-layout-wall"
     return (
-        <div className="conf-main-left-middle-container_l1-layout-wall">
-            {renderSupportFrames(props)}
+        <div className={rootClassName}>
+            {Array(props.Configuration.PlatformСhoiceDesc["support-frame"]).fill(1).map((_, i) => <div className={rootClassName+"-support-frame"}>
+                <div className={rootClassName+"-support-frame-top"}>
+                    <span className="dot_l0"><span className="dot_l1" /></span>
+                </div>
+                <div className={rootClassName+"-support-frame-middle"}>
+                    {Array(props.Configuration.PlatformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots 
+                        Configuration={props.Configuration}
+                        rootClassName={rootClassName+"-support-frame-middle"}
+                        CurrentSlotHandler={props.CurrentSlotHandler}
+                        index={index}
+                    />).slice((i+1)*3-3, (i+1)*3)}
+                </div>
+                <div className={rootClassName+"-support-frame-bottom"}>
+                    <span className="dot_l0"><span className="dot_l1" /></span>
+                </div>
+            </div>).reduce((r,e,i,a)=>(i<a.length-1)?r.concat(e,<div className={rootClassName+"-separator"} />):r.concat(e), [])}
         </div>
     )
 }
