@@ -5,7 +5,7 @@ import ConfContainerRight from './Components/ConfContainerRight';
 //Data
 import {TypeOfFrame, TypeOfModule, SupportFrames, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket} from './Data/data';
 import LocalStrings from './Data/strings';
-import emptyConf from './Data/emptyConf'
+import emptyConf from './Data/emptyConf';
 
 //CSS
 import 'simplebar/dist/simplebar.min.css';

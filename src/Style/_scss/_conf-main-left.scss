@@ -39,6 +39,9 @@
         &-container_l2 {
            @include horizontal-menu;
             &-card {
+                &--selected {
+                    border-color: rgb(243, 103, 220);
+                }
                 padding: 2px 2px;
             }
         }
