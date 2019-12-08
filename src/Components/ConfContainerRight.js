@@ -13,7 +13,7 @@ const ConfContainerRight = (props) => {
             <ConfContainerRightBottom 
               Configurations={props.Configurations}
               QuantityOfConf={props.QuantityOfConf}
-              SubMenuHandler={props.SubMenuHandler}
+              ModuleMenuHandler={props.ModuleMenuHandler}
               AwokenTabHandler={props.AwokenTabHandler}
               ModuleResetHandler={props.ModuleResetHandler}
               FrameReseteHandler={props.FrameReseteHandler}
@@ -95,7 +95,7 @@ const ConfContainerRightBottom = (props) => {
                 key={confNumber}
                 ConfNumber={confNumber}
                 Configuration={conf}
-                SubMenuHandler={props.SubMenuHandler}
+                ModuleMenuHandler={props.ModuleMenuHandler}
                 AwokenTabHandler={props.AwokenTabHandler}
                 ModuleResetHandler={props.ModuleResetHandler}
                 FrameReseteHandler={props.FrameReseteHandler}
@@ -110,6 +110,37 @@ const ConfContainerRightBottom = (props) => {
   );
 }
 
+const ConfDescLine = (props) => <div className={props.elementClassName}>
+  <div className={props.elementClassName+"-article"}>{props.article}</div>
+  {(props.IsMenuAwokenHandler&&props.MenuHandler&&props.MenuContent)?
+    <ConfContainerRightBottomSubMenu 
+      elementClassName={props.elementClassName+"-specs-menu"}
+      IsMenuAwokenHandler={props.IsMenuAwokenHandler}
+      IsVisible={props.IsVisible}
+      MenuContent={props.MenuContent}
+      MenuHandler={props.MenuHandler}
+    />
+  :<div className={props.elementClassName+"-space"}/>}
+  <div className={props.elementClassName+"-desc"}>{props.desc}</div>
+  {(props.ReseteHandler) ?
+    <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.ConfNumber)}>x</div> 
+  : null}
+</div>
+
+const ConfContainerRightBottomSubMenu = (props) => <div
+  className={props.elementClassName}
+  onMouseEnter={props.IsMenuAwokenHandler.bind(this, props.index||true)}
+  onMouseLeave={props.IsMenuAwokenHandler.bind(this, false)}
+>
+  <ul className={[props.elementClassName+"-list", props.elementClassName+((props.IsVisible)?"-list--visible":"-list--hiden")].join(" ")}>
+    {Object.keys(props.MenuContent).map((desc,i,arr) => <li
+      className={!(i===arr.length-1)?props.elementClassName+"-list-li--bordered":null}
+      key={desc}
+      onClick={props.MenuHandler.bind(this, props.MenuContent[desc], desc)}
+    >{desc}</li>)}
+  </ul>
+</div>
+
 const ConfList = (props) => {
   const zebraColor = (index) => {
     let isNextLight = (index % 2 === 0) ? true : false;
@@ -121,102 +152,59 @@ const ConfList = (props) => {
     else 
       {return "dark"}
   }
-
-  const isBordered = (index, articleList) =>{
-    if (index+1 < Object.keys(articleList).length) {
-      return "--bordered";
-    } else {
-      return ""
-    }
-  }
-
-  const rootClassName = "conf-main-right-bottom_l1-conf-list"
-
+  
+  const elementClassName = "conf-main-right-bottom_l1-conf-list";
+  const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc;
   return (
-    <SimpleBar forceVisible="y" autoHide="false" className={rootClassName}>
-      <div className={rootClassName + "-subFrameType"}>
-          <div className={rootClassName + "-subFrameType-article"}>
-            {props.Configuration.PlatformСhoiceDesc.subFrameArticle}
-          </div>
-          <div className={rootClassName + "-subFrameType-space"} />
-          <div className={rootClassName + "-subFrameType-desc"}>
-            {props.Configuration.PlatformСhoiceDesc.line} ({props.Configuration.PlatformСhoiceDesc.subFrameDesc})
-          </div>
-      </div>
-      <div className={rootClassName + "-frameType"}>
-          <div className={rootClassName + "-frameType-article"}>
-            {props.Configuration.PlatformСhoiceDesc.article}
-          </div>
-          <div className={rootClassName + "-frameType-space"} />
-          <div className={rootClassName + "-frameType-desc"}>
-            {props.Configuration.PlatformСhoiceDesc.line} - Support frame:
-            <br/>
-            {props.Configuration.PlatformСhoiceDesc["all-slots"]} signal slots; Type: {props.Configuration.PlatformСhoiceDesc["type"]}
-          </div>
-          <div 
-            className={rootClassName + "-frameType-remove-button"}
-            onClick={props.FrameReseteHandler.bind(this, props.ConfNumber)}
-          >
-            x
-          </div>
-      </div>
-      {(props.Configuration.PlatformСhoiceDesc["support-frame"]) ? <div className={rootClassName + "-support-frame"}>
-          <div className={rootClassName + "-support-frame-article"}>
-            {props.Configuration.PlatformСhoiceDesc["support-frame-article"]}
-          </div>
-          <div className={rootClassName + "-support-frame-space"} />
-          <div className={rootClassName + "-support-frame-desc"}>
-            {props.Configuration.PlatformСhoiceDesc["support-frame-desc"]} (x{props.Configuration.PlatformСhoiceDesc["support-frame"]})
-          </div>
-      </div> : null}
-      {(props.Configuration.PlatformСhoiceDesc["power-sockets"]) ? <div className={rootClassName + "-powerSocket"}>
-          <div className={rootClassName + "-powerSocket-article"}>
-            {props.Configuration.PlatformСhoiceDesc.powerSocketArticle}
-          </div>
-          <div 
-            className={rootClassName + "-powerSocket-specs-menu"}
-            onMouseEnter={
-              props.IsPSmenuAwokenHandler.bind(this, true)
-            }
-            onMouseLeave={
-              props.IsPSmenuAwokenHandler.bind(this, false)
-            }
-          >
-            <ul
-              className={rootClassName + "-powerSocket-specs-menu-list"}
-              style={{display: (props.Configuration.IsPSmenuAwoken) ? "inline" : "none"}}
-            >
-              {Object.keys(props.Configuration.PlatformСhoiceDesc.powerSocketList).map((desc, index)=>{
-                return (
-                  <li
-                    className={[rootClassName + "-powerSocket-specs-menu-list-li", rootClassName + "-powerSocket-specs-menu-list-li" + isBordered(index, props.Configuration.PlatformСhoiceDesc.powerSocketList)].join(" ")}
-                    onClick={props.PowerSocketMenuHandler.bind(this, {powerSocketDesc: desc, powerSocketArticle: props.Configuration.PlatformСhoiceDesc.powerSocketList[desc]})}
-                    key={desc}
-                  >
-                  {desc}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          <div className={rootClassName + "-powerSocket-desc"}>
-            {props.Configuration.PlatformСhoiceDesc.powerSocketDesc} (x{props.Configuration.PlatformСhoiceDesc["power-sockets"]})
-          </div>
-      </div> : null}
+    <SimpleBar className={elementClassName}>
+      <ConfDescLine 
+        elementClassName={elementClassName+"-subFrameType"}
+        article={platformСhoiceDesc.subFrameArticle}
+        desc={`
+          ${platformСhoiceDesc.line} (${platformСhoiceDesc.subFrameDesc})
+        `}
+      />
+      <ConfDescLine 
+        elementClassName={elementClassName+"-frameType"}
+        article={platformСhoiceDesc.article}
+        desc={`
+          ${platformСhoiceDesc.line} - Support frame:
+          ${platformСhoiceDesc["all-slots"]} signal slots; Type: ${platformСhoiceDesc["type"]}
+        `}
+        ReseteHandler={props.FrameReseteHandler}
+      />
+      {(platformСhoiceDesc["support-frame"]) ? <ConfDescLine
+        elementClassName={elementClassName+"-support-frame"}
+        article={platformСhoiceDesc["support-frame-article"]}
+        desc={`
+          ${platformСhoiceDesc["support-frame-desc"]} (x${platformСhoiceDesc["support-frame"]})
+        `}
+      /> : null}
+      {(platformСhoiceDesc["power-sockets"]) ? <ConfDescLine 
+        elementClassName={elementClassName + "-powerSocket"}
+        article={platformСhoiceDesc.powerSocketArticle}
+        desc={`
+          ${platformСhoiceDesc.powerSocketDesc} (x${platformСhoiceDesc["power-sockets"]})
+        `}
+        IsMenuAwokenHandler={props.IsPSmenuAwokenHandler}
+        IsVisible={props.Configuration.IsPSmenuAwoken}
+        MenuContent={platformСhoiceDesc.powerSocketList}
+        MenuHandler={props.PowerSocketMenuHandler}
+      /> : null}
       {props.Configuration.Modules.map((module, index) => {
         return (
           <div 
-            className={[rootClassName + "-module", rootClassName + "-module-" + zebraColor(index)].join(' ')}
+            className={[elementClassName + "-module", elementClassName + "-module-" + zebraColor(index)].join(' ')}
             key={index}
           >
             {(module.SubArticle) ? <div
-              className={rootClassName + "-module-article"}
+              className={elementClassName + "-module-article"}
             >
               {module.SubArticle}
             </div> : null} 
             {(module.desc || module.SubDesc) ? 
               <div 
-                className={rootClassName + "-module-specs-menu"}
+                className={elementClassName + "-module-specs-menu"}
                 onMouseEnter={
                   props.AwokenTabHandler.bind(this, index)
                 }
@@ -225,14 +213,13 @@ const ConfList = (props) => {
                 }
               >
                 <ul
-                  className={rootClassName + "-module-specs-menu-list"}
+                  className={elementClassName + "-module-specs-menu-list"}
                   style={{display: (props.Configuration.IndexOfAwokenTab === index) ? "inline" : "none"}}
                 >
                   {Object.keys(module["article-list"]).map((desc, index)=>{
                     return (
                       <li
-                        className={[rootClassName + "-module-specs-menu-list-li", rootClassName + "-module-specs-menu-list-li" + isBordered(index, module["article-list"])].join(" ")}
-                        onClick={props.SubMenuHandler.bind(this, {SubDesc: desc, SubArticle: module["article-list"][desc]})}
+                        onClick={props.ModuleMenuHandler.bind(this, module["article-list"][desc], desc)}
                         key={desc}
                       >
                       {desc}
@@ -243,13 +230,13 @@ const ConfList = (props) => {
               </div>
             : null}
             {(module.desc && module.SubDesc) ? <div 
-              className={rootClassName + "-module-desc"}
+              className={elementClassName + "-module-desc"}
             >
               {module.desc}({module.SubDesc})
             </div>: null}
             {(module.desc && module.SubDesc) ? <div
               onClick={props.ModuleResetHandler.bind(this, index)}
-              className={rootClassName + "-module-remove-button"}
+              className={elementClassName + "-module-remove-button"}
             >
               x
             </div>: null}

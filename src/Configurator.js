@@ -107,12 +107,28 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs})
   }
 
-  subMenuHandler = (newSubInf) => {
+  moduleMenuHandler = (article,desc) => {
     const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    if (!copyOfConfs[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab]) return;
+    const newInf={
+      SubDesc: desc,
+      SubArticle: article,
+    }
     copyOfConfs[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab] = {
       ...copyOfConfs[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab],
-      ...newSubInf
+      ...newInf
+    }
+    this.setState({Configurations: copyOfConfs})
+  }
+
+  powerSocketMenuHandler = (article, desc) => {
+    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    const newInf = {
+      powerSocketDesc: desc,
+      powerSocketArticle: article,
+    }
+    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {
+      ...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc,
+      ...newInf,
     }
     this.setState({Configurations: copyOfConfs})
   }
@@ -191,15 +207,6 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs})
   }
 
-  powerSocketMenuHandler = (newInf) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {
-      ...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc,
-      ...newInf,
-    }
-    this.setState({Configurations: copyOfConfs})
-  }
-
   render() {
     return (
 		<div className="conf-main">
@@ -224,7 +231,7 @@ class Configurator extends Component {
         Configurations={this.state.Configurations}
         QuantityOfConf={this.state.QuantityOfConf}
         //Handlers
-        SubMenuHandler={this.subMenuHandler}
+        ModuleMenuHandler={this.moduleMenuHandler}
         AwokenTabHandler={this.awokenTabHandler}
         SubFrameTypeHandler={this.subFrameTypeHandler}
         ModuleResetHandler={this.moduleResetHandler}

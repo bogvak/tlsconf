@@ -135,6 +135,13 @@
                         background-color: $main-windows-background-color;
                         overflow: hidden;
                         width: 200px;
+                        display: none;
+                        &--visible {
+                            display: inline;
+                        }
+                        &--hiden {
+                            display: none;
+                        }
                         &-li--bordered  {
                             border-bottom: $border-panel;
                         }
