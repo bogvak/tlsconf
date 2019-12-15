@@ -129,43 +129,13 @@ const ConfLayOutTable = (props) => {
     );
 }
 
-const renderSupportFrames = (props) => {
-    const qunatityOfSupportFrame = props.Configuration.PlatformСhoiceDesc["signal-slots"]/3;
-    const list = [];
-    const rootClassName = "conf-main-left-middle-container_l1-layout-wall"
-    for (let i = 0; i<qunatityOfSupportFrame; i++) {
-        const end = (i+1)*3;
-        list.push(
-            <div className={rootClassName+"-support-frame"}>
-                <div className={rootClassName+"-support-frame-top"}>
-                    <span className="dot_l0"><span className="dot_l1" /></span>
-                </div>
-                <div className={rootClassName+"-support-frame-middle"}>
-                    {Array(props.Configuration.PlatformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots 
-                        Configuration={props.Configuration}
-                        rootClassName={rootClassName+"-support-frame-middle"}
-                        CurrentSlotHandler={props.CurrentSlotHandler}
-                        index={index}
-                    />).slice(end-3, end)}
-                </div>
-                <div className={rootClassName+"-support-frame-bottom"}>
-                    <span className="dot_l0"><span className="dot_l1" /></span>
-                </div>
-            </div>)
-        if (i<qunatityOfSupportFrame-1) {
-            list.push(<div className={rootClassName+"-separator"} />)
-        };
-    }
-    return list;
-}
-
 const ConfLayOutWall = (props) => {
     const rootClassName = "conf-main-left-middle-container_l1-layout-wall"
     return (
-        <div className={rootClassName}>
+        <div className={[rootClassName, (props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? rootClassName+"--hiddenCover" : null].filter(Boolean).join(" ")}>
             {Array(props.Configuration.PlatformСhoiceDesc["support-frame"]).fill(1).map((_, i) => <div className={rootClassName+"-support-frame"}>
-                <div className={rootClassName+"-support-frame-top"}>
-                    <span className="dot_l0"><span className="dot_l1" /></span>
+                <div className={[rootClassName+"-support-frame-top", (props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? rootClassName+"--hiddenCover" : null].filter(Boolean).join(" ")}>
+                    <span className="dot"></span>
                 </div>
                 <div className={rootClassName+"-support-frame-middle"}>
                     {Array(props.Configuration.PlatformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots 
@@ -175,8 +145,8 @@ const ConfLayOutWall = (props) => {
                         index={index}
                     />).slice((i+1)*3-3, (i+1)*3)}
                 </div>
-                <div className={rootClassName+"-support-frame-bottom"}>
-                    <span className="dot_l0"><span className="dot_l1" /></span>
+                <div className={[rootClassName+"-support-frame-bottom", (props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? rootClassName+"--hiddenCover" : null].filter(Boolean).join(" ")}>
+                    <span className="dot"></span>
                 </div>
             </div>).reduce((r,e,i,a)=>(i<a.length-1)?r.concat(e,<div className={rootClassName+"-separator"} />):r.concat(e), [])}
         </div>

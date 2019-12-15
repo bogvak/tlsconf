@@ -176,11 +176,10 @@
     @include zero-m-and-p;
     position: absolute;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 4px double black;
     border-radius: 50%;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 }
 
 @mixin contact-info-table {
@@ -189,4 +188,15 @@
     td {
         vertical-align: top;
     }
+}
+
+@mixin check-box {
+    @include zero-m-and-p;
+    right: 1px;
+    top: 1px;
+    width: 20px;
+    height: 20px;
+    border: $border-panel;
+    border-radius: $border-radius-value;
+    background-color: $main-windows-background-color;
 }

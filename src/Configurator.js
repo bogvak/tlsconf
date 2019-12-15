@@ -34,6 +34,7 @@ class Configurator extends Component {
       inf["signal-slots"] = inf["support-frame"]*3;
       inf["support-frame-article"] = Object.keys(SupportFrames)[0];
       inf["support-frame-desc"] = SupportFrames[inf["support-frame-article"]];
+      inf.isCoverHiden = true;
     }
     inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
@@ -207,6 +208,12 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs})
   }
 
+  coverHidenHandler = () => {
+    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.isCoverHiden = !copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.isCoverHiden;
+    this.setState({Configurations: copyOfConfs});
+  }
+
   render() {
     return (
 		<div className="conf-main">
@@ -220,6 +227,7 @@ class Configurator extends Component {
         QuantityOfConf={this.state.QuantityOfConf}
         Configuration={this.state.Configurations[this.state.ConfNumber]}
         //Handlers
+        CoverHidenHandler={this.coverHidenHandler}
         PlatformСhoiceDescHandler={this.platformСhoiceDescHandler}
         ConfNumberHandler={this.confNumberHandler}
         AddConfHandler={this.addConfHandler}

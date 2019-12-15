@@ -27,6 +27,7 @@ const ConfContainerLeft = (props) => {
             ConfNumberHandler={props.ConfNumberHandler}
             AddConfHandler={props.AddConfHandler}
             CurrentSlotHandler={props.CurrentSlotHandler}
+            CoverHidenHandler={props.CoverHidenHandler}
         />    
         <ConfContainerLeftBottom
             TypeOfModule={props.TypeOfModule}
@@ -152,6 +153,7 @@ const ConfContainerLeftMiddle = (props) => {
             key={number}>
                 {(props.Configuration.PlatformСhoiceDesc.article) ?
                     <RepresentationOfConf 
+                        CoverHidenHandler={props.CoverHidenHandler}
                         Configuration={props.Configuration} 
                         CurrentSlotHandler={props.CurrentSlotHandler}
                     />
@@ -164,7 +166,8 @@ const RepresentationOfConf = (props) => {
     const elementClassName="conf-main-left-middle-container_l1"
     return <div className={elementClassName}>
         <ConfDesc
-            PlatformСhoiceDesc={props.Configuration.PlatformСhoiceDesc} 
+            PlatformСhoiceDesc={props.Configuration.PlatformСhoiceDesc}
+            CoverHidenHandler={props.CoverHidenHandler}
         />
         {(props.Configuration.PlatformСhoiceDesc.location === "TABLE") ? 
             <ConfLayOutTable
@@ -192,6 +195,12 @@ const ConfDesc = (props) => {
         <ul>
             <li>{props.PlatformСhoiceDesc.desc}</li>
             {(props.PlatformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.PlatformСhoiceDesc["signal-slots"]/3})</li>: null}
+            {(props.PlatformСhoiceDesc.location==="WALL") ? <li style={{display: "flex"}}>
+                <span>Hide cover frame </span>
+                <button onClick={props.CoverHidenHandler.bind(this)} className={elementClassName+"-check-box"}>
+                    {(props.PlatformСhoiceDesc.isCoverHiden) ? "✓" : null}
+                </button>
+            </li>: null}
             <li>{props.PlatformСhoiceDesc.type}</li>
         </ul>
     </div>

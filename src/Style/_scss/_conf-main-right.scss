@@ -47,17 +47,9 @@
                 &-text {
                     @include zero-m-and-p;
                 }
-                &-button {
-                    @include zero-m-and-p;
+                &-check-box {
+                    @include check-box;
                     position: absolute;
-                    right: 1px;
-                    top: 1px;
-                    border: $border-panel;
-                    border-radius: $border-radius-value;
-                    width: 20px;
-                    height: 20px;
-                    background-color: $main-windows-background-color;
-
                 }
                 &-dark {
                     background-color: $main-color-light5;
@@ -180,6 +172,12 @@
                         background-color: $main-windows-background-color;
                         white-space: nowrap;
                         overflow: hidden;
+                        &--visible {
+                            display: inline;
+                        }
+                        &--hiden {
+                            display: none;
+                        }
                         &-li--bordered  {
                             border-bottom: $border-panel;
                         }

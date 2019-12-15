@@ -74,6 +74,9 @@
                 width: 20%;
                 box-sizing: border-box;
                 height: 100%;
+                &-check-box {
+                    @include check-box;
+                }
             }
             &-layout-table {
                 height: 100%;
@@ -166,7 +169,11 @@
                 box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
                 background-color: $background-and-separator-color;
                 border-radius: $border-radius-value;
+                &--hiddenCover {
+                    visibility: hidden;
+                }
                 &-support-frame {
+                    visibility: visible;
                     display: flex;
                     flex-direction: column;
                     z-index: 0;
@@ -175,20 +182,19 @@
                         background-color: $background-and-separator-color;
                         box-sizing: border-box;
                         position: relative;
+                        &--hiddenCover {
+                            visibility: hidden;
+                        }
                         .dot {
-                            &_l0 {
-                                @include dot;
-                                height: 13px;
-                                width: 13px;
-                            }
-                            &_l1 {
-                                @include dot;
-                                height: 8px;
-                                width: 8px;
-                            }
+                            @include dot;
+                            height: 13px;
+                            width: 13px;
+                            top: 1px;
+                            visibility: visible;
                         }
                     }
                     &-middle {
+                        opacity: 100%;
                         padding: 0 2px;
                         flex: 1;
                         box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
@@ -221,17 +227,15 @@
                         height: 25px;
                         background-color: $background-and-separator-color;
                         position: relative;
+                        &--hiddenCover {
+                            visibility: hidden;
+                        }
                         .dot {
-                            &_l0 {
-                                @include dot;
-                                height: 13px;
-                                width: 13px;
-                            }
-                            &_l1 {
-                                @include dot;
-                                height: 8px;
-                                width: 8px;
-                            }
+                            @include dot;
+                            height: 13px;
+                            width: 13px;
+                            bottom: 1px;
+                            visibility: visible;
                         }
                     }
                 }

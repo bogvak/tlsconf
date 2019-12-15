@@ -67,7 +67,7 @@ const FrameSubMenu = (props) => {
             <p style={{"fontWeight": (props.SubFrameType[inf] === props.SubFrameArticle) ? "bold" : null}} className="conf-main-right-top-subFrameMenu-list-line-text">{props.SubFrameType[inf]} : {inf}</p>
             <button
               onClick={props.SubFrameTypeHandler.bind(this, {subFrameDesc: inf, subFrameArticle: props.SubFrameType[inf]})}
-              className="conf-main-right-top-subFrameMenu-list-line-button"
+              className="conf-main-right-top-subFrameMenu-list-line-check-box"
             >
               {(props.SubFrameType[inf] === props.SubFrameArticle) ? "✓" : null}
             </button>
@@ -113,7 +113,7 @@ const ConfContainerRightBottom = (props) => {
 const ConfDescLine = (props) => <div className={props.elementClassName}>
   <div className={props.elementClassName+"-article"}>{props.article}</div>
   {(props.IsMenuAwokenHandler&&props.MenuHandler&&props.MenuContent)?
-    <ConfContainerRightBottomSubMenu 
+    <SubMenuRightBottom
       elementClassName={props.elementClassName+"-specs-menu"}
       IsMenuAwokenHandler={props.IsMenuAwokenHandler}
       IsVisible={props.IsVisible}
@@ -127,9 +127,9 @@ const ConfDescLine = (props) => <div className={props.elementClassName}>
   : null}
 </div>
 
-const ConfContainerRightBottomSubMenu = (props) => <div
+const SubMenuRightBottom = (props) => <div
   className={props.elementClassName}
-  onMouseEnter={props.IsMenuAwokenHandler.bind(this, props.index||true)}
+  onMouseEnter={props.IsMenuAwokenHandler.bind(this, (props.index===0||props.index)?props.index:true)}
   onMouseLeave={props.IsMenuAwokenHandler.bind(this, false)}
 >
   <ul className={[props.elementClassName+"-list", props.elementClassName+((props.IsVisible)?"-list--visible":"-list--hiden")].join(" ")}>
@@ -202,32 +202,15 @@ const ConfList = (props) => {
             >
               {module.SubArticle}
             </div> : null} 
-            {(module.desc || module.SubDesc) ? 
-              <div 
-                className={elementClassName + "-module-specs-menu"}
-                onMouseEnter={
-                  props.AwokenTabHandler.bind(this, index)
-                }
-                onMouseLeave={
-                  props.AwokenTabHandler.bind(this, null)
-                }
-              >
-                <ul
-                  className={elementClassName + "-module-specs-menu-list"}
-                  style={{display: (props.Configuration.IndexOfAwokenTab === index) ? "inline" : "none"}}
-                >
-                  {Object.keys(module["article-list"]).map((desc, index)=>{
-                    return (
-                      <li
-                        onClick={props.ModuleMenuHandler.bind(this, module["article-list"][desc], desc)}
-                        key={desc}
-                      >
-                      {desc}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+            {(module.desc || module.SubDesc) ?
+              <SubMenuRightBottom
+                index={index}
+                elementClassName={elementClassName + "-module-specs-menu"}
+                IsMenuAwokenHandler={props.AwokenTabHandler}
+                MenuContent={module["article-list"]}
+                IsVisible={props.Configuration.IndexOfAwokenTab===index}
+                MenuHandler={props.ModuleMenuHandler}
+              />
             : null}
             {(module.desc && module.SubDesc) ? <div 
               className={elementClassName + "-module-desc"}
