@@ -195,11 +195,12 @@ const ConfDesc = (props) => {
         <ul>
             <li>{props.PlatformСhoiceDesc.desc}</li>
             {(props.PlatformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.PlatformСhoiceDesc["signal-slots"]/3})</li>: null}
-            {(props.PlatformСhoiceDesc.location==="WALL") ? <li style={{display: "flex"}}>
-                <span>Hide cover frame </span>
-                <button onClick={props.CoverHidenHandler.bind(this)} className={elementClassName+"-check-box"}>
-                    {(props.PlatformСhoiceDesc.isCoverHiden) ? "✓" : null}
-                </button>
+            {(props.PlatformСhoiceDesc.location==="WALL") ? <li>
+                Hide cover frame{" "}
+                <button 
+                    onClick={props.CoverHidenHandler.bind(this)} 
+                    className={[elementClassName+"-check-box", (props.PlatformСhoiceDesc.isCoverHiden) ? elementClassName+"-check-box--hiden" : null].filter(Boolean).join(" ")}
+                >✓</button>
             </li>: null}
             <li>{props.PlatformСhoiceDesc.type}</li>
         </ul>
