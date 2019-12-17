@@ -13,6 +13,7 @@ $main-color-strong: rgb(0, 102, 255);
 $main-color-light: rgb(172, 206, 255);
 $darkgrey: #333;
 $background-and-separator-color:  $main-color-light5;
+$support-frame-border-color: rgb(128, 128, 128);
 
 /***MENU***/
 $menu-height: 30%;
@@ -22,6 +23,7 @@ $border: 1px solid;
 $border-panel: 1px solid $main-color-light2;
 $main-windows-borders: $border $main-color-strong;
 $border-radius-value: 3px;
+$layout-border-radius-value: 5px;
 /***tab-background***/
 $tabs-gradient: linear-gradient($main-color-light4, $main-color-light3);
 $tabs-panel-gradient: linear-gradient($main-color-light2, $main-color-light3);

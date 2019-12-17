@@ -103,57 +103,45 @@
                     box-sizing: border-box;
                     background-color: $background-and-separator-color;
                     box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
-                    border-radius: 3px;
+                    border-radius: $border-radius-value;
                     z-index: 0;
                     &-container {
                         padding: 0 8px;
-                        margin: 8px 4px;
+                        margin: auto 4px;
                         border: $border gray;
-                        border-radius: 5px;
-                        height: 108px;
+                        border-radius: $layout-border-radius-value;
                         box-sizing: border-box;
                         background-color: $main-windows-background-color;
+                        &-signal-slots {
+                            box-sizing: border-box;
+                            height: 106px;
+                            &--selected {
+                                z-index: 1;
+                                box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
+                            }
+                            &--displayed {
+                                display: inline-block;
+                            }
+                            &--hiden {
+                                display: none;
+                            }
+                        }
                     }
                     &-power-sockets {
                         border: $border gray;
                         border-collapse: collapse;
-                        box-sizing: border-box;
-                        margin: 12px 4px;
+                        margin: auto 4px;
                         padding: 9px;
-                        height: 100px;
-                        width: 100px;
+                        height: 80px;
                         background-color: $main-windows-background-color;
                     }
-                    &-signal-slots {
-                        box-sizing: border-box;
-                        height: 106px;
-                        &--selected {
-                            z-index: 1;
-                            box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
-                        }
-                        &--displayed {
-                            display: inline-block;
-                        }
-                        &--hiden {
-                            display: none;
-                        }
-                    }
-                    &-conference-control {
+                    &-conference-control, &-conference-control-double-frame {
                         border: $border gray;
-                        border-collapse: collapse;
-                        box-sizing: border-box;
                         margin: 0 4px;
                         padding: 8px;
-                        height: 124px;
-                        width: 124px;
-                        border-radius: 5px;
-                    }
-                    &-conference-control-double-frame {
-                        border: $border rgb(252, 44, 241);
-                        word-wrap: break-word;
-                        box-sizing: border-box;
                         height: 106px;
-                        width: 212px;
+                        border-radius: $layout-border-radius-value;
+                        background-color: $main-windows-background-color;
                     }
                 }
                 &-bottom {
@@ -166,21 +154,48 @@
                 }
             }
             &-layout-wall {
-                height: 160px;
+                height: 170px;
                 display: flex;
                 box-sizing: border-box;
-                padding: 0 25px;
-                box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
+                padding: 3px 14px;
+                border: $border gray;
                 background-color: $background-and-separator-color;
-                border-radius: $border-radius-value;
+                border-radius: $layout-border-radius-value;
                 &--hiddenCover {
                     visibility: hidden;
                 }
                 &-support-frame {
+                    padding: 0 12px;
                     visibility: visible;
                     display: flex;
                     flex-direction: column;
-                    z-index: 0;
+                    border: $border transparent;
+                    position: relative;
+                    margin: 0 1px;
+                    border-radius: $layout-border-radius-value;
+                    &--hiddenCover {
+                        border-color: $support-frame-border-color;
+                        box-sizing: border-box;
+                        background-color: $background-and-separator-color;
+                        &-left-attachment-point {
+                            @include attachment-point;
+                            left: 1px;
+                            border-radius: 70% 10px 10px 70%;
+                            &::before {
+                                right: -4px;
+                                border-radius: 50% 0 0 50%;
+                            }
+                        }
+                        &-right-attachment-point {
+                            @include attachment-point;
+                            right: 1px;
+                            border-radius: 10px 70% 70% 10px;
+                            &::before {
+                                left: -4px;
+                                border-radius: 0 50% 50% 0;
+                            }
+                        }
+                    }
                     &-top {
                         height: 25px;
                         background-color: $background-and-separator-color;
@@ -191,24 +206,25 @@
                         }
                         .dot {
                             @include dot;
-                            height: 13px;
-                            width: 13px;
                             top: 1px;
                             visibility: visible;
+                            &--hiddenCover {
+                                top: 3px;
+                            }
                         }
                     }
                     &-middle {
-                        opacity: 100%;
-                        padding: 0 2px;
+                        margin: 0 2px;
                         flex: 1;
-                        box-shadow: $shadow-bottom-left, $shadow-bottom-right, $shadow-top-left, $shadow-top-right;
                         border-radius: $border-radius-value;
                         box-sizing: border-box;
                         background-color: $main-windows-background-color;
                         display: flex;
                         position: relative;
-                        overflow-y: hidden;
-                        z-index: 1;
+                        overflow: hidden;
+                        &--hiddenCover {
+                            overflow: visible;
+                        }
                         &-signal-slots {
                             box-sizing: border-box;
                             height: 133px;
@@ -217,7 +233,6 @@
                             transform: translateY(-50%);
                             &--selected {
                                 box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
-                                z-index: 2;
                             }
                             &--displayed {
                                 display: inline-block;
@@ -236,10 +251,11 @@
                         }
                         .dot {
                             @include dot;
-                            height: 13px;
-                            width: 13px;
                             bottom: 1px;
                             visibility: visible;
+                            &--hiddenCover {
+                                bottom: 3px;
+                            }
                         }
                     }
                 }

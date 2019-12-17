@@ -1,50 +1,7 @@
 import React from 'react';
 
-const moduleListAssembler = (props, type, rootClassName, isClickable) => {
-    const list = [];
-    const platformDesc = {...props.Configuration.PlatformСhoiceDesc};
-    const modulesCN = rootClassName+"-"+type;
-    let modules = props.Configuration.Modules.slice();
-    let quantity = platformDesc[type]
-    const className = (index) => {
-        if (type === "signal-slots") {
-            if (index===props.Configuration.IndexOfSelectedSlot && modules[index].display===(undefined || true)) {
-                return modulesCN+" "+modulesCN+"--selected "+modulesCN+"--displayed"
-            } else if (modules[index].display===true) {
-                return modulesCN+" "+modulesCN+"--displayed"
-            } else if (modules[index].display===false) {
-                return modulesCN+" "+modulesCN+"--hiden"
-            }
-        } else {
-            return modulesCN
-        }
-    }
-    let eventOnClick;
-    if (isClickable) eventOnClick=props.CurrentSlotHandler;
-    const img = (index) => {
-        if (type==="power-sockets" && quantity) {
-            return "img/" + type + "/" + platformDesc.powerSocketArticle.replace(/\s/g, "") + ".png";
-        } else if (type==="conference-control" || type==="conference-control-double-frame") {
-            return "img/layout-parts/" + type + ".png";
-        } else if (type==="signal-slots" && modules[index].img) {
-            return modules[index].img;
-        } else {
-            return "img/layout-parts/empty-signal-slot.png"
-        }
-    }
-    for (let index = 0; index<quantity; index++) {
-        list.push(<img 
-            className={className(index)} 
-            key={index} src={img(index)} 
-            alt={type}
-            onClick={() => eventOnClick(index)}
-        />)
-    }
-    return list;
-}
-
 const SignalSlots = (props) => {
-    const className = props.rootClassName+"-signal-slots";
+    const className = props.componentClassName+"-signal-slots";
     const classNameList = [
         className,
         (props.index===props.Configuration.IndexOfSelectedSlot) ? `${className}--selected` : null,
@@ -60,7 +17,7 @@ const SignalSlots = (props) => {
 
 const PowerSocket = (props) => {
     return <img
-        className={props.rootClassName+"-power-sockets"}
+        className={props.componentClassName+"-power-sockets"}
         src={"img/power-sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + ".png"}
         alt="power-sockets"
     />
@@ -68,7 +25,7 @@ const PowerSocket = (props) => {
 
 const ConferenceControl = (props) => {
     return <img
-        className={props.rootClassName+"-conference-control"}
+        className={props.componentClassName+"-conference-control"}
         src={"img/layout-parts/conference-control.png"}
         alt="conference-control"
     />
@@ -76,79 +33,82 @@ const ConferenceControl = (props) => {
 
 const ConferenceControlDoubleFrame = (props) => {
     return <img
-        className={props.rootClassName+"-conference-control-double-frame"}
+        className={props.componentClassName+"-conference-control-double-frame"}
         src={"img/layout-parts/conference-control-double-frame.png"}
         alt="conference-control-double-frame"
     />
 }
 
 const ConfLayOutTable = (props) => {
+    const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc;
     const conf = () => {
-        const powerSokets = Array(props.Configuration.PlatformСhoiceDesc["power-sockets"]).fill(<PowerSocket 
+        const powerSokets = Array(platformСhoiceDesc["power-sockets"]).fill(<PowerSocket 
             Configuration={props.Configuration} 
-            rootClassName={rootClassName+"-middle"} 
+            componentClassName={componentClassName+"-middle"} 
         />)
-        const conferenceControl = Array(props.Configuration.PlatformСhoiceDesc["conference-control"]).fill(<ConferenceControl 
+        const conferenceControl = Array(platformСhoiceDesc["conference-control"]).fill(<ConferenceControl 
             Configuration={props.Configuration} 
-            rootClassName={rootClassName+"-middle"} 
+            componentClassName={componentClassName+"-middle"} 
         />)
-        const conferenceControlDoubleFrame = Array(props.Configuration.PlatformСhoiceDesc["conference-control-double-frame"]).fill(<ConferenceControlDoubleFrame
+        const conferenceControlDoubleFrame = Array(platformСhoiceDesc["conference-control-double-frame"]).fill(<ConferenceControlDoubleFrame
             Configuration={props.Configuration} 
-            rootClassName={rootClassName+"-middle"} 
+            componentClassName={componentClassName+"-middle"} 
         />)
         const signalSlots = (<div
-            style={props.Configuration.PlatformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
-            className={rootClassName+"-middle-container"}
-        >{Array(props.Configuration.PlatformСhoiceDesc["signal-slots"]).fill(1).map((_, index) => <SignalSlots
+            style={platformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
+            className={componentClassName+"-middle-container"}
+        >{Array(platformСhoiceDesc["signal-slots"]).fill(1).map((_, index) => <SignalSlots
             Configuration={props.Configuration}
-            rootClassName={rootClassName+"-middle"}
+            componentClassName={componentClassName+"-middle-container"}
             CurrentSlotHandler={props.CurrentSlotHandler}
             index={index}
         />)}</div>);
         let pos;
         if (powerSokets.length > 2) {
             pos = 2;
-        } else if ((conferenceControl && conferenceControl.length>0) || (conferenceControlDoubleFrame && conferenceControlDoubleFrame.length>0)) {
+        } else if (platformСhoiceDesc["conference-control"] || platformСhoiceDesc["conference-control-double-frame"]) {
             pos = 0;
         } else {
             pos = 1;
         }
-        powerSokets.splice(pos, 0, conferenceControlDoubleFrame, conferenceControl, signalSlots);
-        const doneConf = powerSokets;
-        return (doneConf);
+        powerSokets.splice(pos, 0, ...conferenceControlDoubleFrame, ...conferenceControl, signalSlots);
+        return (powerSokets);
     }
-    const rootClassName = "conf-main-left-middle-container_l1-layout-table"
+    const componentClassName = "conf-main-left-middle-container_l1-layout-table"
     return (
-        <div className={rootClassName}>
-            <div className={rootClassName+"-top"} />
-            <div className={rootClassName+"-middle"}>
+        <div className={componentClassName}>
+            <div className={componentClassName+"-top"} />
+            <div className={componentClassName+"-middle"}>
                 {conf()}
             </div>
-            <div className={rootClassName+"-bottom"} />
+            <div className={componentClassName+"-bottom"} />
         </div>
     );
 }
 
 const ConfLayOutWall = (props) => {
-    const rootClassName = "conf-main-left-middle-container_l1-layout-wall"
+    const componentClassName = "conf-main-left-middle-container_l1-layout-wall"
+    const isCoverHiden = (className) => className+" "+((props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? className+"--hiddenCover" : "");
     return (
-        <div className={[rootClassName, (props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? rootClassName+"--hiddenCover" : null].filter(Boolean).join(" ")}>
-            {Array(props.Configuration.PlatformСhoiceDesc["support-frame"]).fill(1).map((_, i) => <div className={rootClassName+"-support-frame"}>
-                <div className={[rootClassName+"-support-frame-top", (props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? rootClassName+"--hiddenCover" : null].filter(Boolean).join(" ")}>
-                    <span className="dot"></span>
+        <div className={isCoverHiden(componentClassName)}>
+            {Array(props.Configuration.PlatformСhoiceDesc["support-frame"]).fill(1).map((_, i) => <div className={isCoverHiden(componentClassName+"-support-frame")}>
+                {(props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-left-attachment-point"} />:null}
+                <div className={isCoverHiden(componentClassName+"-support-frame-top")}>
+                    <span className={isCoverHiden("dot")}/>
                 </div>
-                <div className={rootClassName+"-support-frame-middle"}>
+                <div className={isCoverHiden(componentClassName+"-support-frame-middle")}>
                     {Array(props.Configuration.PlatformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots 
                         Configuration={props.Configuration}
-                        rootClassName={rootClassName+"-support-frame-middle"}
+                        componentClassName={componentClassName+"-support-frame-middle"}
                         CurrentSlotHandler={props.CurrentSlotHandler}
                         index={index}
                     />).slice((i+1)*3-3, (i+1)*3)}
                 </div>
-                <div className={[rootClassName+"-support-frame-bottom", (props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? rootClassName+"--hiddenCover" : null].filter(Boolean).join(" ")}>
-                    <span className="dot"></span>
+                <div className={isCoverHiden(componentClassName+"-support-frame-bottom")}>
+                    <span className={isCoverHiden("dot")}/>
                 </div>
-            </div>).reduce((r,e,i,a)=>(i<a.length-1)?r.concat(e,<div className={rootClassName+"-separator"} />):r.concat(e), [])}
+                {(props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-right-attachment-point"} />:null}
+            </div>)}
         </div>
     )
 }

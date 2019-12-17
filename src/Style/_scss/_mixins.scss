@@ -176,10 +176,18 @@
     @include zero-m-and-p;
     position: absolute;
     box-sizing: border-box;
-    border: 4px double black;
+    border: 4px double $support-frame-border-color;
     border-radius: 50%;
     left: 50%;
     transform: translateX(-50%);
+    height: 14px;
+    width: 14px;
+    background-color: white;
+    &--hiddenCover {
+        border: $border $support-frame-border-color;
+        width: 8px;
+        height: 8px;
+    }
 }
 
 @mixin contact-info-table {
@@ -199,4 +207,26 @@
     border: $border-panel;
     border-radius: $border-radius-value;
     background-color: $main-windows-background-color;
+}
+
+@mixin attachment-point {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 27px;
+    background-color: $main-windows-background-color;
+    box-shadow: inset 0 0 2px $support-frame-border-color;
+    overflow: hidden;
+    &::before {
+        position: absolute;
+        content: "";
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 22px;
+        box-shadow: 0 0 2px $support-frame-border-color;
+        background-color: $background-and-separator-color;
+    }
 }

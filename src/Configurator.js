@@ -94,7 +94,11 @@ class Configurator extends Component {
 
   currentSlotHandler = (IndexOfSelectedSlot) => {
     const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot = IndexOfSelectedSlot;
+    if (copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot === IndexOfSelectedSlot) {
+      copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot = null;
+    } else {
+      copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot = IndexOfSelectedSlot;
+    }
     this.setState({Configurations: copyOfConfs});
   }
 
