@@ -593,6 +593,58 @@ const ModulesForBottomMenu = {
 	"Signalslots WP" : {
 		"comment__": "There will be something"
 	},
+	"Power Socket Wall" : {
+		"power-sockets" : {
+			"Power socket DE" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9214",
+				}
+			},
+			"Power socket CH" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9215",
+				}
+			},
+			"Power socket GB" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9216",
+				}
+			},
+			"Power socket IT" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9217",
+				}
+			},
+			"Power socket US/CA" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9218",
+				}
+			},
+			"Power socket BE/FR/CZ/PL" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9219",
+				}
+			},
+			"Rocker switch with LED" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9340",
+				}
+			},
+			"Rocker switch for shutters with arrows" : {
+				"slots-takes" : 3,
+				"article-list" : {
+					"standart" : "863 9347",
+				}
+			},
+		}
+	},
 }
 
 const PowerSocket = {

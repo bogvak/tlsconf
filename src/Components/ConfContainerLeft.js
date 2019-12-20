@@ -32,9 +32,12 @@ const ConfContainerLeft = (props) => {
         <ConfContainerLeftBottom
             TypeOfModule={props.TypeOfModule}
             LocalStrings={props.LocalStrings}
+            Location={props.Configuration.PlatformСhoiceDesc.location}
             Language={props.Language}
             ModulesForBottomMenu={props.ModulesForBottomMenu}
             ModuleChoiceHandler={props.ModuleChoiceHandler}
+            TempModuleHandler={props.TempModuleHandler}
+            TempModule={props.TempModule}
         />
         <ConfContainerLeftInstructionBottom
             Language={props.Language}
@@ -211,13 +214,15 @@ const ConfContainerLeftBottom = (props) => {
     const elementClassName="conf-main-left-bottom-container_l0"
     return <Tabs className={elementClassName}>
         <TabList className={elementClassName+"-list"}>
-            {Object.keys(props.ModulesForBottomMenu).map((item) => <Tab 
-                className={elementClassName+"-list-tab"} 
-                selectedClassName={elementClassName+"-list-tab--selected"}
-                key={item}
-            >
-                {item}
-            </Tab>)}
+            {Object.keys(props.ModulesForBottomMenu).map((item) => {
+                if (item==="Power Socket Wall" && props.Location!=="WALL") return null;
+                return(<Tab 
+                    className={elementClassName+"-list-tab"} 
+                    selectedClassName={elementClassName+"-list-tab--selected"}
+                    key={item}
+                >
+                    {item}
+                </Tab>)})}
         </TabList>
         {Object.keys(props.ModulesForBottomMenu).map((item) => <TabPanel
             className={elementClassName+"-panel"}
@@ -229,7 +234,9 @@ const ConfContainerLeftBottom = (props) => {
                 LocalStrings={props.LocalStrings}
                 Language={props.Language}
                 ModuleSeriesListBottom={props.ModulesForBottomMenu[item]} 
-                ModuleChoiceHandler={props.ModuleChoiceHandler} 
+                ModuleChoiceHandler={props.ModuleChoiceHandler}
+                TempModuleHandler={props.TempModuleHandler}
+                TempModule={props.TempModule}
             />
         </TabPanel>)}
     </Tabs>
@@ -255,7 +262,9 @@ const ModuleSeriesListBottom = (props) => {
             <CurrentModulesBottom
                 TypeOfModules={typeOfModules.replace(/\//g, "")}
                 CurrentModulesBottom={props.ModuleSeriesListBottom[typeOfModules]} 
-                ModuleChoiceHandler={props.ModuleChoiceHandler} 
+                ModuleChoiceHandler={props.ModuleChoiceHandler}
+                TempModuleHandler={props.TempModuleHandler}
+                TempModule={props.TempModule}
             />
         </TabPanel>)}
     </Tabs>
@@ -268,8 +277,11 @@ const CurrentModulesBottom = (props) => {
             className={elementClassName+"-card"}
             key={module}
             src={"img/" + props.TypeOfModules + "/" + objPN(`CurrentModulesBottom.${module}.article-list`, props)[Object.keys(objPN(`CurrentModulesBottom.${module}.article-list`, props))[0]].replace(/\s/g, "") + ".png"}
-            onClick={props.ModuleChoiceHandler.bind(this, {...props.CurrentModulesBottom[module], TypeOfModules: props.TypeOfModules, desc: module})}
             alt={objPN(`CurrentModulesBottom.${module}.article-list`, props)[Object.keys(objPN(`CurrentModulesBottom.${module}.article-list`, props))[0]]}
+            draggable="true" 
+            onDragStart={props.TempModuleHandler.bind(this, {...props.CurrentModulesBottom[module], TypeOfModules: props.TypeOfModules, desc: module})} 
+            onDragEnd={props.ModuleChoiceHandler.bind(this, props.TempModule)}
+            onDragOver={(e) => e.preventDefault()}
         />)}
     </div>
 }

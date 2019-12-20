@@ -4,35 +4,7 @@ import NewWindow from 'react-new-window';
 import dataList from '../Data/dataFromTable';
 
 class ComponentToPrint extends Component {
-    defaultTax = "21%"
-    roundNumber= (num, scale) => {
-        if(!("" + num).includes("e")) {
-          return +(Math.round(num + "e+" + scale)  + "e-" + scale);
-        } else {
-          var arr = ("" + num).split("e");
-          var sig = ""
-          if(+arr[1] + scale > 0) {
-            sig = "+";
-          }
-          return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
-        }
-    }
-    fullPriceCalc = (inf, isRound) => {
-        const article = inf.article.replace(/\s/g, "");
-        let price = (parseInt(this.isDefiend(`${article}.EVP`))*inf.quantity)*(parseInt(this.defaultTax)/100+1);
-        if (isRound) {
-            return this.roundNumber(price, 2);
-        } else {
-            return price
-        }
-    }
 
-    totalPriceCalc = () => {
-        let totalPrice = 0;
-        this.props.ArticleList.map((inf) => totalPrice+=this.fullPriceCalc(inf));
-        totalPrice = this.roundNumber(totalPrice, 2)
-        return totalPrice;
-    } 
     isDefiend = (path, obj) => {
         if(!obj) obj = dataList;
         const errM = "Module wasn't found!"
@@ -60,7 +32,7 @@ class ComponentToPrint extends Component {
         "Deutsche Ban": ["SWIFT/BIC: DEUTDEDBDUE", "IBAN: DE17 3007 0024 0533 6565 00"],
     }
 
-    tableHeader = ["Pos.", "Desc.", "Quantity", "Tax %", "Price", "Total"]
+    tableHeader = ["Pos.", "Desc.", "Quantity"]
     render () {
     return (
         <div className="component-to-print-wrapper">
@@ -87,15 +59,6 @@ class ComponentToPrint extends Component {
                                 <td>
                                     {inf.quantity}
                                 </td>
-                                <td>
-                                    {this.defaultTax}
-                                </td>
-                                <td>
-                                    {this.isDefiend(`${article}.EVP`)+"€"}
-                                </td>
-                                <td>
-                                    {this.fullPriceCalc(inf, true)}€
-                                </td>
                             </tr>,
                             <tr className="print-conf-table-body_l1">
                                 <td />
@@ -110,13 +73,6 @@ class ComponentToPrint extends Component {
                         ])
                     })}
                 </tbody>
-                <thead>
-                    <tr className="print-conf-table-total-price">
-                        <th className="total-price">Total: </th>
-                        {Array(this.tableHeader.length-2).fill("empty").map(() => <th className="total-price" />)}
-                        <th className="total-price">{this.totalPriceCalc()}€</th>
-                    </tr>
-                </thead>
             </table>
             <div className="contact-info">
                 <table className="contact-info-table1">
@@ -153,7 +109,7 @@ class PrinfConfWindow extends Component {
     
     render () {
         return (
-        <NewWindow features={{width: "auto"}}>
+        <NewWindow>
             <div>
             <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
             <ReactToPrint

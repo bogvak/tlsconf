@@ -115,10 +115,6 @@
                         &-signal-slots {
                             box-sizing: border-box;
                             height: 106px;
-                            &--selected {
-                                z-index: 1;
-                                box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
-                            }
                             &--displayed {
                                 display: inline-block;
                             }
@@ -173,6 +169,7 @@
                     position: relative;
                     margin: 0 1px;
                     border-radius: $layout-border-radius-value;
+                    z-index: 0;
                     &--hiddenCover {
                         border-color: $support-frame-border-color;
                         box-sizing: border-box;
@@ -231,14 +228,14 @@
                             position: relative;
                             top: 50%;
                             transform: translateY(-50%);
-                            &--selected {
-                                box-shadow : 2px 2px 2px red, 2px -2px 3px red, -2px 2px 2px red, -2px -2px 2px red;
-                            }
                             &--displayed {
                                 display: inline-block;
                             }
                             &--hiden {
                                 display: none;
+                            }
+                            &--ps {
+                                height: 114px;
                             }
                         }
                     }
@@ -305,6 +302,7 @@
             @include horizontal-menu;
             &-card {
                 padding: 2px 10px;
+                cursor: grab;
             }
         }
         &-instruction {

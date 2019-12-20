@@ -4,14 +4,17 @@ const SignalSlots = (props) => {
     const className = props.componentClassName+"-signal-slots";
     const classNameList = [
         className,
-        (props.index===props.Configuration.IndexOfSelectedSlot) ? `${className}--selected` : null,
+        //(props.index===props.Configuration.IndexOfSelectedSlot) ? `${className}--selected` : null,
         (props.Configuration.Modules[props.index].display) ? `${className}--displayed` : `${className}--hiden`,
+        (props.Configuration.Modules[props.index].TypeOfModules==="power-sockets")?`${className}--ps` : null,
     ].filter(Boolean).join(" ");
     return <img
         className={classNameList}
         src={props.Configuration.Modules[props.index].img}
         alt="signal-slot"
         onClick={() => props.CurrentSlotHandler(props.index)}
+        onMouseEnter={() => props.CurrentSlotHandler(props.index)}
+        onMouseLeave={() => setTimeout(props.CurrentSlotHandler(null), 500)}
     />
 }
 
@@ -90,7 +93,7 @@ const ConfLayOutWall = (props) => {
     const componentClassName = "conf-main-left-middle-container_l1-layout-wall"
     const isCoverHiden = (className) => className+" "+((props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? className+"--hiddenCover" : "");
     return (
-        <div className={isCoverHiden(componentClassName)}>
+        <div draggable="true" className={isCoverHiden(componentClassName)}>
             {Array(props.Configuration.PlatformСhoiceDesc["support-frame"]).fill(1).map((_, i) => <div className={isCoverHiden(componentClassName+"-support-frame")}>
                 {(props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-left-attachment-point"} />:null}
                 <div className={isCoverHiden(componentClassName+"-support-frame-top")}>
