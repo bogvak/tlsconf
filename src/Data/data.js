@@ -1,4 +1,4 @@
-const TypeOfFrame = {
+const typeOfFrame = {
 	"WALL" : {
 		"menuname" : 3
 	},
@@ -10,7 +10,7 @@ const TypeOfFrame = {
 	},
 }
 
-const TypeOfModule = {
+const typeOfModule = {
 	"Blind-and-Audio" : {
 		"menuname" : 6
 	},
@@ -31,10 +31,17 @@ const TypeOfModule = {
 	},
 }
 const SupportFrames = {
-	"865 9213": "Support frame for 3 signals slot",
+	"Signalslots IPL": {
+		article: "865 9213",
+		desc: "Support frame for 3 signals slot",
+	},
+	"Power Sockets": {
+		article: "863 9209",
+		desc: "Support frame for socket DE ",
+	},
 }
 
-const SubModulesType = {
+const subModulesType = {
 	"WALL" : {
 		"Premium Line" : {
 			"Cover frame for three slots": {
@@ -81,25 +88,26 @@ const SubModulesType = {
 	}
 }
 
-const ModulesContent = {
+const modulesContent = {
 	"WALL" : {
 		"Premium Line" : {
 			"Cover frame for three slots" : {
 				"article" : "865 9200",
-				"support-frame": 1,
+				"support-frame_amount": 1,
 			},
 			"Cover frame for six slots" : {
 				"article" : "865 9201",
-				"support-frame": 2,
+				"support-frame_amount": 2,
 			},
 			"Cover frame for nine slots" : {
 				"article" : "865 9202",
-				"support-frame": 3,
+				"support-frame_amount": 3,
 			}
 		},
-		"Universal Line" : {
+		//In order to escape error checking this was commitet until adding information
+		/*"Universal Line" : {
 			"__comment" : "Что у нас будет здесь ?"
-		}
+		}*/
 	},
 	"TABLE" : {
 		"TAM 201" : {
@@ -224,21 +232,22 @@ const ModulesContent = {
 			}
 		}
 	},
-	"FLOOR" : {
+	//In order to escape error checking this was commitet until adding information
+	/*"FLOOR" : {
 		"Worldplate Floorbox GB2" : {
 			"__comment" : "Только один основной вариант?"
 		},
 		"Worldplate Floorbox GB3" : {
 			"__comment" : "Только один основной вариант?"
 		}
-	}
+	},*/
 }
 
 //const SupportAndCoverFrames = {
 
 //}
 
-const ModulesForBottomMenu = {
+const modulesForBottomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
 			"Blind slot simple" : {
@@ -506,28 +515,28 @@ const ModulesForBottomMenu = {
 			"USB slot female Type A" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "863 9271",
+					"solder-terminal" : "863 9271",
 					"40 cm cable" : "863 9272",
 				}
 			},
 			"USB slot female Type B" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "863 9273",
+					"solder-terminal" : "863 9273",
 					"40 cm cable" : "863 9274",
 				}
 			},
 			"ISDN slot female RJ45" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "863 9305",
+					"solder-terminal" : "863 9305",
 					"40 cm cable" : "863 9306",
 				}
 			},
 			"D-Sub slot female 25 pin" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "863 9282",
+					"solder-terminal" : "863 9282",
 					"40 cm cable" : "863 9281",
 				}
 			},
@@ -542,7 +551,7 @@ const ModulesForBottomMenu = {
 			"LAN slot female 2 x CAT6" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "",
+					"solder-terminal" : "",
 					"40 cm cable" : "863 9327",
 					"gender changer": "863 9328",
 				}
@@ -550,28 +559,28 @@ const ModulesForBottomMenu = {
 			"Wieland slot female" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "863 9321",
+					"solder-terminal" : "863 9321",
 					"40 cm cable" : "863 9356",
 				}
 			},
 			"Wieland slot male" : {
 				"slots-takes" : 1,
 				"article-list" : {
-					"solder-terminl" : "863 9322",
+					"solder-terminal" : "863 9322",
 					"40 cm cable" : "863 9357",
 				}
 			},
 			"Key switch slot" : {
 				"slots-takes" : 2,
 				"article-list" : {
-					"solder-terminl" : "863 9358",
+					"solder-terminal" : "863 9358",
 					"40 cm cable" : "863 9368",
 				}
 			},
 			"Button slot 2 x 18 mm" : {
 				"slots-takes" : 2,
 				"article-list" : {
-					"solder-terminl" : "863 9359",
+					"solder-terminal" : "863 9359",
 					"40 cm cable" : "863 9369",
 					"gender changer": "",
 				}
@@ -583,65 +592,53 @@ const ModulesForBottomMenu = {
 				}
 			},
 		},
-		"AC outlets" : {
+		//In order to escape error checking this was commitet until adding information
+		/*"AC outlets" : {
 			"comments__": "There will be some Modules"
 		},
 		"Active Module" : {
 			"comments__": "There will be some Modules"
-		},
+		},*/
 	},
-	"Signalslots WP" : {
+
+	//In order to escape error checking this was commitet until adding information
+	/*"Signalslots WP" : {
 		"comment__": "There will be something"
-	},
-	"Power Socket Wall" : {
-		"power-sockets" : {
+	},*/
+
+	"Power Sockets" : {
+		"Power Sockets IPL" : {
 			"Power socket DE" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9214",
-				}
+				"article" : "863 9214"
 			},
 			"Power socket CH" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9215",
-				}
+				"article" : "863 9215",
 			},
 			"Power socket GB" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9216",
-				}
+				"article" : "863 9216"
 			},
 			"Power socket IT" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9217",
-				}
+				"article" : "863 9217"
 			},
 			"Power socket US/CA" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9218",
-				}
+				"article" : "863 9218"
 			},
 			"Power socket BE/FR/CZ/PL" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9219",
-				}
+				"article" : "863 9219"
 			},
 			"Rocker switch with LED" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9340",
-				}
+				"article" : "863 9340"
 			},
 			"Rocker switch for shutters with arrows" : {
 				"slots-takes" : 3,
-				"article-list" : {
-					"standart" : "863 9347",
-				}
+				"article" : "863 9347"
 			},
 		}
 	},
@@ -658,4 +655,4 @@ const PowerSocket = {
 	"Rocker switch for shutters with arrows" : "863 9347"
 }
 
-export {TypeOfFrame, TypeOfModule, SupportFrames, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket}
+export {typeOfFrame, typeOfModule, SupportFrames, subModulesType, modulesContent, modulesForBottomMenu, PowerSocket}

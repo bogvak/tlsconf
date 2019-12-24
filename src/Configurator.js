@@ -3,8 +3,8 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 
 //Data
-import {TypeOfFrame, TypeOfModule, SupportFrames, SubModulesType, ModulesContent, ModulesForBottomMenu, PowerSocket} from './Data/data';
-import LocalStrings from './Data/strings';
+import {typeOfFrame, typeOfModule, SupportFrames, subModulesType, modulesContent, modulesForBottomMenu, PowerSocket} from './Data/data';
+import localStrings from './Data/strings';
 import emptyConf from './Data/emptyConf';
 
 //CSS
@@ -21,84 +21,72 @@ class Configurator extends Component {
     IndexOfSignalSlots: null,
   };
 
-  platformСhoiceDescHandler = (inf) => {
-    inf = {...emptyConf.PlatformСhoiceDesc,...inf};
+  deep_ConfigurationsCopy = () => JSON.parse(JSON.stringify(this.state.Configurations));
+
+  platformHandler = (frameInf, location, line) => {
+    const inf = {...emptyConf.PlatformСhoiceDesc,...frameInf, location : location, line : line};
     if (inf.location==="TABLE") {
-      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
-      inf.fullLine = LocalStrings['en'][14] + ' ' + inf.line.match(/[0-9]/g).join('')
-      inf.subFrameType = SubModulesType[inf.location][inf.line];
+      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "-") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img.png";
+      inf.line_desc = localStrings[this.state.Language][14] + ' ' + inf.line.match(/[0-9]/g).join('')
+      inf.frame_sub_type = subModulesType[inf.location][inf.line];
+      inf.frame_sub_type_desc = Object.keys(inf.frame_sub_type)[0];
+      inf.frame_sub_type_article = inf.frame_sub_type[inf.frame_sub_type_desc];
     } else if (inf.location==="WALL") {
-      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "") + "/" + inf.article.replace(/\s/g, "") + ".png";
-      inf.fullLine = inf.desc;
-      inf.subFrameType = SubModulesType[inf.location][inf.line][inf.desc];
-      inf["signal-slots"] = inf["support-frame"]*3;
-      inf["support-frame-article"] = Object.keys(SupportFrames)[0];
-      inf["support-frame-desc"] = SupportFrames[inf["support-frame-article"]];
+      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "-") + "/" + inf.article.replace(/\s/g, "") + ".png";
+      inf.line_desc = inf.desc;
+      inf["signal-slots"] = inf["support-frame_amount"]*3;
+      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(SupportFrames[Object.keys(SupportFrames)[0]])
       inf.isCoverHiden = true;
     }
-    inf["all-slots"] = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
-    inf.subFrameDesc = Object.keys(inf.subFrameType)[0];
-    inf.subFrameArticle = inf.subFrameType[inf.subFrameDesc];
+    inf.slots_sum = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     if (inf["power-sockets"] > 0) {
       inf.powerSocketList = PowerSocket;
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
       inf.powerSocketArticle = inf.powerSocketList[inf.powerSocketDesc];
     }
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc, ...inf};
+    const copyOfConfs=this.deep_ConfigurationsCopy();
+    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = inf;
     copyOfConfs[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(emptyConf.Modules[0]);
+
+    copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
+
     this.setState({Configurations: copyOfConfs});
   }
 
-  moduleChoiceHandler = (inf) => {
-    setTimeout(() => {
-      const copyOfConfs=this.state.Configurations.slice();
-      const ConfNumber=this.state.ConfNumber;
-      const modulesList = copyOfConfs[ConfNumber].Modules
-      inf.FirstArticle = inf["article-list"][Object.keys(inf["article-list"])[0]];
-      inf.SubArticle = inf.FirstArticle;
-      inf.SubDesc = Object.keys(inf["article-list"])[0];
-      let IndexOfSelectedSlot = this.state.Configurations[ConfNumber].IndexOfSelectedSlot;
+  setModule = (inf, index, support_frame_index) => {
+    const copyOfConfs = this.deep_ConfigurationsCopy();
+    const modulesList = copyOfConfs[this.state.ConfNumber].Modules
 
-      if(IndexOfSelectedSlot===null) return;
+    inf.sub_desc = (inf["article-list"]) ? `(${Object.keys(inf["article-list"])[0]})` : null;
 
+    if (copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.location==="WALL") {
 
-      let isOkay = (modulesList[IndexOfSelectedSlot+(inf["slots-takes"]-1)]);
-      if (!isOkay) {
-        let i=0;
-        while (i<inf["slots-takes"]-1 && IndexOfSelectedSlot>=0 && !isOkay) {
-          IndexOfSelectedSlot--;
-          if (modulesList[IndexOfSelectedSlot+(inf["slots-takes"]-1)]) isOkay=true;
-          console.log(IndexOfSelectedSlot)
-          i++;
-        }
+      let indexInChunk = index;
+      while (indexInChunk > 2) {
+        indexInChunk -= 3;
       }
+      if (indexInChunk+inf["slots-takes"]-1>2) return;
 
-      if (!isOkay) return;
+      copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.support_frame_arr[support_frame_index] = {...SupportFrames[inf.module_series]};
+    } else if (!modulesList[index+(inf["slots-takes"]-1)]) return;
 
-      if (copyOfConfs[ConfNumber].PlatformСhoiceDesc.location==="WALL") {
-        let indexInChunk = IndexOfSelectedSlot;
-        while (indexInChunk > 2) {
-          indexInChunk -= 3;
-        }
-        if (indexInChunk+inf["slots-takes"]-1>2) return;  
+    for (let i = 1; i<modulesList[index]["slots-takes"]; i++) {
+      modulesList[index+i].display = true;
+    }
+    for (let i = 1; i<inf["slots-takes"]; i++) {
+      const test = modulesList[index+i]["slots-takes"];
+      for (let j = 1;j<test; j++) {
+        modulesList[index+i+j].display=true;
       }
-      for (let i = 1; i<modulesList[IndexOfSelectedSlot]["slots-takes"]; i++) {
-        modulesList[IndexOfSelectedSlot+i].display = true;
-      }
-      for (let i = 1; i<inf["slots-takes"]; i++) {
-        const test = modulesList[IndexOfSelectedSlot+i]["slots-takes"];
-        for (let j = 1;j<test; j++) {
-          modulesList[IndexOfSelectedSlot+i+j].display=true;
-        }
-        modulesList[IndexOfSelectedSlot+i] = {...emptyConf.Modules[0], display: false};
-      }
-      
-      inf.img="img/" + inf.TypeOfModules + "/" + inf.FirstArticle.replace(/\s/g, "") + ".png"; 
-      modulesList[IndexOfSelectedSlot] = {...modulesList[IndexOfSelectedSlot], ...inf};
-      this.setState({Configurations: copyOfConfs})
-      console.log("test")
-    }, 20);
+      modulesList[index+i] = {...emptyConf.Modules[0], display: false};
+    }
+
+    inf.img="img/" + inf.module_type.replace(/\/| IPL/g, "").replace(/\s/g, "-").toLowerCase() + "/" + inf.article.replace(/\s/g, "") + ".png";
+    modulesList[index] = {...emptyConf.Modules[0], ...inf};
+
+    copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
+
+    this.setState({Configurations: copyOfConfs})
   }
 
   confNumberHandler = (number) => {
@@ -112,18 +100,8 @@ class Configurator extends Component {
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConfs});
   }
 
-  currentSlotHandler = (IndexOfSelectedSlot) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    if (copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot === IndexOfSelectedSlot) {
-      copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot = null;
-    } else {
-      copyOfConfs[this.state.ConfNumber].IndexOfSelectedSlot = IndexOfSelectedSlot;
-    }
-    this.setState({Configurations: copyOfConfs});
-  }
-
   awokenTabHandler = (index) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    const copyOfConfs=this.deep_ConfigurationsCopy();
     if (this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab===index) {
       copyOfConfs[this.state.ConfNumber].IndexOfAwokenTab = null;
     } else {
@@ -132,21 +110,21 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs})
   }
 
-  moduleMenuHandler = (article,desc) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+  moduleMenuHandler = (article,desc,index) => {
+    const copyOfConfs=this.deep_ConfigurationsCopy();
     const newInf={
-      SubDesc: desc,
-      SubArticle: article,
+      sub_desc: `(${desc})`,
+      article: article,
     }
-    copyOfConfs[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab] = {
-      ...copyOfConfs[this.state.ConfNumber].Modules[this.state.Configurations[this.state.ConfNumber].IndexOfAwokenTab],
+    copyOfConfs[this.state.ConfNumber].Modules[index] = {
+      ...copyOfConfs[this.state.ConfNumber].Modules[index],
       ...newInf
     }
     this.setState({Configurations: copyOfConfs})
   }
 
   powerSocketMenuHandler = (article, desc) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    const copyOfConfs=this.deep_ConfigurationsCopy();
     const newInf = {
       powerSocketDesc: desc,
       powerSocketArticle: article,
@@ -158,16 +136,17 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs})
   }
 
-  subFrameTypeHandler = (newSubInf) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+  frame_sub_typeHandler = (newSubInf) => {
+    const copyOfConfs=this.deep_ConfigurationsCopy();
     copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {...this.state.Configurations[this.state.ConfNumber].PlatformСhoiceDesc, ...newSubInf};
     this.setState({Configurations: copyOfConfs});
   }
 
-  moduleResetHandler = (indexOfSlot) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    for (let i = 1; i<copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot]["slots-takes"]; i++) {
-      copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot+i].display = true;
+  moduleResetHandler = (confNumber, indexOfSlot) => {
+    const copyOfConfs=this.deep_ConfigurationsCopy();
+    console.log(confNumber, indexOfSlot)
+    for (let i = 1; i<copyOfConfs[confNumber].Modules[indexOfSlot]["slots-takes"]; i++) {
+      copyOfConfs[confNumber].Modules[indexOfSlot+i].display = true;
     };
     copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot] = emptyConf.Modules[0];
     this.setState({Configurations: copyOfConfs})
@@ -175,92 +154,97 @@ class Configurator extends Component {
 
   frameReseteHandler = (indexOfConf) => {
     if (window.confirm("This will erase the whole Configuration, are you sure?") === true) {
-      const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+      const copyOfConfs=this.deep_ConfigurationsCopy();
       copyOfConfs[indexOfConf] = emptyConf;
       this.setState({Configurations: copyOfConfs});
     }
   }
 
-  buildArticlesArray = (confNumber) => {
-    const articlesArray = [];
-    let isCompleted = true;
-    articlesArray.push({
-      article: this.state.Configurations[confNumber].PlatformСhoiceDesc.article, 
+  articlesToPrint = (configuration) => {
+    let articlesToPrint = [];
+    let isOkay = true
+    articlesToPrint.push({
+      article: configuration.PlatformСhoiceDesc.article, 
       quantity: 1});
-    articlesArray.push({
-      article: this.state.Configurations[confNumber].PlatformСhoiceDesc.subFrameArticle, 
-      quantity: 1});
-    if (this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame"]) {
-      articlesArray.push({
-        article: this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame-article"],
-        quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc["support-frame"],
+    if (configuration.PlatformСhoiceDesc.frame_sub_type_article) {
+      articlesToPrint.push({
+        article: configuration.PlatformСhoiceDesc.frame_sub_type_article, 
+        quantity: 1
       });
     }
-    if (this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]) {
-      articlesArray.push({
-        article: this.state.Configurations[confNumber].PlatformСhoiceDesc.powerSocketArticle, 
-        quantity: this.state.Configurations[confNumber].PlatformСhoiceDesc["power-sockets"]
+    if (configuration.PlatformСhoiceDesc["power-sockets"]) {
+      articlesToPrint.push({
+        article: configuration.PlatformСhoiceDesc.powerSocketArticle, 
+        quantity: configuration.PlatformСhoiceDesc["power-sockets"]
       });
     }
-    const modules = JSON.parse(JSON.stringify( this.state.Configurations[confNumber].Modules));
-    modules.map((module, index) => {
-      if (!module.SubArticle && module.display) {
-        isCompleted = false;
-      } else if (module.SubArticle) {
-        let quantity = 1;
-        for (let j = index+1; j<modules.length; j++) {
-          if (modules[j].SubArticle === module.SubArticle) {
-            modules[j].SubArticle = "duplicate";
-            quantity++;
-          }
-        }
-        if (!(module.SubArticle==="duplicate")) {
-          articlesArray.push({article: module.SubArticle, quantity: quantity})
+    if (configuration.PlatformСhoiceDesc.support_frame_arr) {
+      for (const module of configuration.PlatformСhoiceDesc.support_frame_arr) {
+        articlesToPrint.push({
+          article: module.article,
+          quantity: 1
+        })
+      }
+    }
+    if (configuration.Modules) {
+      for (const module of configuration.Modules) {
+        if (module.display) {
+          articlesToPrint.push({
+            article: module.article,
+            quantity: 1
+          })
         }
       }
-    })
-    if (isCompleted) {
-      return articlesArray;
-    } else {
-      alert("Fill all empty slots!");
     }
-  }
 
-  isPSmenuAwokenHandler = (isAwoken) => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
-    copyOfConfs[this.state.ConfNumber].IsPSmenuAwoken = isAwoken;
-    this.setState({Configurations: copyOfConfs})
+    articlesToPrint.map((el, index) => {
+      if (!el.article) {
+        isOkay=false
+      } else {
+        let quantity = 1;
+        el.posList=[index]
+        for (let i = index+1; i<articlesToPrint.length; i++) {
+          if (articlesToPrint[i].article === el.article) {
+            articlesToPrint[i].article = "duplicate";
+            quantity++;
+            el.quantity=quantity;
+            el.posList.push(i)
+          }
+        }
+      }
+      return el;
+    })
+    articlesToPrint = articlesToPrint.filter(el => el.article!=="duplicate")
+    console.log(articlesToPrint, isOkay);
+    if (isOkay) return articlesToPrint;
+    else return null;
   }
 
   coverHidenHandler = () => {
-    const copyOfConfs=JSON.parse(JSON.stringify(this.state.Configurations));
+    const copyOfConfs=this.deep_ConfigurationsCopy();
     copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.isCoverHiden = !copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.isCoverHiden;
     this.setState({Configurations: copyOfConfs});
   }
-
-  tempModuleHandler = (inf) => this.setState({TempModule: inf});
 
   render() {
     return (
 		<div className="conf-main">
 			<ConfContainerLeft 
-        TypeOfFrame={TypeOfFrame}
-        TypeOfModule={TypeOfModule}
-        LocalStrings={LocalStrings}
-        ModulesContent={ModulesContent}
-        ModulesForBottomMenu={ModulesForBottomMenu}
+        typeOfFrame={typeOfFrame}
+        typeOfModule={typeOfModule}
+        localStrings={localStrings}
+        modulesContent={modulesContent}
+        modulesForBottomMenu={modulesForBottomMenu}
         Language={this.state.Language}
         QuantityOfConf={this.state.QuantityOfConf}
         Configuration={this.state.Configurations[this.state.ConfNumber]}
         TempModule={this.state.TempModule}
         //Handlers
+        setModule={this.setModule}
         CoverHidenHandler={this.coverHidenHandler}
-        PlatformСhoiceDescHandler={this.platformСhoiceDescHandler}
+        platformHandler={this.platformHandler}
         ConfNumberHandler={this.confNumberHandler}
         AddConfHandler={this.addConfHandler}
-        CurrentSlotHandler={this.currentSlotHandler}
-        ModuleChoiceHandler={this.moduleChoiceHandler}
-        TempModuleHandler={this.tempModuleHandler}
       />
 			<ConfContainerRight
         ConfNumber={this.state.ConfNumber}
@@ -269,14 +253,12 @@ class Configurator extends Component {
         //Handlers
         ModuleMenuHandler={this.moduleMenuHandler}
         AwokenTabHandler={this.awokenTabHandler}
-        SubFrameTypeHandler={this.subFrameTypeHandler}
+        frame_sub_typeHandler={this.frame_sub_typeHandler}
         ModuleResetHandler={this.moduleResetHandler}
         FrameReseteHandler={this.frameReseteHandler}
-        BuildArticlesArray={this.buildArticlesArray}
-        IsPSmenuAwokenHandler={this.isPSmenuAwokenHandler}
         PowerSocketMenuHandler={this.powerSocketMenuHandler}
        />
-       <button className="test-button">Test conf.</button>
+       <button onClick={() => this.buildArticlesArray()} className="test-button">Test conf.</button>
 		</div>
     );
   }

@@ -13,6 +13,6 @@ export default {
 		11: "Active Module",
 		12: "Select your slots.",
 		13: "Define the version (solder, gender changer, cable) by clicking on the red triangle in the list on the right.",
-		14: "Table Installation Module"
+		14: "Table Installation Module",
 	}
 };

@@ -55,7 +55,7 @@ $shadow-bottom-right: 1px 1px $shadow-color;
 $shadow-top-right: 1px -1px $shadow-color;
 
 /***print pdf setting***/
-$print-conf-font-size: 0.87rem;
+$print-conf-font-size: 0.63em;
 
 @import 'mixins';
 
@@ -126,4 +126,8 @@ body {
     border-radius: 5px;
     border: 1px solid $main-color-dark4;
     right: 0; 
+}
+
+.zebra-striped:nth-child(even) {
+    background-color: $main-color-light2;
 }

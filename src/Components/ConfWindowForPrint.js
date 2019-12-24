@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactToPrint from 'react-to-print';
-import NewWindow from 'react-new-window';
 import dataList from '../Data/dataFromTable';
 
 class ComponentToPrint extends Component {
@@ -33,93 +31,79 @@ class ComponentToPrint extends Component {
     }
 
     tableHeader = ["Pos.", "Desc.", "Quantity"]
+
     render () {
-    return (
-        <div className="component-to-print-wrapper">
-            <div className="top-left-logo-container">
-                <img className="top-left-logo" src="https://www.tls-electronics.de/custom/tls_electro/img/top_left_logo.png" alt="logo"/>
-            </div>
-            <table className="print-conf-table">
-                <thead>
-                    <tr className="print-conf-table-head">
-                        {this.tableHeader.map((title) => <th key={title}>{title}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.ArticleList.map((inf, index) => {
-                        const article = inf.article.replace(/\s/g, "");
-                        return ([
-                            <tr className="print-conf-table-body_l0" key={index}>
-                                <td>
-                                    {index}
-                                </td>
-                                <td>
-                                    {inf.article}
-                                </td>
-                                <td>
-                                    {inf.quantity}
-                                </td>
-                            </tr>,
-                            <tr className="print-conf-table-body_l1">
-                                <td />
-                                <td>{this.isDefiend(`${article}.Type`)}:</td>
-                                <td>{this.isDefiend(`${article}.Description2`)}</td>
-                            </tr>,
-                            <tr className="print-conf-table-body_l2">
-                                <td />
-                                <td>Other:  </td>
-                                <td>{this.isDefiend(`${article}.Description1`)}</td>
+        if (this.props.articlesToPrint) {
+            return (
+                <div className="component-to-print-wrapper">
+                    <div className="top-left-logo-container">
+                        <img className="top-left-logo" src="https://www.tls-electronics.de/custom/tls_electro/img/top_left_logo.png" alt="logo"/>
+                    </div>
+                    <table className="print-conf-table">
+                        <thead>
+                            <tr className="print-conf-table-head">
+                                {this.tableHeader.map((title) => <th key={title}>{title}</th>)}
                             </tr>
-                        ])
-                    })}
-                </tbody>
-            </table>
-            <div className="contact-info">
-                <table className="contact-info-table1">
-                    <tr className="contact-info-table1-ECCO">
-                        <td>ECCO<span className="contact-info-table1-ECCO-text">CINE UPPLY AND SERVICE GMBH</span></td>
-                    </tr>
-                    {this.firstRowCI.map((line) => <tr>
-                        <td>{line}</td>
-                    </tr>)}
-                </table>
-                <table className="contact-info-table2">
-                    {Object.keys(this.secondRowCI).map((line) => <tr>
-                        <td>{line}</td>
-                        <td>{this.secondRowCI[line]}</td>
-                    </tr>)}
-                </table>
-                <table className="contact-info-table3">
-                    {Object.keys(this.thirdRowCI).map((line) => <tr>
-                        <td>{line}</td>
-                        <td>{this.thirdRowCI[line].map((bankInfo) => [bankInfo, <br />])}</td>
-                    </tr>)}
-                </table>
-            </div>
-        </div>
-        )
-    }
-}
-  
-class PrinfConfWindow extends Component {
-    style = {
-        border: "1px solid black",
-        borderCollapse: "collapse"
-    }
-    
-    render () {
-        return (
-        <NewWindow>
-            <div>
-            <ComponentToPrint ArticleList={this.props.ArticleList} ref={el => (this.componentRef = el)} />
-            <ReactToPrint
-                trigger={() => <button className="print-button">Print <i className="fa fa-print"></i></button>}
-                content={() => this.componentRef}
-            />
-            </div>
-        </NewWindow>
-        )
+                        </thead>
+                        <tbody>
+                            {this.props.articlesToPrint.map((inf, index) => {
+                                const article = inf.article.replace(/\s/g, "");
+                                return (<tbody key={article}>
+                                    <tr className="print-conf-table-body_l0" key={index}>
+                                        <td>
+                                            {index}
+                                        </td>
+                                        <td>
+                                            {inf.article}
+                                        </td>
+                                        <td>
+                                            {inf.quantity}
+                                        </td>
+                                    </tr>
+                                    <tr className="print-conf-table-body_l1">
+                                        <td />
+                                        <td>{this.isDefiend(`${article}.Type`)}:</td>
+                                        <td>{this.isDefiend(`${article}.Description2`)}</td>
+                                    </tr>
+                                    <tr className="print-conf-table-body_l2">
+                                        <td />
+                                        <td>Other:  </td>
+                                        <td>{this.isDefiend(`${article}.Description1`)}</td>
+                                    </tr>
+                                </tbody>)
+                            })}
+                        </tbody>
+                    </table>
+                    <div className="contact-info">
+                        <table className="contact-info-table1">
+                            <tr className="contact-info-table1-ECCO">
+                                <td>ECCO<span className="contact-info-table1-ECCO-text">CINE UPPLY AND SERVICE GMBH</span></td>
+                            </tr>
+                            {this.firstRowCI.map((line) => <tr>
+                                <td>{line}</td>
+                            </tr>)}
+                        </table>
+                        <table className="contact-info-table2">
+                            {Object.keys(this.secondRowCI).map((line) => <tr>
+                                <td>{line}</td>
+                                <td>{this.secondRowCI[line]}</td>
+                            </tr>)}
+                        </table>
+                        <table className="contact-info-table3">
+                            {Object.keys(this.thirdRowCI).map((line) => <tr>
+                                <td>{line}</td>
+                                <td>{this.thirdRowCI[line].map((bankInfo) => [bankInfo, <br />])}</td>
+                            </tr>)}
+                        </table>
+                    </div>
+                </div>
+            )
+        } else {
+            return 'Error'
+        }
+       
     }
 }
 
-export default PrinfConfWindow;
+
+export default ComponentToPrint;

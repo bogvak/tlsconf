@@ -10,14 +10,13 @@ const emptyConf = {
     },
     IndexOfSelectedSlot: null,
     IndexOfAwokenTab: null,
-    Modules: [{
-      "slots-takes": null,
-      "article-list": {
-        "solder-terminal" : null,
-      },
-      img: "img/layout-parts/empty-signal-slot.png",
-      display: true,
-    }],
+    Modules: [
+      {
+        "slots-takes": null,
+        img: "img/layout-parts/empty-signal-slot.png",
+        display: true,
+      }
+    ],
 }
 
 export default emptyConf;

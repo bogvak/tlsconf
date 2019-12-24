@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, Component , useRef} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import PrinfConfWindow from './ConfWindowForPrint';
+import ComponentToPrint from './ConfWindowForPrint';
 import SimpleBar from 'simplebar-react';
+import ReactToPrint from 'react-to-print';
 
 const ConfContainerRight = (props) => {
     return (
         <div className="conf-main-right">
             <ConfContainerRightTop 
               Configuration={props.Configurations[props.ConfNumber]}
-              SubFrameTypeHandler={props.SubFrameTypeHandler}
+              frame_sub_typeHandler={props.frame_sub_typeHandler}
             />
             <ConfContainerRightBottom 
               Configurations={props.Configurations}
@@ -17,8 +18,6 @@ const ConfContainerRight = (props) => {
               AwokenTabHandler={props.AwokenTabHandler}
               ModuleResetHandler={props.ModuleResetHandler}
               FrameReseteHandler={props.FrameReseteHandler}
-              BuildArticlesArray={props.BuildArticlesArray}
-              IsPSmenuAwokenHandler={props.IsPSmenuAwokenHandler}
               PowerSocketMenuHandler={props.PowerSocketMenuHandler}
             />
         </div>
@@ -36,14 +35,14 @@ const ConfContainerRightTop = (props) => {
         />
       </div>
       <div className="conf-main-right-top-frameName">
-        {props.Configuration.PlatformСhoiceDesc.fullLine}
+        {props.Configuration.PlatformСhoiceDesc.line_desc}
       </div>
       <div className="conf-main-right-top-subFrameMenu">
-        {(props.Configuration.PlatformСhoiceDesc.subFrameType) ?  
+        {(props.Configuration.PlatformСhoiceDesc.frame_sub_type) ?  
           <FrameSubMenu 
-            SubFrameType={props.Configuration.PlatformСhoiceDesc.subFrameType}
-            SubFrameArticle={props.Configuration.PlatformСhoiceDesc.subFrameArticle}
-            SubFrameTypeHandler={props.SubFrameTypeHandler}
+            frame_sub_type={props.Configuration.PlatformСhoiceDesc.frame_sub_type}
+            frame_sub_type_article={props.Configuration.PlatformСhoiceDesc.frame_sub_type_article}
+            frame_sub_typeHandler={props.frame_sub_typeHandler}
           />
         : null}
       </div>
@@ -61,15 +60,15 @@ const FrameSubMenu = (props) => {
   }
   return (
     <div className="conf-main-right-top-subFrameMenu-list">
-      {Object.keys(props.SubFrameType).map((inf, index) => {
+      {Object.keys(props.frame_sub_type).map((inf, index) => {
         return(
           <div key={inf} className={["conf-main-right-top-subFrameMenu-list-line", backgroundColor(index)].join(" ")}>
-            <p style={{"fontWeight": (props.SubFrameType[inf] === props.SubFrameArticle) ? "bold" : null}} className="conf-main-right-top-subFrameMenu-list-line-text">{props.SubFrameType[inf]} : {inf}</p>
+            <p style={{"fontWeight": (props.frame_sub_type[inf] === props.frame_sub_type_article) ? "bold" : null}} className="conf-main-right-top-subFrameMenu-list-line-text">{props.frame_sub_type[inf]} : {inf}</p>
             <button
-              onClick={props.SubFrameTypeHandler.bind(this, {subFrameDesc: inf, subFrameArticle: props.SubFrameType[inf]})}
+              onClick={props.frame_sub_typeHandler.bind(this, {frame_sub_type_desc: inf, frame_sub_type_article: props.frame_sub_type[inf]})}
               className="conf-main-right-top-subFrameMenu-list-line-check-box"
             >
-              {(props.SubFrameType[inf] === props.SubFrameArticle) ? "✓" : null}
+              {(props.frame_sub_type[inf] === props.frame_sub_type_article) ? "✓" : null}
             </button>
           </div>
         )
@@ -93,16 +92,15 @@ const ConfContainerRightBottom = (props) => {
             {(conf.PlatformСhoiceDesc.line) ? [
               <ConfList 
                 key={confNumber}
-                ConfNumber={confNumber}
+                confNumber={confNumber}
                 Configuration={conf}
                 ModuleMenuHandler={props.ModuleMenuHandler}
                 AwokenTabHandler={props.AwokenTabHandler}
                 ModuleResetHandler={props.ModuleResetHandler}
                 FrameReseteHandler={props.FrameReseteHandler}
-                IsPSmenuAwokenHandler={props.IsPSmenuAwokenHandler}
                 PowerSocketMenuHandler={props.PowerSocketMenuHandler}
-              /> , 
-              <PrintConfButton BuildArticlesArray={props.BuildArticlesArray} ConfNumber={confNumber} key={conf} />
+              /> ,
+              <PrintConfButton articlesToPrint={props.Configurations[confNumber].articlesToPrint} key={conf} />
             ] : null}
           </TabPanel>)
         })}
@@ -110,144 +108,116 @@ const ConfContainerRightBottom = (props) => {
   );
 }
 
-const ConfDescLine = (props) => <div className={props.elementClassName}>
+const ConfDescLine = (props) => (props.article) ? <div className={props.elementClassName + " zebra-striped"}>
   <div className={props.elementClassName+"-article"}>{props.article}</div>
-  {(props.IsMenuAwokenHandler&&props.MenuHandler&&props.MenuContent)?
+  {(props.MenuHandler&&props.MenuContent)?
     <SubMenuRightBottom
       elementClassName={props.elementClassName+"-specs-menu"}
-      IsMenuAwokenHandler={props.IsMenuAwokenHandler}
-      IsVisible={props.IsVisible}
       MenuContent={props.MenuContent}
       MenuHandler={props.MenuHandler}
+      index={props.index}
     />
   :<div className={props.elementClassName+"-space"}/>}
-  <div className={props.elementClassName+"-desc"}>{props.desc}</div>
+  <div className={props.elementClassName+"-desc"}>{props.children}</div>
   {(props.ReseteHandler) ?
-    <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.ConfNumber)}>x</div> 
+    <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)}>x</div> 
   : null}
-</div>
+</div> : <div className={props.elementClassName + " zebra-striped"} />
 
-const SubMenuRightBottom = (props) => <div
+const SubMenuRightBottom = (props) => {
+  const [isVisible, IsVisibleHandler] = useState(false);
+
+  return(<div
   className={props.elementClassName}
-  onMouseEnter={props.IsMenuAwokenHandler.bind(this, (props.index===0||props.index)?props.index:true)}
-  onMouseLeave={props.IsMenuAwokenHandler.bind(this, false)}
+  onMouseEnter={() => IsVisibleHandler(true)}
+  onMouseLeave={() => IsVisibleHandler(false)}
 >
-  <ul className={[props.elementClassName+"-list", props.elementClassName+((props.IsVisible)?"-list--visible":"-list--hiden")].join(" ")}>
+  <ul className={[props.elementClassName+"-list", props.elementClassName+((isVisible)?"-list--visible":"-list--hiden")].join(" ")}>
     {Object.keys(props.MenuContent).map((desc,i,arr) => <li
       className={!(i===arr.length-1)?props.elementClassName+"-list-li--bordered":null}
       key={desc}
-      onClick={props.MenuHandler.bind(this, props.MenuContent[desc], desc)}
+      onClick={props.MenuHandler.bind(this, props.MenuContent[desc], desc, props.index)}
     >{desc}</li>)}
   </ul>
-</div>
+</div>)}
 
 const ConfList = (props) => {
-  const zebraColor = (index) => {
-    let isNextLight = (index % 2 === 0) ? true : false;
-    if (props.Configuration.PlatformСhoiceDesc["power-sockets"]) {
-      isNextLight=!isNextLight
-    }
-    if (isNextLight)
-      {return "light"} 
-    else 
-      {return "dark"}
-  }
   
   const elementClassName = "conf-main-right-bottom_l1-conf-list";
   const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc;
   return (
     <SimpleBar className={elementClassName}>
-      <ConfDescLine 
-        elementClassName={elementClassName+"-subFrameType"}
-        article={platformСhoiceDesc.subFrameArticle}
-        desc={`
-          ${platformСhoiceDesc.line} (${platformСhoiceDesc.subFrameDesc})
-        `}
-      />
-      <ConfDescLine 
-        elementClassName={elementClassName+"-frameType"}
+      {(platformСhoiceDesc.frame_sub_type_article) ? <ConfDescLine
+        elementClassName={elementClassName+"-line"}
+        article={platformСhoiceDesc.frame_sub_type_article}
+        confNumber={props.confNumber}
+      >
+        {platformСhoiceDesc.line} ({platformСhoiceDesc.frame_sub_type_desc})
+      </ConfDescLine> : null}
+      <ConfDescLine
+        elementClassName={elementClassName+"-line"}
         article={platformСhoiceDesc.article}
-        desc={`
-          ${platformСhoiceDesc.line} - Support frame:
-          ${platformСhoiceDesc["all-slots"]} signal slots; Type: ${platformСhoiceDesc["type"]}
-        `}
         ReseteHandler={props.FrameReseteHandler}
-      />
-      {(platformСhoiceDesc["support-frame"]) ? <ConfDescLine
-        elementClassName={elementClassName+"-support-frame"}
-        article={platformСhoiceDesc["support-frame-article"]}
-        desc={`
-          ${platformСhoiceDesc["support-frame-desc"]} (x${platformСhoiceDesc["support-frame"]})
-        `}
-      /> : null}
-      {(platformСhoiceDesc["power-sockets"]) ? <ConfDescLine 
-        elementClassName={elementClassName + "-powerSocket"}
+        confNumber={props.confNumber}
+      >
+        {platformСhoiceDesc.line} - Support frame: {platformСhoiceDesc.slots_sum} signal slots; Type: {platformСhoiceDesc["type"]}
+      </ConfDescLine>
+      {(platformСhoiceDesc.support_frame_arr) ? platformСhoiceDesc.support_frame_arr.map((frame, index) => <ConfDescLine
+        elementClassName={elementClassName+"-line"}
+        article={frame.article}
+        confNumber={props.confNumber}
+      >
+        {frame.desc}
+      </ConfDescLine>) : null}
+      {(platformСhoiceDesc["power-sockets"]) ? <ConfDescLine
+        elementClassName={elementClassName + "-line"}
         article={platformСhoiceDesc.powerSocketArticle}
-        desc={`
-          ${platformСhoiceDesc.powerSocketDesc} (x${platformСhoiceDesc["power-sockets"]})
-        `}
-        IsMenuAwokenHandler={props.IsPSmenuAwokenHandler}
-        IsVisible={props.Configuration.IsPSmenuAwoken}
         MenuContent={platformСhoiceDesc.powerSocketList}
         MenuHandler={props.PowerSocketMenuHandler}
-      /> : null}
-      {props.Configuration.Modules.map((module, index) => {
-        return (
-          <div 
-            className={[elementClassName + "-module", elementClassName + "-module-" + zebraColor(index)].join(' ')}
-            key={index}
-          >
-            {(module.SubArticle) ? <div
-              className={elementClassName + "-module-article"}
-            >
-              {module.SubArticle}
-            </div> : null} 
-            {(module.desc || module.SubDesc) ?
-              <SubMenuRightBottom
-                index={index}
-                elementClassName={elementClassName + "-module-specs-menu"}
-                IsMenuAwokenHandler={props.AwokenTabHandler}
-                MenuContent={module["article-list"]}
-                IsVisible={props.Configuration.IndexOfAwokenTab===index}
-                MenuHandler={props.ModuleMenuHandler}
-              />
-            : null}
-            {(module.desc && module.SubDesc) ? <div 
-              className={elementClassName + "-module-desc"}
-            >
-              {module.desc}({module.SubDesc})
-            </div>: null}
-            {(module.desc && module.SubDesc) ? <div
-              onClick={props.ModuleResetHandler.bind(this, index)}
-              className={elementClassName + "-module-remove-button"}
-            >
-              x
-            </div>: null}
-          </div>
-        )
-      })}
+        confNumber={props.confNumber}
+      >
+        {platformСhoiceDesc.powerSocketDesc} (x{platformСhoiceDesc["power-sockets"]})
+      </ConfDescLine> : null}
+      {props.Configuration.Modules.map((module, index) => <ConfDescLine
+        confNumber={props.confNumber}
+        elementClassName={elementClassName + "-line"}
+        article={module.article}
+        MenuContent={module["article-list"]}
+        MenuHandler={props.ModuleMenuHandler}
+        index={index}
+        ReseteHandler={props.ModuleResetHandler}
+      >
+        {module.desc} {module.sub_desc}
+      </ConfDescLine>
+      )}
     </SimpleBar>
   );
 }
 
-const PrintConfButton = (props) => {
-  const [IsClick, flipIsClick] = useState(false);
-  const [ArticleList, setArticleList] = useState(null);
+const PrintConfButton = props => {
 
+  const onBeforeGetContent = () => {
+    if (props.articlesToPrint) {
+      return true;
+    } else {
+      alert('All slots should to be filled')
+      return false;
+    }
+  }
+
+  const componentRef = useRef();
   return (
     <div className="conf-main-right-bottom_l1-print-conf-list">
-      <button 
-        className="conf-main-right-bottom_l1-print-conf-list-button"
-        onClick={() => {
-          flipIsClick(!IsClick)
-          setArticleList(props.BuildArticlesArray(props.ConfNumber))
-        }}
-      >
-        Print Configuration List
-      </button>
-      {(IsClick && ArticleList) ? <PrinfConfWindow ResetIsClick={() => flipIsClick(false)} ArticleList={ArticleList} /> : null}
-    </div>  
-  )
-}
+      <ReactToPrint
+        trigger={() => <button className="conf-main-right-bottom_l1-print-conf-list-button">Print Configuration List</button>}
+        content={() => componentRef.current}
+        onBeforeGetContent={onBeforeGetContent}
+      />
+      <div style={{display: 'none'}}>
+        <ComponentToPrint articlesToPrint={props.articlesToPrint} ref={componentRef} />
+      </div>
+    </div>
+  );
+};
 
 export default ConfContainerRight;

@@ -127,51 +127,6 @@
     }
 }
 
-@mixin instruction($height) {
-    padding: 2px 0;
-    width: 100%;
-    height: $height;
-    box-sizing: border-box;
-    &-container {
-        border: $border-panel;
-        border-radius: $border-radius-value;
-        background-color: $main-windows-background-color;
-        &-p {
-            margin: 0;
-        }
-    }
-}
-
-@mixin right-bottom-list_l2 {
-    display: flex;
-    margin: 0;
-    &-article {
-        padding: 0 5px;
-        width: $article-width;
-        white-space: nowrap;
-        box-sizing: border-box;
-    }
-    &-space {
-        width: 0.7em;
-    }
-    &-desc {
-        padding: 0 2px;
-        flex: 1;
-        box-sizing: border-box;
-    }
-    &-remove-button {
-        margin: auto 11px;
-        background-color: $main-color-light3;
-        border: 1px dashed $main-windows-background-color;
-        border-radius: 100px;
-        padding: 0 0.271rem;
-        font-weight: bold;
-        font-size: 0.8rem;
-        color: $main-color-light5;
-        cursor: pointer;
-    }
-}
-
 @mixin dot {
     @include zero-m-and-p;
     position: absolute;

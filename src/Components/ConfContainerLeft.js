@@ -1,132 +1,136 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWall} from './ConfLayOut';
-//object path navigator, in order to check the path for element in objects.
-const objPN = (path, obj) => {
-    const errM = "Element wasn't found!"
-    return path.split(/\./).reduce((o,i)=>(o[i])?o[i]:errM, obj)
-}
 
 const ConfContainerLeft = (props) => {
     return <div className="conf-main-left">
-        <ConfContainerLeftTop
-            TypeOfFrame={props.TypeOfFrame}
-            LocalStrings={props.LocalStrings}
-            ModulesContent={props.ModulesContent}
-            Language={props.Language}
-            desc={props.Configuration.PlatformСhoiceDesc.desc}
-            PlatformСhoiceDescHandler={props.PlatformСhoiceDescHandler}
+        <TopAndBottomMenu 
+            className="conf-main-left-top-container"
+            infArray={[]}
+            level={0}
+            dataObj={props.modulesContent}
+            onClick={props.platformHandler}
         />
-        <ConfContainerLeftInstructionTop 
+        <ConfContainerLeftInstruction
             Language={props.Language}
-            LocalStrings={props.LocalStrings}
+            localStrings={props.localStrings}
+            instNumArr={[1, 2]}
+            className={"conf-main-left-instruction"}
         />
         <ConfContainerLeftMiddle 
             QuantityOfConf={props.QuantityOfConf}
             Configuration={props.Configuration}
             ConfNumberHandler={props.ConfNumberHandler}
             AddConfHandler={props.AddConfHandler}
-            CurrentSlotHandler={props.CurrentSlotHandler}
             CoverHidenHandler={props.CoverHidenHandler}
+            setModule={props.setModule}
         />    
-        <ConfContainerLeftBottom
-            TypeOfModule={props.TypeOfModule}
-            LocalStrings={props.LocalStrings}
-            Location={props.Configuration.PlatformСhoiceDesc.location}
-            Language={props.Language}
-            ModulesForBottomMenu={props.ModulesForBottomMenu}
-            ModuleChoiceHandler={props.ModuleChoiceHandler}
-            TempModuleHandler={props.TempModuleHandler}
-            TempModule={props.TempModule}
+        <TopAndBottomMenu 
+            className="conf-main-left-bottom-container"
+            infArray={[]}
+            level={0}
+            dataObj={props.modulesForBottomMenu}
+            draggable='true'
+            isPowerSocketsModuleAllow={(props.Configuration.PlatformСhoiceDesc.location==="WALL")}
         />
-        <ConfContainerLeftInstructionBottom
+        <ConfContainerLeftInstruction
             Language={props.Language}
-            LocalStrings={props.LocalStrings}
+            localStrings={props.localStrings}
+            instNumArr={[13, 14]}
+            className={"conf-main-left-instruction"}
         />
     </div>
 }
 
-const ConfContainerLeftTop = (props) => {
-    const elementClassName = "conf-main-left-top-container_l0"
-    return <Tabs className={elementClassName}>
-        <TabList className={elementClassName+"-list"}>
-            {Object.keys(props.TypeOfFrame).map((lacation) => <Tab 
-                className={elementClassName+"-list-tab"}
-                selectedClassName={elementClassName+"-list-tab--selected"}
-                key={lacation}
-            >
-                {props.LocalStrings[props.Language][props.TypeOfFrame[lacation]['menuname']]}
-            </Tab>)}
-        </TabList>
-            {Object.keys(props.TypeOfFrame).map((lacation) => <TabPanel 
-                className={elementClassName+"-panel"} 
-                selectedClassName={elementClassName+"-panel--selected"} 
-                key={lacation}
-            >
-                <ModuleSeriesListTop
-                    desc={props.desc} 
-                    lacation={lacation} 
-                    PlatformСhoiceDescHandler={props.PlatformСhoiceDescHandler}  
-                    ModuleSeriesListTop={props.ModulesContent[lacation]}
-                />
-            </TabPanel>)}   
-    </Tabs>
+const TopAndBottomMenu = props => {
+    const className=props.className+"_l"+props.level;
+
+    const ifPS = inf => {
+        if (inf==="Power Sockets" && props.isPowerSocketsModuleAllow) {
+            return true;
+        } else if (inf!=="Power Sockets") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const reducedDataObj=props.infArray.reduce((obj, el) => (el) ?obj[el]:obj, props.dataObj)
+        return <Tabs className={className}>
+            <TabList className={className+"-list"}>
+                {Object.keys(reducedDataObj).map((inf) => (ifPS(inf)) ? <Tab 
+                    className={className+"-list-tab"}
+                    selectedClassName={className+"-list-tab--selected"}
+                    key={inf}
+                >
+                    {inf}
+                </Tab> : null)}
+            </TabList>
+                {Object.keys(reducedDataObj).map((inf) => (ifPS(inf)) ? <TabPanel 
+                    className={className+"-panel"} 
+                    selectedClassName={className+"-panel--selected"} 
+                    key={inf}
+                >
+                    {(typeof Array(2).fill(null).reduce((obj, _) => obj[Object.keys(obj)[0]],reducedDataObj[inf]) === "object") ? 
+                        <TopAndBottomMenu 
+                            infArray = {[...props.infArray, inf]}
+                            level = {props.level+1}
+                            dataObj={props.dataObj}
+                            className={props.className}
+                            onClick={props.onClick}
+                            draggable={props.draggable}
+                        /> : <CardMenu 
+                            infArray = {[...props.infArray, inf]}
+                            level = {props.level+1}
+                            dataObj={props.dataObj}
+                            className={props.className}
+                            onClick={props.onClick}
+                            draggable={props.draggable}
+                        />
+                    }
+                </TabPanel> : null)}
+        </Tabs>
 }
 
-const ModuleSeriesListTop = (props) => {
-    const elementClassName="conf-main-left-top-container_l1"
-    return <Tabs className={elementClassName}>
-        <TabList className={elementClassName+"-list"}>
-            {Object.keys(props.ModuleSeriesListTop).map((line) => <Tab
-                className={elementClassName+"-list-tab"} 
-                selectedClassName={elementClassName+"-list-tab--selected"} 
-                key={line}
-            >
-                {line}
-            </Tab>)}
-        </TabList>
-            {Object.keys(props.ModuleSeriesListTop).map((line) => {
-                return (<TabPanel
-                    className={elementClassName+"-panel"} 
-                    selectedClassName={elementClassName+"-panel--selected"}
-                    key={line}>
-                    <CurrentSeriesTop 
-                        lacation={props.lacation} 
-                        desc={props.desc} 
-                        PlatformСhoiceDescHandler={props.PlatformСhoiceDescHandler} 
-                        line={line} 
-                        CurrentSeriesTop={props.ModuleSeriesListTop[line]}
-                    />
-                </TabPanel>)
-            })}
-    </Tabs>
-}
+const CardMenu = props => {
+    const className = props.className+"_l"+props.level;
+    const reducedDataObj=props.infArray.reduce((obj, el) => (el) ?obj[el]:obj, props.dataObj)
 
-const CurrentSeriesTop = (props) => {
-    const elementClassName = "conf-main-left-top-container_l2"
-    return <div className={elementClassName}>
-        {Object.keys(props.CurrentSeriesTop).map((item) => {
-            if (props.CurrentSeriesTop[item].article && props.line) {
-                return <img
-                    className={[elementClassName+"-card", (item===props.desc) ? elementClassName+"-card--selected" : null].join(" ")}
-                    alt={item} 
-                    src={"img/" + props.line.replace(/\s/g, "").toLowerCase() + "/" + props.CurrentSeriesTop[item].article.replace(/\s/g, "") + ".png"}
-                    key={item} 
-                    onClick={props.PlatformСhoiceDescHandler.bind(this, {...props.CurrentSeriesTop[item], location: props.lacation, line: props.line, desc: item})} 
-                />
-            } else {
-                return null
-            }
+    const dragStart = (e, module) => {
+        e.dataTransfer.setData('module', JSON.stringify(module))
+    }
+
+    const dragOver = e => {
+        e.preventDefault();
+    }
+
+    return <div className={className}>
+        {Object.keys(reducedDataObj).map((inf) => {
+            const module=reducedDataObj[inf];
+            if (module["article-list"]) {
+                module.article=module['article-list'][Object.keys(module['article-list'])[0]]
+            };
+            const img = "img/" + ((props.infArray[1]) ? props.infArray[1].replace(/\/| IPL/g, "").replace(/\s/g, "-").toLowerCase() : "") + "/" + module.article.replace(/\s/g, "") + ".png"
+
+            return <img 
+                className={className+"-card"}
+                alt={img}
+                src={img}
+                key={img}
+                onClick={() => (props.onClick) ? props.onClick({...reducedDataObj[inf], desc: inf}, ...props.infArray) : null}
+                onDragStart={e =>(props.draggable) ? dragStart(e, {...reducedDataObj[inf], desc: inf, module_series: props.infArray[0], module_type: props.infArray[1]}) : null}
+                onDragOver={dragOver}
+            />
         })}
     </div>
 }
 
-const ConfContainerLeftInstructionTop = (props) => {
-    const elementClassName="conf-main-left-top-instruction"
-    return <div className={elementClassName}>
-        <div className={elementClassName+"-container"}>
-            <p className={elementClassName+"-container-p"}>1. {props.LocalStrings[props.Language][1]}</p>
-            <p className={elementClassName+"-container-p"}>2. {props.LocalStrings[props.Language][2]}</p>
+const ConfContainerLeftInstruction = (props) => {
+    return <div className={props.className}>
+        <div className={props.className+"-container"}>
+            {props.instNumArr.map(i => <p className={props.className+"-container-p"} key={i+props.className}>
+                {(i>9) ? i-10 : i}. {props.localStrings[props.Language][i]}
+            </p>)}
         </div>
     </div>
 }
@@ -157,8 +161,8 @@ const ConfContainerLeftMiddle = (props) => {
                 {(props.Configuration.PlatformСhoiceDesc.article) ?
                     <RepresentationOfConf 
                         CoverHidenHandler={props.CoverHidenHandler}
-                        Configuration={props.Configuration} 
-                        CurrentSlotHandler={props.CurrentSlotHandler}
+                        Configuration={props.Configuration}
+                        setModule={props.setModule}
                     />
                 : null}
         </TabPanel>)}
@@ -174,24 +178,25 @@ const RepresentationOfConf = (props) => {
         />
         {(props.Configuration.PlatformСhoiceDesc.location === "TABLE") ? 
             <ConfLayOutTable
-                Configuration={props.Configuration} 
-                CurrentSlotHandler={props.CurrentSlotHandler}
+                Configuration={props.Configuration}
+                setModule={props.setModule}
             /> 
         : (props.Configuration.PlatformСhoiceDesc.location === "WALL") ? 
             <ConfLayOutWall
-                Configuration={props.Configuration} 
-                CurrentSlotHandler={props.CurrentSlotHandler}
+                Configuration={props.Configuration}
+                setModule={props.setModule}
             />
         : 
             <ConfLayOutFloor
+                setModule={props.setModule}
                 Configuration={props.Configuration} 
-                CurrentSlotHandler={props.CurrentSlotHandler}
             /> 
         }
     </div>
 }
 
 const ConfDesc = (props) => {
+
     const elementClassName="conf-main-left-middle-container_l1-desc"
     return <div className={elementClassName}>
         <p>{props.PlatformСhoiceDesc.line} - Support frame</p>
@@ -207,92 +212,6 @@ const ConfDesc = (props) => {
             </li>: null}
             <li>{props.PlatformСhoiceDesc.type}</li>
         </ul>
-    </div>
-}
-
-const ConfContainerLeftBottom = (props) => {
-    const elementClassName="conf-main-left-bottom-container_l0"
-    return <Tabs className={elementClassName}>
-        <TabList className={elementClassName+"-list"}>
-            {Object.keys(props.ModulesForBottomMenu).map((item) => {
-                if (item==="Power Socket Wall" && props.Location!=="WALL") return null;
-                return(<Tab 
-                    className={elementClassName+"-list-tab"} 
-                    selectedClassName={elementClassName+"-list-tab--selected"}
-                    key={item}
-                >
-                    {item}
-                </Tab>)})}
-        </TabList>
-        {Object.keys(props.ModulesForBottomMenu).map((item) => <TabPanel
-            className={elementClassName+"-panel"}
-            selectedClassName={elementClassName+"-panel--selected"} 
-            key={item}
-        >
-            <ModuleSeriesListBottom  
-                TypeOfModule={props.TypeOfModule}
-                LocalStrings={props.LocalStrings}
-                Language={props.Language}
-                ModuleSeriesListBottom={props.ModulesForBottomMenu[item]} 
-                ModuleChoiceHandler={props.ModuleChoiceHandler}
-                TempModuleHandler={props.TempModuleHandler}
-                TempModule={props.TempModule}
-            />
-        </TabPanel>)}
-    </Tabs>
-}
-
-const ModuleSeriesListBottom = (props) => {
-    const elementClassName="conf-main-left-bottom-container_l1"
-    return <Tabs className={elementClassName}>
-        <TabList className={elementClassName+"-list"}>
-            {Object.keys(props.ModuleSeriesListBottom).map((typeOfModules) => <Tab
-                className={elementClassName+"-list-tab"}
-                selectedClassName={elementClassName+"-list-tab--selected"}
-                key={typeOfModules}
-            >
-                {props.LocalStrings[props.Language][objPN(`TypeOfModule.${typeOfModules}.menuname`, props)]}
-            </Tab>)}
-        </TabList>
-        {Object.keys(props.ModuleSeriesListBottom).map((typeOfModules) => <TabPanel
-            className={elementClassName+"-panel"}
-            selectedClassName={elementClassName+"-panel--selected"} 
-            key={typeOfModules} 
-        >
-            <CurrentModulesBottom
-                TypeOfModules={typeOfModules.replace(/\//g, "")}
-                CurrentModulesBottom={props.ModuleSeriesListBottom[typeOfModules]} 
-                ModuleChoiceHandler={props.ModuleChoiceHandler}
-                TempModuleHandler={props.TempModuleHandler}
-                TempModule={props.TempModule}
-            />
-        </TabPanel>)}
-    </Tabs>
-}
-
-const CurrentModulesBottom = (props) => {
-    const elementClassName = "conf-main-left-bottom-container_l2"
-    return <div className={elementClassName}>
-        {Object.keys(props.CurrentModulesBottom).map((module) => <img 
-            className={elementClassName+"-card"}
-            key={module}
-            src={"img/" + props.TypeOfModules + "/" + objPN(`CurrentModulesBottom.${module}.article-list`, props)[Object.keys(objPN(`CurrentModulesBottom.${module}.article-list`, props))[0]].replace(/\s/g, "") + ".png"}
-            alt={objPN(`CurrentModulesBottom.${module}.article-list`, props)[Object.keys(objPN(`CurrentModulesBottom.${module}.article-list`, props))[0]]}
-            draggable="true" 
-            onDragStart={props.TempModuleHandler.bind(this, {...props.CurrentModulesBottom[module], TypeOfModules: props.TypeOfModules, desc: module})} 
-            onDragEnd={props.ModuleChoiceHandler.bind(this, props.TempModule)}
-            onDragOver={(e) => e.preventDefault()}
-        />)}
-    </div>
-}
-
-const ConfContainerLeftInstructionBottom = (props) => {
-    const elementClassName="conf-main-left-bottom-instruction"
-    return <div className={elementClassName}>
-        <div className={elementClassName+"-container"}>
-            <p className={elementClassName+"-container-p"}>3. {props.LocalStrings[props.Language][12]}</p>
-            <p className={elementClassName+"-container-p"}>4. {props.LocalStrings[props.Language][13]}</p>
-        </div>
     </div>
 }
 
