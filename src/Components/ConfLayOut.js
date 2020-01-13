@@ -4,9 +4,9 @@ const SignalSlots = (props) => {
     
     const drop = e => {
         e.preventDefault()
-        const inf = JSON.parse(e.dataTransfer.getData('module'))
+        const inf = JSON.parse(e.dataTransfer.getData('module'));
 
-        props.setModule(inf, props.index, props.supportFrame_index)
+        props.setModule(...inf, props.index, props.supportFrame_index)
     }
 
     const dragOver = e => {
@@ -32,7 +32,7 @@ const SignalSlots = (props) => {
 const PowerSocket = (props) => {
     return <img
         className={props.componentClassName+"-power-sockets"}
-        src={"img/power-sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + ".png"}
+        src={"img/power-sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + "-min.png"}
         alt="power-sockets"
     />
 }
@@ -40,7 +40,7 @@ const PowerSocket = (props) => {
 const ConferenceControl = (props) => {
     return <img
         className={props.componentClassName+"-conference-control"}
-        src={"img/layout-parts/conference-control.png"}
+        src={"img/layout-parts/conference-control-min.png"}
         alt="conference-control"
     />
 }
@@ -48,7 +48,7 @@ const ConferenceControl = (props) => {
 const ConferenceControlDoubleFrame = (props) => {
     return <img
         className={props.componentClassName+"-conference-control-double-frame"}
-        src={"img/layout-parts/conference-control-double-frame.png"}
+        src={"img/layout-parts/conference-control-double-frame-min.png"}
         alt="conference-control-double-frame"
     />
 }
@@ -58,24 +58,29 @@ const ConfLayOutTable = (props) => {
     const conf = () => {
         const powerSokets = Array(platformСhoiceDesc["power-sockets"]).fill(<PowerSocket 
             Configuration={props.Configuration} 
-            componentClassName={componentClassName+"-middle"} 
+            componentClassName={componentClassName+"-middle"}
+            key={'power-sockets'}
         />)
         const conferenceControl = Array(platformСhoiceDesc["conference-control"]).fill(<ConferenceControl 
             Configuration={props.Configuration} 
-            componentClassName={componentClassName+"-middle"} 
+            componentClassName={componentClassName+"-middle"}
+            key={'conference-control'}
         />)
         const conferenceControlDoubleFrame = Array(platformСhoiceDesc["conference-control-double-frame"]).fill(<ConferenceControlDoubleFrame
             Configuration={props.Configuration} 
-            componentClassName={componentClassName+"-middle"} 
+            componentClassName={componentClassName+"-middle"}
+            key={'conference-control-double-frame'}
         />)
         const signalSlots = (<div
             style={platformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
             className={componentClassName+"-middle-container"}
+            key={'signal-slots'}
         >{Array(platformСhoiceDesc["signal-slots"]).fill(1).map((_, index) => <SignalSlots
             Configuration={props.Configuration}
             componentClassName={componentClassName+"-middle-container"}
             index={index}
             setModule={props.setModule}
+            key={'s-s'+index}
         />)}</div>);
         let pos;
         if (powerSokets.length > 2) {

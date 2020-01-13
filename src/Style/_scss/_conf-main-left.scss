@@ -59,6 +59,7 @@
                 @include panel;
                 @include main-left-windows;
                 padding: $panels-padding;
+                display: none;
                 &--selected {
                     display: flex;
                 }

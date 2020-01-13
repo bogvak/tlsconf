@@ -1,4 +1,4 @@
-import React, { useState, Component , useRef} from 'react';
+import React, { useState, Component , useRef, Fragment} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ComponentToPrint from './ConfWindowForPrint';
 import SimpleBar from 'simplebar-react';
@@ -15,9 +15,8 @@ const ConfContainerRight = (props) => {
               Configurations={props.Configurations}
               QuantityOfConf={props.QuantityOfConf}
               ModuleMenuHandler={props.ModuleMenuHandler}
-              AwokenTabHandler={props.AwokenTabHandler}
               ModuleResetHandler={props.ModuleResetHandler}
-              FrameReseteHandler={props.FrameReseteHandler}
+              frameResetHandler={props.frameResetHandler}
               PowerSocketMenuHandler={props.PowerSocketMenuHandler}
             />
         </div>
@@ -27,11 +26,12 @@ const ConfContainerRight = (props) => {
 const ConfContainerRightTop = (props) => {
   return (
     <div className="conf-main-right-top">
+      {(props.Configuration.PlatformСhoiceDesc.line) ? <Fragment>
       <div className="conf-main-right-top-img-wrapper">
         <img
           className="conf-main-right-top-img"
           src={props.Configuration.PlatformСhoiceDesc.img}
-          alt=""
+          alt={props.Configuration.PlatformСhoiceDesc.line}
         />
       </div>
       <div className="conf-main-right-top-frameName">
@@ -46,6 +46,7 @@ const ConfContainerRightTop = (props) => {
           />
         : null}
       </div>
+      </Fragment> : ''}
     </div>
   );
 }
@@ -81,7 +82,13 @@ const ConfContainerRightBottom = (props) => {
   return (
     <Tabs className="conf-main-right-bottom_l0">
       <TabList className="conf-main-right-bottom_l0-list">
-        {props.Configurations.map((conf, confNumber) => <Tab className="conf-main-right-bottom_l0-list-tab" selectedClassName="conf-main-right-bottom_l0-list-tab--selected" key={confNumber}>Configuration #{confNumber+1}</Tab>)}
+        {props.Configurations.map((conf, confNumber) => <Tab 
+          className="conf-main-right-bottom_l0-list-tab" 
+          selectedClassName="conf-main-right-bottom_l0-list-tab--selected" 
+          key={confNumber}
+        >
+          Configuration {confNumber+1}
+        </Tab>)}
       </TabList>
         {props.Configurations.map((conf, confNumber) => {
           return (<TabPanel 
@@ -95,9 +102,8 @@ const ConfContainerRightBottom = (props) => {
                 confNumber={confNumber}
                 Configuration={conf}
                 ModuleMenuHandler={props.ModuleMenuHandler}
-                AwokenTabHandler={props.AwokenTabHandler}
                 ModuleResetHandler={props.ModuleResetHandler}
-                FrameReseteHandler={props.FrameReseteHandler}
+                frameResetHandler={props.frameResetHandler}
                 PowerSocketMenuHandler={props.PowerSocketMenuHandler}
               /> ,
               <PrintConfButton articlesToPrint={props.Configurations[confNumber].articlesToPrint} key={conf} />
@@ -108,23 +114,34 @@ const ConfContainerRightBottom = (props) => {
   );
 }
 
-const ConfDescLine = (props) => (props.article) ? <div className={props.elementClassName + " zebra-striped"}>
-  <div className={props.elementClassName+"-article"}>{props.article}</div>
-  {(props.MenuHandler&&props.MenuContent)?
-    <SubMenuRightBottom
-      elementClassName={props.elementClassName+"-specs-menu"}
-      MenuContent={props.MenuContent}
-      MenuHandler={props.MenuHandler}
-      index={props.index}
-    />
-  :<div className={props.elementClassName+"-space"}/>}
-  <div className={props.elementClassName+"-desc"}>{props.children}</div>
-  {(props.ReseteHandler) ?
-    <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)}>x</div> 
-  : null}
-</div> : <div className={props.elementClassName + " zebra-striped"} />
+const ConfDescLine = props => {
+  const elementClassName=[
+    props.elementClassName,
+    props.elementClassName+((props.display || props.display===undefined)? '--visible': '--hidden'),
+    'zebra-striped',
+  ].join(' ');
+  if (props.article) {
+    return (<div className={elementClassName}>
+      <div className={props.elementClassName+"-article"}>{props.article}</div>
+      {(props.MenuHandler&&props.MenuContent)?
+        <SubMenuRightBottom
+          elementClassName={props.elementClassName+"-specs-menu"}
+          MenuContent={props.MenuContent}
+          MenuHandler={props.MenuHandler}
+          index={props.index}
+        />
+      :<div className={props.elementClassName+"-space"}/>}
+      <div className={props.elementClassName+"-desc"}>{props.children}</div>
+      {(props.ReseteHandler) ?
+        <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)}>x</div> 
+      : null}
+    </div>)
+  } else {
+    return <div className={elementClassName}/>
+  }
+}
 
-const SubMenuRightBottom = (props) => {
+const SubMenuRightBottom = props => {
   const [isVisible, IsVisibleHandler] = useState(false);
 
   return(<div
@@ -141,7 +158,7 @@ const SubMenuRightBottom = (props) => {
   </ul>
 </div>)}
 
-const ConfList = (props) => {
+const ConfList = props => {
   
   const elementClassName = "conf-main-right-bottom_l1-conf-list";
   const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc;
@@ -157,7 +174,7 @@ const ConfList = (props) => {
       <ConfDescLine
         elementClassName={elementClassName+"-line"}
         article={platformСhoiceDesc.article}
-        ReseteHandler={props.FrameReseteHandler}
+        ReseteHandler={props.frameResetHandler}
         confNumber={props.confNumber}
       >
         {platformСhoiceDesc.line} - Support frame: {platformСhoiceDesc.slots_sum} signal slots; Type: {platformСhoiceDesc["type"]}
@@ -166,6 +183,7 @@ const ConfList = (props) => {
         elementClassName={elementClassName+"-line"}
         article={frame.article}
         confNumber={props.confNumber}
+        key={frame+index}
       >
         {frame.desc}
       </ConfDescLine>) : null}
@@ -182,10 +200,12 @@ const ConfList = (props) => {
         confNumber={props.confNumber}
         elementClassName={elementClassName + "-line"}
         article={module.article}
+        display={module.display}
         MenuContent={module["article-list"]}
         MenuHandler={props.ModuleMenuHandler}
         index={index}
         ReseteHandler={props.ModuleResetHandler}
+        key={module+index}
       >
         {module.desc} {module.sub_desc}
       </ConfDescLine>

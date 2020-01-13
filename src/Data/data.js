@@ -251,47 +251,40 @@ const modulesForBottomMenu = {
 	"Signalslots IPL" : {
 		"Blind-and-Audio" : {
 			"Blind slot simple" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9210",
 				},	
 			},
 			"Blind slot double" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9211",
 				},
 			},
 			"Blind slot triple" : {
-				"slots-takes" : 3,
 				"article-list" : {
 					"solder-terminal" : "863 9212",
 				},
 				
 			},
 			"Audio slot female 1 x 3,5 mm jack" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9220",
 					"40 cm cable" : "863 9221",
 				},
 			},
 			"Audio 1/2 slot female 2 x 3,5 mm jack" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9229",
 					"40 cm cable" : "863 9230",
 				},
 			},
 			"Audio IN/OUT/Mic slot female 3 x 3,5 mm jack " : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9236",
 					"40 cm cable" : "863 9237",
 				},
 			},
 			"Audio L/R slot female 2 x Cinch" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9226",
 					"40 cm cable" : "863 9227",
@@ -299,28 +292,24 @@ const modulesForBottomMenu = {
 				},
 			},
 			"Audio XLR slot female 3 pin" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9277",
 					"40 cm cable" : "863 9278",
 				},
 			},
 			"Audio XLR slot male 3 pin" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9283",
 					"40 cm cable" : "863 9284",
 				},
 			},
 			"Audio XLR slot female 4 pin" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9348",
 					"40 cm cable" : "863 9349",
 				},
 			},
 			"Audio Speakon slot female " : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9334",
 					"40 cm cable" : "863 9335"
@@ -329,7 +318,6 @@ const modulesForBottomMenu = {
 		},
 		"Video-/Audio" : {
 			"Video slot female Cinch" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9223",
 					"40 cm cable" : "863 9224",
@@ -337,7 +325,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"Video slot female BNC " : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9294",
 					"40 cm cable" : "863 9295",
@@ -345,21 +332,18 @@ const modulesForBottomMenu = {
 				},
 			},
 			"Video + Audio slot female Cinch/3,5 mm jack" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9231",
 					"40 cm cable" : "863 9232",
 				},
 			},
 			"Video + Audio slot female BNC/3,5 mm jack" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9309",
 					"40 cm cable" : "863 9310",
 				},
 			},
 			"Video + Audio L/R slot female 3 x Cinch" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9233",
 					"40 cm cable" : "863 9234",
@@ -367,7 +351,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"Video + Audio L/R slot female BNC/2 x Cinch " : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9297",
 					"40 cm cable" : "863 9298",
@@ -375,7 +358,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"S-Video slot female 4 pin Mini DIN" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9238",
 					"40 cm cable" : "863 9239",
@@ -383,28 +365,24 @@ const modulesForBottomMenu = {
 				},
 			},
 			"S-Video + Audio slot female 4 pin Mini DIN/3,5 x mm jack " : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9246",
 					"40 cm cable" : "863 9247",
 				},
 			},
 			"S-Video + Audio L/R slot female 4 pin Mini DIN/2 x Cinch" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9248",
 					"40 cm cable" : "863 9249",
 				},
 			},
 			"S-Video + Video slot female 4 pin Mini DIN/Cinch" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9241",
 					"40 cm cable" : "863 9243",
 				},
 			},
 			"S-Video + Video slot female 4 pin Mini DIN/BNC" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9252",
 					"40 cm cable" : "863 9253",
@@ -413,14 +391,12 @@ const modulesForBottomMenu = {
 		},
 		"Analogue-/Digital-/Control signal slots": {
 			"YUV slot female 3 x RCA" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9313",
 					"40 cm cable": "863 9314",
 				},
 			},
 			"VGA slot female 15 pin HD" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9256",
 					"40 cm cable": "863 9260",
@@ -428,7 +404,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"VGA slot male 15 pin HD" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9285",
 					"40 cm cable": "863 9307",
@@ -436,7 +411,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"VGA + Audio slot female 15 pin HD/3,5 mm jack" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9265",
 					"40 cm cable": "863 9266",
@@ -444,7 +418,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"VGA + Audio slot male 15 pin HD/3,5 mm jack " : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9301",
 					"40 cm cable" : "863 9302",
@@ -452,21 +425,18 @@ const modulesForBottomMenu = {
 				},
 			},
 			"DVI-A slot female" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9267",
 					"40 cm cable": "863 9268",
 				},
 			},
 			"DVI-D slot female" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9269",
 					"40 cm cable" : "863 9270",
 				},
 			},
 			"RGBHV slot female 5 x BNC" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9279",
 					"40 cm cable" : "863 9280",
@@ -474,14 +444,12 @@ const modulesForBottomMenu = {
 				},
 			},
 			"HDMI slot female" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9336",
 					"40 cm cable" : "863 9338",
 				},
 			},
 			"Control slot female 9 pin D-Sub" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9353",
 					"40 cm cable" : "863 9354",
@@ -490,7 +458,6 @@ const modulesForBottomMenu = {
 		},
 		"Computer signal slots" : {
 			"Serial slot male 9 pin D-Sub" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9262",
 					"40 cm cable" : "863 9263",
@@ -498,7 +465,6 @@ const modulesForBottomMenu = {
 				},
 			},
 			"Serial slot female 9 pin D-Sub" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9288",
 					"40 cm cable" : "863 9308",
@@ -506,35 +472,30 @@ const modulesForBottomMenu = {
 				},
 			},
 			"PS/2 slot female 6 pin MIni DIN" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9291",
 					"40 cm cable" : "863 9292",
 				},
 			},
 			"USB slot female Type A" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9271",
 					"40 cm cable" : "863 9272",
 				}
 			},
 			"USB slot female Type B" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9273",
 					"40 cm cable" : "863 9274",
 				}
 			},
 			"ISDN slot female RJ45" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9305",
 					"40 cm cable" : "863 9306",
 				}
 			},
 			"D-Sub slot female 25 pin" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9282",
 					"40 cm cable" : "863 9281",
@@ -542,14 +503,12 @@ const modulesForBottomMenu = {
 			},
 			//??what??
 			"LAN slot female 1 x CAT5" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"40 cm cable" : "863 9324",
 					"gender changer": "863 9325",
 				}
 			},
 			"LAN slot female 2 x CAT6" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "",
 					"40 cm cable" : "863 9327",
@@ -557,28 +516,24 @@ const modulesForBottomMenu = {
 				}
 			},
 			"Wieland slot female" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9321",
 					"40 cm cable" : "863 9356",
 				}
 			},
 			"Wieland slot male" : {
-				"slots-takes" : 1,
 				"article-list" : {
 					"solder-terminal" : "863 9322",
 					"40 cm cable" : "863 9357",
 				}
 			},
 			"Key switch slot" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9358",
 					"40 cm cable" : "863 9368",
 				}
 			},
 			"Button slot 2 x 18 mm" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"solder-terminal" : "863 9359",
 					"40 cm cable" : "863 9369",
@@ -586,7 +541,6 @@ const modulesForBottomMenu = {
 				}
 			},
 			"Button slot LED blue 2 x 18 mm/2,5mm jack" : {
-				"slots-takes" : 2,
 				"article-list" : {
 					"40 cm cable" : "863 9386",
 				}
@@ -601,43 +555,34 @@ const modulesForBottomMenu = {
 		},*/
 	},
 
-	//In order to escape error checking this was commitet until adding information
-	/*"Signalslots WP" : {
+	"Signalslots WP" : {
 		"comment__": "There will be something"
-	},*/
+	},
 
 	"Power Sockets" : {
 		"Power Sockets IPL" : {
 			"Power socket DE" : {
-				"slots-takes" : 3,
 				"article" : "863 9214"
 			},
 			"Power socket CH" : {
-				"slots-takes" : 3,
 				"article" : "863 9215",
 			},
 			"Power socket GB" : {
-				"slots-takes" : 3,
 				"article" : "863 9216"
 			},
 			"Power socket IT" : {
-				"slots-takes" : 3,
 				"article" : "863 9217"
 			},
 			"Power socket US/CA" : {
-				"slots-takes" : 3,
 				"article" : "863 9218"
 			},
 			"Power socket BE/FR/CZ/PL" : {
-				"slots-takes" : 3,
 				"article" : "863 9219"
 			},
 			"Rocker switch with LED" : {
-				"slots-takes" : 3,
 				"article" : "863 9340"
 			},
 			"Rocker switch for shutters with arrows" : {
-				"slots-takes" : 3,
 				"article" : "863 9347"
 			},
 		}

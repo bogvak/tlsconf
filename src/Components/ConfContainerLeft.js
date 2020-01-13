@@ -10,6 +10,8 @@ const ConfContainerLeft = (props) => {
             level={0}
             dataObj={props.modulesContent}
             onClick={props.platformHandler}
+            isReset={true}
+            frameResetHandler={props.frameResetHandler}
         />
         <ConfContainerLeftInstruction
             Language={props.Language}
@@ -24,6 +26,7 @@ const ConfContainerLeft = (props) => {
             AddConfHandler={props.AddConfHandler}
             CoverHidenHandler={props.CoverHidenHandler}
             setModule={props.setModule}
+            maxConfQuantity={props.maxConfQuantity}
         />    
         <TopAndBottomMenu 
             className="conf-main-left-bottom-container"
@@ -62,6 +65,7 @@ const TopAndBottomMenu = props => {
                     className={className+"-list-tab"}
                     selectedClassName={className+"-list-tab--selected"}
                     key={inf}
+                    onClick={(props.isReset) ? () => props.frameResetHandler() : null}
                 >
                     {inf}
                 </Tab> : null)}
@@ -71,7 +75,7 @@ const TopAndBottomMenu = props => {
                     selectedClassName={className+"-panel--selected"} 
                     key={inf}
                 >
-                    {(typeof Array(2).fill(null).reduce((obj, _) => obj[Object.keys(obj)[0]],reducedDataObj[inf]) === "object") ? 
+                    {(props.level<1) ? 
                         <TopAndBottomMenu 
                             infArray = {[...props.infArray, inf]}
                             level = {props.level+1}
@@ -79,6 +83,7 @@ const TopAndBottomMenu = props => {
                             className={props.className}
                             onClick={props.onClick}
                             draggable={props.draggable}
+                            frameResetHandler={props.frameResetHandler}
                         /> : <CardMenu 
                             infArray = {[...props.infArray, inf]}
                             level = {props.level+1}
@@ -103,26 +108,26 @@ const CardMenu = props => {
     const dragOver = e => {
         e.preventDefault();
     }
-
-    return <div className={className}>
-        {Object.keys(reducedDataObj).map((inf) => {
-            const module=reducedDataObj[inf];
-            if (module["article-list"]) {
-                module.article=module['article-list'][Object.keys(module['article-list'])[0]]
-            };
-            const img = "img/" + ((props.infArray[1]) ? props.infArray[1].replace(/\/| IPL/g, "").replace(/\s/g, "-").toLowerCase() : "") + "/" + module.article.replace(/\s/g, "") + ".png"
-
-            return <img 
-                className={className+"-card"}
-                alt={img}
-                src={img}
-                key={img}
-                onClick={() => (props.onClick) ? props.onClick({...reducedDataObj[inf], desc: inf}, ...props.infArray) : null}
-                onDragStart={e =>(props.draggable) ? dragStart(e, {...reducedDataObj[inf], desc: inf, module_series: props.infArray[0], module_type: props.infArray[1]}) : null}
-                onDragOver={dragOver}
-            />
-        })}
-    </div>
+    return (
+        <div className={className}>
+            {Object.keys(reducedDataObj).map((inf) => {
+                const module=reducedDataObj[inf];
+                if (module["article-list"]) {
+                    module.article=module['article-list'][Object.keys(module['article-list'])[0]]
+                };
+                const img = "img/" + ((props.infArray[1]) ? props.infArray[1].replace(/\/| IPL/g, "").replace(/\s/g, "-").toLowerCase() : "") + "/" + module.article.replace(/\s/g, "") + "-min.png"
+                return <img 
+                    className={className+"-card"}
+                    alt={img}
+                    src={img}
+                    key={img}
+                    onClick={() => (props.onClick) ? props.onClick({...reducedDataObj[inf], desc: inf}, ...props.infArray) : null}
+                    onDragStart={e =>(props.draggable) ? dragStart(e, [{...reducedDataObj[inf], desc: inf}, ...props.infArray]) : null}
+                    onDragOver={dragOver}
+                />
+            })}
+        </div>
+    )
 }
 
 const ConfContainerLeftInstruction = (props) => {
@@ -147,7 +152,7 @@ const ConfContainerLeftMiddle = (props) => {
                     Configuration: {number+1}
             </Tab>)}
             <button
-                style={{display: (props.QuantityOfConf < 5) ? "inline-block" : "none"}}
+                style={{display: (props.QuantityOfConf < props.maxConfQuantity) ? "inline-block" : "none"}}
                 className="addTabs" 
                 onClick={props.AddConfHandler.bind(this)}
             >
