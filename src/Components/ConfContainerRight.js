@@ -137,7 +137,7 @@ const ConfDescLine = props => {
       : null}
     </div>)
   } else {
-    return <div className={elementClassName}/>
+    return ""
   }
 }
 

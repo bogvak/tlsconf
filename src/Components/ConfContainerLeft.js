@@ -6,9 +6,9 @@ const ConfContainerLeft = (props) => {
     return <div className="conf-main-left">
         <TopAndBottomMenu 
             className="conf-main-left-top-container"
-            infArray={[]}
+            pathArray={[]}
             level={0}
-            dataObj={props.modulesContent}
+            dataObj={props.framesForTopMenu}
             onClick={props.platformHandler}
             isReset={true}
             frameResetHandler={props.frameResetHandler}
@@ -30,7 +30,7 @@ const ConfContainerLeft = (props) => {
         />    
         <TopAndBottomMenu 
             className="conf-main-left-bottom-container"
-            infArray={[]}
+            pathArray={[]}
             level={0}
             dataObj={props.modulesForBottomMenu}
             draggable='true'
@@ -58,10 +58,9 @@ const TopAndBottomMenu = props => {
         }
     }
 
-    const reducedDataObj=props.infArray.reduce((obj, el) => (el) ?obj[el]:obj, props.dataObj)
         return <Tabs className={className}>
             <TabList className={className+"-list"}>
-                {Object.keys(reducedDataObj).map((inf) => (ifPS(inf)) ? <Tab 
+                {Object.keys(props.dataObj).map(inf => (ifPS(inf)) ? <Tab 
                     className={className+"-list-tab"}
                     selectedClassName={className+"-list-tab--selected"}
                     key={inf}
@@ -70,24 +69,24 @@ const TopAndBottomMenu = props => {
                     {inf}
                 </Tab> : null)}
             </TabList>
-                {Object.keys(reducedDataObj).map((inf) => (ifPS(inf)) ? <TabPanel 
+                {Object.keys(props.dataObj).map(inf => (ifPS(inf)) ? <TabPanel 
                     className={className+"-panel"} 
                     selectedClassName={className+"-panel--selected"} 
                     key={inf}
                 >
                     {(props.level<1) ? 
                         <TopAndBottomMenu 
-                            infArray = {[...props.infArray, inf]}
+                            pathArray = {[...props.pathArray, inf]}
                             level = {props.level+1}
-                            dataObj={props.dataObj}
+                            dataObj={props.dataObj[inf]}
                             className={props.className}
                             onClick={props.onClick}
                             draggable={props.draggable}
                             frameResetHandler={props.frameResetHandler}
                         /> : <CardMenu 
-                            infArray = {[...props.infArray, inf]}
+                            pathArray = {[...props.pathArray, inf]}
                             level = {props.level+1}
-                            dataObj={props.dataObj}
+                            dataObj={props.dataObj[inf]}
                             className={props.className}
                             onClick={props.onClick}
                             draggable={props.draggable}
@@ -99,7 +98,6 @@ const TopAndBottomMenu = props => {
 
 const CardMenu = props => {
     const className = props.className+"_l"+props.level;
-    const reducedDataObj=props.infArray.reduce((obj, el) => (el) ?obj[el]:obj, props.dataObj)
 
     const dragStart = (e, module) => {
         e.dataTransfer.setData('module', JSON.stringify(module))
@@ -110,19 +108,21 @@ const CardMenu = props => {
     }
     return (
         <div className={className}>
-            {Object.keys(reducedDataObj).map((inf) => {
-                const module=reducedDataObj[inf];
-                if (module["article-list"]) {
-                    module.article=module['article-list'][Object.keys(module['article-list'])[0]]
+            {Object.keys(props.dataObj).map((inf) => {
+                const module=props.dataObj[inf];
+                if (module["article-list"] && !module.article) {
+                    Object.keys(module["article-list"]).forEach(key => (!module["article-list"][key]) && delete module["article-list"][key])
+                    module.sub_desc=Object.keys(module["article-list"])[0]
+                    module.article=module["article-list"][module.sub_desc]
                 };
-                const img = "img/" + ((props.infArray[1]) ? props.infArray[1].replace(/\/| IPL/g, "").replace(/\s/g, "-").toLowerCase() : "") + "/" + module.article.replace(/\s/g, "") + "-min.png"
+                module.img = "img/" + props.pathArray.join("/").toLowerCase()+ "/" + module.article + ".png"
                 return <img 
                     className={className+"-card"}
-                    alt={img}
-                    src={img}
-                    key={img}
-                    onClick={() => (props.onClick) ? props.onClick({...reducedDataObj[inf], desc: inf}, ...props.infArray) : null}
-                    onDragStart={e =>(props.draggable) ? dragStart(e, [{...reducedDataObj[inf], desc: inf}, ...props.infArray]) : null}
+                    alt={module.article}
+                    src={module.img}
+                    key={module.img}
+                    onClick={() => props.onClick && props.onClick({...props.dataObj[inf], desc: inf}, ...props.pathArray)}
+                    onDragStart={e => props.draggable && dragStart(e, [{...props.dataObj[inf], desc: inf}, ...props.pathArray])}
                     onDragOver={dragOver}
                 />
             })}

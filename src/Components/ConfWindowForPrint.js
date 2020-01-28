@@ -47,7 +47,7 @@ class ComponentToPrint extends Component {
                         </thead>
                         <tbody>
                             {this.props.articlesToPrint.map((inf, index) => {
-                                const article = inf.article.replace(/\s/g, "");
+                                const article = inf.article;
                                 return (<tbody key={article}>
                                     <tr className="print-conf-table-body_l0" key={index}>
                                         <td>

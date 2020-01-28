@@ -3,7 +3,7 @@ import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
 
 //Data
-import {typeOfFrame, typeOfModule, SupportFrames, subModulesType, modulesContent, modulesForBottomMenu, PowerSocket} from './Data/data';
+import {supportFrames, subModulesType, framesForTopMenu, modulesForBottomMenu, PowerSocket} from './Data/data';
 import localStrings from './Data/strings';
 import emptyConf from './Data/emptyConf';
 import dataList from './Data/dataFromTable';
@@ -27,17 +27,18 @@ class Configurator extends Component {
 
   platformHandler = (frameInf, location, line) => {
     const inf = {...emptyConf.PlatformСhoiceDesc,...frameInf, location : location, line : line};
+    inf.img = "img/" + inf.location.toLowerCase() + "/" + inf.line.toLowerCase() + "/"
     if (inf.location==="TABLE") {
-      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "-") + "/" + inf.line.toLowerCase().replace(/\s/g, "") + "img-min.png";
+      inf.img+=inf.line.toLowerCase() + "img.png";
       inf.line_desc = localStrings[this.state.Language][14] + ' ' + inf.line.match(/[0-9]/g).join('')
       inf.frame_sub_type = subModulesType[inf.location][inf.line];
       inf.frame_sub_type_desc = Object.keys(inf.frame_sub_type)[0];
       inf.frame_sub_type_article = inf.frame_sub_type[inf.frame_sub_type_desc];
     } else if (inf.location==="WALL") {
-      inf.img = "img/" + inf.line.toLowerCase().replace(/\s/g, "-") + "/" + inf.article.replace(/\s/g, "") + "-min.png";
+      inf.img+=inf.article.toLowerCase() + ".png";
       inf.line_desc = inf.desc;
       inf["signal-slots"] = inf["support-frame_amount"]*3;
-      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(SupportFrames[Object.keys(SupportFrames)[0]])
+      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[Object.keys(supportFrames)[0]])
       inf.isCoverHiden = true;
     }
     inf.slots_sum = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
@@ -59,33 +60,29 @@ class Configurator extends Component {
     const copyOfConfs = this.deep_ConfigurationsCopy();
     const modulesList = copyOfConfs[this.state.ConfNumber].Modules;
 
-    inf.sub_desc = (inf["article-list"]) ? `(${Object.keys(inf["article-list"])[0]})` : null;
     inf.module_series = module_series;
     inf.module_type = module_type;
 
-    const posseblePath_toWidth = ["Description1", "Description2"];
-    for (const path of posseblePath_toWidth) {
-      const slotsWidth_rexEx = /slots* width/g
-      const desc = dataList[inf.article.replace(/\s/g, '')][path];
-      const pos = desc.search(slotsWidth_rexEx);
-      if (pos!==-1 && pos && /\d/.test(desc.split('')[pos-2])) {
-        inf.slots_takes = parseInt(desc.split('')[pos-2]);
-      } else {
-        inf.slots_takes = 3;
-        console.log('The module weight wasnt found!')
+    //Module weight
+    for (const article of Object.values(inf["article-list"])) {
+      if (dataList[article]) {
+        const slotsWidth_rexEx = /[0-9] slots* width/
+        const module_info = Object.values(dataList[article]).filter(Boolean)
+        const slots_takes = module_info.map(str => str.match(slotsWidth_rexEx) && str.match(slotsWidth_rexEx)[0]).filter(Boolean)[0]
+        inf.slots_takes = (slots_takes ? parseInt(slots_takes.replace(/\D+/, "")) : inf.slots_takes)
       }
+    }
+    if (!inf.slots_takes) {
+      alert(`Error, module(${inf.article}) wasnt found in The table!`)
     }
 
     if (copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.location==="WALL") {
-
-      let indexInChunk = index;
-      while (indexInChunk > 2) {
-        indexInChunk -= 3;
-      }
+      let indexInChunk = index % 3;
       if (indexInChunk+inf.slots_takes-1>2) return;
-
-      copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.support_frame_arr[support_frame_index] = {...SupportFrames[inf.module_series]};
-    } else if (!modulesList[index+(inf.slots_takes-1)]) return;
+      copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.support_frame_arr[support_frame_index] = {...supportFrames[inf.module_series]};
+    } else if (!modulesList[index+(inf.slots_takes-1)]) {
+      return;
+    }
 
     for (let i = 1; i<modulesList[index].slots_takes; i++) {
       modulesList[index+i].display = true;
@@ -97,8 +94,7 @@ class Configurator extends Component {
       }
       modulesList[index+i] = {...emptyConf.Modules[0], display: false};
     }
-
-    inf.img="img/" + module_type.replace(/\/| IPL/g, "").replace(/\s/g, "-").toLowerCase() + "/" + inf.article.replace(/\s/g, "") + "-min.png";
+    
     modulesList[index] = {...emptyConf.Modules[0], ...inf};
 
     copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
@@ -242,10 +238,8 @@ class Configurator extends Component {
     return (
 		<div className="conf-main">
 			<ConfContainerLeft 
-        typeOfFrame={typeOfFrame}
-        typeOfModule={typeOfModule}
         localStrings={localStrings}
-        modulesContent={modulesContent}
+        framesForTopMenu={framesForTopMenu}
         modulesForBottomMenu={modulesForBottomMenu}
         Language={this.state.Language}
         QuantityOfConf={this.state.QuantityOfConf}

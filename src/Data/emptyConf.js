@@ -12,7 +12,6 @@ const emptyConf = {
     IndexOfAwokenTab: null,
     Modules: [
       {
-        "slots-takes": null,
         img: "img/layout-parts/empty-signal-slot.png",
         display: true,
       }
