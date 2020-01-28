@@ -799,8 +799,8 @@ const modulesForBottomMenu = {
 				}
 			},
 			"Worldplate Slot Lichtwelle SM MTRJ/MTRJ Stecker/Stecker" : {
+				"outOfImg" : true,
 				"article-list" : {
-					"outOfImg" : true,
 					"40 cm cable": "",
 					"gender changer": 869834,
 					"solder-terminal": ""
