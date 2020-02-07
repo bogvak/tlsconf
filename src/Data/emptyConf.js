@@ -8,8 +8,6 @@ const emptyConf = {
       "conference-control-double-frame": 0,
       "type" : "Special",
     },
-    IndexOfSelectedSlot: null,
-    IndexOfAwokenTab: null,
     Modules: [
       {
         img: "img/layout-parts/empty-signal-slot.png",

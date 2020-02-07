@@ -17,7 +17,6 @@ const ConfContainerRight = (props) => {
               ModuleMenuHandler={props.ModuleMenuHandler}
               ModuleResetHandler={props.ModuleResetHandler}
               frameResetHandler={props.frameResetHandler}
-              PowerSocketMenuHandler={props.PowerSocketMenuHandler}
             />
         </div>
     );
@@ -104,7 +103,6 @@ const ConfContainerRightBottom = (props) => {
                 ModuleMenuHandler={props.ModuleMenuHandler}
                 ModuleResetHandler={props.ModuleResetHandler}
                 frameResetHandler={props.frameResetHandler}
-                PowerSocketMenuHandler={props.PowerSocketMenuHandler}
               /> ,
               <PrintConfButton articlesToPrint={props.Configurations[confNumber].articlesToPrint} key={conf} />
             ] : null}
@@ -191,7 +189,6 @@ const ConfList = props => {
         elementClassName={elementClassName + "-line"}
         article={platformСhoiceDesc.powerSocketArticle}
         MenuContent={platformСhoiceDesc.powerSocketList}
-        MenuHandler={props.PowerSocketMenuHandler}
         confNumber={props.confNumber}
       >
         {platformСhoiceDesc.powerSocketDesc} (x{platformСhoiceDesc["power-sockets"]})

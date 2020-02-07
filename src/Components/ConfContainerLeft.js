@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWall} from './ConfLayOut';
 
@@ -34,7 +34,6 @@ const ConfContainerLeft = (props) => {
             level={0}
             dataObj={props.modulesForBottomMenu}
             draggable='true'
-            isPowerSocketsModuleAllow={(props.Configuration.PlatformСhoiceDesc.location==="WALL")}
         />
         <ConfContainerLeftInstruction
             Language={props.Language}
@@ -48,28 +47,18 @@ const ConfContainerLeft = (props) => {
 const TopAndBottomMenu = props => {
     const className=props.className+"_l"+props.level;
 
-    const ifPS = inf => {
-        if (inf==="Power Sockets" && props.isPowerSocketsModuleAllow) {
-            return true;
-        } else if (inf!=="Power Sockets") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
         return <Tabs className={className}>
             <TabList className={className+"-list"}>
-                {Object.keys(props.dataObj).map(inf => (ifPS(inf)) ? <Tab 
+                {Object.keys(props.dataObj).map(inf => <Tab 
                     className={className+"-list-tab"}
                     selectedClassName={className+"-list-tab--selected"}
                     key={inf}
                     onClick={(props.isReset) ? () => props.frameResetHandler() : null}
                 >
                     {inf}
-                </Tab> : null)}
+                </Tab>)}
             </TabList>
-                {Object.keys(props.dataObj).map(inf => (ifPS(inf)) ? <TabPanel 
+                {Object.keys(props.dataObj).map(inf => <TabPanel 
                     className={className+"-panel"} 
                     selectedClassName={className+"-panel--selected"} 
                     key={inf}
@@ -92,11 +81,13 @@ const TopAndBottomMenu = props => {
                             draggable={props.draggable}
                         />
                     }
-                </TabPanel> : null)}
+                </TabPanel>)}
         </Tabs>
 }
 
 const CardMenu = props => {
+    const [selected, set_selected] = useState()
+
     const className = props.className+"_l"+props.level;
 
     const dragStart = (e, module) => {
@@ -108,24 +99,50 @@ const CardMenu = props => {
     }
     return (
         <div className={className}>
-            {Object.keys(props.dataObj).map((inf) => {
-                const module=props.dataObj[inf];
+            {Object.entries(props.dataObj).map(([desc, module], i, module_list) => {
                 if (module["article-list"] && !module.article) {
-                    Object.keys(module["article-list"]).forEach(key => (!module["article-list"][key]) && delete module["article-list"][key])
-                    module.sub_desc=Object.keys(module["article-list"])[0]
+                    module["article-list"] = Object.entries(module["article-list"]).reduce((outPut, [key, value]) => value ? {...outPut, [key]:value} : outPut, {})
+                    module.sub_desc = Object.keys(module["article-list"])[0]
                     module.article=module["article-list"][module.sub_desc]
                 };
                 module.img = "img/" + props.pathArray.join("/").toLowerCase()+ "/" + module.article + ".png"
-                return <img 
-                    className={className+"-card"}
-                    alt={module.article}
-                    src={module.img}
-                    key={module.img}
-                    onClick={() => props.onClick && props.onClick({...props.dataObj[inf], desc: inf}, ...props.pathArray)}
-                    onDragStart={e => props.draggable && dragStart(e, [{...props.dataObj[inf], desc: inf}, ...props.pathArray])}
-                    onDragOver={dragOver}
-                />
+
+                return (
+                    <div className={className+"-card"} id={className+"-card_"+i}>
+                        <img
+                            className={[className+"-card-img", (selected===i ? className+"-card-img--selected" : "")].join(" ")}
+                            alt={module.article}
+                            src={module.img}
+                            key={module.img}
+                            onClick={() => {
+                                props.onClick && props.onClick({...module, desc: desc}, ...props.pathArray);
+                                set_selected(i);
+                            }}
+                            onDragStart={e => props.draggable && dragStart(e, [{...module, desc: desc}, ...props.pathArray])}
+                            onDragOver={dragOver}
+                        />
+                        <CardDesc
+                            className={className+"-card-desc"}
+                            isLeftPart={(i<module_list.length/2)}
+                        >
+                            {desc}
+                        </CardDesc>
+                    </div>
+                )
             })}
+        </div>
+    )
+}
+
+const CardDesc = props => {
+    const container_offset = {[(props.isLeftPart ? "left" : "right")] : "50%"}
+    const text_offset = {[props.isLeftPart ? "left" : "right"] : "0.4rem"}
+    const arrow_offset = {[props.isLeftPart ? "left" : "right"] : "0"}
+    const arrow_derection = {[props.isLeftPart ? "border-right" : "border-left"] : "0.4rem solid black"}
+    return (
+        <div style={container_offset} className={props.className} >
+            <span className={props.className+"-arrow"} style={{...arrow_offset, ...arrow_derection}} />
+            <span className={props.className+"-text"} style={text_offset}>{props.children}</span>
         </div>
     )
 }
@@ -207,7 +224,7 @@ const ConfDesc = (props) => {
         <p>{props.PlatformСhoiceDesc.line} - Support frame</p>
         <ul>
             <li>{props.PlatformСhoiceDesc.desc}</li>
-            {(props.PlatformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.PlatformСhoiceDesc["signal-slots"]/3})</li>: null}
+            {(props.PlatformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.PlatformСhoiceDesc["support-frame_amount"]})</li>: null}
             {(props.PlatformСhoiceDesc.location==="WALL") ? <li>
                 Hide cover frame{" "}
                 <button 

@@ -35,10 +35,12 @@ class Configurator extends Component {
       inf.frame_sub_type_desc = Object.keys(inf.frame_sub_type)[0];
       inf.frame_sub_type_article = inf.frame_sub_type[inf.frame_sub_type_desc];
     } else if (inf.location==="WALL") {
-      inf.img+=inf.article.toLowerCase() + ".png";
+      inf.img+=inf.article + ".png";
       inf.line_desc = inf.desc;
-      inf["signal-slots"] = inf["support-frame_amount"]*3;
-      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[Object.keys(supportFrames)[0]])
+      inf["signal-slots"] = inf["support-frame_amount"]*inf["frame-width"];
+      
+      const support_frame_line = line.match(/[A-Z]*$/)[0]
+      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][Object.keys(supportFrames[support_frame_line])[0]])
       inf.isCoverHiden = true;
     }
     inf.slots_sum = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
@@ -64,26 +66,38 @@ class Configurator extends Component {
     inf.module_type = module_type;
 
     //Module weight
-    for (const article of Object.values(inf["article-list"])) {
+
+    const getWeight = article => {
       if (dataList[article]) {
         const slotsWidth_rexEx = /[0-9] slots* width/
         const module_info = Object.values(dataList[article]).filter(Boolean)
         const slots_takes = module_info.map(str => str.match(slotsWidth_rexEx) && str.match(slotsWidth_rexEx)[0]).filter(Boolean)[0]
-        inf.slots_takes = (slots_takes ? parseInt(slots_takes.replace(/\D+/, "")) : inf.slots_takes)
+        return slots_takes && parseInt(slots_takes.replace(/\D+/, ""))
       }
     }
-    if (!inf.slots_takes) {
-      alert(`Error, module(${inf.article}) wasnt found in The table!`)
-    }
 
-    if (copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.location==="WALL") {
-      let indexInChunk = index % 3;
-      if (indexInChunk+inf.slots_takes-1>2) return;
-      copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.support_frame_arr[support_frame_index] = {...supportFrames[inf.module_series]};
+    if (inf["article-list"] && inf.slots_takes===undefined) {
+      for (const article of Object.values(inf["article-list"])) {
+        inf.slots_takes = getWeight(article)
+      }
+    } else if (inf.slots_takes===undefined) {
+      inf.slots_takes = getWeight(inf.article)
+    }
+    //post check is slots weight was found
+    if (inf.slots_takes===undefined) {
+      alert(`Error, module-${inf.article} cant be found in table, write to us!`);
+      return;
+    }
+    const platformСhoiceDesc = copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc
+    if (platformСhoiceDesc.location==="WALL") {
+      let indexInChunk = index % platformСhoiceDesc["frame-width"];
+      if (indexInChunk+inf.slots_takes>platformСhoiceDesc["frame-width"]) return;
+
+      const support_frame_line = inf.module_series.match(/[A-Z]*$/)[0]
+      platformСhoiceDesc.support_frame_arr[support_frame_index] = {...supportFrames[support_frame_line][inf.module_type]};
     } else if (!modulesList[index+(inf.slots_takes-1)]) {
       return;
     }
-
     for (let i = 1; i<modulesList[index].slots_takes; i++) {
       modulesList[index+i].display = true;
     }
@@ -122,19 +136,6 @@ class Configurator extends Component {
     copyOfConfs[this.state.ConfNumber].Modules[index] = {
       ...copyOfConfs[this.state.ConfNumber].Modules[index],
       ...newInf
-    }
-    this.setState({Configurations: copyOfConfs})
-  }
-
-  powerSocketMenuHandler = (article, desc) => {
-    const copyOfConfs=this.deep_ConfigurationsCopy();
-    const newInf = {
-      powerSocketDesc: desc,
-      powerSocketArticle: article,
-    }
-    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {
-      ...copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc,
-      ...newInf,
     }
     this.setState({Configurations: copyOfConfs})
   }
@@ -262,7 +263,6 @@ class Configurator extends Component {
         frame_sub_typeHandler={this.frame_sub_typeHandler}
         ModuleResetHandler={this.moduleResetHandler}
         frameResetHandler={this.frameResetHandler}
-        PowerSocketMenuHandler={this.powerSocketMenuHandler}
        />
        <button onClick={() => this.buildArticlesArray()} className="test-button">Test conf.</button>
 		</div>

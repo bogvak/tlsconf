@@ -37,12 +37,12 @@
             }
         }
         &-container_l2 {
-           @include horizontal-menu;
-            &-card {
-                &--selected {
-                    border-color: rgb(243, 103, 220);
-                }
+            @include horizontal-menu;
+            &-card-img {
                 padding: 2px 2px;
+                &--selected {
+                    border-color: hotpink;
+                }
             }
         }
     }
@@ -302,8 +302,16 @@
         &-container_l2 {
             @include horizontal-menu;
             &-card {
-                padding: 2px 10px;
-                cursor: grab;
+                &-img {
+                    padding: 2px 10px;
+                    cursor: grab;
+                }
+                &:hover {
+                    z-index: 1;
+                }
+                &:hover > &-desc {
+                    display: flex;
+                }
             }
         }
     }

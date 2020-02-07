@@ -1,23 +1,34 @@
 const framesForTopMenu = {
 	"WALL" : {
-		"Premium Line" : {
+		"Premium Line IPL" : {
 			"Cover frame for three slots" : {
-				"article" : "8659200",
+				"article" : 8659200,
 				"support-frame_amount": 1,
+				"frame-width" : 3
 			},
 			"Cover frame for six slots" : {
-				"article" : "8659201",
+				"article" : 8659201,
 				"support-frame_amount": 2,
+				"frame-width" : 3
 			},
 			"Cover frame for nine slots" : {
-				"article" : "8659202",
+				"article" : 8659202,
 				"support-frame_amount": 3,
+				"frame-width" : 3
 			}
 		},
-		//In order to escape error checking this was commitet until adding information
-		/*"Universal Line" : {
-			"__comment" : "Что у нас будет здесь ?"
-		}*/
+		"Universal Line WP" : {
+			"IUP Support frame for 2 slots" : {
+				"article" : 8639670,
+				"support-frame_amount" : 1,
+				"frame-width" : 2
+			},
+			"IUL Support Frame for 2 slots (Feller Edizio CH)" : {
+				"article" : "8639670/1271",
+				"support-frame_amount" : 1,
+				"frame-width" : 2
+			}
+		}
 	},
 	"TABLE" : {
 		"TAM 201" : {
@@ -155,6 +166,17 @@ const framesForTopMenu = {
 
 const modulesForBottomMenu = {
 	"Signalslots IPL" : {
+		"Blind slots" : {
+			"Blind Slot (1 Slot width) incl. fixation" : {
+				"article" : 8639210
+			},
+			"Blind Slot (2 Slot width) incl. fixation" : {
+				"article" : 8639211
+			},
+			"Blind Slot (3 Slot width) incl. fixation" : {
+				"article" : 8639212
+			}
+		},
 		"Vidio": {
 			"VGA (15pin HD) female/female" : {
 				"article-list" : {
@@ -209,6 +231,13 @@ const modulesForBottomMenu = {
 				"article-list" : {
 					"solder-terminal" : "",
 					"40 cm cable" : 8639270,
+					"gender changer": ""
+				}
+			},
+			"DVI-D / HDMI Digital female/male" : {
+				"article-list" : {
+					"solder-terminal" : "",
+					"40 cm cable" : 8639293,
 					"gender changer": ""
 				}
 			},
@@ -528,9 +557,54 @@ const modulesForBottomMenu = {
 					"gender changer": 8639399
 				}
 			}
+		},
+		"Power Sockets" : {
+			"Power socket DE" : {
+				slots_takes: 3,
+				"article" : 8639214
+			},
+			"Power socket CH" : {
+				slots_takes: 3,
+				"article" : 8639215,
+			},
+			"Power socket GB" : {
+				slots_takes: 3,
+				"article" : 8639216
+			},
+			"Power socket IT" : {
+				slots_takes: 3,
+				"article" : 8639217
+			},
+			"Power socket US/CA" : {
+				slots_takes: 3,
+				"article" : 8639218
+			},
+			"Power socket BE/FR/CZ/PL" : {
+				slots_takes: 3,
+				"article" : 8639219
+			},
+			"Rocker switch with LED" : {
+				slots_takes: 3,
+				"article" : 8639340
+			},
+			"Rocker switch for shutters with arrows" : {
+				slots_takes: 3,
+				"article" : 8639347
+			},
 		}
 	},
 	"Signal slots WP" : {
+		"Blind slots" : {
+			"Blind Slot (1 Slot width) incl.mount" : {
+				"article" : 8639606
+			},
+			"Blind Slot (2 Slot width) incl.mount" : {
+				"article" : 8639607
+			},
+			"Blind Slot (3 Slot width) incl.mount" : {
+				"article" : 8639608
+			}
+		},
         "Vidio": {
 			"VGA 15pol HD Buchse/Buchse" : {
 				"article-list" : {
@@ -556,8 +630,8 @@ const modulesForBottomMenu = {
 			"HDMI Digital (HDMI/HDMI) Buchse/Buchse " : {
 				"article-list" : {
 					"40 cm cable": 8639659,
-					"gender changer": 8639692,
-					"solder-terminal": "" 
+					"gender changer": 8639629,
+					"solder-terminal": ""
 				}
 			},
 			"HDMI Digital (HDMI/DVI) Buchse/Buchse" : {
@@ -628,7 +702,7 @@ const modulesForBottomMenu = {
 				"article-list" : {
 					"40 cm cable": 8639610,
 					"gender changer": "",
-					"solder-terminal": ""
+					"solder-terminal": 8639635
 				}
 			}
 		},
@@ -706,13 +780,6 @@ const modulesForBottomMenu = {
 					"40 cm cable": 8639612,
 					"gender changer": 8639686,
 					"solder-terminal": 8639636
-				}
-			},
-			"Serial 9pol D-sub Buchse/Stecker" : {
-				"article-list" : {
-					"40 cm cable": "8639612SO1",
-					"gender changer": "",
-					"solder-terminal": ""
 				}
 			},
 			"Control 9pol D-Sub Buchse/offen" : {
@@ -809,7 +876,7 @@ const modulesForBottomMenu = {
 			"Worldplate Slot Lichtwelle SC/SCDuplex MM Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
-					"gender changer": 8649835,
+					"gender changer": 8639835,
 					"solder-terminal": ""
 				}
 			},
@@ -857,59 +924,79 @@ const modulesForBottomMenu = {
 				}
 			}
 		}
-    },
-	"Power Sockets" : {
-		"Power Sockets IPL" : {
-			"Power socket DE" : {
-				"article" : "863 9214"
-			},
-			"Power socket CH" : {
-				"article" : "863 9215",
-			},
-			"Power socket GB" : {
-				"article" : "863 9216"
-			},
-			"Power socket IT" : {
-				"article" : "863 9217"
-			},
-			"Power socket US/CA" : {
-				"article" : "863 9218"
-			},
-			"Power socket BE/FR/CZ/PL" : {
-				"article" : "863 9219"
-			},
-			"Rocker switch with LED" : {
-				"article" : "863 9340"
-			},
-			"Rocker switch for shutters with arrows" : {
-				"article" : "863 9347"
-			},
-		}
-	},
+    }
 }
 
 const supportFrames = {
-	"Signalslots IPL": {
-		article: "865 9213",
-		desc: "Support frame for 3 signals slot",
+	"IPL": {
+		"Blind slots" : {
+			article: 8659213,
+			desc: "Support frame for 3 signals slot",
+		},
+		"Vidio" : {
+			article: 8659213,
+			desc: "Support frame for 3 signals slot",
+		},
+		"Vidio-Audio" : {
+			article: 8659213,
+			desc: "Support frame for 3 signals slot",
+		},
+		"Audio" : {
+			article: 8659213,
+			desc: "Support frame for 3 signals slot",
+		},
+		"Control" : {
+			article: 8659213,
+			desc: "Support frame for 3 signals slot",
+		},
+		"Optic" : {
+			article: 8659213,
+			desc: "Support frame for 3 signals slot",
+		},
+		"Power Sockets": {
+			article: 8639209,
+			desc: "Support frame for socket DE ",
+		},
 	},
-	"Power Sockets": {
-		article: "863 9209",
-		desc: "Support frame for socket DE ",
-	},
+	"WP": {
+		"Blind slots" : {
+			article: 8639670,
+			desc: "Support frame for 2 signals slot",
+		},
+		"Vidio" : {
+			article: 8639670,
+			desc: "Support frame for 2 signals slot",
+		},
+		"Vidio-Audio" : {
+			article: 8639670,
+			desc: "Support frame for 2 signals slot",
+		},
+		"Audio" : {
+			article: 8639670,
+			desc: "Support frame for 2 signals slot",
+		},
+		"Control" : {
+			article: 8639670,
+			desc: "Support frame for 2 signals slot",
+		},
+		"Optic" : {
+			article: 8639670,
+			desc: "Support frame for 2 signals slot",
+		},
+	}
 }
 
 const subModulesType = {
 	"WALL" : {
 		"Premium Line" : {
 			"Cover frame for three slots": {
-				"Cover frame for three slots": "865 9200",
+				"Cover frame for three slots": 8659200,
 			},
 			"Cover frame for six slots": {
-				"Cover frame for six slots":  "865 9201",
+				"Cover frame for six slots":  8659201,
 			},
 			"Cover frame for nine slots": {
-				"Cover frame for nine slots": "865 9202",
+				"Cover frame for nine slots": 8659202,
 			},
 		},
 		"Universal Line" : {
@@ -918,22 +1005,22 @@ const subModulesType = {
 	},
 	"TABLE" : {
 		"TAM 201" : {
-			"4mm" : "865 9511",
-			"4mm + button" : "865 9512",
-			"2.5mm" : "865 9513",
-			"2.5mm + button" : "865 9514",
+			"4mm" : 8659511,
+			"4mm + button" : 8659512,
+			"2.5mm" : 8659513,
+			"2.5mm + button" : 8659514,
 		},
 		"TAM 305" : {
-			"4mm" : "865 9501",
-			"4mm + button" : "865 9502",
-			"2.5mm" : "865 9503",
-			"2.5mm + button" : "865 9504",
+			"4mm" : 8659501,
+			"4mm + button" : 8659502,
+			"2.5mm" : 8659503,
+			"2.5mm + button" : 8659504,
 		},
 		"TAM 401" : {
-			"4mm" : "865 9561",
-			"4mm + button" : "865 9565",
-			"2.5mm" : "865 9563",
-			"2.5mm + button" : "865 9564",
+			"4mm" : 8659561,
+			"4mm + button" : 8659565,
+			"2.5mm" : 8659563,
+			"2.5mm + button" : 8659564,
 		},
 	},
 	"FLOOR" : {
@@ -949,14 +1036,14 @@ const subModulesType = {
 
 
 const PowerSocket = {
-	"Power socket DE" : "863 9214",
-	"Power socket CH" : "863 9215",
-	"Power socket GB" : "863 9216",
-	"Power socket IT" : "863 9217",
-	"Power socket US/CA" : "863 9218",
-	"Power socket BE/FR/CZ/PL" : "863 9219",
-	"Rocker switch with LED" : "863 9340",
-	"Rocker switch for shutters with arrows" : "863 9347"
+	"Power socket DE" : 8639214,
+	"Power socket CH" : 8639215,
+	"Power socket GB" : 8639216,
+	"Power socket IT" : 8639217,
+	"Power socket US/CA" : 8639218,
+	"Power socket BE/FR/CZ/PL" : 8639219,
+	"Rocker switch with LED" : 8639340,
+	"Rocker switch for shutters with arrows" : 8639347
 }
 
 export {supportFrames, subModulesType, framesForTopMenu, modulesForBottomMenu, PowerSocket}

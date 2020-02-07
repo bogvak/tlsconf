@@ -16,9 +16,8 @@ const SignalSlots = (props) => {
     const className = props.componentClassName+"-signal-slots";
     const classNameList = [
         className,
-        //(props.index===props.Configuration.IndexOfSelectedSlot) ? `${className}--selected` : null,
         (props.Configuration.Modules[props.index].display) ? `${className}--displayed` : `${className}--hiden`,
-        (props.Configuration.Modules[props.index].module_series==="Power Sockets")?`${className}--ps` : null,
+        ((props.Configuration.Modules[props.index].module_type)==="Power Sockets")?`${className}--ps` : null,
     ].filter(Boolean).join(" ");
     return <img
         className={classNameList}
@@ -32,7 +31,7 @@ const SignalSlots = (props) => {
 const PowerSocket = (props) => {
     return <img
         className={props.componentClassName+"-power-sockets"}
-        src={"img/power-sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + "-min.png"}
+        src={"img/signalslots ipl/power sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + ".png"}
         alt="power-sockets"
     />
 }
@@ -106,30 +105,31 @@ const ConfLayOutTable = (props) => {
 }
 
 const ConfLayOutWall = (props) => {
+    const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc
     const componentClassName = "conf-main-left-middle-container_l1-layout-wall"
-    const isCoverHiden = (className) => className+" "+((props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? className+"--hiddenCover" : "");
+    const isCoverHiden = (className) => className+" "+((platformСhoiceDesc.isCoverHiden) ? className+"--hiddenCover" : "");
     
     return (
         <div draggable="true" className={isCoverHiden(componentClassName)}>
-            {Array(props.Configuration.PlatformСhoiceDesc["support-frame_amount"]).fill(1).map((_, i) => <div key={i} className={isCoverHiden(componentClassName+"-support-frame")}>
-                {(props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-left-attachment-point"} />:null}
+            {Array(platformСhoiceDesc["support-frame_amount"]).fill(1).map((_, i) => <div key={i} className={isCoverHiden(componentClassName+"-support-frame")}>
+                {(platformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-left-attachment-point"} />:null}
                 <div className={isCoverHiden(componentClassName+"-support-frame-top")}>
                     <span className={isCoverHiden("dot")}/>
                 </div>
                 <div className={isCoverHiden(componentClassName+"-support-frame-middle")}>
-                    {Array(props.Configuration.PlatformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots
+                    {Array(platformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots
                         key={index}
                         Configuration={props.Configuration}
                         componentClassName={componentClassName+"-support-frame-middle"}
                         index={index}
                         setModule={props.setModule}
                         supportFrame_index={i}
-                    />).slice((i+1)*3-3, (i+1)*3)}
+                    />).slice((i+1)*platformСhoiceDesc["frame-width"]-platformСhoiceDesc["frame-width"],(i+1)*platformСhoiceDesc["frame-width"])}
                 </div>
                 <div className={isCoverHiden(componentClassName+"-support-frame-bottom")}>
                     <span className={isCoverHiden("dot")}/>
                 </div>
-                {(props.Configuration.PlatformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-right-attachment-point"} />:null}
+                {(platformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-right-attachment-point"} />:null}
             </div>)}
         </div>
     )
