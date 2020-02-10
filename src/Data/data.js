@@ -18,15 +18,10 @@ const framesForTopMenu = {
 			}
 		},
 		"Universal Line WP" : {
-			"IUP Support frame for 2 slots" : {
-				"article" : 8639670,
-				"support-frame_amount" : 1,
-				"frame-width" : 2
-			},
-			"IUL Support Frame for 2 slots (Feller Edizio CH)" : {
-				"article" : "8639670/1271",
-				"support-frame_amount" : 1,
-				"frame-width" : 2
+			"Adapter Frame Berker Modul 2": {
+				"article": "8639675-1050",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
 			}
 		}
 	},

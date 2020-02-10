@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWall} from './ConfLayOut';
+import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWallIPL,ConfLayOutWallWP} from './ConfLayOut';
 
 const ConfContainerLeft = (props) => {
     return <div className="conf-main-left">
@@ -34,6 +34,8 @@ const ConfContainerLeft = (props) => {
             level={0}
             dataObj={props.modulesForBottomMenu}
             draggable='true'
+            line={props.Configuration.platformСhoiceDesc.line.match(/[A-Z0-9]{1,}$/)}
+
         />
         <ConfContainerLeftInstruction
             Language={props.Language}
@@ -45,11 +47,21 @@ const ConfContainerLeft = (props) => {
 }
 
 const TopAndBottomMenu = props => {
+    const filterFunc = inf => {
+        const regex = /[A-Z]{1,}$/
+        const bool = (
+                    (!props.line)
+                    ||
+                    (inf.match(regex)[0]===props.line[0])
+                    ||
+                    (/^[\d]{1,}/.test(props.line[0]) && inf.match(regex)[0]==="IPL")
+                )
+        return bool
+    }
     const className=props.className+"_l"+props.level;
-
         return <Tabs className={className}>
             <TabList className={className+"-list"}>
-                {Object.keys(props.dataObj).map(inf => <Tab 
+                {Object.keys(props.dataObj).filter(inf => filterFunc(inf)).map(inf => <Tab 
                     className={className+"-list-tab"}
                     selectedClassName={className+"-list-tab--selected"}
                     key={inf}
@@ -58,7 +70,7 @@ const TopAndBottomMenu = props => {
                     {inf}
                 </Tab>)}
             </TabList>
-                {Object.keys(props.dataObj).map(inf => <TabPanel 
+                {Object.keys(props.dataObj).filter(inf => filterFunc(inf)).map(inf => <TabPanel 
                     className={className+"-panel"} 
                     selectedClassName={className+"-panel--selected"} 
                     key={inf}
@@ -108,12 +120,12 @@ const CardMenu = props => {
                 module.img = "img/" + props.pathArray.join("/").toLowerCase()+ "/" + module.article + ".png"
 
                 return (
-                    <div className={className+"-card"} id={className+"-card_"+i}>
+                    <div className={className+"-card"} key={className+"-card_"+i} id={className+"-card_"+i}>
                         <img
                             className={[className+"-card-img", (selected===i ? className+"-card-img--selected" : "")].join(" ")}
                             alt={module.article}
                             src={module.img}
-                            key={module.img}
+                            key={className+"-card-img_"+i}
                             onClick={() => {
                                 props.onClick && props.onClick({...module, desc: desc}, ...props.pathArray);
                                 set_selected(i);
@@ -138,7 +150,7 @@ const CardDesc = props => {
     const container_offset = {[(props.isLeftPart ? "left" : "right")] : "50%"}
     const text_offset = {[props.isLeftPart ? "left" : "right"] : "0.4rem"}
     const arrow_offset = {[props.isLeftPart ? "left" : "right"] : "0"}
-    const arrow_derection = {[props.isLeftPart ? "border-right" : "border-left"] : "0.4rem solid black"}
+    const arrow_derection = {[props.isLeftPart ? "borderRight" : "borderLeft"] : "0.4rem solid black"}
     return (
         <div style={container_offset} className={props.className} >
             <span className={props.className+"-arrow"} style={{...arrow_offset, ...arrow_derection}} />
@@ -180,7 +192,7 @@ const ConfContainerLeftMiddle = (props) => {
             className={elementClassName+"-panel"}
             selectedClassName={elementClassName+"-panel--selected"}
             key={number}>
-                {(props.Configuration.PlatformСhoiceDesc.article) ?
+                {(props.Configuration.platformСhoiceDesc.article) ?
                     <RepresentationOfConf 
                         CoverHidenHandler={props.CoverHidenHandler}
                         Configuration={props.Configuration}
@@ -195,20 +207,25 @@ const RepresentationOfConf = (props) => {
     const elementClassName="conf-main-left-middle-container_l1"
     return <div className={elementClassName}>
         <ConfDesc
-            PlatformСhoiceDesc={props.Configuration.PlatformСhoiceDesc}
+            platformСhoiceDesc={props.Configuration.platformСhoiceDesc}
             CoverHidenHandler={props.CoverHidenHandler}
         />
-        {(props.Configuration.PlatformСhoiceDesc.location === "TABLE") ? 
+        {(props.Configuration.platformСhoiceDesc.location === "TABLE") ? 
             <ConfLayOutTable
                 Configuration={props.Configuration}
                 setModule={props.setModule}
             /> 
-        : (props.Configuration.PlatformСhoiceDesc.location === "WALL") ? 
-            <ConfLayOutWall
+        : (props.Configuration.platformСhoiceDesc.line === "Premium Line IPL") ? 
+            <ConfLayOutWallIPL
                 Configuration={props.Configuration}
                 setModule={props.setModule}
             />
-        : 
+        : (props.Configuration.platformСhoiceDesc.line === "Universal Line WP") ? 
+            <ConfLayOutWallWP 
+                Configuration={props.Configuration}
+                setModule={props.setModule}
+            />
+        :
             <ConfLayOutFloor
                 setModule={props.setModule}
                 Configuration={props.Configuration} 
@@ -221,18 +238,18 @@ const ConfDesc = (props) => {
 
     const elementClassName="conf-main-left-middle-container_l1-desc"
     return <div className={elementClassName}>
-        <p>{props.PlatformСhoiceDesc.line} - Support frame</p>
+        <p>{props.platformСhoiceDesc.line} - Support frame</p>
         <ul>
-            <li>{props.PlatformСhoiceDesc.desc}</li>
-            {(props.PlatformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.PlatformСhoiceDesc["support-frame_amount"]})</li>: null}
-            {(props.PlatformСhoiceDesc.location==="WALL") ? <li>
+            <li>{props.platformСhoiceDesc.desc}</li>
+            {(props.platformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.platformСhoiceDesc["support-frame_amount"]})</li>: null}
+            {(props.platformСhoiceDesc.line==="Premium Line IPL") ? <li>
                 Hide cover frame{" "}
                 <button 
                     onClick={props.CoverHidenHandler.bind(this)} 
-                    className={[elementClassName+"-check-box", (props.PlatformСhoiceDesc.isCoverHiden) ? elementClassName+"-check-box--hiden" : null].filter(Boolean).join(" ")}
+                    className={[elementClassName+"-check-box", (props.platformСhoiceDesc.isCoverHiden) ? elementClassName+"-check-box--hiden" : null].filter(Boolean).join(" ")}
                 >✓</button>
             </li>: null}
-            <li>{props.PlatformСhoiceDesc.type}</li>
+            <li>{props.platformСhoiceDesc.type}</li>
         </ul>
     </div>
 }

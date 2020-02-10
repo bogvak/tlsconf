@@ -147,7 +147,7 @@
                     z-index: 1;
                 }
             }
-            &-layout-wall {
+            &-layout-wall-ipl {
                 height: 170px;
                 display: flex;
                 box-sizing: border-box;
@@ -235,9 +235,6 @@
                             &--hiden {
                                 display: none;
                             }
-                            &--ps {
-                                height: 114px;
-                            }
                         }
                     }
                     &-bottom {
@@ -261,6 +258,32 @@
                     height: 100%;
                     width: 25px;
                     background-color: $background-and-separator-color;
+                }
+            }
+            &-layout-wall-wp {
+                position: relative;
+                height: 170px;
+                &-frame-img {
+                    height: 100%
+                }
+                &-support-frame {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    display: flex;
+                    transform: translate(-50%, -50%);
+                    border-radius: 5px;
+                    overflow: hidden;
+                    &-signal-slots {
+                        box-sizing: border-box;
+                        height: 138px;
+                        &--displayed {
+                            display: inline-block;
+                        }
+                        &--hiden {
+                            display: none;
+                        }
+                    }
                 }
             }
         }

@@ -31,7 +31,7 @@ const SignalSlots = (props) => {
 const PowerSocket = (props) => {
     return <img
         className={props.componentClassName+"-power-sockets"}
-        src={"img/signalslots ipl/power sockets/" + props.Configuration.PlatformСhoiceDesc.powerSocketArticle.replace(/\s/g, "") + ".png"}
+        src={"img/signalslots ipl/power sockets/" + props.Configuration.platformСhoiceDesc.powerSocketArticle + ".png"}
         alt="power-sockets"
     />
 }
@@ -53,7 +53,7 @@ const ConferenceControlDoubleFrame = (props) => {
 }
 
 const ConfLayOutTable = (props) => {
-    const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc;
+    const platformСhoiceDesc = props.Configuration.platformСhoiceDesc;
     const conf = () => {
         const powerSokets = Array(platformСhoiceDesc["power-sockets"]).fill(<PowerSocket 
             Configuration={props.Configuration} 
@@ -104,9 +104,9 @@ const ConfLayOutTable = (props) => {
     );
 }
 
-const ConfLayOutWall = (props) => {
-    const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc
-    const componentClassName = "conf-main-left-middle-container_l1-layout-wall"
+const ConfLayOutWallIPL = (props) => {
+    const platformСhoiceDesc = props.Configuration.platformСhoiceDesc
+    const componentClassName = "conf-main-left-middle-container_l1-layout-wall-ipl"
     const isCoverHiden = (className) => className+" "+((platformСhoiceDesc.isCoverHiden) ? className+"--hiddenCover" : "");
     
     return (
@@ -135,12 +135,39 @@ const ConfLayOutWall = (props) => {
     )
 }
 
-const ConfLayOutFloor = (props) => {
+const ConfLayOutWallWP = (props) => {
+    const platformСhoiceDesc = props.Configuration.platformСhoiceDesc
+    const componentClassName = "conf-main-left-middle-container_l1-layout-wall-wp"
+    
     return (
-        <div className="conf-main-left-middle-container_l1-layout-floor">
-                      
+        <div draggable="true" className={componentClassName}>
+            <img
+                className={componentClassName+"-frame-img"}
+                src={platformСhoiceDesc.img}
+                alt=""
+            />
+            <div
+                className={componentClassName+"-support-frame"}
+            >
+                {Array(platformСhoiceDesc['signal-slots']).fill().map((_, index) => <SignalSlots
+                    key={index}
+                    Configuration={props.Configuration}
+                    componentClassName={componentClassName+"-support-frame"}
+                    index={index}
+                    setModule={props.setModule}
+                    supportFrame_index={1}
+                />)}
+            </div>
         </div>
     )
 }
 
-export {ConfLayOutTable, ConfLayOutWall, ConfLayOutFloor};
+const ConfLayOutFloor = (props) => {
+    return (
+        <div className="conf-main-left-middle-container_l1-layout-floor">
+             
+        </div>
+    )
+}
+
+export {ConfLayOutTable, ConfLayOutWallIPL, ConfLayOutWallWP , ConfLayOutFloor};

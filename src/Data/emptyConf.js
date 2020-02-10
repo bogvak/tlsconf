@@ -1,5 +1,5 @@
 const emptyConf = {
-    PlatformСhoiceDesc: {
+    platformСhoiceDesc: {
       "power-sockets": 0,
       "power-sockets-desc": null,
       "power-sockets-article": null,
@@ -7,6 +7,7 @@ const emptyConf = {
       "conference-control": 0,
       "conference-control-double-frame": 0,
       "type" : "Special",
+      "line" : ""
     },
     Modules: [
       {

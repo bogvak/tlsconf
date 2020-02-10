@@ -19,14 +19,13 @@ class Configurator extends Component {
     QuantityOfConf: 1,
     ConfNumber: 0,
     Configurations: Array(1).fill(emptyConf),
-    IndexOfSignalSlots: null,
     maxConfQuantity: 3,
   };
 
   deep_ConfigurationsCopy = () => JSON.parse(JSON.stringify(this.state.Configurations));
 
   platformHandler = (frameInf, location, line) => {
-    const inf = {...emptyConf.PlatformСhoiceDesc,...frameInf, location : location, line : line};
+    const inf = {...emptyConf.platformСhoiceDesc,...frameInf, location : location, line : line};
     inf.img = "img/" + inf.location.toLowerCase() + "/" + inf.line.toLowerCase() + "/"
     if (inf.location==="TABLE") {
       inf.img+=inf.line.toLowerCase() + "img.png";
@@ -39,7 +38,7 @@ class Configurator extends Component {
       inf.line_desc = inf.desc;
       inf["signal-slots"] = inf["support-frame_amount"]*inf["frame-width"];
       
-      const support_frame_line = line.match(/[A-Z]*$/)[0]
+      const support_frame_line = line.match(/[A-Z]{1,}$/)[0]
       inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][Object.keys(supportFrames[support_frame_line])[0]])
       inf.isCoverHiden = true;
     }
@@ -49,9 +48,13 @@ class Configurator extends Component {
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
       inf.powerSocketArticle = inf.powerSocketList[inf.powerSocketDesc];
     }
+    inf.empty_module = {
+      img: "img/layout-parts/empty-signal-slot-" + (line==="Universal Line WP" ? "wp" : "ipl") + ".png",
+      display: true,
+    }
     const copyOfConfs=this.deep_ConfigurationsCopy();
-    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = inf;
-    copyOfConfs[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(emptyConf.Modules[0]);
+    copyOfConfs[this.state.ConfNumber].platformСhoiceDesc = inf;
+    copyOfConfs[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(inf.empty_module);
 
     copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
 
@@ -88,12 +91,12 @@ class Configurator extends Component {
       alert(`Error, module-${inf.article} cant be found in table, write to us!`);
       return;
     }
-    const platformСhoiceDesc = copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc
+    const platformСhoiceDesc = copyOfConfs[this.state.ConfNumber].platformСhoiceDesc
     if (platformСhoiceDesc.location==="WALL") {
       let indexInChunk = index % platformСhoiceDesc["frame-width"];
       if (indexInChunk+inf.slots_takes>platformСhoiceDesc["frame-width"]) return;
 
-      const support_frame_line = inf.module_series.match(/[A-Z]*$/)[0]
+      const support_frame_line = inf.module_series.match(/[A-Z]{1,}$/)[0]
       platformСhoiceDesc.support_frame_arr[support_frame_index] = {...supportFrames[support_frame_line][inf.module_type]};
     } else if (!modulesList[index+(inf.slots_takes-1)]) {
       return;
@@ -106,10 +109,10 @@ class Configurator extends Component {
       for (let j = 1;j<test; j++) {
         modulesList[index+i+j].display=true;
       }
-      modulesList[index+i] = {...emptyConf.Modules[0], display: false};
+      modulesList[index+i] = {...platformСhoiceDesc.empty_module, display: false};
     }
     
-    modulesList[index] = {...emptyConf.Modules[0], ...inf};
+    modulesList[index] = {...platformСhoiceDesc.empty_module, ...inf};
 
     copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
 
@@ -142,7 +145,7 @@ class Configurator extends Component {
 
   frame_sub_typeHandler = (newSubInf) => {
     const copyOfConfs=this.deep_ConfigurationsCopy();
-    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc = {...this.state.Configurations[this.state.ConfNumber].PlatformСhoiceDesc, ...newSubInf};
+    copyOfConfs[this.state.ConfNumber].platformСhoiceDesc = {...this.state.Configurations[this.state.ConfNumber].platformСhoiceDesc, ...newSubInf};
     this.setState({Configurations: copyOfConfs});
   }
 
@@ -150,9 +153,9 @@ class Configurator extends Component {
     const copyOfConfs=this.deep_ConfigurationsCopy();
     console.log(confNumber, indexOfSlot)
     for (let i = 1; i<copyOfConfs[confNumber].Modules[indexOfSlot].slots_takes; i++) {
-      copyOfConfs[confNumber].Modules[indexOfSlot+i] = emptyConf.Modules[0];
+      copyOfConfs[confNumber].Modules[indexOfSlot+i] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
     };
-    copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot] = emptyConf.Modules[0];
+    copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
     this.setState({Configurations: copyOfConfs})
   }
 
@@ -174,22 +177,22 @@ class Configurator extends Component {
     let articlesToPrint = [];
     let isOkay = true
     articlesToPrint.push({
-      article: configuration.PlatformСhoiceDesc.article, 
+      article: configuration.platformСhoiceDesc.article, 
       quantity: 1});
-    if (configuration.PlatformСhoiceDesc.frame_sub_type_article) {
+    if (configuration.platformСhoiceDesc.frame_sub_type_article) {
       articlesToPrint.push({
-        article: configuration.PlatformСhoiceDesc.frame_sub_type_article, 
+        article: configuration.platformСhoiceDesc.frame_sub_type_article, 
         quantity: 1
       });
     }
-    if (configuration.PlatformСhoiceDesc["power-sockets"]) {
+    if (configuration.platformСhoiceDesc["power-sockets"]) {
       articlesToPrint.push({
-        article: configuration.PlatformСhoiceDesc.powerSocketArticle, 
-        quantity: configuration.PlatformСhoiceDesc["power-sockets"]
+        article: configuration.platformСhoiceDesc.powerSocketArticle, 
+        quantity: configuration.platformСhoiceDesc["power-sockets"]
       });
     }
-    if (configuration.PlatformСhoiceDesc.support_frame_arr) {
-      for (const module of configuration.PlatformСhoiceDesc.support_frame_arr) {
+    if (configuration.platformСhoiceDesc.support_frame_arr) {
+      for (const module of configuration.platformСhoiceDesc.support_frame_arr) {
         articlesToPrint.push({
           article: module.article,
           quantity: 1
@@ -231,7 +234,7 @@ class Configurator extends Component {
 
   coverHidenHandler = () => {
     const copyOfConfs=this.deep_ConfigurationsCopy();
-    copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.isCoverHiden = !copyOfConfs[this.state.ConfNumber].PlatformСhoiceDesc.isCoverHiden;
+    copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.isCoverHiden = !copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.isCoverHiden;
     this.setState({Configurations: copyOfConfs});
   }
 

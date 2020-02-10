@@ -18,10 +18,6 @@
         transform: translate(-50%, -50%);
         max-width: 100%;
         &-wrapper {
-            min-width: 295px;
-            min-height: 169px;
-            max-width: 295px;
-            max-height: 169px;
             width: 295px;
             height: 169px;
             box-sizing: border-box;
@@ -98,6 +94,9 @@
                 display: flex;
                 margin: 0;
                 min-height: 1.1em;
+                &:nth-child(even) {
+                    background-color: $main-color-light2;
+                }
                 &--hidden {
                     display: none;
                 }
@@ -107,7 +106,6 @@
                 &-article {
                     padding: 0 5px;
                     width: $article-width;
-                    white-space: nowrap;
                     box-sizing: border-box;
                 }
                 &-space {
@@ -119,15 +117,27 @@
                     box-sizing: border-box;
                 }
                 &-remove-button {
-                    margin: auto 11px;
-                    background-color: $main-color-light3;
-                    border: 1px dashed $main-windows-background-color;
+                    margin: auto 10px;
+                    height: 13px;
+                    width: 13px;
+                    border: 2px solid $main-color-light1;
                     border-radius: 100px;
-                    padding: 0 0.271rem;
-                    font-weight: bold;
-                    font-size: 0.8rem;
-                    color: $main-color-light5;
-                    cursor: pointer;
+                    position: relative;
+                    background-color: $main-color-light1;
+                    &::before, &::after {
+                        position: absolute;
+                        content: '';
+                        top: 6px;
+                        width: 13px;
+                        height: 1.5px;
+                        background-color: white;
+                    }
+                    &::before {
+                        transform: rotate(-45deg);
+                    }
+                    &::after {
+                        transform: rotate(45deg);
+                    }
                 }
                 &-specs-menu {
                     cursor: pointer;

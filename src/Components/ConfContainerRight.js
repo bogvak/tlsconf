@@ -25,22 +25,22 @@ const ConfContainerRight = (props) => {
 const ConfContainerRightTop = (props) => {
   return (
     <div className="conf-main-right-top">
-      {(props.Configuration.PlatformСhoiceDesc.line) ? <Fragment>
+      {(props.Configuration.platformСhoiceDesc.line) ? <Fragment>
       <div className="conf-main-right-top-img-wrapper">
         <img
           className="conf-main-right-top-img"
-          src={props.Configuration.PlatformСhoiceDesc.img}
-          alt={props.Configuration.PlatformСhoiceDesc.line}
+          src={props.Configuration.platformСhoiceDesc.img}
+          alt={props.Configuration.platformСhoiceDesc.line}
         />
       </div>
       <div className="conf-main-right-top-frameName">
-        {props.Configuration.PlatformСhoiceDesc.line_desc}
+        {props.Configuration.platformСhoiceDesc.line_desc}
       </div>
       <div className="conf-main-right-top-subFrameMenu">
-        {(props.Configuration.PlatformСhoiceDesc.frame_sub_type) ?  
+        {(props.Configuration.platformСhoiceDesc.frame_sub_type) ?  
           <FrameSubMenu 
-            frame_sub_type={props.Configuration.PlatformСhoiceDesc.frame_sub_type}
-            frame_sub_type_article={props.Configuration.PlatformСhoiceDesc.frame_sub_type_article}
+            frame_sub_type={props.Configuration.platformСhoiceDesc.frame_sub_type}
+            frame_sub_type_article={props.Configuration.platformСhoiceDesc.frame_sub_type_article}
             frame_sub_typeHandler={props.frame_sub_typeHandler}
           />
         : null}
@@ -95,7 +95,7 @@ const ConfContainerRightBottom = (props) => {
             selectedClassName="conf-main-right-bottom_l0-panel--selected" 
             key={confNumber}
           >
-            {(conf.PlatformСhoiceDesc.line) ? [
+            {(conf.platformСhoiceDesc.line) ? [
               <ConfList 
                 key={confNumber}
                 confNumber={confNumber}
@@ -116,7 +116,6 @@ const ConfDescLine = props => {
   const elementClassName=[
     props.elementClassName,
     props.elementClassName+((props.display || props.display===undefined)? '--visible': '--hidden'),
-    'zebra-striped',
   ].join(' ');
   if (props.article) {
     return (<div className={elementClassName}>
@@ -131,7 +130,7 @@ const ConfDescLine = props => {
       :<div className={props.elementClassName+"-space"}/>}
       <div className={props.elementClassName+"-desc"}>{props.children}</div>
       {(props.ReseteHandler) ?
-        <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)}>x</div> 
+        <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)} /> 
       : null}
     </div>)
   } else {
@@ -159,7 +158,7 @@ const SubMenuRightBottom = props => {
 const ConfList = props => {
   
   const elementClassName = "conf-main-right-bottom_l1-conf-list";
-  const platformСhoiceDesc = props.Configuration.PlatformСhoiceDesc;
+  const platformСhoiceDesc = props.Configuration.platformСhoiceDesc;
   return (
     <SimpleBar className={elementClassName}>
       {(platformСhoiceDesc.frame_sub_type_article) ? <ConfDescLine

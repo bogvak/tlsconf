@@ -3063,7 +3063,7 @@ const dataList = {
     "Type" : "Signal Slot",
     "Series" : "WP",
     "Description1" : "Worldplate Video with Cable",
-    "Description2" : "1xRCA, 1 slot width",
+    "Description2" : "1xRCA, 2 slot width",
     "AGR" : "2",
     "EVP" : "29",
     "maleOrFemaleST" : "",
