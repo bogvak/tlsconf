@@ -15,6 +15,7 @@ const emptyConf = {
         display: true,
       }
     ],
+    "articlesToPrint": null
 }
 
 export default emptyConf;

@@ -35,7 +35,7 @@ const ConfContainerLeft = (props) => {
             dataObj={props.modulesForBottomMenu}
             draggable='true'
             line={props.Configuration.platformСhoiceDesc.line.match(/[A-Z0-9]{1,}$/)}
-
+            location={props.Configuration.platformСhoiceDesc.location}
         />
         <ConfContainerLeftInstruction
             Language={props.Language}
@@ -50,12 +50,18 @@ const TopAndBottomMenu = props => {
     const filterFunc = inf => {
         const regex = /[A-Z]{1,}$/
         const bool = (
-                    (!props.line)
-                    ||
-                    (inf.match(regex)[0]===props.line[0])
-                    ||
-                    (/^[\d]{1,}/.test(props.line[0]) && inf.match(regex)[0]==="IPL")
-                )
+            (
+                (!props.line)
+                ||
+                (inf.match(regex)[0]===props.line[0])
+                ||
+                (/^[\d]{1,}/.test(props.line[0]) && inf.match(regex)[0]==="IPL")
+            ) && (
+                props.location!=="TABLE"
+                ||
+                inf!=="Power Sockets"
+            )
+        )
         return bool
     }
     const className=props.className+"_l"+props.level;
@@ -84,6 +90,7 @@ const TopAndBottomMenu = props => {
                             onClick={props.onClick}
                             draggable={props.draggable}
                             frameResetHandler={props.frameResetHandler}
+                            location={props.location}
                         /> : <CardMenu 
                             pathArray = {[...props.pathArray, inf]}
                             level = {props.level+1}

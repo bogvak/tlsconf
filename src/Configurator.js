@@ -27,13 +27,16 @@ class Configurator extends Component {
   platformHandler = (frameInf, location, line) => {
     const inf = {...emptyConf.platformСhoiceDesc,...frameInf, location : location, line : line};
     inf.img = "img/" + inf.location.toLowerCase() + "/" + inf.line.toLowerCase() + "/"
+    inf.slots_sum = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     if (inf.location==="TABLE") {
       inf.img+=inf.line.toLowerCase() + "img.png";
       inf.line_desc = localStrings[this.state.Language][14] + ' ' + inf.line.match(/[0-9]/g).join('')
       inf.frame_sub_type = subModulesType[inf.location][inf.line];
       inf.frame_sub_type_desc = Object.keys(inf.frame_sub_type)[0];
       inf.frame_sub_type_article = inf.frame_sub_type[inf.frame_sub_type_desc];
+      inf.frame_desc = `${line} - Support frame: ${inf.slots_sum} signal slots; Type: ${inf.type}`
     } else if (inf.location==="WALL") {
+      inf.frame_desc = `${line} - ${inf.desc}`
       inf.img+=inf.article + ".png";
       inf.line_desc = inf.desc;
       inf["signal-slots"] = inf["support-frame_amount"]*inf["frame-width"];
@@ -42,7 +45,6 @@ class Configurator extends Component {
       inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][Object.keys(supportFrames[support_frame_line])[0]])
       inf.isCoverHiden = true;
     }
-    inf.slots_sum = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
     if (inf["power-sockets"] > 0) {
       inf.powerSocketList = PowerSocket;
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
@@ -53,10 +55,9 @@ class Configurator extends Component {
       display: true,
     }
     const copyOfConfs=this.deep_ConfigurationsCopy();
+    copyOfConfs[this.state.ConfNumber] = {}
     copyOfConfs[this.state.ConfNumber].platformСhoiceDesc = inf;
     copyOfConfs[this.state.ConfNumber].Modules = Array(inf["signal-slots"]).fill(inf.empty_module);
-
-    copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
 
     this.setState({Configurations: copyOfConfs});
   }
@@ -113,8 +114,6 @@ class Configurator extends Component {
     }
     
     modulesList[index] = {...platformСhoiceDesc.empty_module, ...inf};
-
-    copyOfConfs[this.state.ConfNumber].articlesToPrint=this.articlesToPrint(copyOfConfs[this.state.ConfNumber])
 
     this.setState({Configurations: copyOfConfs})
   }
@@ -173,8 +172,9 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs});
   }
 
-  articlesToPrint = (configuration) => {
-    let articlesToPrint = [];
+  articlesToPrint_handler = (confNum) => {
+    const configuration = this.state.Configurations[confNum]
+    const articlesToPrint = []
     let isOkay = true
     articlesToPrint.push({
       article: configuration.platformСhoiceDesc.article, 
@@ -209,7 +209,6 @@ class Configurator extends Component {
         }
       }
     }
-
     articlesToPrint.map((el, index) => {
       if (!el.article) {
         isOkay=false
@@ -227,9 +226,7 @@ class Configurator extends Component {
       }
       return el;
     })
-    articlesToPrint = articlesToPrint.filter(el => el.article!=="duplicate")
-    if (isOkay) return articlesToPrint;
-    else return null;
+    return isOkay && articlesToPrint.filter(el => el.article!=="duplicate")
   }
 
   coverHidenHandler = () => {
@@ -263,11 +260,11 @@ class Configurator extends Component {
         QuantityOfConf={this.state.QuantityOfConf}
         //Handlers
         ModuleMenuHandler={this.moduleMenuHandler}
+        articlesToPrint_handler={this.articlesToPrint_handler}
         frame_sub_typeHandler={this.frame_sub_typeHandler}
         ModuleResetHandler={this.moduleResetHandler}
         frameResetHandler={this.frameResetHandler}
        />
-       <button onClick={() => this.buildArticlesArray()} className="test-button">Test conf.</button>
 		</div>
     );
   }

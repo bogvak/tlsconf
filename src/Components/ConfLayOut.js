@@ -54,32 +54,32 @@ const ConferenceControlDoubleFrame = (props) => {
 
 const ConfLayOutTable = (props) => {
     const platformСhoiceDesc = props.Configuration.platformСhoiceDesc;
-    const conf = () => {
-        const powerSokets = Array(platformСhoiceDesc["power-sockets"]).fill(<PowerSocket 
+    const layOut_content = () => {
+        const powerSokets = Array(platformСhoiceDesc["power-sockets"]).fill().map((_, index) => <PowerSocket 
             Configuration={props.Configuration} 
             componentClassName={componentClassName+"-middle"}
-            key={'power-sockets'}
+            key={'power-sockets_'+index}
         />)
-        const conferenceControl = Array(platformСhoiceDesc["conference-control"]).fill(<ConferenceControl 
+        const conferenceControl = Array(platformСhoiceDesc["conference-control"]).fill().map((_, index) => <ConferenceControl 
             Configuration={props.Configuration} 
             componentClassName={componentClassName+"-middle"}
-            key={'conference-control'}
+            key={'conference-control_'+index}
         />)
-        const conferenceControlDoubleFrame = Array(platformСhoiceDesc["conference-control-double-frame"]).fill(<ConferenceControlDoubleFrame
+        const conferenceControlDoubleFrame = Array(platformСhoiceDesc["conference-control-double-frame"]).fill().map((_, index) => <ConferenceControlDoubleFrame
             Configuration={props.Configuration} 
             componentClassName={componentClassName+"-middle"}
-            key={'conference-control-double-frame'}
+            key={'conference-control-double-frame_'+index}
         />)
         const signalSlots = (<div
             style={platformСhoiceDesc["signal-slots"] ? {display: "flex"} : {display: "none"}}
             className={componentClassName+"-middle-container"}
             key={'signal-slots'}
-        >{Array(platformСhoiceDesc["signal-slots"]).fill(1).map((_, index) => <SignalSlots
+        >{Array(platformСhoiceDesc["signal-slots"]).fill().map((_, index) => <SignalSlots
             Configuration={props.Configuration}
             componentClassName={componentClassName+"-middle-container"}
             index={index}
             setModule={props.setModule}
-            key={'s-s'+index}
+            key={'signal-slot_'+index}
         />)}</div>);
         let pos;
         if (powerSokets.length > 2) {
@@ -97,7 +97,7 @@ const ConfLayOutTable = (props) => {
         <div className={componentClassName}>
             <div className={componentClassName+"-top"} />
             <div className={componentClassName+"-middle"}>
-                {conf()}
+                {layOut_content()}
             </div>
             <div className={componentClassName+"-bottom"} />
         </div>
@@ -138,9 +138,11 @@ const ConfLayOutWallIPL = (props) => {
 const ConfLayOutWallWP = (props) => {
     const platformСhoiceDesc = props.Configuration.platformСhoiceDesc
     const componentClassName = "conf-main-left-middle-container_l1-layout-wall-wp"
+
+    const layOut_height = {height: 165+platformСhoiceDesc["offset-px"]+"px"}
     
     return (
-        <div draggable="true" className={componentClassName}>
+        <div draggable="true" className={componentClassName} style={layOut_height}>
             <img
                 className={componentClassName+"-frame-img"}
                 src={platformСhoiceDesc.img}

@@ -22,6 +22,163 @@ const framesForTopMenu = {
 				"article": "8639675-1050",
 				"frame-width" : 2,
 				"support-frame_amount": 1,
+				"offset-px" : 0
+			},
+			"Adapter Frame Berker S.1/B1/B3/B7": {
+				"article": "8639675-1051",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px" : 3
+			},
+			"Adapter Frame Berker K.1": {
+				"article": "8639675-1055",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px" : 3
+			},
+			"Adapter Frame Berker K.5": {
+				"article": "8639675-1056",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px" : -5
+			},
+			"Adapter Frame Berker Arsys": {
+				"article": "8639675-1057",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px" : 3
+			},
+			"Adapter Frame Berker Twinpoinr": {
+				"article": "8639675-1058",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px" : 34
+			},
+			"Adapter Frame Busch Jäger alpha ex / alpha ne": {
+				"article": "8639675-1200",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 3
+			},
+			"Adapter Frame Busch Jäger future I + future": {
+				"article": "8639675-1203",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 29
+			},
+			"Adapter Frame Busch Jäger Reflex S - buschdur": {
+				"article": "8639675-1206",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": -1
+			},
+			"Adapter Frame Gira Standard 55 + E2 + Esprit": {
+				"article": "8639675-1100",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 3
+			},
+			"Adapter Frame Gira panel heater": {
+				"article": "8639675-1104",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 30
+			},
+			"Adapter Frame Gira S-color": {
+				"article": "8639675-1105",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 50
+			},
+			"Adapter Frame Gira S-classic": {
+				"article": "8639675-1106",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 50
+			},
+			"Adapter Frame Gira Stainless Steel": {
+				"article": "8639675-1107",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 11
+			},
+			"Adapter Frame Gira TX44": {
+				"article": "8639675-1108",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 48
+			},
+			"Adapter Frame Merten M1": {
+				"article": "8639675-1250",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 3
+			},
+			"Adapter Frame Merten M": {
+				"article": "8639675-1252",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 5
+			},
+			"Adapter Frame Merten Trancent": {
+				"article": "8639675-1254",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 9
+			},
+			"Adapter Frame Jung LS 981": {
+				"article": "8639675-1140",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 48
+			},
+			"Adapter Frame Jung AS500/ universal / A500 / A500plus": {
+				"article": "8639675-1150",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 0
+			},
+			"Adapter Frame Jung SL500": {
+				"article": "8639675-1158",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 47
+			},
+			"Adapter Frame Jung LS990": {
+				"article": "8639675-1159",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 44
+			},
+			"Adapter Frame Jung Edelstahl": {
+				"article": "8639675-1161",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 49
+			},
+			"Adapter Frame Jung Aluminium": {
+				"article": "8639675-1162",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 49
+			},
+			"Adapter Frame Jung Anthrazit": {
+				"article": "8639675-1163",
+				"frame-width" : 2,
+				"support-frame_amount": 1,
+				"offset-px": 49
+			},
+			"Adapter Frame Bticino 503": {
+				"article": "8639675-1400",
+				"frame-width" : 3,
+				"support-frame_amount": 1,
+				"offset-px": -31
+			},
+			"Adapter Frame Bticino 504": {
+				"article": "8639675-1401",
+				"frame-width" : 4,
+				"support-frame_amount": 1,
+				"offset-px": -30
 			}
 		}
 	},

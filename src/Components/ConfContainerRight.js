@@ -1,4 +1,4 @@
-import React, { useState, Component , useRef, Fragment} from 'react';
+import React, { useState , useRef, useEffect, Fragment} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ComponentToPrint from './ConfWindowForPrint';
 import SimpleBar from 'simplebar-react';
@@ -17,6 +17,7 @@ const ConfContainerRight = (props) => {
               ModuleMenuHandler={props.ModuleMenuHandler}
               ModuleResetHandler={props.ModuleResetHandler}
               frameResetHandler={props.frameResetHandler}
+              articlesToPrint_handler={props.articlesToPrint_handler}
             />
         </div>
     );
@@ -78,6 +79,13 @@ const FrameSubMenu = (props) => {
 }
 
 const ConfContainerRightBottom = (props) => {
+  const [confNumber_st, set_confNumber_st] = useState(0)
+
+  const [articlesToPrint, articlesToPrint_set] = useState(null)
+  useEffect(()=>{
+    articlesToPrint_set(props.articlesToPrint_handler(confNumber_st))
+  }, [props, confNumber_st])
+
   return (
     <Tabs className="conf-main-right-bottom_l0">
       <TabList className="conf-main-right-bottom_l0-list">
@@ -85,6 +93,7 @@ const ConfContainerRightBottom = (props) => {
           className="conf-main-right-bottom_l0-list-tab" 
           selectedClassName="conf-main-right-bottom_l0-list-tab--selected" 
           key={confNumber}
+          onClick={() => set_confNumber_st(confNumber)}
         >
           Configuration {confNumber+1}
         </Tab>)}
@@ -104,7 +113,11 @@ const ConfContainerRightBottom = (props) => {
                 ModuleResetHandler={props.ModuleResetHandler}
                 frameResetHandler={props.frameResetHandler}
               /> ,
-              <PrintConfButton articlesToPrint={props.Configurations[confNumber].articlesToPrint} key={conf} />
+              <PrintConfButton 
+                articlesToPrint={articlesToPrint} 
+                confNumber={confNumber} 
+                key={conf} 
+              />
             ] : null}
           </TabPanel>)
         })}
@@ -174,7 +187,7 @@ const ConfList = props => {
         ReseteHandler={props.frameResetHandler}
         confNumber={props.confNumber}
       >
-        {platformСhoiceDesc.line} - Support frame: {platformСhoiceDesc.slots_sum} signal slots; Type: {platformСhoiceDesc["type"]}
+        {platformСhoiceDesc.frame_desc}
       </ConfDescLine>
       {(platformСhoiceDesc.support_frame_arr) ? platformСhoiceDesc.support_frame_arr.map((frame, index) => <ConfDescLine
         elementClassName={elementClassName+"-line"}
@@ -212,22 +225,17 @@ const ConfList = props => {
 
 const PrintConfButton = props => {
 
-  const onBeforeGetContent = () => {
-    if (props.articlesToPrint) {
-      return true;
-    } else {
-      alert('All slots should to be filled')
-      return false;
-    }
+  const errorAlert = () => {
+    if (!props.articles) alert("Unfortunately the incomplete configuration cannot be printed.")
   }
-
+  
   const componentRef = useRef();
   return (
     <div className="conf-main-right-bottom_l1-print-conf-list">
       <ReactToPrint
         trigger={() => <button className="conf-main-right-bottom_l1-print-conf-list-button">Print Configuration List</button>}
         content={() => componentRef.current}
-        onBeforeGetContent={onBeforeGetContent}
+        onBeforeGetContent={()=>errorAlert()}
       />
       <div style={{display: 'none'}}>
         <ComponentToPrint articlesToPrint={props.articlesToPrint} ref={componentRef} />

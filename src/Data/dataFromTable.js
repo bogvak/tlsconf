@@ -3539,7 +3539,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639670/1271" : {
+  "8639670-1271" : {
     "Type" : "Support Frame",
     "Series" : "IUL",
     "Description1" : "IUL Support Frame Feller Edizio CH",
@@ -3599,7 +3599,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1050" : {
+  "8639675-1050" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Berker Modul 2",
@@ -3614,7 +3614,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1051" : {
+  "8639675-1051" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Berker",
@@ -3629,7 +3629,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1055" : {
+  "8639675-1055" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Berker K.1/ K.5",
@@ -3644,7 +3644,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1057" : {
+  "8639675-1057" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Berker Arsys",
@@ -3659,7 +3659,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1058" : {
+  "8639675-1058" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Berker Twinpoint",
@@ -3674,7 +3674,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1100" : {
+  "8639675-1100" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Gira Standard 55",
@@ -3689,7 +3689,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1104" : {
+  "8639675-1104" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Gira surface spotlight",
@@ -3704,7 +3704,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1105" : {
+  "8639675-1105" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Gira S-Color/S-Classic",
@@ -3719,7 +3719,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1107" : {
+  "8639675-1107" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Gira Stainless Steel",
@@ -3734,7 +3734,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1108" : {
+  "8639675-1108" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter Frame Gira TX 44",
@@ -3749,7 +3749,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1132" : {
+  "8639675-1132" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Legrand Creo",
@@ -3764,7 +3764,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1140" : {
+  "8639675-1140" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Jung LS 981",
@@ -3779,7 +3779,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1150" : {
+  "8639675-1150" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Jung AS500/universal",
@@ -3794,7 +3794,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1155" : {
+  "8639675-1155" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Jung CD 500",
@@ -3809,7 +3809,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1159" : {
+  "8639675-1159" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Jimg LS990 / SL500",
@@ -3824,7 +3824,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1163" : {
+  "8639675-1163" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Jung anthracite",
@@ -3839,7 +3839,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1200" : {
+  "8639675-1200" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Busch-Jaeger alpha exl",
@@ -3854,7 +3854,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1203" : {
+  "8639675-1203" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Busch-Jaeger future li",
@@ -3869,7 +3869,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1206" : {
+  "8639675-1206" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Busch-Jaeger Reflex SI",
@@ -3884,7 +3884,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1223" : {
+  "8639675-1223" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Legrand Mosaic/Niko",
@@ -3899,7 +3899,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1250" : {
+  "8639675-1250" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Merten M1",
@@ -3914,7 +3914,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1252" : {
+  "8639675-1252" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Merten M",
@@ -3929,7 +3929,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1254" : {
+  "8639675-1254" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Merten transcent",
@@ -3944,7 +3944,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1270" : {
+  "8639675-1270" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame Feller Edizio",
@@ -3959,7 +3959,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1400" : {
+  "8639675-1400" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame BTicino Living 503",
@@ -3974,7 +3974,7 @@ const dataList = {
     "Slots_Type" : "",
     "Number_Of_Slots" : ""
   },
-  "8639675/1401" : {
+  "8639675-1401" : {
     "Type" : "Adapter Frame",
     "Series" : "IUL",
     "Description1" : "IUL Adapter frame BTicino Living 504",

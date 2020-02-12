@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import dataList from '../Data/dataFromTable';
 
 class ComponentToPrint extends Component {
@@ -48,7 +48,7 @@ class ComponentToPrint extends Component {
                         <tbody>
                             {this.props.articlesToPrint.map((inf, index) => {
                                 const article = inf.article;
-                                return (<tbody key={article}>
+                                return (<Fragment key={inf+"_"+index}>
                                     <tr className="print-conf-table-body_l0" key={index}>
                                         <td>
                                             {index}
@@ -70,30 +70,38 @@ class ComponentToPrint extends Component {
                                         <td>Other:  </td>
                                         <td>{this.isDefiend(`${article}.Description1`)}</td>
                                     </tr>
-                                </tbody>)
+                                </Fragment>)
                             })}
                         </tbody>
                     </table>
                     <div className="contact-info">
                         <table className="contact-info-table1">
-                            <tr className="contact-info-table1-ECCO">
-                                <td>ECCO<span className="contact-info-table1-ECCO-text">CINE UPPLY AND SERVICE GMBH</span></td>
-                            </tr>
-                            {this.firstRowCI.map((line) => <tr>
-                                <td>{line}</td>
-                            </tr>)}
+                            <tbody>
+                                <tr className="contact-info-table1-ECCO">
+                                    <td>ECCO<span className="contact-info-table1-ECCO-text">CINE UPPLY AND SERVICE GMBH</span></td>
+                                </tr>
+                                {this.firstRowCI.map((line, index) => <tr key={line+"_"+index}>
+                                    <td>{line}</td>
+                                </tr>)}
+                            </tbody>
                         </table>
                         <table className="contact-info-table2">
-                            {Object.keys(this.secondRowCI).map((line) => <tr>
-                                <td>{line}</td>
-                                <td>{this.secondRowCI[line]}</td>
-                            </tr>)}
+                            <tbody>
+                                {Object.keys(this.secondRowCI).map((line, index) => <tr key={line+"_"+index}>
+                                    <td>{line}</td>
+                                    <td>{this.secondRowCI[line]}</td>
+                                </tr>)}
+                            </tbody>
                         </table>
                         <table className="contact-info-table3">
-                            {Object.keys(this.thirdRowCI).map((line) => <tr>
-                                <td>{line}</td>
-                                <td>{this.thirdRowCI[line].map((bankInfo) => [bankInfo, <br />])}</td>
-                            </tr>)}
+                            <tbody>
+                                {Object.keys(this.thirdRowCI).map((line, index) => <tr key={line+"_"+index}>
+                                    <td>{line}</td>
+                                    <td>{this.thirdRowCI[line].map((bankInfo, index) => <Fragment key={bankInfo+"_"+index}>
+                                        {bankInfo} <br />
+                                    </Fragment>)}</td>
+                                </tr>)}
+                            </tbody>
                         </table>
                     </div>
                 </div>
