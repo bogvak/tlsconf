@@ -364,14 +364,13 @@ const modulesForBottomMenu = {
 					"40 cm cable" : 8639336,
 					"gender changer": 8639339
 				}
-			},
-			"HDMI Digital (HDMI/DVI) female/female" : {
+			}/**, "HDMI Digital (HDMI/DVI) female/female" : {
 				"article-list" : {
 					"solder-terminal" : "",
 					"40 cm cable" : 8639338,
 					"gender changer": ""
 				}
-			},
+			}, */,
 			"HDMI screwable" : {
 				"article-list" : {
 					"solder-terminal" : "",
@@ -571,7 +570,7 @@ const modulesForBottomMenu = {
 				"article-list" : {
 					"solder-terminal" : 8639288,
 					"40 cm cable" : 8639308,
-					"gender changer": 8639200
+					"gender changer": ""
 				}
 			},
 			"Serial (9pin Dsub)  male" : {
@@ -785,14 +784,13 @@ const modulesForBottomMenu = {
 					"gender changer": 8639629,
 					"solder-terminal": ""
 				}
-			},
-			"HDMI Digital (HDMI/DVI) Buchse/Buchse" : {
+			}/**, "HDMI Digital (HDMI/DVI) Buchse/Buchse" : {
 				"article-list" : {
 					"40 cm cable": 8639669,
 					"gender changer": "",
 					"solder-terminal": ""
 				}
-			},
+			}*/,
 			"DVI-D Buchse/Buchse" : {
 				"article-list" : {
 					"40 cm cable": 8639605,
@@ -857,8 +855,7 @@ const modulesForBottomMenu = {
 					"solder-terminal": 8639635
 				}
 			}
-		},
-		"Vidio-Audio" : {
+		}/**"Vidio-Audio" : {
 			"DVI-D / Audio Buchse/Buchse" : {
 				"outOfImg" : true,
 				"article-list" : {
@@ -867,7 +864,7 @@ const modulesForBottomMenu = {
 					"solder-terminal": 8639831
 				}
 			}
-		},
+		}*/,
 		"Audio" : {
 			"Audio L/R Cinch Buchse/Buchse" : {
 				"article-list" : {
@@ -969,14 +966,13 @@ const modulesForBottomMenu = {
 					"gender changer": 8640604,
 					"solder-terminal": ""
 				}
-			},
-			"USB 3.0 (Typ B-A) Buchse/Buchse" : {
+			}/**"USB 3.0 (Typ B-A) Buchse/Buchse" : {
 				"article-list" : {
 					"40 cm cable": "",
 					"gender changer": 8649696,
 					"solder-terminal": "" 
 				}
-			},
+			}*/,
 			"Worldplate Schlüsselschalter  ON / OFF" : {
 				"article-list" : {
 					"40 cm cable": 8639683,
@@ -997,7 +993,7 @@ const modulesForBottomMenu = {
 					"gender changer": "",
 					"solder-terminal": ""
 				}
-			},
+			}/**,
 			"Worldplate Kabeldurchführung 3fach" : {
 				"outOfImg" : true,
 				"article-list" : {
@@ -1005,7 +1001,7 @@ const modulesForBottomMenu = {
 					"gender changer": "",
 					"solder-terminal": 8639830
 				}
-			}
+			}**/
 
 		},
 		"Optic" : {
@@ -1021,7 +1017,7 @@ const modulesForBottomMenu = {
 				"outOfImg" : true,
 				"article-list" : {
 					"40 cm cable": "",
-					"gender changer": 869834,
+					"gender changer": 8639834,
 					"solder-terminal": ""
 				}
 			},
@@ -1039,21 +1035,21 @@ const modulesForBottomMenu = {
 					"solder-terminal": ""
 				}
 			},
-			"Worldplate Slot Lichtwelle E2000/E2000 Stecker/Stecker" : {
+			/**"Worldplate Slot Lichtwelle E2000/E2000 Stecker/Stecker" : {
 				"outOfImg" : true,
 				"article-list" : {
 					"40 cm cable": "",
 					"gender changer": 8699837,
 					"solder-terminal": ""
 				}
-			},
-			"Worldplate Slot Lichtwelle LC Duplex MM  Stecker/Stecker" : {
+			},*/
+			/**"Worldplate Slot Lichtwelle LC Duplex MM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
 					"gender changer": 8649838,
 					"solder-terminal": ""
 				}
-			},
+			},*/
 			"Worldplate Slot Lichtwelle LC Duplex SM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
@@ -1061,13 +1057,13 @@ const modulesForBottomMenu = {
 					"solder-terminal": ""
 				}
 			},
-			"Worldplate Slot Lichtwelle ST Duplex MM  Stecker/Stecker" : {
+			/**"Worldplate Slot Lichtwelle ST Duplex MM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
 					"gender changer": 8649840,
 					"solder-terminal": ""
 				}
-			},
+			},*/
 			"Worldplate Slot Lichtwelle SC Duplex SM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",

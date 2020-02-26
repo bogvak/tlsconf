@@ -18,6 +18,7 @@ const ConfContainerRight = (props) => {
               ModuleResetHandler={props.ModuleResetHandler}
               frameResetHandler={props.frameResetHandler}
               articlesToPrint_handler={props.articlesToPrint_handler}
+              powerSocketMenuHandler={props.powerSocketMenuHandler}
             />
         </div>
     );
@@ -112,6 +113,7 @@ const ConfContainerRightBottom = (props) => {
                 ModuleMenuHandler={props.ModuleMenuHandler}
                 ModuleResetHandler={props.ModuleResetHandler}
                 frameResetHandler={props.frameResetHandler}
+                powerSocketMenuHandler={props.powerSocketMenuHandler}
               /> ,
               <PrintConfButton 
                 articlesToPrint={articlesToPrint} 
@@ -200,6 +202,7 @@ const ConfList = props => {
       {(platformСhoiceDesc["power-sockets"]) ? <ConfDescLine
         elementClassName={elementClassName + "-line"}
         article={platformСhoiceDesc.powerSocketArticle}
+        MenuHandler={props.powerSocketMenuHandler}
         MenuContent={platformСhoiceDesc.powerSocketList}
         confNumber={props.confNumber}
       >
@@ -226,7 +229,9 @@ const ConfList = props => {
 const PrintConfButton = props => {
 
   const errorAlert = () => {
-    if (!props.articles) alert("Unfortunately the incomplete configuration cannot be printed.")
+    if (!props.articlesToPrint) {
+      alert("Unfortunately the incomplete configuration cannot be printed.")
+    }
   }
   
   const componentRef = useRef();

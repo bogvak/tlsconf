@@ -43,6 +43,7 @@ class Configurator extends Component {
       
       const support_frame_line = line.match(/[A-Z]{1,}$/)[0]
       inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][Object.keys(supportFrames[support_frame_line])[0]])
+      console.log(inf.support_frame_arr)
       inf.isCoverHiden = true;
     }
     if (inf["power-sockets"] > 0) {
@@ -77,12 +78,19 @@ class Configurator extends Component {
         const module_info = Object.values(dataList[article]).filter(Boolean)
         const slots_takes = module_info.map(str => str.match(slotsWidth_rexEx) && str.match(slotsWidth_rexEx)[0]).filter(Boolean)[0]
         return slots_takes && parseInt(slots_takes.replace(/\D+/, ""))
+      } else {
+        alert(article+ " - is not exist in data Table!")
+        return 1
       }
     }
 
     if (inf["article-list"] && inf.slots_takes===undefined) {
       for (const article of Object.values(inf["article-list"])) {
-        inf.slots_takes = getWeight(article)
+        if (!inf.slots_takes) {
+          inf.slots_takes = getWeight(article);
+        } else {
+          break;
+        }
       }
     } else if (inf.slots_takes===undefined) {
       inf.slots_takes = getWeight(inf.article)
@@ -172,6 +180,25 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs});
   }
 
+  coverHidenHandler = () => {
+    const copyOfConfs=this.deep_ConfigurationsCopy();
+    copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.isCoverHiden = !copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.isCoverHiden;
+    this.setState({Configurations: copyOfConfs});
+  }
+
+  powerSocketMenuHandler = (article, desc) => {
+    const newInf = {
+      powerSocketDesc: desc,
+      powerSocketArticle: article
+    }
+    const copyOfConfs=this.deep_ConfigurationsCopy()
+    copyOfConfs[this.state.ConfNumber].platformСhoiceDesc = {
+      ...copyOfConfs[this.state.ConfNumber].platformСhoiceDesc,
+      ...newInf,
+    }
+    this.setState({Configurations: copyOfConfs})
+  }
+
   articlesToPrint_handler = (confNum) => {
     const configuration = this.state.Configurations[confNum]
     const articlesToPrint = []
@@ -229,12 +256,6 @@ class Configurator extends Component {
     return isOkay && articlesToPrint.filter(el => el.article!=="duplicate")
   }
 
-  coverHidenHandler = () => {
-    const copyOfConfs=this.deep_ConfigurationsCopy();
-    copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.isCoverHiden = !copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.isCoverHiden;
-    this.setState({Configurations: copyOfConfs});
-  }
-
   render() {
     return (
 		<div className="conf-main">
@@ -264,6 +285,7 @@ class Configurator extends Component {
         frame_sub_typeHandler={this.frame_sub_typeHandler}
         ModuleResetHandler={this.moduleResetHandler}
         frameResetHandler={this.frameResetHandler}
+        powerSocketMenuHandler={this.powerSocketMenuHandler}
        />
 		</div>
     );

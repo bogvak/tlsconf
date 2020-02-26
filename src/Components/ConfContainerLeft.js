@@ -91,6 +91,7 @@ const TopAndBottomMenu = props => {
                             draggable={props.draggable}
                             frameResetHandler={props.frameResetHandler}
                             location={props.location}
+                            isReset={props.isReset}
                         /> : <CardMenu 
                             pathArray = {[...props.pathArray, inf]}
                             level = {props.level+1}

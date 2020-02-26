@@ -1,0 +1,749 @@
+{
+    "modules" : {
+        "Signalslots IPL" : {
+            "Blind slots" : {
+                "Blind Slot (1 Slot width) incl. fixation" : {
+                    "article" : 8639210
+                },
+                "Blind Slot (2 Slot width) incl. fixation" : {
+                    "article" : 8639211
+                },
+                "Blind Slot (3 Slot width) incl. fixation" : {
+                    "article" : 8639212
+                }
+            },
+            "Vidio": {
+                "VGA (15pin HD) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639261,
+                        "40 cm cable" : 8639260,
+                        "gender changer": 8639256
+                    }
+                },
+                "VGA (15pin HD) male/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639307,
+                        "40 cm cable" : 8639285,
+                        "gender changer": ""
+                    }
+                },
+                "VGA (15pin HD) male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639285,
+                        "40 cm cable" : 8639257,
+                        "gender changer": 8639287
+                    }
+                },
+                "VGA (15pin HD) female/female ECO" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639251,
+                        "gender changer": "",
+                        "if lack of image" : 8639256
+                    }
+                },
+                "HDMI Digital (HDMI/HDMI) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639336,
+                        "gender changer": 8639339
+                    }
+                },
+                "HDMI Digital (HDMI/DVI) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639338,
+                        "gender changer": "",
+                        "if lack of image" : 8639339
+                    }
+                },
+                "HDMI screwable" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639530
+                    }
+                },
+                "DVI-D Digital female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639270,
+                        "gender changer": "",
+                        "if lack of image" : 8639269
+                    }
+                },
+                "DVI-D / HDMI Digital female/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639293,
+                        "gender changer": "",
+                        "if lack of image" : 8639269
+                    }
+                },
+                "DVI-I female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639331
+                    }
+                },
+                "Video (1xRCA) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639224,
+                        "gender changer": 8639225,
+                        "if lack of image" : 8639223
+                    }
+                },
+                "Video (1xBNC) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639294,
+                        "40 cm cable" : 8639295,
+                        "gender changer": 8639296
+                    }
+                },
+                "Video YUV (3xRCA)  female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639313,
+                        "40 cm cable" : "",
+                        "gender changer": ""
+                    }
+                },
+                "S-Video / Video (1x4pin Mini DIN, 1xRCA)  female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639241,
+                        "40 cm cable" : 8639243,
+                        "gender changer": ""
+                    }
+                },
+                "S-Video/Video (1xpin Mini DIN, 1xBNC) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639252,
+                        "40 cm cable" : 8639253,
+                        "gender changer": ""
+                    }
+                }
+            },
+            "Vidio-Audio" : {
+                "VGA/Audio (15pol HD, 1x3,5mm plug) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639265,
+                        "40 cm cable" : 8639266,
+                        "gender changer": 8639303
+                    }
+                },
+                "VGA/Audio  (15pin HD, 3,5mm Klinke) male/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639301,
+                        "40 cm cable" : 8639302,
+                        "gender changer": 8639304
+                    }
+                },
+                "VGA / Audio (15pin HD) female/female ECO" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639255,
+                        "gender changer" : "",
+                        "if lack of image" : 8639304
+                    }
+                },
+                "Video (1xRCA ye / 3,5 mm plug) female/female " : {
+                    "article-list" : {
+                        "solder-terminal" : 8639231,
+                        "40 cm cable" : 8639232,
+                        "gender changer": ""
+                    }
+                },
+                "Video / Audio (1xBNC / 1x3,5 mm plug) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639309,
+                        "40 cm cable" : 8639310,
+                        "gender changer": ""
+                    }
+                },
+                "Video / Audio L/R (3xRCA ye/re/bl) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639233,
+                        "40 cm cable" : 8639234,
+                        "gender changer": 8639235
+                    }
+                },
+                "Video / Audio (1xBNC / 2xRCA re/bl) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639297,
+                        "40 cm cable" : 8639298,
+                        "gender changer": 8639299
+                    }
+                },
+                "S-Video/Audio (1xpin Mini DIN, 1x3,5 mm plug) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639246,
+                        "40 cm cable" : 8639247,
+                        "gender changer": ""
+                    }
+                },
+                "S-Video/Audio (1xpin Mini DIN, 2xRCA) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639248,
+                        "40 cm cable" : 8639249,
+                        "gender changer": ""
+                    }
+                }
+            },
+            "Audio" : {
+                "Audio (1x3,5mm plug) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639220,
+                        "40 cm cable" : 8639221,
+                        "gender changer": ""
+                    }
+                },
+                "Audio (2x3,5mm plug Stereo) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639229,
+                        "40 cm cable" : 8639230,
+                        "gender changer": ""
+                    }
+                },
+                "Audio (3x3,5mm plug) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639236,
+                        "40 cm cable" : 8639237,
+                        "gender changer": ""
+                    }
+                },
+                "Audio L/R (2xRCA re/bl) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639226,
+                        "40 cm cable" : 8639226,
+                        "gender changer": 8639228
+                    }
+                },
+                "Audio (XLR 3pin) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639277,
+                        "40 cm cable" : 8639278,
+                        "gender changer": ""
+                    }
+                },
+                "Audio (XLR 3pin) male/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639283,
+                        "40 cm cable" : 8639284,
+                        "gender changer": ""
+                    }
+                },
+                "Audio (XLR 4pin) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639348,
+                        "40 cm cable" : 8639349,
+                        "gender changer": ""
+                    }
+                },
+                "Audio (Speakon 4pin) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639335,
+                        "40 cm cable" : 8639334,
+                        "gender changer": ""
+                    }
+                }
+            },
+            "Control" : {
+                "USB (Type A) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8640601,
+                        "gender changer": 8640603,
+                        "if lack of image" : 8639273
+                    }
+                },
+                "Serial (9pin DSub) female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639288,
+                        "40 cm cable" : 8639308,
+                        "gender changer": 8639200
+                    }
+                },
+                "Serial (9pin Dsub)  male" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639262,
+                        "40 cm cable" : 8639263,
+                        "gender changer": 8639264
+                    }
+                },
+                "LAN 1xCat6a female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639324,
+                        "gender changer": "",
+                        "if lack of image": 8639325
+                    }
+                },
+                "LAN 2xCat6a female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639327,
+                        "gender changer": 8639328
+                    }
+                },
+                "ISDN (RJ45)  female" : {
+                    "article-list" : {
+                        "solder-terminal" : 8639305,
+                        "40 cm cable" : "",
+                        "gender changer": ""
+                    }
+                },
+                "230V Wieland female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639356,
+                        "gender changer": "",
+                        "if lack of image" : 8639321
+                    }
+                },
+                "230V Wieland male/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639357,
+                        "gender changer": ""
+                    }
+                },
+                "Taster 2fach" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639369,
+                        "gender changer": "",
+                        "if lack of image" : 8639359
+                    }
+                },
+                "Taster mit LED2fach" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639386,
+                        "gender changer": ""
+                    }
+                },
+                "Schlüsselschalter ON/OFF" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639368,
+                        "gender changer": "",
+                        "if lack of image": "8639358 0001"
+                    }
+                },
+                "Control 9pin DSub female/female" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : 8639354,
+                        "gender changer": "",
+                        "if lack of image": 8639353
+                    }
+                }
+            },
+            "Optic" : {
+                "Light wave SM  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639391
+                    }
+                },
+                "Light wave SM MTRJ/MTRJ  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639392
+                    }
+                },
+                "Light wave SC/SC-Duplex MM  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639393
+                    }
+                },
+                "Light wave E2000 APC/ E2000 APC  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639394
+                    }
+                },
+                "Light wave E2000 / E2000  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639395
+                    }
+                },
+                "Light wave LC Duplex MM  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639396,
+                        "if lack of image": 8639397
+                    }
+                },
+                "Light wave LC Duplex SM  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639397
+                    }
+                },
+                "Light wave ST Duplex MM  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639398
+                    }
+                },
+                "Light wave SC Duplex SM  male/male" : {
+                    "article-list" : {
+                        "solder-terminal" : "",
+                        "40 cm cable" : "",
+                        "gender changer": 8639399
+                    }
+                }
+            }
+        },
+        "Signal slots WP" : {
+            "Blind slots" : {
+                "Blind Slot (1 Slot width) incl.mount" : {
+                    "article" : 8639606
+                },
+                "Blind Slot (2 Slot width) incl.mount" : {
+                    "article" : 8639607
+                },
+                "Blind Slot (3 Slot width) incl.mount" : {
+                    "article" : 8639608
+                }
+            },
+            "Vidio": {
+                "VGA 15pol HD Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639618,
+                        "gender changer": 8639692,
+                        "solder-terminal": 8639642
+                    }
+                },
+                "VGA 15pol HD horizontal Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639617,
+                        "gender changer": 8639691,
+                        "solder-terminal": 8639641 
+                    }
+                },
+                "VGA 15pol mit 40cm Kabel (Ecoline) Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639668,
+                        "gender changer": "",
+                        "solder-terminal": "",
+                        "if lack of image": 8639642
+                    }
+                },
+                "HDMI Digital (HDMI/HDMI) Buchse/Buchse " : {
+                    "article-list" : {
+                        "40 cm cable": 8639659,
+                        "gender changer": 8639629,
+                        "solder-terminal": ""
+                    }
+                },
+                "HDMI Digital (HDMI/DVI) Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639669,
+                        "gender changer": "",
+                        "solder-terminal": "",
+                        "if lack of image": 8639629
+                    }
+                },
+                "DVI-D Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639605,
+                        "gender changer": "",
+                        "solder-terminal": 8639633
+                    }
+                },
+                "HDMI Schraubanschluss" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8639678,
+                        "solder-terminal": "",
+                        "if lack of image" : "Platzhalter IUL Slot"
+                    }
+                },
+                "Video BNC Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": "",
+                        "solder-terminal": 8639644
+                    }
+                },
+                "Video Cinch Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639621,
+                        "gender changer": 8639695,
+                        "solder-terminal": 8639645
+                    }
+                },
+                "3 x Cinch YUV Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": "",
+                        "solder-terminal": 8639646
+                    }
+                },
+                "S-Video 4pol Hosiden Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639614,
+                        "gender changer": "",
+                        "solder-terminal": 8639638
+                    }
+                },
+                "SVideo 4pol Hosiden to 2xBNC Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639628,
+                        "gender changer": "",
+                        "solder-terminal": "",
+                        "if lack of image" : 8639638
+                    }
+                },
+                "S-Video 4pol / Video BNC  Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639609,
+                        "gender changer": "",
+                        "solder-terminal": 8639634
+                    }
+                },
+                "SVideo 4pol / Video Cinch Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639610,
+                        "gender changer": "",
+                        "solder-terminal": 8639635
+                    }
+                }
+            },
+            "Vidio-Audio" : {
+                "DVI-D / Audio Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": "",
+                        "solder-terminal": 8639831,
+                        "if lack of image" : "Platzhalter IUL Slot"
+                    }
+                }
+            },
+            "Audio" : {
+                "Audio L/R Cinch Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639600,
+                        "gender changer": 8639680,
+                        "solder-terminal": 8639630
+                    }
+                },
+                "Audio 2 x 3,5 mm Klinke  Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639601,
+                        "gender changer": "",
+                        "solder-terminal": 8639649
+                    }
+                },
+                "Audio 1x3,5mm Klinke Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639602,
+                        "gender changer": "",
+                        "solder-terminal": 8639655
+                    }
+                },
+                "Audio XLR 3pol Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639603,
+                        "gender changer": "",
+                        "solder-terminal": 8639631
+                    }
+                },
+                "Audio XLR 4pol Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639654,
+                        "gender changer": "",
+                        "solder-terminal": 8639657
+                    }
+                },
+                "Audio XLR 5pol  Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639653,
+                        "gender changer": "",
+                        "solder-terminal": 8639652
+                    }
+                },
+                "Audio Speakon Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639667,
+                        "gender changer": "",
+                        "solder-terminal": 8639631
+                    }
+                }
+            },
+            "Control" : {
+                "Serial 9pol D-Sub horizontal Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639611,
+                        "gender changer": "",
+                        "solder-terminal": 8639648
+                    }
+                },
+                "Serial 9pol D-Sub  Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639612,
+                        "gender changer": 8639686,
+                        "solder-terminal": 8639636
+                    }
+                },
+                "Control 9pol D-Sub Buchse/offen" : {
+                    "article-list" : {
+                        "40 cm cable": 8639690,
+                        "gender changer": "",
+                        "solder-terminal": "",
+                        "if lack of image" : 8639686
+                    }
+                },
+                "LAN RJ45 CAT6 Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639613,
+                        "gender changer": 8639687,
+                        "solder-terminal": ""
+                    }
+                },
+                "USB (Typ A) Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8640700,
+                        "gender changer": 8640605,
+                        "solder-terminal": "" 
+                    }
+                },
+                "ISDN  RJ45 Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": 8639626,
+                        "gender changer": "",
+                        "solder-terminal": "",
+                        "if lack of image" : "Platzhalter IUL Slot"
+                    }
+                },
+                "USB 3.0 (Typ B-B) Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8640604,
+                        "solder-terminal": ""
+                    }
+                },
+                "USB 3.0 (Typ B-A) Buchse/Buchse" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8649696,
+                        "solder-terminal": "",
+                        "if lack of image": 8640604
+                    }
+                },
+                "Worldplate Schlüsselschalter  ON / OFF" : {
+                    "article-list" : {
+                        "40 cm cable": 8639683,
+                        "gender changer": "",
+                        "solder-terminal": 8639682
+                    }
+                },
+                "Worldplate Taster 2fach" : {
+                    "article-list" : {
+                        "40 cm cable": 8639684,
+                        "gender changer": "",
+                        "solder-terminal": 8639636
+                    }
+                },
+                "Worldplate Taster mit LED 2fach" : {
+                    "article-list" : {
+                        "40 cm cable": 8639698,
+                        "gender changer": "",
+                        "solder-terminal": ""
+                    }
+                },
+                "Worldplate Kabeldurchführung 3fach" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": "",
+                        "solder-terminal": 8639830,
+                        "if lack of image" : "Platzhalter IUL Slot"
+                    }
+                }
+    
+            },
+            "Optic" : {
+                "Lichtwelle SM Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8639833,
+                        "solder-terminal": "",
+                        "if lack of image" : "Platzhalter IUL Slot"
+                    }
+                },
+                "Worldplate Slot Lichtwelle SM MTRJ/MTRJ Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 869834,
+                        "solder-terminal": ""
+                    }
+                },
+                "Worldplate Slot Lichtwelle SC/SCDuplex MM Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8639835,
+                        "solder-terminal": ""
+                    }
+                },
+                "Worldplate Slot Lichtwelle E2000 APC/E2000 APC Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8639836,
+                        "solder-terminal": ""
+                    }
+                },
+                "Worldplate Slot Lichtwelle E2000/E2000 Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8699837,
+                        "solder-terminal": "",
+                        "if lack of image" : "Platzhalter IUL Slot"
+                    }
+                },
+                "Worldplate Slot Lichtwelle LC Duplex MM  Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8649838,
+                        "solder-terminal": "",
+                        "if lack of image" : 8639839
+                    }
+                },
+                "Worldplate Slot Lichtwelle LC Duplex SM  Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8639839,
+                        "solder-terminal": ""
+                    }
+                },
+                "Worldplate Slot Lichtwelle ST Duplex MM  Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8649840,
+                        "solder-terminal": "",
+                        "if lack of image" : 8639841
+                    }
+                },
+                "Worldplate Slot Lichtwelle SC Duplex SM  Stecker/Stecker" : {
+                    "article-list" : {
+                        "40 cm cable": "",
+                        "gender changer": 8639841,
+                        "solder-terminal": ""
+                    }
+                }
+            }
+        }
+    }
+}

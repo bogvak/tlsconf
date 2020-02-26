@@ -157,7 +157,7 @@ const ConfLayOutWallWP = (props) => {
                     componentClassName={componentClassName+"-support-frame"}
                     index={index}
                     setModule={props.setModule}
-                    supportFrame_index={1}
+                    supportFrame_index={0}
                 />)}
             </div>
         </div>
