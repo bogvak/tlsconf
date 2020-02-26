@@ -134,7 +134,7 @@ const ConfDescLine = props => {
   ].join(' ');
   if (props.article) {
     return (<div className={elementClassName}>
-      <div className={props.elementClassName+"-article"}>{props.article}</div>
+      <div className={props.elementClassName+"-article"}>{props.article && props.article.toString().replace(/-/g, '-\n')}</div>
       {(props.MenuHandler&&props.MenuContent)?
         <SubMenuRightBottom
           elementClassName={props.elementClassName+"-specs-menu"}
