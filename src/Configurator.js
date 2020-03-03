@@ -203,57 +203,60 @@ class Configurator extends Component {
     const configuration = this.state.Configurations[confNum]
     let article_list = [];
     configuration.platformСhoiceDesc.article && article_list.push(configuration.platformСhoiceDesc.article.toString());
+
     configuration.platformСhoiceDesc.frame_sub_type_article && article_list.push(configuration.platformСhoiceDesc.frame_sub_type_article.toString());
+
+    const suppFrame_articles = []
     for (const supp_frame of configuration.platformСhoiceDesc.support_frame_arr) {
-        article_list.push(supp_frame.article.toString());
+      suppFrame_articles.push(supp_frame.article.toString());
     }
+
+    const modules_articles = []
     for (const module of configuration.Modules) {
-        if (module.display===true) {
-            article_list.push(module.article ? module.article.toString() : null);    
-        }
+      if (module.display===true) {
+        modules_articles.push(module.article ? module.article.toString() : null);    
+      }
     }
+
+    const powerSocket_articles = []
     for (let i=0; i<configuration.platformСhoiceDesc["power-sockets"]; i++) {
-        article_list.push(configuration.platformСhoiceDesc.powerSocketArticle.toString());
+      powerSocket_articles.push(configuration.platformСhoiceDesc.powerSocketArticle.toString());
     }
+
+    let pos;
+    if (powerSocket_articles.length > 2) {
+        pos = 2;
+    } else if (configuration.platformСhoiceDesc["conference-control"] || configuration.platformСhoiceDesc["conference-control-double-frame"] || configuration.platformСhoiceDesc["location"]!=="TABLE") {
+        pos = 0;
+    } else {
+        pos = 1;
+    }
+    // Add modules to PS array
+    powerSocket_articles.splice(pos, 0, ...modules_articles)
+
+    // Add modules, ps, suppframes to main printing arr
+    article_list = [...article_list, ...suppFrame_articles, ...powerSocket_articles]
 
     const outPut = [];
     for (let i=0; i<article_list.length; i++) {
-        const article = article_list[i];
-        if (article===null) {
-            return [];
+      const article = article_list[i];
+      if (article===null) {
+        return [];
+      }
+      let is_dup = false;
+      for (let j=0; j<outPut.length; j++) {
+        const curr_article = outPut[j].article
+        if (curr_article === article) {
+          is_dup = true;
+          outPut[j].pos.push(i);
         }
-        let is_dup = false;
-        for (let j=0; j<outPut.length; j++) {
-            const curr_article = outPut[j].article
-            if (curr_article === article) {
-                is_dup = true;
-                outPut[j].pos.push(i);
-            }
-        }
-        if (is_dup===false) {
-            outPut.push({article: article, pos: [i]});
-        }
+      }
+      if (is_dup===false) {
+        outPut.push({article: article, pos: [i]});
+      }
     };
     return outPut;
   }
-
-  testConf = [
-    {
-      article: 8659200,
-      quantity: 1,
-      posList: [1],
-    },
-    {
-      article: 8659213,
-      quantity: 1,
-      posList: [2],
-    },
-    {
-      article: 8639220,
-      quantity: 2,
-      posList: [3, 4],
-    },
-  ]
 
   render() {
     return (
