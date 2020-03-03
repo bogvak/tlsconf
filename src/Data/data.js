@@ -1035,21 +1035,21 @@ const modulesForBottomMenu = {
 					"solder-terminal": ""
 				}
 			},
-			/**"Worldplate Slot Lichtwelle E2000/E2000 Stecker/Stecker" : {
+			"Worldplate Slot Lichtwelle E2000/E2000 Stecker/Stecker" : {
 				"outOfImg" : true,
 				"article-list" : {
 					"40 cm cable": "",
-					"gender changer": 8699837,
+					"gender changer": 8639837,
 					"solder-terminal": ""
 				}
-			},*/
-			/**"Worldplate Slot Lichtwelle LC Duplex MM  Stecker/Stecker" : {
+			},
+			"Worldplate Slot Lichtwelle LC Duplex MM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
-					"gender changer": 8649838,
+					"gender changer": 8639838,
 					"solder-terminal": ""
 				}
-			},*/
+			},
 			"Worldplate Slot Lichtwelle LC Duplex SM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
@@ -1057,13 +1057,13 @@ const modulesForBottomMenu = {
 					"solder-terminal": ""
 				}
 			},
-			/**"Worldplate Slot Lichtwelle ST Duplex MM  Stecker/Stecker" : {
+			"Worldplate Slot Lichtwelle ST Duplex MM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",
-					"gender changer": 8649840,
+					"gender changer": 8639840,
 					"solder-terminal": ""
 				}
-			},*/
+			},
 			"Worldplate Slot Lichtwelle SC Duplex SM  Stecker/Stecker" : {
 				"article-list" : {
 					"40 cm cable": "",

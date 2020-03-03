@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import dataList from '../Data/dataFromTable';
+import dataList from '../Data/pricelistinfo';
 
 class ComponentToPrint extends Component {
 
-    isDefiend = (path, obj) => {
-        if(!obj) obj = dataList;
-        const errM = "Module wasn't found!"
-        return path.split(/\./).reduce((o,i)=>(o)?o[i]:errM, obj)
-    }
+    className = "component-to-print"
 
-    firstRowCI = [
+    headers = ["Pos.", "Item Nr.", "Decription", "Quantity"]
+
+    firstColumnCI = [
+        <Fragment><span>ECCO</span> CINE SUPPLY AND SERVICE GMBH</Fragment>,
         "Marie-Curie-Str. 20 • D - 40721 Hilden",
         "Telefon: +49(0)211/522875-0",
         "Telefax: +49(0)211/522875-10",
@@ -17,98 +16,78 @@ class ComponentToPrint extends Component {
         "Internet: www.ecco-online.eu",
     ]
 
-    secondRowCI = {
-        "DE Steuer-Nr.:": "103/5724/2402",
-        "DE USt-ID;": "DE 281834860",
-        "HRG 67133": "Düsseldorf",
-        "Geschäftsführer": "Thomas Rüttgers Horst Kleinpeter",
-    }
+    secondColumnCI = [
+        "DE Steuer-Nr.:", "103/5724/2402",
+        "DE USt-ID:", "DE 281834860",
+        "HRG 67133:", "Düsseldorf",
+        "Geschäftsführer:", <Fragment>Thomas Rüttgers<br/>Horst Kleinpeter</Fragment>,
+    ]
     
-    thirdRowCI = {
-        "Sparkasse Düsseldorf": ["SWIFT/BIC: DUSSDEDDXXX", "IBAN: DE87 3005 01101007 3139 66"],
-        "Kreissparkasse Düsseldorf": ["SWIFT/BIC: WELADED1KSD", "IBAN: DE55 3015 0200 00021361 41"],
-        "Deutsche Ban": ["SWIFT/BIC: DEUTDEDBDUE", "IBAN: DE17 3007 0024 0533 6565 00"],
-    }
+    thirdColumnCI = [
+        "Sparkasse Düsseldorf", <Fragment>SWIFT/BIC: DUSSDEDDXXX<br/>IBAN: DE87 3005 01101007 3139 66</Fragment>,
+        "Kreissparkasse Düsseldorf", <Fragment>SWIFT/BIC: WELADED1KSD<br/>IBAN: DE55 3015 0200 00021361 41</Fragment>,
+        "Deutsche Ban", <Fragment>SWIFT/BIC: DEUTDEDBDUE<br/>IBAN: DE17 3007 0024 0533 6565 00</Fragment>,
+    ]
 
-    tableHeader = ["Pos.", "Desc.", "Quantity"]
+    lack_module = {
+        Type: "Some module",
+        Description1: "An error on",
+        Description2: "loading from price list"
+    }
 
     render () {
-        if (this.props.articlesToPrint) {
-            return (
-                <div className="component-to-print-wrapper">
-                    <div className="top-left-logo-container">
-                        <img className="top-left-logo" src="https://www.tls-electronics.de/custom/tls_electro/img/top_left_logo.png" alt="logo"/>
+        return (
+            <div className={this.className}>
+                <img 
+                    className={this.className+"-logo"} 
+                    src="https://www.tls-electronics.de/custom/tls_electro/img/top_left_logo.png" 
+                    alt="logo"
+                />
+                <div className={this.className+"-configuration"}>
+                    {this.headers.map(header => {
+                        return (
+                            <p key={header} className={this.className+"-configuration-header"}>{header}</p>
+                        )
+                    })}
+                    {this.props.configuration.map((obj, i) => {
+                        const [article, posList] = Object.values(obj)
+                        const module = (dataList[article]) ? dataList[article] : this.lack_module
+                        return (
+                            <Fragment key={article+"_"+i}>
+                                <p>{posList.map(pos => pos+1).join(", ")}</p>
+                                <p>{article}</p>
+                                <p className={this.className+"-configuration-desc"}>{module["type"]}:<br/>Other:</p>
+                                <p className={this.className+"-configuration-desc"}>{module["description1"]}<br/>{module["description2"]}</p>
+                                <p>{posList.length}</p>
+                            </Fragment>
+                        )
+                    })}
+                </div>
+                <div className={this.className+"-contact-info"}>
+                    <div className={this.className+"-contact-info-col1"}>
+                        {this.firstColumnCI.map((text, i) => {
+                            return (
+                                <p key={"firstColumnCI_"+i}>{text}</p>
+                            )
+                        })}
                     </div>
-                    <table className="print-conf-table">
-                        <thead>
-                            <tr className="print-conf-table-head">
-                                {this.tableHeader.map((title) => <th key={title}>{title}</th>)}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.articlesToPrint.map((inf, index) => {
-                                const article = inf.article;
-                                return (<Fragment key={inf+"_"+index}>
-                                    <tr className="print-conf-table-body_l0" key={index}>
-                                        <td>
-                                            {index}
-                                        </td>
-                                        <td>
-                                            {inf.article}
-                                        </td>
-                                        <td>
-                                            {inf.quantity}
-                                        </td>
-                                    </tr>
-                                    <tr className="print-conf-table-body_l1">
-                                        <td />
-                                        <td>{this.isDefiend(`${article}.Type`)}:</td>
-                                        <td>{this.isDefiend(`${article}.Description2`)}</td>
-                                    </tr>
-                                    <tr className="print-conf-table-body_l2">
-                                        <td />
-                                        <td>Other:  </td>
-                                        <td>{this.isDefiend(`${article}.Description1`)}</td>
-                                    </tr>
-                                </Fragment>)
-                            })}
-                        </tbody>
-                    </table>
-                    <div className="contact-info">
-                        <table className="contact-info-table1">
-                            <tbody>
-                                <tr className="contact-info-table1-ECCO">
-                                    <td>ECCO<span className="contact-info-table1-ECCO-text">CINE UPPLY AND SERVICE GMBH</span></td>
-                                </tr>
-                                {this.firstRowCI.map((line, index) => <tr key={line+"_"+index}>
-                                    <td>{line}</td>
-                                </tr>)}
-                            </tbody>
-                        </table>
-                        <table className="contact-info-table2">
-                            <tbody>
-                                {Object.keys(this.secondRowCI).map((line, index) => <tr key={line+"_"+index}>
-                                    <td>{line}</td>
-                                    <td>{this.secondRowCI[line]}</td>
-                                </tr>)}
-                            </tbody>
-                        </table>
-                        <table className="contact-info-table3">
-                            <tbody>
-                                {Object.keys(this.thirdRowCI).map((line, index) => <tr key={line+"_"+index}>
-                                    <td>{line}</td>
-                                    <td>{this.thirdRowCI[line].map((bankInfo, index) => <Fragment key={bankInfo+"_"+index}>
-                                        {bankInfo} <br />
-                                    </Fragment>)}</td>
-                                </tr>)}
-                            </tbody>
-                        </table>
+                    <div className={this.className+"-contact-info-col2"}>
+                        {this.secondColumnCI.map((text, i) => {
+                            return (
+                                <p key={"secondColumnCI_"+i}>{text}</p>
+                            )
+                        })}
+                    </div>
+                    <div className={this.className+"-contact-info-col3"}>
+                        {this.thirdColumnCI.map((text, i) => {
+                            return (
+                                <p key={"thirdColumnCI_"+i}>{text}</p>
+                            )
+                        })}
                     </div>
                 </div>
-            )
-        } else {
-            return 'Error'
-        }
+            </div>
+        )
        
     }
 }

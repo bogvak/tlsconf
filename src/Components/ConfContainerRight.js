@@ -82,7 +82,7 @@ const FrameSubMenu = (props) => {
 const ConfContainerRightBottom = (props) => {
   const [confNumber_st, set_confNumber_st] = useState(0)
 
-  const [articlesToPrint, articlesToPrint_set] = useState(null)
+  const [articlesToPrint, articlesToPrint_set] = useState([])
   useEffect(()=>{
     articlesToPrint_set(props.articlesToPrint_handler(confNumber_st))
   }, [props, confNumber_st])
@@ -134,7 +134,9 @@ const ConfDescLine = props => {
   ].join(' ');
   if (props.article) {
     return (<div className={elementClassName}>
-      <div className={props.elementClassName+"-article"}>{props.article && props.article.toString().replace(/-/g, '-\n')}</div>
+      <div className={props.elementClassName+"-article"}>
+        {props.article && props.article.toString().replace(/-/g, '-\n')}
+      </div>
       {(props.MenuHandler&&props.MenuContent)?
         <SubMenuRightBottom
           elementClassName={props.elementClassName+"-specs-menu"}
@@ -229,7 +231,7 @@ const ConfList = props => {
 const PrintConfButton = props => {
 
   const errorAlert = () => {
-    if (!props.articlesToPrint) {
+    if (props.articlesToPrint.length===0) {
       alert("Unfortunately the incomplete configuration cannot be printed.")
     }
   }
@@ -243,7 +245,7 @@ const PrintConfButton = props => {
         onBeforeGetContent={()=>errorAlert()}
       />
       <div style={{display: 'none'}}>
-        <ComponentToPrint articlesToPrint={props.articlesToPrint} ref={componentRef} />
+        {(props.articlesToPrint.length>0) && <ComponentToPrint configuration={props.articlesToPrint} ref={componentRef} />}
       </div>
     </div>
   );

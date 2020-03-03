@@ -6,11 +6,12 @@ import ConfContainerRight from './Components/ConfContainerRight';
 import {supportFrames, subModulesType, framesForTopMenu, modulesForBottomMenu, PowerSocket} from './Data/data';
 import localStrings from './Data/strings';
 import emptyConf from './Data/emptyConf';
-import dataList from './Data/dataFromTable';
+import dataList from './Data/pricelistinfo';
 
 //CSS
 import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
+
 
 class Configurator extends Component {
   
@@ -43,7 +44,6 @@ class Configurator extends Component {
       
       const support_frame_line = line.match(/[A-Z]{1,}$/)[0]
       inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][Object.keys(supportFrames[support_frame_line])[0]])
-      console.log(inf.support_frame_arr)
       inf.isCoverHiden = true;
     }
     if (inf["power-sockets"] > 0) {
@@ -75,7 +75,7 @@ class Configurator extends Component {
     const getWeight = article => {
       if (dataList[article]) {
         const slotsWidth_rexEx = /[0-9] slots* width/
-        const module_info = Object.values(dataList[article]).filter(Boolean)
+        const module_info = Object.values(dataList[article])
         const slots_takes = module_info.map(str => str.match(slotsWidth_rexEx) && str.match(slotsWidth_rexEx)[0]).filter(Boolean)[0]
         return slots_takes && parseInt(slots_takes.replace(/\D+/, ""))
       } else {
@@ -201,93 +201,92 @@ class Configurator extends Component {
 
   articlesToPrint_handler = (confNum) => {
     const configuration = this.state.Configurations[confNum]
-    const articlesToPrint = []
-    let isOkay = true
-    articlesToPrint.push({
-      article: configuration.platformСhoiceDesc.article, 
-      quantity: 1});
-    if (configuration.platformСhoiceDesc.frame_sub_type_article) {
-      articlesToPrint.push({
-        article: configuration.platformСhoiceDesc.frame_sub_type_article, 
-        quantity: 1
-      });
+    let article_list = [];
+    configuration.platformСhoiceDesc.article && article_list.push(configuration.platformСhoiceDesc.article.toString());
+    configuration.platformСhoiceDesc.frame_sub_type_article && article_list.push(configuration.platformСhoiceDesc.frame_sub_type_article.toString());
+    for (const supp_frame of configuration.platformСhoiceDesc.support_frame_arr) {
+        article_list.push(supp_frame.article.toString());
     }
-    if (configuration.platformСhoiceDesc["power-sockets"]) {
-      articlesToPrint.push({
-        article: configuration.platformСhoiceDesc.powerSocketArticle, 
-        quantity: configuration.platformСhoiceDesc["power-sockets"]
-      });
-    }
-    if (configuration.platformСhoiceDesc.support_frame_arr) {
-      for (const module of configuration.platformСhoiceDesc.support_frame_arr) {
-        articlesToPrint.push({
-          article: module.article,
-          quantity: 1
-        })
-      }
-    }
-    if (configuration.Modules) {
-      for (const module of configuration.Modules) {
-        if (module.display) {
-          articlesToPrint.push({
-            article: module.article,
-            quantity: 1
-          })
+    for (const module of configuration.Modules) {
+        if (module.display===true) {
+            article_list.push(module.article ? module.article.toString() : null);    
         }
-      }
     }
-    articlesToPrint.map((el, index) => {
-      if (!el.article) {
-        isOkay=false
-      } else {
-        let quantity = 1;
-        el.posList=[index]
-        for (let i = index+1; i<articlesToPrint.length; i++) {
-          if (articlesToPrint[i].article === el.article) {
-            articlesToPrint[i].article = "duplicate";
-            quantity++;
-            el.quantity=quantity;
-            el.posList.push(i)
-          }
+    for (let i=0; i<configuration.platformСhoiceDesc["power-sockets"]; i++) {
+        article_list.push(configuration.platformСhoiceDesc.powerSocketArticle.toString());
+    }
+
+    const outPut = [];
+    for (let i=0; i<article_list.length; i++) {
+        const article = article_list[i];
+        if (article===null) {
+            return [];
         }
-      }
-      return el;
-    })
-    return isOkay && articlesToPrint.filter(el => el.article!=="duplicate")
+        let is_dup = false;
+        for (let j=0; j<outPut.length; j++) {
+            const curr_article = outPut[j].article
+            if (curr_article === article) {
+                is_dup = true;
+                outPut[j].pos.push(i);
+            }
+        }
+        if (is_dup===false) {
+            outPut.push({article: article, pos: [i]});
+        }
+    };
+    return outPut;
   }
+
+  testConf = [
+    {
+      article: 8659200,
+      quantity: 1,
+      posList: [1],
+    },
+    {
+      article: 8659213,
+      quantity: 1,
+      posList: [2],
+    },
+    {
+      article: 8639220,
+      quantity: 2,
+      posList: [3, 4],
+    },
+  ]
 
   render() {
     return (
-		<div className="conf-main">
-			<ConfContainerLeft 
-        localStrings={localStrings}
-        framesForTopMenu={framesForTopMenu}
-        modulesForBottomMenu={modulesForBottomMenu}
-        Language={this.state.Language}
-        QuantityOfConf={this.state.QuantityOfConf}
-        Configuration={this.state.Configurations[this.state.ConfNumber]}
-        //Handlers
-        setModule={this.setModule}
-        CoverHidenHandler={this.coverHidenHandler}
-        platformHandler={this.platformHandler}
-        ConfNumberHandler={this.confNumberHandler}
-        AddConfHandler={this.addConfHandler}
-        maxConfQuantity={this.state.maxConfQuantity}
-        frameResetHandler={this.frameResetHandler}
-      />
-			<ConfContainerRight
-        ConfNumber={this.state.ConfNumber}
-        Configurations={this.state.Configurations}
-        QuantityOfConf={this.state.QuantityOfConf}
-        //Handlers
-        ModuleMenuHandler={this.moduleMenuHandler}
-        articlesToPrint_handler={this.articlesToPrint_handler}
-        frame_sub_typeHandler={this.frame_sub_typeHandler}
-        ModuleResetHandler={this.moduleResetHandler}
-        frameResetHandler={this.frameResetHandler}
-        powerSocketMenuHandler={this.powerSocketMenuHandler}
-       />
-		</div>
+      <div className="conf-main">
+        <ConfContainerLeft 
+          localStrings={localStrings}
+          framesForTopMenu={framesForTopMenu}
+          modulesForBottomMenu={modulesForBottomMenu}
+          Language={this.state.Language}
+          QuantityOfConf={this.state.QuantityOfConf}
+          Configuration={this.state.Configurations[this.state.ConfNumber]}
+          //Handlers
+          setModule={this.setModule}
+          CoverHidenHandler={this.coverHidenHandler}
+          platformHandler={this.platformHandler}
+          ConfNumberHandler={this.confNumberHandler}
+          AddConfHandler={this.addConfHandler}
+          maxConfQuantity={this.state.maxConfQuantity}
+          frameResetHandler={this.frameResetHandler}
+        />
+        <ConfContainerRight
+          ConfNumber={this.state.ConfNumber}
+          Configurations={this.state.Configurations}
+          QuantityOfConf={this.state.QuantityOfConf}
+          //Handlers
+          ModuleMenuHandler={this.moduleMenuHandler}
+          articlesToPrint_handler={this.articlesToPrint_handler}
+          frame_sub_typeHandler={this.frame_sub_typeHandler}
+          ModuleResetHandler={this.moduleResetHandler}
+          frameResetHandler={this.frameResetHandler}
+          powerSocketMenuHandler={this.powerSocketMenuHandler}
+        />
+      </div>
     );
   }
 }
