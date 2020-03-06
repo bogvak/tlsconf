@@ -53,9 +53,9 @@ $shadow-top-left: -1px -1px $shadow-color;
 $shadow-bottom-left: -1px 1px $shadow-color;
 $shadow-bottom-right: 1px 1px $shadow-color;
 $shadow-top-right: 1px -1px $shadow-color;
+$conf-desc-line-padding: 2px;
 
-/***print pdf setting***/
-$print-conf-font-size: 0.63em;
+$specs-menu-width: 8px;
 
 @import 'mixins';
 
@@ -67,7 +67,7 @@ html { font-family: 'Inter', sans-serif;}
 }
 
 body {
-    font-family: 'Inter';
+    font-family: Inter;
     font-weight: 500;
 }
 .conf-main {

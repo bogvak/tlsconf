@@ -217,6 +217,9 @@
                         display: flex;
                         position: relative;
                         overflow: hidden;
+                        &-32ks {
+                            position: absolute;
+                        }
                         &--hiddenCover {
                             overflow: visible;
                         }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import dataList from '../Data/pricelistinfo';
+import priceList from '../Data/pricelistinfo';
 
 class ComponentToPrint extends Component {
 
@@ -51,12 +51,12 @@ class ComponentToPrint extends Component {
                     })}
                     {this.props.configuration.map((obj, i) => {
                         const [article, posList] = Object.values(obj)
-                        const module = (dataList[article]) ? dataList[article] : this.lack_module
+                        const module = (priceList[article]) ? priceList[article] : this.lack_module
                         return (
                             <Fragment key={article+"_"+i}>
                                 <p>{posList.map(pos => pos+1).join(", ")}</p>
                                 <p>{article}</p>
-                                <p className={this.className+"-configuration-desc"}>{module["type"]}:<br/>Other:</p>
+                                <p className={this.className+"-configuration-desc"}>{module["type"]}:<br/></p>
                                 <p className={this.className+"-configuration-desc"}>{module["description1"]}<br/>{module["description2"]}</p>
                                 <p>{posList.length}</p>
                             </Fragment>

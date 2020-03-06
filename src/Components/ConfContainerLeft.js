@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {ConfLayOutTable, ConfLayOutFloor, ConfLayOutWallIPL,ConfLayOutWallWP} from './ConfLayOut';
+import priceList from '../Data/pricelistinfo';
 
 const ConfContainerLeft = (props) => {
     return <div className="conf-main-left">
@@ -34,8 +35,8 @@ const ConfContainerLeft = (props) => {
             level={0}
             dataObj={props.modulesForBottomMenu}
             draggable='true'
-            line={props.Configuration.platformСhoiceDesc.line.match(/[A-Z0-9]{1,}$/)}
-            location={props.Configuration.platformСhoiceDesc.location}
+            line={props.Configuration.platformСhoiceDesc && props.Configuration.platformСhoiceDesc.line.match(/[A-Z0-9]{1,}$/)}
+            location={props.Configuration.platformСhoiceDesc && props.Configuration.platformСhoiceDesc.location}
         />
         <ConfContainerLeftInstruction
             Language={props.Language}
@@ -119,14 +120,14 @@ const CardMenu = props => {
     }
     return (
         <div className={className}>
-            {Object.entries(props.dataObj).map(([desc, module], i, module_list) => {
-                if (module["article-list"] && !module.article) {
-                    module["article-list"] = Object.entries(module["article-list"]).reduce((outPut, [key, value]) => value ? {...outPut, [key]:value} : outPut, {})
-                    module.sub_desc = Object.keys(module["article-list"])[0]
-                    module.article=module["article-list"][module.sub_desc]
+            {props.dataObj.map((module, i, module_list) => {
+                if (!module.article) {
+                    Object.keys(module).forEach((key) => (module[key] == null) && delete module[key]);
+                    module = {article_list: module}
+                    module.sub_desc = Object.keys(module.article_list)[0]
+                    module.article=module.article_list[module.sub_desc]
                 };
                 module.img = "img/" + props.pathArray.join("/").toLowerCase()+ "/" + module.article + ".png"
-
                 return (
                     <div className={className+"-card"} key={className+"-card_"+i} id={className+"-card_"+i}>
                         <img
@@ -135,17 +136,17 @@ const CardMenu = props => {
                             src={module.img}
                             key={className+"-card-img_"+i}
                             onClick={() => {
-                                props.onClick && props.onClick({...module, desc: desc}, ...props.pathArray);
+                                props.onClick && props.onClick(module, ...props.pathArray);
                                 set_selected(i);
                             }}
-                            onDragStart={e => props.draggable && dragStart(e, [{...module, desc: desc}, ...props.pathArray])}
+                            onDragStart={e => props.draggable && dragStart(e, [module, ...props.pathArray])}
                             onDragOver={dragOver}
                         />
                         <CardDesc
                             className={className+"-card-desc"}
                             isLeftPart={(i<module_list.length/2)}
                         >
-                            {desc}
+                            {priceList[module.article] && priceList[module.article].description1}
                         </CardDesc>
                     </div>
                 )
@@ -185,8 +186,9 @@ const ConfContainerLeftMiddle = (props) => {
                 className={elementClassName+"-list-tab"}
                 selectedClassName={elementClassName+"-list-tab--selected"}
                 onClick={props.ConfNumberHandler.bind(this, number)} 
-                key={number}>
-                    Configuration: {number+1}
+                key={number}
+            >
+                Configuration: {number+1}
             </Tab>)}
             <button
                 style={{display: (props.QuantityOfConf < props.maxConfQuantity) ? "inline-block" : "none"}}
@@ -200,7 +202,7 @@ const ConfContainerLeftMiddle = (props) => {
             className={elementClassName+"-panel"}
             selectedClassName={elementClassName+"-panel--selected"}
             key={number}>
-                {(props.Configuration.platformСhoiceDesc.article) ?
+                {(props.Configuration.platformСhoiceDesc) ?
                     <RepresentationOfConf 
                         CoverHidenHandler={props.CoverHidenHandler}
                         Configuration={props.Configuration}
@@ -248,7 +250,8 @@ const ConfDesc = (props) => {
     return <div className={elementClassName}>
         <p>{props.platformСhoiceDesc.line} - Support frame</p>
         <ul>
-            <li>{props.platformСhoiceDesc.desc}</li>
+            <li>{props.platformСhoiceDesc.line_desc}</li>
+            <li>Type: Special</li>
             {(props.platformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.platformСhoiceDesc["support-frame_amount"]})</li>: null}
             {(props.platformСhoiceDesc.line==="Premium Line IPL") ? <li>
                 Hide cover frame{" "}
@@ -257,7 +260,6 @@ const ConfDesc = (props) => {
                     className={[elementClassName+"-check-box", (props.platformСhoiceDesc.isCoverHiden) ? elementClassName+"-check-box--hiden" : null].filter(Boolean).join(" ")}
                 >✓</button>
             </li>: null}
-            <li>{props.platformСhoiceDesc.type}</li>
         </ul>
     </div>
 }

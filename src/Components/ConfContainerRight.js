@@ -1,8 +1,8 @@
 import React, { useState , useRef, useEffect, Fragment} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ComponentToPrint from './ConfWindowForPrint';
-import SimpleBar from 'simplebar-react';
 import ReactToPrint from 'react-to-print';
+import priceList from '../Data/pricelistinfo';
 
 const ConfContainerRight = (props) => {
     return (
@@ -27,7 +27,7 @@ const ConfContainerRight = (props) => {
 const ConfContainerRightTop = (props) => {
   return (
     <div className="conf-main-right-top">
-      {(props.Configuration.platformСhoiceDesc.line) ? <Fragment>
+      {(props.Configuration.platformСhoiceDesc) ? <Fragment>
       <div className="conf-main-right-top-img-wrapper">
         <img
           className="conf-main-right-top-img"
@@ -36,7 +36,7 @@ const ConfContainerRightTop = (props) => {
         />
       </div>
       <div className="conf-main-right-top-frameName">
-        {props.Configuration.platformСhoiceDesc.line_desc}
+        {(props.Configuration.platformСhoiceDesc.location === "TABLE") ? props.Configuration.platformСhoiceDesc.line : props.Configuration.platformСhoiceDesc.line_desc}
       </div>
       <div className="conf-main-right-top-subFrameMenu">
         {(props.Configuration.platformСhoiceDesc.frame_sub_type) ?  
@@ -105,7 +105,7 @@ const ConfContainerRightBottom = (props) => {
             selectedClassName="conf-main-right-bottom_l0-panel--selected" 
             key={confNumber}
           >
-            {(conf.platformСhoiceDesc.line) ? [
+            {(conf.platformСhoiceDesc) ? [
               <ConfList 
                 key={confNumber}
                 confNumber={confNumber}
@@ -128,28 +128,29 @@ const ConfContainerRightBottom = (props) => {
 }
 
 const ConfDescLine = props => {
-  const elementClassName=[
-    props.elementClassName,
-    props.elementClassName+((props.display || props.display===undefined)? '--visible': '--hidden'),
-  ].join(' ');
   if (props.article) {
-    return (<div className={elementClassName}>
-      <div className={props.elementClassName+"-article"}>
-        {props.article && props.article.toString().replace(/-/g, '-\n')}
+    return (<Fragment>
+      <div>
+        <div className={props.elementClassName+"-article"}>
+          {props.article && props.article.toString().replace(/-/g, '-\n')}
+        </div>
       </div>
-      {(props.MenuHandler&&props.MenuContent)?
-        <SubMenuRightBottom
-          elementClassName={props.elementClassName+"-specs-menu"}
-          MenuContent={props.MenuContent}
-          MenuHandler={props.MenuHandler}
-          index={props.index}
-        />
-      :<div className={props.elementClassName+"-space"}/>}
-      <div className={props.elementClassName+"-desc"}>{props.children}</div>
-      {(props.ReseteHandler) ?
-        <div className={props.elementClassName+"-remove-button"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)} /> 
-      : null}
-    </div>)
+      <div>
+        <div>
+          {props.MenuHandler&&props.MenuContent && <SubMenuRightBottom
+            elementClassName={props.elementClassName+"-specs-menu"}
+            MenuContent={props.MenuContent}
+            MenuHandler={props.MenuHandler}
+            index={props.index}
+            confNumber={props.confNumber}
+          />}
+        </div>
+      </div>
+      <div className={props.elementClassName+"-desc"} id={props.elementClassName+"-desc-"+props.confNumber}>{props.children}</div>
+      <div>
+        {props.ReseteHandler && <div className={props.elementClassName+"-reset"} onClick={props.ReseteHandler.bind(this, props.confNumber, props.index)} />}
+      </div>
+    </Fragment>)
   } else {
     return ""
   }
@@ -163,7 +164,7 @@ const SubMenuRightBottom = props => {
   onMouseEnter={() => IsVisibleHandler(true)}
   onMouseLeave={() => IsVisibleHandler(false)}
 >
-  <ul className={[props.elementClassName+"-list", props.elementClassName+((isVisible)?"-list--visible":"-list--hiden")].join(" ")}>
+  <ul className={[props.elementClassName+"-list", props.elementClassName+((isVisible)?"-list--visible":"-list--hiden"), props.elementClassName+"-list-"+props.confNumber].join(" ")}>
     {Object.keys(props.MenuContent).map((desc,i,arr) => <li
       className={!(i===arr.length-1)?props.elementClassName+"-list-li--bordered":null}
       key={desc}
@@ -176,55 +177,63 @@ const ConfList = props => {
   
   const elementClassName = "conf-main-right-bottom_l1-conf-list";
   const platformСhoiceDesc = props.Configuration.platformСhoiceDesc;
+
+  useEffect(() => {
+    const descWidth = document.getElementById(elementClassName+"-desc-"+props.confNumber).offsetWidth;
+    const targets =  document.getElementsByClassName(elementClassName+"-specs-menu-list-"+props.confNumber)
+    for (let target of targets) {
+      target.style.width = descWidth+"px"
+    }
+  })
+
   return (
-    <SimpleBar className={elementClassName}>
-      {(platformСhoiceDesc.frame_sub_type_article) ? <ConfDescLine
-        elementClassName={elementClassName+"-line"}
-        article={platformСhoiceDesc.frame_sub_type_article}
-        confNumber={props.confNumber}
-      >
-        {platformСhoiceDesc.line} ({platformСhoiceDesc.frame_sub_type_desc})
-      </ConfDescLine> : null}
-      <ConfDescLine
-        elementClassName={elementClassName+"-line"}
-        article={platformСhoiceDesc.article}
-        ReseteHandler={props.frameResetHandler}
-        confNumber={props.confNumber}
-      >
-        {platformСhoiceDesc.frame_desc}
-      </ConfDescLine>
-      {(platformСhoiceDesc.support_frame_arr) ? platformСhoiceDesc.support_frame_arr.map((frame, index) => <ConfDescLine
-        elementClassName={elementClassName+"-line"}
-        article={frame.article}
-        confNumber={props.confNumber}
-        key={frame+index}
-      >
-        {frame.desc}
-      </ConfDescLine>) : null}
-      {(platformСhoiceDesc["power-sockets"]) ? <ConfDescLine
-        elementClassName={elementClassName + "-line"}
-        article={platformСhoiceDesc.powerSocketArticle}
-        MenuHandler={props.powerSocketMenuHandler}
-        MenuContent={platformСhoiceDesc.powerSocketList}
-        confNumber={props.confNumber}
-      >
-        {platformСhoiceDesc.powerSocketDesc} (x{platformСhoiceDesc["power-sockets"]})
-      </ConfDescLine> : null}
-      {props.Configuration.Modules.map((module, index) => <ConfDescLine
-        confNumber={props.confNumber}
-        elementClassName={elementClassName + "-line"}
-        article={module.article}
-        display={module.display}
-        MenuContent={module["article-list"]}
-        MenuHandler={props.ModuleMenuHandler}
-        index={index}
-        ReseteHandler={props.ModuleResetHandler}
-        key={module+index}
-      >
-        {module.desc} {module.sub_desc}
-      </ConfDescLine>
-      )}
-    </SimpleBar>
+    <div className={elementClassName}>
+        {(platformСhoiceDesc.frame_sub_type_article) ? <ConfDescLine
+          elementClassName={elementClassName}
+          article={platformСhoiceDesc.frame_sub_type_article}
+          confNumber={props.confNumber}
+        >
+          {platformСhoiceDesc.line} ({platformСhoiceDesc.frame_sub_type_desc})
+        </ConfDescLine> : null}
+        <ConfDescLine
+          elementClassName={elementClassName}
+          article={platformСhoiceDesc.article}
+          ReseteHandler={props.frameResetHandler}
+          confNumber={props.confNumber}
+        >
+          {platformСhoiceDesc.line_desc}
+        </ConfDescLine>
+        {(platformСhoiceDesc.support_frame_arr) ? platformСhoiceDesc.support_frame_arr.map((frame, index) => <ConfDescLine
+          elementClassName={elementClassName}
+          article={frame.article}
+          confNumber={props.confNumber}
+          key={frame+index}
+        >
+          {priceList[frame.article].description1} {priceList[frame.article].description2 && `(${priceList[frame.article].description2})`}
+        </ConfDescLine>) : null}
+        {(platformСhoiceDesc["power-sockets"]) ? <ConfDescLine
+          elementClassName={elementClassName}
+          article={platformСhoiceDesc.powerSocketArticle}
+          MenuHandler={props.powerSocketMenuHandler}
+          MenuContent={platformСhoiceDesc.powerSocketList}
+          confNumber={props.confNumber}
+        >
+          {platformСhoiceDesc.powerSocketDesc} (x{platformСhoiceDesc["power-sockets"]})
+        </ConfDescLine> : null}
+        {props.Configuration.Modules.map((module, index) => <ConfDescLine
+          confNumber={props.confNumber}
+          elementClassName={elementClassName}
+          article={module.article}
+          display={module.display}
+          MenuContent={(module.article_list && Object.values(module.article_list).length>1) && module.article_list}
+          MenuHandler={props.ModuleMenuHandler}
+          index={index}
+          ReseteHandler={props.ModuleResetHandler}
+          key={module+index}
+        >
+          {module.desc}
+        </ConfDescLine>)}
+    </div>
   );
 }
 

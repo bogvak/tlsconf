@@ -111,26 +111,31 @@ const ConfLayOutWallIPL = (props) => {
     
     return (
         <div draggable="true" className={isCoverHiden(componentClassName)}>
-            {Array(platformСhoiceDesc["support-frame_amount"]).fill(1).map((_, i) => <div key={i} className={isCoverHiden(componentClassName+"-support-frame")}>
-                {(platformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-left-attachment-point"} />:null}
-                <div className={isCoverHiden(componentClassName+"-support-frame-top")}>
-                    <span className={isCoverHiden("dot")}/>
-                </div>
-                <div className={isCoverHiden(componentClassName+"-support-frame-middle")}>
-                    {Array(platformСhoiceDesc['signal-slots']).fill(1).map((_, index) => <SignalSlots
-                        key={index}
-                        Configuration={props.Configuration}
-                        componentClassName={componentClassName+"-support-frame-middle"}
-                        index={index}
-                        setModule={props.setModule}
-                        supportFrame_index={i}
-                    />).slice((i+1)*platformСhoiceDesc["frame-width"]-platformСhoiceDesc["frame-width"],(i+1)*platformСhoiceDesc["frame-width"])}
-                </div>
-                <div className={isCoverHiden(componentClassName+"-support-frame-bottom")}>
-                    <span className={isCoverHiden("dot")}/>
-                </div>
-                {(platformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-right-attachment-point"} />:null}
-            </div>)}
+            {platformСhoiceDesc.support_frame_arr.map((supp_frame, i, support_frame_arr) => {
+                const global_frame_index = support_frame_arr.slice(0, i).reduce((sum, supp_frame) => sum+=supp_frame["frame-width"], 0)
+                return (
+                    <div key={i} className={isCoverHiden(componentClassName+"-support-frame")}>
+                        {(platformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-left-attachment-point"} />:null}
+                        <div className={isCoverHiden(componentClassName+"-support-frame-top")}>
+                            <span className={isCoverHiden("dot")}/>
+                        </div>
+                        <div className={isCoverHiden(componentClassName+"-support-frame-middle")}>
+                            {Array(supp_frame["frame-width"]).fill().map((_, index) => <SignalSlots
+                                key={index+i.toString()}
+                                Configuration={props.Configuration}
+                                componentClassName={componentClassName+"-support-frame-middle"}
+                                index={global_frame_index+index}
+                                setModule={props.setModule}
+                                supportFrame_index={i}
+                            />)}
+                        </div>
+                        <div className={isCoverHiden(componentClassName+"-support-frame-bottom")}>
+                            <span className={isCoverHiden("dot")}/>
+                        </div>
+                        {(platformСhoiceDesc.isCoverHiden) ? <div className={componentClassName+"-support-frame--hiddenCover-right-attachment-point"} />:null}
+                    </div>
+                )
+            })}
         </div>
     )
 }

@@ -5,8 +5,7 @@ import ConfContainerRight from './Components/ConfContainerRight';
 //Data
 import {supportFrames, subModulesType, framesForTopMenu, modulesForBottomMenu, PowerSocket} from './Data/data';
 import localStrings from './Data/strings';
-import emptyConf from './Data/emptyConf';
-import dataList from './Data/pricelistinfo';
+import priceList from './Data/pricelistinfo';
 
 //CSS
 import 'simplebar/dist/simplebar.min.css';
@@ -19,33 +18,35 @@ class Configurator extends Component {
     Language: 'en',
     QuantityOfConf: 1,
     ConfNumber: 0,
-    Configurations: Array(1).fill(emptyConf),
+    Configurations: Array(1).fill({}),
     maxConfQuantity: 3,
   };
 
   deep_ConfigurationsCopy = () => JSON.parse(JSON.stringify(this.state.Configurations));
 
   platformHandler = (frameInf, location, line) => {
-    const inf = {...emptyConf.platformСhoiceDesc,...frameInf, location : location, line : line};
-    inf.img = "img/" + inf.location.toLowerCase() + "/" + inf.line.toLowerCase() + "/"
-    inf.slots_sum = inf["signal-slots"]+inf["power-sockets"]*3+inf["conference-control"]*3+inf["conference-control-double-frame"]*6;
+    const inf = {...frameInf, location : location, line : line};
     if (inf.location==="TABLE") {
-      inf.img+=inf.line.toLowerCase() + "img.png";
-      inf.line_desc = localStrings[this.state.Language][14] + ' ' + inf.line.match(/[0-9]/g).join('')
+      // img for right top menu
+      inf.img = "img/" + inf.location.toLowerCase() + "/" + inf.line.toLowerCase() + "/"+ inf.line.toLowerCase() + "img.png";
+      // right top menu
       inf.frame_sub_type = subModulesType[inf.location][inf.line];
       inf.frame_sub_type_desc = Object.keys(inf.frame_sub_type)[0];
       inf.frame_sub_type_article = inf.frame_sub_type[inf.frame_sub_type_desc];
-      inf.frame_desc = `${line} - Support frame: ${inf.slots_sum} signal slots; Type: ${inf.type}`
     } else if (inf.location==="WALL") {
-      inf.frame_desc = `${line} - ${inf.desc}`
-      inf.img+=inf.article + ".png";
-      inf.line_desc = inf.desc;
-      inf["signal-slots"] = inf["support-frame_amount"]*inf["frame-width"];
-      
+      // fill support frames
       const support_frame_line = line.match(/[A-Z]{1,}$/)[0]
-      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][Object.keys(supportFrames[support_frame_line])[0]])
+      inf.support_frame_arr = Array(inf["support-frame_amount"]).fill(supportFrames[support_frame_line][0])
       inf.isCoverHiden = true;
+      //all signall slots
+      let qunatity_of_signal_slots = 0
+      for (const supp_frame of inf.support_frame_arr) {
+        qunatity_of_signal_slots+=supp_frame["frame-width"]
+      }
+      inf["signal-slots"] = qunatity_of_signal_slots
     }
+    inf.line_desc = priceList[frameInf.article].description1;
+    inf.frame_desc = priceList[frameInf.article].description2;
     if (inf["power-sockets"] > 0) {
       inf.powerSocketList = PowerSocket;
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
@@ -63,57 +64,79 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs});
   }
 
-  setModule = (inf, module_series, module_type, index, support_frame_index) => {
+  setModule = (module_inf, module_series, module_type, index, support_frame_index) => {
     const copyOfConfs = this.deep_ConfigurationsCopy();
     const modulesList = copyOfConfs[this.state.ConfNumber].Modules;
+    module_inf.module_series = module_series
+    module_inf.module_type = module_type
 
-    inf.module_series = module_series;
-    inf.module_type = module_type;
+    const moduleData_priceList = priceList[module_inf.article]
+    if (moduleData_priceList) {
+      module_inf.desc = moduleData_priceList.description1 + (
+        moduleData_priceList.description2 && `(${moduleData_priceList.description2})`
+      )
+    }
 
     //Module weight
 
     const getWeight = article => {
-      if (dataList[article]) {
+      if (module_inf.module_type === "Power Sockets") {
+        return 3
+      } else if (priceList[article]) {
         const slotsWidth_rexEx = /[0-9] slots* width/
-        const module_info = Object.values(dataList[article])
-        const slots_takes = module_info.map(str => str.match(slotsWidth_rexEx) && str.match(slotsWidth_rexEx)[0]).filter(Boolean)[0]
+        const module_module_info = Object.values(priceList[article])
+        const slots_takes = module_module_info.map(str => str.match(slotsWidth_rexEx) && str.match(slotsWidth_rexEx)[0]).filter(Boolean)[0]
         return slots_takes && parseInt(slots_takes.replace(/\D+/, ""))
       } else {
-        alert(article+ " - is not exist in data Table!")
+        alert(article+ " - is not exist in price Table!")
         return 1
       }
     }
 
-    if (inf["article-list"] && inf.slots_takes===undefined) {
-      for (const article of Object.values(inf["article-list"])) {
-        if (!inf.slots_takes) {
-          inf.slots_takes = getWeight(article);
+    if (module_inf.article_list && module_inf.slots_takes===undefined) {
+      for (const article of Object.values(module_inf.article_list)) {
+        if (!module_inf.slots_takes) {
+          module_inf.slots_takes = getWeight(article);
         } else {
           break;
         }
       }
-    } else if (inf.slots_takes===undefined) {
-      inf.slots_takes = getWeight(inf.article)
+    } else if (module_inf.slots_takes===undefined) {
+      module_inf.slots_takes = getWeight(module_inf.article)
     }
     //post check is slots weight was found
-    if (inf.slots_takes===undefined) {
-      alert(`Error, module-${inf.article} cant be found in table, write to us!`);
+    if (module_inf.slots_takes===undefined) {
+      alert(`Error, module-${module_inf.article} cant be found in table, write to us!`);
       return;
     }
+
     const platformСhoiceDesc = copyOfConfs[this.state.ConfNumber].platformСhoiceDesc
     if (platformСhoiceDesc.location==="WALL") {
-      let indexInChunk = index % platformСhoiceDesc["frame-width"];
-      if (indexInChunk+inf.slots_takes>platformСhoiceDesc["frame-width"]) return;
+      const indexInChunk = index - platformСhoiceDesc.support_frame_arr.slice(0, support_frame_index).reduce((sum, supp_frame) => sum+=supp_frame["frame-width"], 0)
+      if (indexInChunk+module_inf.slots_takes>platformСhoiceDesc.support_frame_arr[support_frame_index]["frame-width"]) {
+        return null
+      };
 
-      const support_frame_line = inf.module_series.match(/[A-Z]{1,}$/)[0]
-      platformСhoiceDesc.support_frame_arr[support_frame_index] = {...supportFrames[support_frame_line][inf.module_type]};
-    } else if (!modulesList[index+(inf.slots_takes-1)]) {
-      return;
+      module_inf.support_frame_index = support_frame_index
+
+      const support_frame_line = module_inf.module_series.match(/[A-Z]{1,}$/)[0]
+      for (const supp_frame of supportFrames[support_frame_line]) {
+        if (supp_frame["support-modules-type"].includes(module_inf.module_type)) {
+          platformСhoiceDesc.support_frame_arr[module_inf.support_frame_index] = supp_frame;
+          break;
+        }
+        continue;
+      }
+    } else if (platformСhoiceDesc.location==="TABLE") {
+      if (modulesList[index+(module_inf.slots_takes-1)]===undefined) {
+        return null
+      };
     }
+
     for (let i = 1; i<modulesList[index].slots_takes; i++) {
       modulesList[index+i].display = true;
     }
-    for (let i = 1; i<inf.slots_takes; i++) {
+    for (let i = 1; i<module_inf.slots_takes; i++) {
       const test = modulesList[index+i].slots_takes;
       for (let j = 1;j<test; j++) {
         modulesList[index+i+j].display=true;
@@ -121,7 +144,7 @@ class Configurator extends Component {
       modulesList[index+i] = {...platformСhoiceDesc.empty_module, display: false};
     }
     
-    modulesList[index] = {...platformСhoiceDesc.empty_module, ...inf};
+    modulesList[index] = {...platformСhoiceDesc.empty_module, ...module_inf};
 
     this.setState({Configurations: copyOfConfs})
   }
@@ -133,7 +156,7 @@ class Configurator extends Component {
   addConfHandler = () => {
     if (this.state.QuantityOfConf >= this.state.maxConfQuantity) return;
     const copyOfConfs = this.state.Configurations.slice();
-    copyOfConfs.push(emptyConf);
+    copyOfConfs.push({});
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConfs});
   }
 
@@ -158,24 +181,33 @@ class Configurator extends Component {
 
   moduleResetHandler = (confNumber, indexOfSlot) => {
     const copyOfConfs=this.deep_ConfigurationsCopy();
-    console.log(confNumber, indexOfSlot)
-    for (let i = 1; i<copyOfConfs[confNumber].Modules[indexOfSlot].slots_takes; i++) {
-      copyOfConfs[confNumber].Modules[indexOfSlot+i] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
+
+    // Reset support frame in whick module was installed
+    if (copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.support_frame_arr !== undefined) {
+      const support_frame_index = copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot].support_frame_index
+      const support_frame_line = copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.line.match(/[A-Z]{1,}$/)[0]
+      copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.support_frame_arr[support_frame_index] = supportFrames[support_frame_line][0]
+
+      for (let i = 1; i<copyOfConfs[confNumber].Modules[indexOfSlot].slots_takes; i++) {
+        copyOfConfs[confNumber].Modules[indexOfSlot+i] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
+      }
     };
+
     copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
+
     this.setState({Configurations: copyOfConfs})
   }
 
   frameResetHandler = (indexOfConf) => {
     const copyOfConfs=this.deep_ConfigurationsCopy();
-    if (indexOfConf) {
+    if (indexOfConf !== undefined) {
       const isConfirmed = window.confirm("This will erase the whole Configuration, are you sure?")
       if (isConfirmed) {
-        copyOfConfs[indexOfConf] = emptyConf;
+        copyOfConfs[indexOfConf] = {};
       }
     } else {
       indexOfConf = this.state.ConfNumber;
-      copyOfConfs[indexOfConf] = emptyConf;
+      copyOfConfs[indexOfConf] = {};
     }
     this.setState({Configurations: copyOfConfs});
   }
@@ -201,26 +233,35 @@ class Configurator extends Component {
 
   articlesToPrint_handler = (confNum) => {
     const configuration = this.state.Configurations[confNum]
+    if (configuration.platformСhoiceDesc === undefined) {
+      return []
+    }
     let article_list = [];
     configuration.platformСhoiceDesc.article && article_list.push(configuration.platformСhoiceDesc.article.toString());
 
     configuration.platformСhoiceDesc.frame_sub_type_article && article_list.push(configuration.platformСhoiceDesc.frame_sub_type_article.toString());
 
     const suppFrame_articles = []
-    for (const supp_frame of configuration.platformСhoiceDesc.support_frame_arr) {
-      suppFrame_articles.push(supp_frame.article.toString());
+    if (configuration.platformСhoiceDesc.support_frame_arr) {
+      for (const supp_frame of configuration.platformСhoiceDesc.support_frame_arr) {
+        suppFrame_articles.push(supp_frame.article.toString());
+      }
     }
 
     const modules_articles = []
-    for (const module of configuration.Modules) {
-      if (module.display===true) {
-        modules_articles.push(module.article ? module.article.toString() : null);    
+    if (configuration.Modules) {
+      for (const module of configuration.Modules) {
+        if (module.display===true) {
+          modules_articles.push(module.article ? module.article.toString() : null);    
+        }
       }
     }
 
     const powerSocket_articles = []
-    for (let i=0; i<configuration.platformСhoiceDesc["power-sockets"]; i++) {
-      powerSocket_articles.push(configuration.platformСhoiceDesc.powerSocketArticle.toString());
+    if (configuration.platformСhoiceDesc["power-sockets"]) {
+      for (let i=0; i<configuration.platformСhoiceDesc["power-sockets"]; i++) {
+        powerSocket_articles.push(configuration.platformСhoiceDesc.powerSocketArticle.toString());
+      }
     }
 
     let pos;
