@@ -1,7 +1,9 @@
 .component-to-print {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 0 20px;
+    height: 100%;
+    position: relative;
     &-logo {
         height: 100px;
         padding: 5px;
@@ -32,6 +34,7 @@
         }
     }
     &-contact-info {
+        margin-top: auto;
         display: grid;
         font-size: 0.6em;
         grid-template-columns: 1fr 1fr 2fr;
