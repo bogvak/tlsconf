@@ -9,7 +9,6 @@ import localStrings from './Data/strings';
 import priceList from './Data/pricelistinfo';
 
 //CSS
-import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
 
 class Configurator extends Component {
