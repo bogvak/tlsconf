@@ -66,12 +66,21 @@
             }
         }
         &-container_l1 {
-            @include main-left-windows-no-borders;
-            padding: 10px;
+            display: grid;
+            grid-template-columns: minmax(10%, 20%) min-content;
+            padding: $main-padding;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            column-gap: $main-padding;
             &-desc {
-                width: 20%;
-                box-sizing: border-box;
-                height: 100%;
+                & > p, & > ul > li {
+                    margin: 5px 0;
+                }
+                & > ul {
+                    padding-inline-start: 15px;
+                    margin: 0;
+                }
                 &-check-box {
                     @include check-box;
                     color: transparent;
@@ -217,9 +226,6 @@
                         display: flex;
                         position: relative;
                         overflow: hidden;
-                        &-32ks {
-                            position: absolute;
-                        }
                         &--hiddenCover {
                             overflow: visible;
                         }

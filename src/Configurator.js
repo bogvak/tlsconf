@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ConfContainerLeft from './Components/ConfContainerLeft';
 import ConfContainerRight from './Components/ConfContainerRight';
+import PrintForm from './Components/PrintForm'
 
 //Data
 import {supportFrames, subModulesType, framesForTopMenu, modulesForBottomMenu, PowerSocket} from './Data/data';
@@ -11,7 +12,6 @@ import priceList from './Data/pricelistinfo';
 import 'simplebar/dist/simplebar.min.css';
 import './Style/configurator.css';
 
-
 class Configurator extends Component {
   
   state = {
@@ -20,6 +20,7 @@ class Configurator extends Component {
     ConfNumber: 0,
     Configurations: Array(1).fill({}),
     maxConfQuantity: 3,
+    is_form_active: false
   };
 
   deep_ConfigurationsCopy = () => JSON.parse(JSON.stringify(this.state.Configurations));
@@ -48,7 +49,7 @@ class Configurator extends Component {
     inf.line_desc = priceList[frameInf.article].description1;
     inf.frame_desc = priceList[frameInf.article].description2;
     if (inf["power-sockets"] > 0) {
-      inf.powerSocketList = PowerSocket;
+      inf.powerSocketList = PowerSocket.reduce((obj, article) => (priceList[article] ? {...obj, [priceList[article].description1]: article} : obj), {});
       inf.powerSocketDesc = Object.keys(inf.powerSocketList)[0]
       inf.powerSocketArticle = inf.powerSocketList[inf.powerSocketDesc];
     }
@@ -160,11 +161,12 @@ class Configurator extends Component {
     this.setState({QuantityOfConf: this.state.QuantityOfConf+1, Configurations: copyOfConfs});
   }
 
-  moduleMenuHandler = (article,desc,index) => {
+  moduleMenuHandler = (article, index) => {
     const copyOfConfs=this.deep_ConfigurationsCopy();
+    const desc = priceList[article].description1 + (priceList[article].description2 && `(${priceList[article].description2})`)
     const newInf={
-      sub_desc: `(${desc})`,
       article: article,
+      desc: desc,
     }
     copyOfConfs[this.state.ConfNumber].Modules[index] = {
       ...copyOfConfs[this.state.ConfNumber].Modules[index],
@@ -187,11 +189,11 @@ class Configurator extends Component {
       const support_frame_index = copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot].support_frame_index
       const support_frame_line = copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.line.match(/[A-Z]{1,}$/)[0]
       copyOfConfs[this.state.ConfNumber].platformСhoiceDesc.support_frame_arr[support_frame_index] = supportFrames[support_frame_line][0]
-
-      for (let i = 1; i<copyOfConfs[confNumber].Modules[indexOfSlot].slots_takes; i++) {
-        copyOfConfs[confNumber].Modules[indexOfSlot+i] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
-      }
     };
+
+    for (let i = 1; i<copyOfConfs[confNumber].Modules[indexOfSlot].slots_takes; i++) {
+      copyOfConfs[confNumber].Modules[indexOfSlot+i] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
+    }
 
     copyOfConfs[this.state.ConfNumber].Modules[indexOfSlot] = copyOfConfs[confNumber].platformСhoiceDesc.empty_module;
 
@@ -218,7 +220,8 @@ class Configurator extends Component {
     this.setState({Configurations: copyOfConfs});
   }
 
-  powerSocketMenuHandler = (article, desc) => {
+  powerSocketMenuHandler = (article) => {
+    const desc = priceList[article].description1
     const newInf = {
       powerSocketDesc: desc,
       powerSocketArticle: article
@@ -234,7 +237,7 @@ class Configurator extends Component {
   articlesToPrint_handler = (confNum) => {
     const configuration = this.state.Configurations[confNum]
     if (configuration.platformСhoiceDesc === undefined) {
-      return []
+      return null
     }
     let article_list = [];
     configuration.platformСhoiceDesc.article && article_list.push(configuration.platformСhoiceDesc.article.toString());
@@ -282,7 +285,7 @@ class Configurator extends Component {
     for (let i=0; i<article_list.length; i++) {
       const article = article_list[i];
       if (article===null) {
-        return [];
+        return null;
       }
       let is_dup = false;
       for (let j=0; j<outPut.length; j++) {
@@ -299,9 +302,13 @@ class Configurator extends Component {
     return outPut;
   }
 
+  printForm_handler = (is_form_active, confNum=this.state.right_ConfNumber) => {
+    this.setState({is_form_active: is_form_active, right_ConfNumber: confNum})
+  }
+
   render() {
     return (
-      <div className="conf-main">
+      <div className={"conf-main "+(this.state.is_form_active ? "conf-main-form-active" : "")}>
         <ConfContainerLeft 
           localStrings={localStrings}
           framesForTopMenu={framesForTopMenu}
@@ -324,12 +331,13 @@ class Configurator extends Component {
           QuantityOfConf={this.state.QuantityOfConf}
           //Handlers
           ModuleMenuHandler={this.moduleMenuHandler}
-          articlesToPrint_handler={this.articlesToPrint_handler}
           frame_sub_typeHandler={this.frame_sub_typeHandler}
           ModuleResetHandler={this.moduleResetHandler}
           frameResetHandler={this.frameResetHandler}
           powerSocketMenuHandler={this.powerSocketMenuHandler}
+          printForm_handler={this.printForm_handler}
         />
+        <PrintForm confNum={this.state.right_ConfNumber} articlesToPrint_handler={this.articlesToPrint_handler} is_form_active={this.state.is_form_active} printForm_handler={this.printForm_handler} />
       </div>
     );
   }

@@ -35,6 +35,12 @@ class ComponentToPrint extends Component {
         Description2: "loading from price list"
     }
 
+    currentDate = () => {
+        const today = new Date();
+        const date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
+        return date
+    }
+
     render () {
         return (
             <div className={this.className}>
@@ -43,6 +49,27 @@ class ComponentToPrint extends Component {
                     src="https://www.tls-electronics.de/custom/tls_electro/img/top_left_logo.png" 
                     alt="logo"
                 />
+                <div className={this.className+"-customerInfo"}>
+                    <p className={this.className+"-customerInfo-tlsContact"}><span>ECCO GMBH</span><span>&#183;</span>Marie-Curie-Straße 20<span>&#183;</span>D-40721 Hilden</p>
+                    <h2>I N Q U I R Y</h2>
+                    <p className={this.className+"-customerInfo-companyName"}>{this.props.customerInfo["Company"]}</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Date</td><td>: {this.currentDate()}</td>
+                            </tr>
+                            <tr>
+                                <td>Contact</td><td>: {this.props.customerInfo["Contact"]}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td><td>: {this.props.customerInfo["Phone number"]}</td>
+                            </tr>
+                            <tr>
+                                <td>E-Mail</td><td>: {this.props.customerInfo["E-Mail"]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div className={this.className+"-configuration"}>
                     {this.headers.map(header => {
                         return (

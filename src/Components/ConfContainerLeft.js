@@ -247,21 +247,23 @@ const RepresentationOfConf = (props) => {
 const ConfDesc = (props) => {
 
     const elementClassName="conf-main-left-middle-container_l1-desc"
-    return <div className={elementClassName}>
-        <p>{props.platformСhoiceDesc.line} - Support frame</p>
-        <ul>
-            <li>{props.platformСhoiceDesc.line_desc}</li>
-            <li>Type: Special</li>
-            {(props.platformСhoiceDesc.location==="WALL") ? <li>Support frame (x{props.platformСhoiceDesc["support-frame_amount"]})</li>: null}
-            {(props.platformСhoiceDesc.line==="Premium Line IPL") ? <li>
-                Hide cover frame{" "}
-                <button 
-                    onClick={props.CoverHidenHandler.bind(this)} 
-                    className={[elementClassName+"-check-box", (props.platformСhoiceDesc.isCoverHiden) ? elementClassName+"-check-box--hiden" : null].filter(Boolean).join(" ")}
-                >✓</button>
-            </li>: null}
-        </ul>
-    </div>
+    return (
+        <div  className={elementClassName}>
+            <p>{props.platformСhoiceDesc.line} - Support frame</p>
+            <ul>
+                <li>{props.platformСhoiceDesc.line_desc}</li>
+                <li>Type: Special</li>
+                {(props.platformСhoiceDesc.location==="WALL") && <li>Support frame (x{props.platformСhoiceDesc["support-frame_amount"]})</li>}
+                {(props.platformСhoiceDesc.line==="Premium Line IPL") && <li>
+                    Hide cover frame:
+                    <button 
+                        onClick={props.CoverHidenHandler.bind(this)} 
+                        className={[elementClassName+"-check-box", (props.platformСhoiceDesc.isCoverHiden) ? elementClassName+"-check-box--hiden" : null].filter(Boolean).join(" ")}
+                    >✓</button>
+                </li>}
+            </ul>
+        </div>
+    )
 }
 
 export default ConfContainerLeft;

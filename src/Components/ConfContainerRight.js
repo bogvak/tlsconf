@@ -1,7 +1,5 @@
-import React, { useState , useRef, useEffect, Fragment} from 'react';
+import React, { useState , useEffect, Fragment} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import ComponentToPrint from './ConfWindowForPrint';
-import ReactToPrint from 'react-to-print';
 import priceList from '../Data/pricelistinfo';
 
 const ConfContainerRight = (props) => {
@@ -17,8 +15,8 @@ const ConfContainerRight = (props) => {
               ModuleMenuHandler={props.ModuleMenuHandler}
               ModuleResetHandler={props.ModuleResetHandler}
               frameResetHandler={props.frameResetHandler}
-              articlesToPrint_handler={props.articlesToPrint_handler}
               powerSocketMenuHandler={props.powerSocketMenuHandler}
+              printForm_handler={props.printForm_handler}
             />
         </div>
     );
@@ -80,12 +78,6 @@ const FrameSubMenu = (props) => {
 }
 
 const ConfContainerRightBottom = (props) => {
-  const [confNumber_st, set_confNumber_st] = useState(0)
-
-  const [articlesToPrint, articlesToPrint_set] = useState([])
-  useEffect(()=>{
-    articlesToPrint_set(props.articlesToPrint_handler(confNumber_st))
-  }, [props, confNumber_st])
 
   return (
     <Tabs className="conf-main-right-bottom_l0">
@@ -94,7 +86,6 @@ const ConfContainerRightBottom = (props) => {
           className="conf-main-right-bottom_l0-list-tab" 
           selectedClassName="conf-main-right-bottom_l0-list-tab--selected" 
           key={confNumber}
-          onClick={() => set_confNumber_st(confNumber)}
         >
           Configuration {confNumber+1}
         </Tab>)}
@@ -115,11 +106,15 @@ const ConfContainerRightBottom = (props) => {
                 frameResetHandler={props.frameResetHandler}
                 powerSocketMenuHandler={props.powerSocketMenuHandler}
               /> ,
-              <PrintConfButton 
-                articlesToPrint={articlesToPrint} 
-                confNumber={confNumber} 
-                key={conf} 
-              />
+              <div key={confNumber+"wrapper"} className="conf-main-right-bottom_l1-print-conf-list">
+                <button
+                  key={confNumber+"button"}
+                  className="conf-main-right-bottom_l1-print-conf-list-button"
+                  onClick={() => props.printForm_handler(true, confNumber)}
+                >
+                  Print Configuration List
+                </button>
+              </div>
             ] : null}
           </TabPanel>)
         })}
@@ -165,10 +160,10 @@ const SubMenuRightBottom = props => {
   onMouseLeave={() => IsVisibleHandler(false)}
 >
   <ul className={[props.elementClassName+"-list", props.elementClassName+((isVisible)?"-list--visible":"-list--hiden"), props.elementClassName+"-list-"+props.confNumber].join(" ")}>
-    {Object.keys(props.MenuContent).map((desc,i,arr) => <li
+    {Object.entries(props.MenuContent).map(([desc, article],i,arr) => <li
       className={!(i===arr.length-1)?props.elementClassName+"-list-li--bordered":null}
-      key={desc}
-      onClick={props.MenuHandler.bind(this, props.MenuContent[desc], desc, props.index)}
+      key={article}
+      onClick={props.MenuHandler.bind(this, article, props.index)}
     >{desc}</li>)}
   </ul>
 </div>)}
@@ -236,28 +231,5 @@ const ConfList = props => {
     </div>
   );
 }
-
-const PrintConfButton = props => {
-
-  const errorAlert = () => {
-    if (props.articlesToPrint.length===0) {
-      alert("Unfortunately the incomplete configuration cannot be printed.")
-    }
-  }
-  
-  const componentRef = useRef();
-  return (
-    <div className="conf-main-right-bottom_l1-print-conf-list">
-      <ReactToPrint
-        trigger={() => <button className="conf-main-right-bottom_l1-print-conf-list-button">Print Configuration List</button>}
-        content={() => componentRef.current}
-        onBeforeGetContent={()=>errorAlert()}
-      />
-      <div style={{display: 'none'}}>
-        {(props.articlesToPrint.length>0) && <ComponentToPrint configuration={props.articlesToPrint} ref={componentRef} />}
-      </div>
-    </div>
-  );
-};
 
 export default ConfContainerRight;

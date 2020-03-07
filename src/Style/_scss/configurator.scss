@@ -77,11 +77,16 @@ body {
     padding: $main-padding;
     background-color: $background-and-separator-color;
     font-size: 12px;
+    position: relative;
+    &-form-active>* {
+        filter: blur(5px);
+    }
 }
 
 @import 'conf-main-left';
 @import 'conf-main-right';
 @import 'conf-dosc-for-print';
+@import 'print-form';
 
 /***** LEFT MIDDLE WINDOW *****/
 

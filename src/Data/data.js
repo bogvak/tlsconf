@@ -9,7 +9,6 @@ const framesForTopMenu = {
 			{ 'article': '8639675-1050', 'support-frame_amount': 1, 'offset-px': 0   }, 
 			{ 'article': '8639675-1051', 'support-frame_amount': 1, 'offset-px': 3   }, 
 			{ 'article': '8639675-1055', 'support-frame_amount': 1, 'offset-px': 3   }, 
-			{ 'article': '8639675-1056', 'support-frame_amount': 1, 'offset-px': -5  }, 
 			{ 'article': '8639675-1057', 'support-frame_amount': 1, 'offset-px': 3   }, 
 			{ 'article': '8639675-1058', 'support-frame_amount': 1, 'offset-px': 34  }, 
 			{ 'article': '8639675-1200', 'support-frame_amount': 1, 'offset-px': 3   }, 
@@ -18,7 +17,6 @@ const framesForTopMenu = {
 			{ 'article': '8639675-1100', 'support-frame_amount': 1, 'offset-px': 3   }, 
 			{ 'article': '8639675-1104', 'support-frame_amount': 1, 'offset-px': 30  }, 
 			{ 'article': '8639675-1105', 'support-frame_amount': 1, 'offset-px': 50  }, 
-			{ 'article': '8639675-1106', 'support-frame_amount': 1, 'offset-px': 50  }, 
 			{ 'article': '8639675-1107', 'support-frame_amount': 1, 'offset-px': 11  }, 
 			{ 'article': '8639675-1108', 'support-frame_amount': 1, 'offset-px': 48  }, 
 			{ 'article': '8639675-1250', 'support-frame_amount': 1, 'offset-px': 3   }, 
@@ -26,10 +24,7 @@ const framesForTopMenu = {
 			{ 'article': '8639675-1254', 'support-frame_amount': 1, 'offset-px': 9   }, 
 			{ 'article': '8639675-1140', 'support-frame_amount': 1, 'offset-px': 48  }, 
 			{ 'article': '8639675-1150', 'support-frame_amount': 1, 'offset-px': 0   }, 
-			{ 'article': '8639675-1158', 'support-frame_amount': 1, 'offset-px': 47  }, 
 			{ 'article': '8639675-1159', 'support-frame_amount': 1, 'offset-px': 44  }, 
-			{ 'article': '8639675-1161', 'support-frame_amount': 1, 'offset-px': 49  }, 
-			{ 'article': '8639675-1162', 'support-frame_amount': 1, 'offset-px': 49  }, 
 			{ 'article': '8639675-1163', 'support-frame_amount': 1, 'offset-px': 49  }, 
 			{ 'article': '8639675-1400', 'support-frame_amount': 1, 'offset-px': -31 }, 
 			{ 'article': '8639675-1401', 'support-frame_amount': 1, 'offset-px': -30 }
@@ -274,15 +269,15 @@ const subModulesType = {
 
 
 
-const PowerSocket = {
-	"Power socket DE" : 8639214,
-	"Power socket CH" : 8639215,
-	"Power socket GB" : 8639216,
-	"Power socket IT" : 8639217,
-	"Power socket US/CA" : 8639218,
-	"Power socket BE/FR/CZ/PL" : 8639219,
-	"Rocker switch with LED" : 8639340,
-	"Rocker switch for shutters with arrows" : 8639347
-}
+const PowerSocket = [
+	8639214,
+	8639215,
+	8639216,
+	8639217,
+	8639218,
+	8639219,
+	8639340,
+	8639347
+]
 
 export {supportFrames, subModulesType, framesForTopMenu, modulesForBottomMenu, PowerSocket}
